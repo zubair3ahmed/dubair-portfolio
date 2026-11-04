@@ -29,31 +29,44 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Google+Sans+Code:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- v1 usability pass: scoped overrides so shared css/style.css (and index.html) are unaffected -->
+  <style>
+    /* 1. Make work easy to find: compact hero, no decorative delays */
+    .hero { min-height: auto; padding-top: 104px; padding-bottom: 40px; }
+    .hero__title { font-size: clamp(56px, 8vw, 120px); }
+    .hero__status { margin-bottom: 18px; }
+    .hero__row { margin-top: 24px; gap: 20px; }
+    .hero__ex { margin-top: 20px; }
+    .hero__ctas { flex-wrap: wrap; }
+    .hero__scroll, .marquee { display: none; }
+    /* hero is visible on first paint; no entrance animation to wait for */
+    .js .hero [data-reveal], .js .hero .line__inner { opacity: 1 !important; transform: none !important; }
+
+    /* 3. Native cursor + readable type */
+    body.has-cursor, body.has-cursor a, body.has-cursor button { cursor: auto; }
+    body.has-cursor a, body.has-cursor button { cursor: pointer; }
+    .fig-cursor { display: none !important; }
+    .hdr__nav a { white-space: nowrap; }
+    .mono { letter-spacing: .06em; }
+    .card__metrics .mono, .card__tags, .card__index { letter-spacing: .04em; }
+
+    /* 2. Scannable case study cards: Problem / Role or Solution / Outcome */
+    .card__desc { display: grid; gap: 8px; max-width: 62ch; }
+    .card__desc .fact { display: grid; grid-template-columns: 5.4em 1fr; column-gap: 12px; line-height: 1.5; }
+    .card__desc .fact strong { color: var(--fg); font-weight: 700; }
+    @media (max-width: 600px) {
+      .card__desc .fact { grid-template-columns: 1fr; row-gap: 2px; }
+      main { overflow-x: clip; }
+    }
+  </style>
 </head>
 <body>
 
   <a class="skip-link" href="#top">Skip to main content</a>
 
-  <!-- ============ Preloader ============ -->
-  <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader__center">
-      <div class="loader__name" id="loaderName">
-        <span>S</span><span>Y</span><span>E</span><span>D</span><span class="loader__gap"> </span><span>Z</span><span>U</span><span>B</span><span>A</span><span>I</span><span>R</span><span class="loader__caret"></span>
-      </div>
-      <div class="loader__tag mono">Senior Product Designer</div>
-      <div class="loader__quip mono">AI fears stakeholder feedback</div>
-    </div>
-    <div class="loader__count mono"><span id="loaderCount">0</span>%</div>
-    <div class="loader__bar"><span id="loaderBar"></span></div>
-  </div>
-
-  <!-- ============ Custom cursor (Figma multiplayer style) ============ -->
-  <div class="fig-cursor" id="figCursor" aria-hidden="true">
-    <svg class="fig-cursor__arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 2.5 L19.5 11.4 L12.1 12.9 L8.4 19.6 Z" fill="var(--accent)" stroke="#050505" stroke-width="1.4" stroke-linejoin="round"/>
-    </svg>
-    <span class="fig-cursor__tag" id="cursorTag">You</span>
-  </div>
+  <!-- Custom cursor element kept (hidden via CSS) because js/main.js expects it -->
+  <div class="fig-cursor" id="figCursor" aria-hidden="true"><span class="fig-cursor__tag" id="cursorTag">You</span></div>
 
   <!-- ============ Grain ============ -->
   <div class="grain" aria-hidden="true"></div>
@@ -65,11 +78,11 @@
       <span class="hdr__name">SYED&nbsp;ZUBAIR<i>.</i></span>
     </a>
     <nav class="hdr__nav" aria-label="Primary">
-      <a href="projects.html" data-cursor="hover"><span class="mono hdr__num">01</span>Projects</a>
-      <a href="#about" data-cursor="hover"><span class="mono hdr__num">02</span>About</a>
-      <a href="#reviews" data-cursor="hover"><span class="mono hdr__num">03</span>Words</a>
-      <a href="#contact" data-cursor="hover"><span class="mono hdr__num">04</span>Contact</a>
-      <a href="ai-simplified.html" data-cursor="hover"><span class="mono hdr__num">05</span>AI Simplified</a>
+      <a href="#work" data-cursor="hover">Work</a>
+      <a href="#about" data-cursor="hover">About</a>
+      <a href="#reviews" data-cursor="hover">Testimonials</a>
+      <a href="#contact" data-cursor="hover">Contact</a>
+      <a href="ai-simplified.html" data-cursor="hover">AI Simplified</a>
       <a class="hdr__cta" href="resume.html" target="_blank" rel="noopener" data-cursor="hover">RESUME&nbsp;↗</a>
       <button class="hdr__ask" id="askZubairBtn" data-cursor="hover" aria-label="Ask Zubair — AI assistant"><span class="hdr__ask-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg></span>Ask Zubair</button>
     </nav>
@@ -90,13 +103,13 @@
   <!-- ============ Mobile menu ============ -->
   <div class="mmenu" id="mmenu" aria-hidden="true">
     <nav class="mmenu__nav">
-      <a href="projects.html"><span class="mono">01</span>Projects</a>
-      <a href="#about"><span class="mono">02</span>About</a>
-      <a href="#reviews"><span class="mono">03</span>Words</a>
-      <a href="#contact"><span class="mono">04</span>Contact</a>
-      <a href="ai-simplified.html"><span class="mono">05</span>AI Simplified</a>
-      <a href="resume.html" target="_blank" rel="noopener"><span class="mono">06</span>Résumé ↗</a>
-      <button class="mmenu__ask" id="askZubairMobile" aria-label="Ask Zubair — AI assistant"><span class="mono">07</span>Ask Zubair ✦</button>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#reviews">Testimonials</a>
+      <a href="#contact">Contact</a>
+      <a href="ai-simplified.html">AI Simplified</a>
+      <a href="resume.html" target="_blank" rel="noopener">Résumé ↗</a>
+      <button class="mmenu__ask" id="askZubairMobile" aria-label="Ask Zubair — AI assistant">Ask Zubair ✦</button>
     </nav>
     <div class="mmenu__foot mono">
       <a href="mailto:zubair3ahmed@gmail.com">zubair3ahmed@gmail.com</a>
@@ -119,9 +132,9 @@
         </h1>
         <div class="hero__row">
           <p class="hero__sub" data-reveal>
-            10+ years crafting scalable, intuitive products across <strong>enterprise SaaS</strong> and
-            <strong>AI-powered</strong>, data-driven platforms translating complex business and AI needs
-            into seamless experiences that drive real impact.
+            I design <strong>AI and enterprise SaaS</strong> products. Recent work: an AI copilot for
+            <strong>100K+ healthcare professionals</strong>, and an AI assistant that cut a
+            <strong>60-step form to 22</strong>.
           </p>
           <div class="hero__ctas" data-reveal>
             <a class="btn btn--solid" href="#work" data-magnetic data-cursor="hover">View UX Case Studies <i>→</i></a>
@@ -210,7 +223,9 @@
           <figure class="card__cover" style="background:#0a0a0a"><img src="images/cover-ai-agents.svg" alt="AI Agent architecture — Chief of Staff delegating to six specialist agents" loading="lazy" style="width:100%;height:100%;object-fit:contain" /></figure>
           <h3 class="card__title display">How a D2C Brand Can Run Its Entire Business with AI Agents</h3>
           <p class="card__desc">
-            Designed a multi-agent framework where a Chief of Staff AI delegates to six specialist agents — storefront, marketing, support, operations, analytics, and product — showing how businesses can build an always-on AI workforce.
+            <span class="fact"><strong>Problem</strong>D2C brands juggle six disconnected functions with no unified system.</span>
+            <span class="fact"><strong>Solution</strong>One Chief of Staff AI delegating to six specialist agents: storefront, marketing, support, operations, analytics and product.</span>
+            <span class="fact"><strong>Outcome</strong>A framework with 6 specialist agents and 5 autonomy levels.</span>
           </p>
           <div class="card__metrics">
             <div class="metric"><strong>6</strong><span class="mono">Specialist agents</span></div>
@@ -231,8 +246,9 @@
           <figure class="card__cover" style="background:#e7e4fd"><img src="images/guide-ai-cover.gif" alt="Guide.ai — an AI assistant that turns a long company-registration form into a guided conversation" loading="lazy" style="object-fit:contain;height:100%" /></figure>
           <h3 class="card__title display">Guide.ai — Turning a Long Legal Form into an AI-Guided Conversation</h3>
           <p class="card__desc">
-            Applicants were dropping off halfway through a long manual registration form. I designed an AI assistant
-            with compliance guardrails that cut the happy path from about 60 interactions to 22 in my prototype.
+            <span class="fact"><strong>Problem</strong>Applicants dropped off halfway through a long manual registration form.</span>
+            <span class="fact"><strong>Solution</strong>An AI assistant with compliance guardrails that turns the form into a conversation.</span>
+            <span class="fact"><strong>Outcome</strong>Happy path cut from about 60 interactions to 22 (~63% fewer) in my prototype.</span>
           </p>
           <div class="card__metrics">
             <div class="metric"><strong>~63%</strong><span class="mono">Fewer interactions</span></div>
@@ -253,8 +269,9 @@
           <figure class="card__cover" style="background:#f0f2f5"><img src="images/nextiq-copilot-preview.gif" alt="Healthcare AI on the Nextiva platform — agent desktop with live call transcription and NextIQ suggested actions" loading="lazy" style="object-fit:contain;height:100%" /></figure>
           <h3 class="card__title display">Rethinking Patient Communication with a Real-Time AI Healthcare Copilot</h3>
           <p class="card__desc">
-            Reimagining patient communication at Nextiva — from fragmented phone queues to an AI-first,
-            HIPAA-compliant platform serving 100K+ healthcare professionals.
+            <span class="fact"><strong>Problem</strong>Fragmented phone queues delayed patient communication.</span>
+            <span class="fact"><strong>Role</strong>Senior Product Designer at Nextiva, leading the AI copilot design.</span>
+            <span class="fact"><strong>Outcome</strong>Real-time AI call assistance on a HIPAA-compliant platform serving 100K+ healthcare professionals.</span>
           </p>
           <div class="card__metrics">
             <div class="metric"><strong><span data-count="100">100</span>K+</strong><span class="mono">Healthcare professionals served</span></div>
@@ -276,7 +293,9 @@
           <figure class="card__cover" style="background:#fff"><img src="images/travel-ai-cover.gif" alt="AI Travel Concierge — plan holidays, Umrah, Hajj and meaningful journeys" loading="lazy" style="object-fit:contain;height:100%" /></figure>
           <h3 class="card__title display">AI Travel Concierge — Plan Holidays, Umrah &amp; Hajj with an AI Agent</h3>
           <p class="card__desc">
-            An AI-powered travel planning agent for holidays, Umrah, Hajj and meaningful journeys — across Kashmir, Kerala, Rajasthan, the Gulf and Iraq.
+            <span class="fact"><strong>Problem</strong>Planning multi-destination holiday and pilgrimage travel means coordinating many disconnected services.</span>
+            <span class="fact"><strong>Solution</strong>A conversational AI agent for end-to-end planning of holidays, Umrah and Hajj.</span>
+            <span class="fact"><strong>Outcome</strong>Covers 6+ destinations across Kashmir, Kerala, Rajasthan, the Gulf and Iraq.</span>
           </p>
           <div class="card__metrics">
             <div class="metric"><strong>AI</strong><span class="mono">Powered planning</span></div>
@@ -297,7 +316,9 @@
           <figure class="card__cover" style="background:#f0f5f0"><img src="images/saada-cover.gif" alt="Al-Saada Healthcare — Arabic RTL landing page for medical tourism in India" loading="lazy" style="object-fit:contain;height:100%" /></figure>
           <h3 class="card__title display">Al-Saada Healthcare — RTL Landing Page for Medical Tourism</h3>
           <p class="card__desc">
-            A high-converting Arabic RTL landing page for Al-Saada Healthcare — connecting Arab patients with top hospitals in India for medical treatment, visas, and end-to-end care coordination.
+            <span class="fact"><strong>Problem</strong>Arab patients had no clear pathway to Indian hospitals for treatment.</span>
+            <span class="fact"><strong>Solution</strong>An Arabic-first RTL landing page covering treatment, visas and care coordination.</span>
+            <span class="fact"><strong>Outcome</strong>32 hospitals partnered, 48h quote turnaround.</span>
           </p>
           <div class="card__metrics">
             <div class="metric"><strong>RTL</strong><span class="mono">Arabic-first design</span></div>
@@ -318,8 +339,9 @@
           <figure class="card__cover"><img src="images/warm-work-lasalle.webp" alt="Global Incentive Fee Awards — fund payout dashboard with process streamline and allocations" loading="lazy" /></figure>
           <h3 class="card__title display">Global Incentive Fee Awards</h3>
           <p class="card__desc">
-            <strong>Problem:</strong> Fund payouts at JLL LaSalle kept closing late — because nobody could see the process.<br>
-            <strong>Solution:</strong> Made stage progress and every stakeholder action visible to the one person accountable for the date.
+            <span class="fact"><strong>Problem</strong>Fund payouts at JLL LaSalle kept closing late because nobody could see the process.</span>
+            <span class="fact"><strong>Role</strong>Product Designer at JLL, from research to handoff.</span>
+            <span class="fact"><strong>Outcome</strong>Shipped to production: stage progress and every stakeholder action are visible to the person accountable for the date.</span>
           </p>
           <div class="card__metrics">
             <div class="metric"><strong>JLL</strong><span class="mono">LaSalle Investment</span></div>
@@ -341,8 +363,9 @@
           <figure class="card__cover" style="background:#f0f0f0"><img src="images/meet-cover.gif" alt="Enterprise video conferencing platform with real-time chat and meeting controls" loading="lazy" style="object-fit:contain;height:100%" /></figure>
           <h3 class="card__title display">Enterprise Video Platform</h3>
           <p class="card__desc">
-            Crafting intuitive experiences for distributed teams — end-to-end UX/UI for real-time
-            collaboration, responsive design system, and seamless video conferencing.
+            <span class="fact"><strong>Problem</strong>Distributed teams lacked a cohesive video collaboration experience.</span>
+            <span class="fact"><strong>Role</strong>Led end-to-end UX/UI for the platform.</span>
+            <span class="fact"><strong>Outcome</strong>Real-time collaboration and video conferencing on a responsive design system.</span>
           </p>
           <div class="card__metrics">
             <div class="metric"><strong>E2E</strong><span class="mono">UX/UI Design</span></div>
@@ -364,8 +387,9 @@
           <figure class="card__cover"><img src="images/warm-work-3.png" alt="Theming architecture preview — product UI built on Figma Variables" loading="lazy" /></figure>
           <h3 class="card__title display">Designing Dark Mode with Figma Variables</h3>
           <p class="card__desc">
-            A flexible theming architecture built on Figma Variables ensuring consistency,
-            accessibility, and effortless scaling across products.
+            <span class="fact"><strong>Problem</strong>Products needed consistent light and dark theming without maintaining separate designs.</span>
+            <span class="fact"><strong>Solution</strong>A theming architecture built on Figma Variables.</span>
+            <span class="fact"><strong>Outcome</strong>2 themes from one source, 120+ tokens mapped, AA+ contrast verified.</span>
           </p>
           <div class="card__metrics">
             <div class="metric"><strong><span data-count="2">2</span></strong><span class="mono">Themes, one source</span></div>
@@ -387,8 +411,9 @@
           <figure class="card__cover"><img src="images/warm-work-ridebooking.png" alt="On-demand corporate ride booking iOS app — booking flow and driver selection" loading="lazy" /></figure>
           <h3 class="card__title display">On-Demand Corporate Ride Booking</h3>
           <p class="card__desc">
-            A full-featured B2B ride-hailing iOS app for enterprise clients — designed end-to-end
-            from booking flows and driver preferences to corporate expense management and scheduled trips.
+            <span class="fact"><strong>Problem</strong>Enterprise clients needed a ride-hailing solution with corporate controls.</span>
+            <span class="fact"><strong>Role</strong>Designed the B2B iOS app end to end.</span>
+            <span class="fact"><strong>Outcome</strong>Booking flows, driver preferences, expense management and scheduled trips in one app.</span>
           </p>
           <div class="card__metrics">
             <div class="metric"><strong>E2E</strong><span class="mono">UX/UI Design</span></div>
@@ -669,7 +694,7 @@
     <!-- ============ Reviews ============ -->
     <section class="reviews" id="reviews">
       <div class="sec-head">
-        <p class="mono sec-head__label" data-reveal><span class="sec-head__tick">03</span> Words from teammates · LinkedIn</p>
+        <p class="mono sec-head__label" data-reveal><span class="sec-head__tick">03</span> Testimonials · Words from teammates · LinkedIn</p>
         <h2 class="sec-title display" data-fill>WORDS<em>.</em></h2>
       </div>
 
@@ -850,7 +875,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>try { if (localStorage.getItem("sz-sound") === null) localStorage.setItem("sz-sound", "off"); } catch (e) {}</script>
   <script src="js/main.js"></script>
+  <script>
+    /* No preloader on v1, so nothing else calls ScrollTrigger.refresh() after layout settles */
+    window.addEventListener("load", function () { ScrollTrigger.refresh(); });
+  </script>
   <script>
   (function () {
     var tabs = document.querySelectorAll(".work-tab");
