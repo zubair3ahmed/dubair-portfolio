@@ -3,64 +3,466 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dubair Portfolio</title>
+  <title>Dubair — Product Designer</title>
   <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #111111;
+      --bg-card-hover: #161616;
+      --text: #e0e0e0;
+      --text-muted: #777;
+      --text-dim: #555;
+      --accent: #667eea;
+      --accent-2: #764ba2;
+      --border: #1a1a1a;
+      --border-hover: #2a2a2a;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0a0a0a;
-      color: #e0e0e0;
-      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .page {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 6rem 0 4rem;
+      max-width: 720px;
+    }
+    .hero-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    /* ── Section headings ── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-top: 5rem;
+    }
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-header span {
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+    }
+
+    /* ── Case Study Cards ── */
+    .cases {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    .case-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .case-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .case-thumb {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+    .case-thumb-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
       align-items: center;
       justify-content: center;
-    }
-    .container {
-      max-width: 720px;
-      padding: 2rem;
-      text-align: center;
-    }
-    h1 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 700;
+      color: rgba(255,255,255,0.08);
+      letter-spacing: -0.02em;
+    }
+    .case-thumb-inner.t1 { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+    .case-thumb-inner.t2 { background: linear-gradient(135deg, #1a1a1a, #0d1117); }
+    .case-thumb-inner.t3 { background: linear-gradient(135deg, #1c1c2e, #1a0e2e); }
+    .case-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 2.5rem;
+    }
+    .case-tag {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .case-title {
+      font-size: 1.375rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .case-desc {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+    .case-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Skills / What I Do ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 2rem 1.75rem;
+      transition: border-color 0.25s;
+    }
+    .skill-card:hover { border-color: var(--border-hover); }
+    .skill-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .skill-icon.i1 { background: rgba(102, 126, 234, 0.12); color: var(--accent); }
+    .skill-icon.i2 { background: rgba(118, 75, 162, 0.12); color: var(--accent-2); }
+    .skill-icon.i3 { background: rgba(102, 126, 234, 0.12); color: var(--accent); }
+    .skill-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
       margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+    .skill-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── About strip ── */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding-top: 5rem;
+      padding-bottom: 2rem;
+    }
+    .about h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .about p {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      align-content: center;
+    }
+    .stat {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+    }
+    .stat-number {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    p {
-      font-size: 1.25rem;
-      color: #999;
-      margin-bottom: 2rem;
+    .stat-label {
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+      margin-top: 0.25rem;
     }
-    .links {
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 5rem;
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+    footer .page {
       display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
     }
-    .links a {
-      padding: 0.75rem 1.5rem;
-      border: 1px solid #333;
-      border-radius: 8px;
-      color: #e0e0e0;
+    .footer-left {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
       text-decoration: none;
-      transition: border-color 0.2s, background 0.2s;
+      transition: color 0.2s;
     }
-    .links a:hover {
-      border-color: #667eea;
-      background: rgba(102, 126, 234, 0.1);
+    .footer-links a:hover { color: var(--text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .case-card { grid-template-columns: 1fr; }
+      .case-body { padding: 1.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; gap: 2rem; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding: 4rem 0 2.5rem; }
+      .section-header { padding-top: 3.5rem; }
+      footer .page { flex-direction: column; gap: 1rem; text-align: center; }
+      .nav-links { gap: 1.25rem; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Dubair</h1>
-    <p>Portfolio — Coming Soon</p>
-    <div class="links">
-      <a href="https://github.com/dubair">GitHub</a>
+
+  <!-- Nav -->
+  <nav>
+    <div class="page">
+      <a href="#" class="nav-logo">dubair</a>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#skills">Skills</a>
+        <a href="#about">About</a>
+      </div>
     </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- Hero -->
+    <section class="hero">
+      <span class="hero-label">Product Designer</span>
+      <h1>I design products people actually want to use.</h1>
+      <p>Crafting intuitive, user-centered experiences from research through shipped pixels. Focused on turning complex problems into simple, elegant interfaces.</p>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="work">
+      <div class="section-header">
+        <h2>Selected Work</h2>
+        <span>Case Studies</span>
+      </div>
+      <div class="cases">
+
+        <a href="#" class="case-card">
+          <div class="case-thumb">
+            <div class="case-thumb-inner t1">01</div>
+          </div>
+          <div class="case-body">
+            <div class="case-tag">Mobile App</div>
+            <div class="case-title">Redesigning the Checkout Experience</div>
+            <p class="case-desc">Reduced cart abandonment by 34% through streamlined flows and progressive disclosure.</p>
+            <div class="case-meta">
+              <span>UX Design</span>
+              <span>Prototyping</span>
+              <span>2024</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="case-card">
+          <div class="case-thumb">
+            <div class="case-thumb-inner t2">02</div>
+          </div>
+          <div class="case-body">
+            <div class="case-tag">SaaS Platform</div>
+            <div class="case-title">Building a Design System from Scratch</div>
+            <p class="case-desc">Created a scalable component library serving 12 product teams and 40+ engineers.</p>
+            <div class="case-meta">
+              <span>Design Systems</span>
+              <span>Strategy</span>
+              <span>2024</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="case-card">
+          <div class="case-thumb">
+            <div class="case-thumb-inner t3">03</div>
+          </div>
+          <div class="case-body">
+            <div class="case-tag">Dashboard</div>
+            <div class="case-title">Analytics That Tell a Story</div>
+            <p class="case-desc">Transformed a data-heavy dashboard into an actionable insights tool for non-technical users.</p>
+            <div class="case-meta">
+              <span>Data Viz</span>
+              <span>User Research</span>
+              <span>2023</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="section-header">
+        <h2>What I Do</h2>
+        <span>Capabilities</span>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon i1">&#9670;</div>
+          <h3>Product Design</h3>
+          <p>End-to-end design from discovery to delivery. Wireframes, prototypes, and production-ready specs.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon i2">&#9679;</div>
+          <h3>User Research</h3>
+          <p>Interviews, usability testing, and synthesis. Decisions backed by evidence, not assumptions.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon i3">&#9632;</div>
+          <h3>Design Systems</h3>
+          <p>Scalable component libraries and guidelines that keep teams aligned and shipping faster.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about">
+      <div>
+        <h2>About Me</h2>
+        <p>I'm a product designer who thrives at the intersection of user needs and business goals. I believe the best design is invisible — it just works.</p>
+        <p>When I'm not pushing pixels, you'll find me exploring new tools, reading about behavioral psychology, or sketching ideas in my notebook.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Years of experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">20+</div>
+          <div class="stat-label">Projects shipped</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Happy clients</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Design awards</div>
+        </div>
+      </div>
+    </section>
+
   </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="page">
+      <span class="footer-left">&copy; 2024 Dubair. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="mailto:hello@dubair.com">Email</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dribbble.com" target="_blank" rel="noopener">Dribbble</a>
+        <a href="https://github.com/dubair" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
