@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aspen Health · Designing Trust into an AI Healthcare Copilot — Case Study</title>
+  <meta name="description" content="Case study: Designing an AI copilot for healthcare contact-center agents — from 0→1, embedding trust into every interaction." />
+  <meta name="author" content="Syed Zubair Ahmed" />
+  <meta name="theme-color" content="#050505" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Google+Sans+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="cs-page">
+
+  <a class="skip-link" href="#cs-main">Skip to main content</a>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="hdr is-scrolled cs__hdr">
+    <a class="hdr__logo" href="index.html">
+      <span class="hdr__mark">SZ</span>
+      <span class="hdr__name">SYED&nbsp;ZUBAIR<i>.</i></span>
+    </a>
+    <nav class="hdr__nav" aria-label="Case study">
+      <a href="#cs-problem">Problem</a>
+      <a href="#cs-explore">Exploration</a>
+      <a href="#cs-decisions">Decisions</a>
+      <a href="#cs-final">Final</a>
+      <a href="#cs-impact">Impact</a>
+    </nav>
+    <a class="hdr__cta" href="index.html">← Portfolio</a>
+  </header>
+
+  <main class="cs" id="cs-main">
+
+    <!-- ============ Hero ============ -->
+    <section class="cs__hero">
+      <p class="mono cs__eyebrow">Senior Product Designer · 0→1 AI healthcare experience</p>
+      <h1 class="display cs__headline">Designing trust into an AI healthcare copilot<em>.</em></h1>
+      <p class="cs__challenge">The challenge was never building another chatbot. It was making a contact-center agent confident enough to act on AI live, on a patient call, in a HIPAA-conscious environment, without ever looking away.</p>
+
+      <div class="cs__meta-grid">
+        <div class="cs__meta-item">
+          <span class="mono cs__meta-label">Role</span>
+          <span class="cs__meta-value">Senior Product Designer, End-to-end ownership</span>
+        </div>
+        <div class="cs__meta-item">
+          <span class="mono cs__meta-label">Scope</span>
+          <span class="cs__meta-value">0→1 AI scheduling experience</span>
+        </div>
+        <div class="cs__meta-item">
+          <span class="mono cs__meta-label">Team</span>
+          <span class="cs__meta-value">PM · AI Eng · Backend · Frontend · Clinical</span>
+        </div>
+        <div class="cs__meta-item">
+          <span class="mono cs__meta-label">Surface</span>
+          <span class="cs__meta-value">Agent call workspace, web, 1440+</span>
+        </div>
+        <div class="cs__meta-item">
+          <span class="mono cs__meta-label">Outcome</span>
+          <span class="cs__meta-value">Embedded copilot, zero context switches</span>
+        </div>
+      </div>
+
+      <figure class="cs__hero-img">
+        <img src="screenshots/cs/03-stage.png" alt="Agent workspace with embedded AI copilot — scheduling state with intent detected and appointment slots surfaced beside the live call" loading="eager" />
+      </figure>
+    </section>
+
+    <!-- ============ 01 · Snapshot ============ -->
+    <section class="cs__section" id="cs-snapshot">
+      <div class="cs__sec-head">
+        <span class="mono cs__sec-num">01</span>
+        <h2 class="display cs__sec-title">Snapshot<em>.</em></h2>
+        <p class="cs__sec-sub">The work in ten seconds</p>
+      </div>
+
+      <p class="cs__lead">An AI copilot embedded in a live call — detecting intent, finding appointments, and booking them — without the agent ever leaving the conversation.</p>
+
+      <div class="cs__details-grid">
+        <div class="cs__detail">
+          <span class="mono cs__detail-label">Product</span>
+          <p>Aspen Health — AI-powered healthcare contact-center platform</p>
+        </div>
+        <div class="cs__detail">
+          <span class="mono cs__detail-label">User</span>
+          <p>Scheduling agents — High-volume inbound calls, multi-tasking, on a clock</p>
+        </div>
+        <div class="cs__detail">
+          <span class="mono cs__detail-label">Job</span>
+          <p>Book a visit, live — Intent → matching slots → confirmed, mid-call</p>
+        </div>
+        <div class="cs__detail">
+          <span class="mono cs__detail-label">Bet</span>
+          <p>Trust over magic — AI proposes; the human always confirms</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 · Problem ============ -->
+    <section class="cs__section cs__section--dark" id="cs-problem">
+      <div class="cs__sec-head">
+        <span class="mono cs__sec-num">02</span>
+        <h2 class="display cs__sec-title">Problem<em>.</em></h2>
+        <p class="cs__sec-sub">Before any UI</p>
+      </div>
+
+      <h3 class="cs__statement">Agents lose five minutes of every call searching systems.</h3>
+
+      <p class="cs__body">US healthcare contact centers handle 10,000+ calls a day across large hospital networks — and the data behind every call is scattered across disconnected systems the agent has to search live, mid-conversation.</p>
+
+      <div class="cs__stats-row">
+        <div class="cs__stat">
+          <span class="cs__stat-num">10,000+</span>
+          <span class="mono cs__stat-label">daily calls across large hospital networks — every one against a clock</span>
+        </div>
+        <div class="cs__stat">
+          <span class="cs__stat-num">4–5 min</span>
+          <span class="mono cs__stat-label">lost — manually verifying details while the patient waits on the line</span>
+        </div>
+        <div class="cs__stat">
+          <span class="cs__stat-num">3 silos</span>
+          <span class="mono cs__stat-label">EHR · scheduling · insurance portals — none of them talking</span>
+        </div>
+      </div>
+
+      <div class="cs__findings">
+        <h4 class="mono cs__findings-label">Research findings</h4>
+        <div class="cs__finding">
+          <span class="cs__finding-num">01</span>
+          <p><strong>Repetitive manual work dominates every shift</strong> — Scheduling, data entry, and refill requests — the same lookups, call after call.</p>
+        </div>
+        <div class="cs__finding">
+          <span class="cs__finding-num">02</span>
+          <p><strong>Patient data is fragmented</strong> — Record, coverage, and availability live in separate silos — verified by hand, mid-call.</p>
+        </div>
+        <div class="cs__finding">
+          <span class="cs__finding-num">03</span>
+          <p><strong>Cognitive load drives frustration and errors</strong> — Constant context switching between systems while holding a live conversation.</p>
+        </div>
+      </div>
+
+      <div class="cs__users">
+        <div class="cs__user-group">
+          <h4 class="mono cs__user-label">Contact-center agents</h4>
+          <p>Searching multiple systems during live calls while managing queues and resources.</p>
+        </div>
+        <div class="cs__user-group">
+          <h4 class="mono cs__user-label">Patients</h4>
+          <p>Long waits, avoidable errors, and the dissatisfaction that follows both.</p>
+        </div>
+      </div>
+
+      <blockquote class="cs__insight">
+        <p>Smarter assistance inside the tools agents already use — not new software to learn.</p>
+      </blockquote>
+
+      <div class="cs__goals">
+        <h4 class="mono cs__goals-label">Project goals</h4>
+        <div class="cs__goal">
+          <span class="mono cs__goal-num">Goal 01</span>
+          <h5>Cut booking time</h5>
+          <p>Collapse intent → slot → confirm into a few seconds, not a tab-hopping scavenger hunt.</p>
+        </div>
+        <div class="cs__goal">
+          <span class="mono cs__goal-num">Goal 02</span>
+          <h5>Zero context switching</h5>
+          <p>Everything resolves inside the call view. No new windows, no lost focus mid-sentence.</p>
+        </div>
+        <div class="cs__goal">
+          <span class="mono cs__goal-num">Goal 03</span>
+          <h5>Agent keeps the wheel</h5>
+          <p>AI proposes; the human decides and confirms. Trust is earned, never assumed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 · Why It Was Hard ============ -->
+    <section class="cs__section" id="cs-system">
+      <div class="cs__sec-head">
+        <span class="mono cs__sec-num">03</span>
+        <h2 class="display cs__sec-title">System<em>.</em></h2>
+        <p class="cs__sec-sub">System, not a screen</p>
+      </div>
+
+      <h3 class="cs__statement">This wasn't a UI redesign. It was six live systems resolving in seconds.</h3>
+
+      <p class="cs__body">Every layer had to stay legible to a human under time pressure — and every layer could be wrong. Design had to make the chain inspectable at a glance.</p>
+
+      <div class="cs__layers">
+        <div class="cs__layer">
+          <div class="cs__layer-head">
+            <span class="cs__layer-num">01</span>
+            <h4>Patient & Agent</h4>
+            <span class="mono cs__layer-tag">input · realtime</span>
+          </div>
+          <p>A live, non-linear conversation — patients backtrack and change their minds.</p>
+        </div>
+        <div class="cs__layer">
+          <div class="cs__layer-head">
+            <span class="cs__layer-num">02</span>
+            <h4>AI Layer</h4>
+            <span class="mono cs__layer-tag">model</span>
+          </div>
+          <p>Transcribes, classifies intent, extracts entities, scores its own confidence.</p>
+        </div>
+        <div class="cs__layer">
+          <div class="cs__layer-head">
+            <span class="cs__layer-num">03</span>
+            <h4>Healthcare Context</h4>
+            <span class="mono cs__layer-tag">PHI · HIPAA</span>
+          </div>
+          <p>Patient record, insurance, provider relationships, prior visits, eligibility.</p>
+        </div>
+        <div class="cs__layer">
+          <div class="cs__layer-head">
+            <span class="cs__layer-num">04</span>
+            <h4>Recommendations</h4>
+            <span class="mono cs__layer-tag">ranked</span>
+          </div>
+          <p>Ranked appointment slots matched to specialty, provider, time & location preference.</p>
+        </div>
+        <div class="cs__layer">
+          <div class="cs__layer-head">
+            <span class="cs__layer-num">05</span>
+            <h4>Agent Action</h4>
+            <span class="mono cs__layer-tag">human-in-loop</span>
+          </div>
+          <p>The human reviews, adjusts, and confirms — the one irreversible step.</p>
+        </div>
+        <div class="cs__layer">
+          <div class="cs__layer-head">
+            <span class="cs__layer-num">06</span>
+            <h4>Follow-ups</h4>
+            <span class="mono cs__layer-tag">automations</span>
+          </div>
+          <p>SMS reminders, clinical notes, downstream tasks fire automatically.</p>
+        </div>
+      </div>
+
+      <p class="cs__footnote mono">Every follow-up feeds the next call's context — the loop never fully closes.</p>
+    </section>
+
+    <!-- ============ 04 · Exploration ============ -->
+    <section class="cs__section cs__section--dark" id="cs-explore">
+      <div class="cs__sec-head">
+        <span class="mono cs__sec-num">04</span>
+        <h2 class="display cs__sec-title">Exploration<em>.</em></h2>
+        <p class="cs__sec-sub">Five places the AI could live</p>
+      </div>
+
+      <p class="cs__body">Before the panel, five directions — and why four failed. Each concept solved the previous one's worst flaw and introduced its own. The final design isn't a winner; it's an inheritance.</p>
+
+      <div class="cs__concepts">
+        <div class="cs__concept cs__concept--rejected">
+          <figure class="cs__concept-img">
+            <img src="screenshots/cs/explore-01.png" alt="Floating assistant concept exploration" loading="lazy" />
+          </figure>
+          <div class="cs__concept-head">
+            <span class="mono cs__concept-num">01</span>
+            <h3>Floating Assistant</h3>
+            <span class="mono cs__concept-tag cs__concept-tag--reject">Rejected</span>
+          </div>
+          <p>Out of sight, out of mind. Time-sensitive guidance hidden behind a click the agent might never notice.</p>
+        </div>
+        <div class="cs__concept cs__concept--rejected">
+          <figure class="cs__concept-img">
+            <img src="screenshots/cs/explore-02.png" alt="Step wizard concept exploration" loading="lazy" />
+          </figure>
+          <div class="cs__concept-head">
+            <span class="mono cs__concept-num">02</span>
+            <h3>Step Wizard</h3>
+            <span class="mono cs__concept-tag cs__concept-tag--reject">Rejected</span>
+          </div>
+          <p>Conversations aren't linear. The modal covered the transcript and forced patients into a script they kept breaking.</p>
+        </div>
+        <div class="cs__concept cs__concept--evolved">
+          <figure class="cs__concept-img">
+            <img src="screenshots/cs/explore-03.png" alt="Activity timeline concept exploration" loading="lazy" />
+          </figure>
+          <div class="cs__concept-head">
+            <span class="mono cs__concept-num">03</span>
+            <h3>Activity Timeline</h3>
+            <span class="mono cs__concept-tag cs__concept-tag--evolve">Evolved</span>
+          </div>
+          <p>Right shape, read-only. A persistent side feed worked but it narrated the past instead of letting the agent act.</p>
+        </div>
+        <div class="cs__concept cs__concept--evolved">
+          <figure class="cs__concept-img">
+            <img src="screenshots/cs/explore-04.png" alt="Chat assistant concept exploration" loading="lazy" />
+          </figure>
+          <div class="cs__concept-head">
+            <span class="mono cs__concept-num">04</span>
+            <h3>Chat Assistant</h3>
+            <span class="mono cs__concept-tag cs__concept-tag--evolve">Evolved</span>
+          </div>
+          <p>Great voice, buried actions. Explainable and collaborative — but slots dissolved into prose the agent had to re-parse.</p>
+        </div>
+        <div class="cs__concept cs__concept--shipped">
+          <figure class="cs__concept-img">
+            <img src="screenshots/cs/explore-05.png" alt="Embedded panel concept — shipped" loading="lazy" />
+          </figure>
+          <div class="cs__concept-head">
+            <span class="mono cs__concept-num">05</span>
+            <h3>Embedded Panel</h3>
+            <span class="mono cs__concept-tag cs__concept-tag--ship">Shipped</span>
+          </div>
+          <p>The synthesis. Persistent like the timeline, conversational like chat — but every event is a structured, tappable action card.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 05 · Decisions ============ -->
+    <section class="cs__section" id="cs-decisions">
+      <div class="cs__sec-head">
+        <span class="mono cs__sec-num">05</span>
+        <h2 class="display cs__sec-title">Decisions<em>.</em></h2>
+        <p class="cs__sec-sub">Decision · Evidence · Outcome</p>
+      </div>
+
+      <p class="cs__body">Seven decisions that shaped the product. Not a tour of screens — a record of trade-offs. Each decision below traces from an observed failure to the shipped behavior it produced.</p>
+
+      <div class="cs__carousel" role="region" aria-label="Design decisions carousel" tabindex="0">
+        <div class="cs__carousel-track">
+
+      <!-- Decision 01 -->
+      <article class="cs__decision">
+        <span class="mono cs__decision-num">Decision 01</span>
+        <h3>One persistent panel, docked beside the live call.</h3>
+        <div class="cs__decision-body">
+          <div class="cs__decision-col">
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Why</span>
+              <p>Booking meant leaving the transcript for a separate scheduler — the exact context switch the product existed to remove.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Evidence</span>
+              <p>In every V1 session recording, the agent navigated away from the call at least once per booking.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Outcome</span>
+              <p>Intent → slot → confirm resolves in a single column. Zero tab switches across the full call lifecycle.</p>
+            </div>
+          </div>
+          <figure class="cs__decision-fig">
+            <img src="screenshots/cs/crop-rail.png" alt="The copilot panel — permanent, predictable, never covering the call" loading="lazy" />
+            <figcaption class="mono">The copilot panel — permanent, predictable, never covering the call.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- Decision 02 -->
+      <article class="cs__decision">
+        <span class="mono cs__decision-num">Decision 02</span>
+        <h3>Silence until the AI has something to act on.</h3>
+        <div class="cs__decision-body">
+          <div class="cs__decision-col">
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Why</span>
+              <p>V1's listening state showed a signal-strength bar and grayed-out suggestions. Agents compulsively checked it during HIPAA verification — the one moment that demands full attention on the patient.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Evidence</span>
+              <p>Session reviews showed eye-drift to the panel on every call open, before the AI had anything useful to say.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Outcome</span>
+              <p>The listening state is one quiet line. The empty state was the most important design decision in the product.</p>
+            </div>
+          </div>
+          <figure class="cs__decision-fig">
+            <img src="screenshots/cs/crop-listening.png" alt="State 01 · Listening for intent — zero UI noise at call connect" loading="lazy" />
+            <figcaption class="mono">State 01 · "Listening for intent ···" — zero UI noise at call connect.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- Decision 03 -->
+      <article class="cs__decision">
+        <span class="mono cs__decision-num">Decision 03</span>
+        <h3>Intent as verification chips, not prose.</h3>
+        <div class="cs__decision-body">
+          <div class="cs__decision-col">
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Why</span>
+              <p>V1 ran an intent strip across the top of the transcript — it created a "who do I look at?" moment between strip, transcript, and patient.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Evidence</span>
+              <p>Agents re-read prose summaries mid-call; chips were verified at a glance and clicked to override.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Outcome</span>
+              <p>Two zones, two purposes: glance right for AI state, left for patient words. The intent card scans in about two seconds.</p>
+            </div>
+          </div>
+          <figure class="cs__decision-fig">
+            <img src="screenshots/cs/crop-intent.png" alt="Detected intent with entity chips — each one a clickable verification artifact" loading="lazy" />
+            <figcaption class="mono">Detected intent with entity chips — each one a clickable verification artifact.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- Decision 04 -->
+      <article class="cs__decision">
+        <span class="mono cs__decision-num">Decision 04</span>
+        <h3>A plain confidence bar — after testing four variants.</h3>
+        <div class="cs__decision-body">
+          <div class="cs__decision-col">
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Why</span>
+              <p>Healthcare coordinators are trained to be skeptical. Confidence had to be legible without adding load.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Evidence</span>
+              <p>Tested bar vs. dots vs. chip vs. radial. Dots introduced counting load; the chip cost vertical height; the radial felt emphatic but unfamiliar.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Outcome</span>
+              <p>The bar mapped to a universal "progress" mental model — agents understood 96% instantly, no explanation needed.</p>
+            </div>
+          </div>
+          <div class="cs__variants">
+            <div class="cs__variant cs__variant--selected">
+              <span class="mono">Bar</span>
+              <span class="cs__variant-check">✓</span>
+              <span>96%</span>
+            </div>
+            <div class="cs__variant">
+              <span class="mono">Dots</span>
+            </div>
+            <div class="cs__variant">
+              <span class="mono">Chip</span>
+              <span class="cs__variant-text">HIGH CONFIDENCE</span>
+            </div>
+            <div class="cs__variant">
+              <span class="mono">Radial</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Decision 05 -->
+      <article class="cs__decision">
+        <span class="mono cs__decision-num">Decision 05</span>
+        <h3>Slots as tappable cards, with one deliberate confirm.</h3>
+        <div class="cs__decision-body">
+          <div class="cs__decision-col">
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Why</span>
+              <p>In the chat direction, three appointment slots dissolved into a sentence the agent had to parse and re-type under call pressure.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Evidence</span>
+              <p>Dense prose was the slowest-scanning element in usability sessions; structured times were the fastest.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Outcome</span>
+              <p>Ranked cards with a best-match flag and tappable times. Booking is always one deliberate human click — never automatic.</p>
+            </div>
+          </div>
+          <figure class="cs__decision-fig">
+            <img src="screenshots/cs/crop-slot.png" alt="Appointment slot card with tappable times — structure, not prose" loading="lazy" />
+            <figcaption class="mono">Structure, not prose — provider, distance, and times the agent can tap.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- Decision 06 -->
+      <article class="cs__decision">
+        <span class="mono cs__decision-num">Decision 06</span>
+        <h3>A four-tier policy decides when the AI acts, suggests, or stays quiet.</h3>
+        <div class="cs__decision-body">
+          <div class="cs__decision-col">
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Why</span>
+              <p>The bar agents see is the surface of a deeper question: when is the model allowed to pre-fill a booking, and when must it escalate?</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Evidence</span>
+              <p>Threshold review with clinical stakeholders — uncertain clinical suggestions must never surface.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Outcome</span>
+              <p>A legible contract between model and agent. Behavior is predictable at every confidence level, so trust compounds.</p>
+            </div>
+          </div>
+          <div class="cs__policy-table">
+            <div class="cs__policy-row cs__policy-row--head">
+              <span>Confidence</span>
+              <span>Tier</span>
+              <span>Behavior</span>
+            </div>
+            <div class="cs__policy-row cs__policy-row--high">
+              <span>92–100%</span>
+              <span class="mono">HIGH</span>
+              <span>Pre-fill the full booking. Human confirms with one tap.</span>
+            </div>
+            <div class="cs__policy-row cs__policy-row--med">
+              <span>70–91%</span>
+              <span class="mono">MEDIUM</span>
+              <span>Suggest with entity chips visible. Agent verifies first.</span>
+            </div>
+            <div class="cs__policy-row cs__policy-row--low">
+              <span>45–69%</span>
+              <span class="mono">LOW</span>
+              <span>Offer options, no pre-fill. The model learns from the choice.</span>
+            </div>
+            <div class="cs__policy-row cs__policy-row--esc">
+              <span>&lt;45%</span>
+              <span class="mono">ESCALATE</span>
+              <span>Stay quiet or route to a human. Never guess on clinical matters.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Decision 07 -->
+      <article class="cs__decision">
+        <span class="mono cs__decision-num">Decision 07</span>
+        <h3>Same intent, three voices — a tone system for scripts.</h3>
+        <div class="cs__decision-body">
+          <div class="cs__decision-col">
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Why</span>
+              <p>V1 shipped a single script per intent. Agents were rewriting it by hand, live, while the patient waited.</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Evidence</span>
+              <p>Testing showed agents switched tone with the patient's emotional state — empathetic adoption jumped 3× when transcripts carried phrases like "I'm a little worried."</p>
+            </div>
+            <div class="cs__decision-block">
+              <span class="mono cs__decision-label">Outcome</span>
+              <p>Professional, empathetic, and concise variants per script. The AI picks the default from emotional signal in the transcript; the agent overrides with one tap.</p>
+            </div>
+          </div>
+          <figure class="cs__decision-fig">
+            <img src="screenshots/cs/eng-card-script.png" alt="Say-this script card with professional, empathetic, and concise tone tabs" loading="lazy" />
+            <figcaption class="mono">The "Say this" card — tone tabs the agent can switch mid-call.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+        </div>
+        <div class="cs__carousel-nav">
+          <button class="cs__carousel-btn cs__carousel-btn--prev" aria-label="Previous decision">←</button>
+          <span class="cs__carousel-count mono"><span class="cs__carousel-current">1</span> / 7</span>
+          <button class="cs__carousel-btn cs__carousel-btn--next" aria-label="Next decision">→</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 · AI UX Challenges ============ -->
+    <section class="cs__section cs__section--dark" id="cs-aiux">
+      <div class="cs__sec-head">
+        <span class="mono cs__sec-num">06</span>
+        <h2 class="display cs__sec-title">AI&nbsp;UX<em>.</em></h2>
+        <p class="cs__sec-sub">What makes AI products different</p>
+      </div>
+
+      <p class="cs__body">Six challenges no SaaS playbook covers. Designing for a probabilistic system in a clinical setting raised problems that don't exist in deterministic software. Each one left a visible mark on the shipped product.</p>
+
+      <div class="cs__challenges">
+        <article class="cs__challenge-card">
+          <span class="mono cs__challenge-num">01</span>
+          <h3>Trust</h3>
+          <p class="cs__challenge-problem">Agents won't repeat an AI suggestion to a patient they can't defend out loud. Trust is earned per interaction, never assumed.</p>
+          <div class="cs__challenge-move">
+            <span class="mono">Design move</span>
+            <p>AI proposes, the human confirms — every booking is one deliberate click, and nothing ever fires silently.</p>
+          </div>
+        </article>
+        <article class="cs__challenge-card">
+          <span class="mono cs__challenge-num">02</span>
+          <h3>Transparency</h3>
+          <p class="cs__challenge-problem">A recommendation without a "why" gets ignored or overridden. The reasoning had to be visible without becoming homework.</p>
+          <div class="cs__challenge-move">
+            <span class="mono">Design move</span>
+            <p>Every suggestion carries its evidence — intent chips, confidence bar, and the transcript moment that triggered it.</p>
+          </div>
+        </article>
+        <article class="cs__challenge-card">
+          <span class="mono cs__challenge-num">03</span>
+          <h3>Context Memory</h3>
+          <p class="cs__challenge-problem">Patients backtrack and change their minds mid-call. The AI's current belief had to stay inspectable — and correctable.</p>
+          <div class="cs__challenge-move">
+            <span class="mono">Design move</span>
+            <p>Entity chips show what the model currently believes; any chip can be tapped to override it on the spot.</p>
+          </div>
+        </article>
+        <article class="cs__challenge-card">
+          <span class="mono cs__challenge-num">04</span>
+          <h3>Prompt Discoverability</h3>
+          <p class="cs__challenge-problem">A blank input box is a dead feature. Agents under call pressure won't invent prompts — capability has to surface itself.</p>
+          <div class="cs__challenge-move">
+            <span class="mono">Design move</span>
+            <p>The panel leads with state-aware suggested actions; the free-form composer is a fallback, not the front door.</p>
+          </div>
+        </article>
+        <article class="cs__challenge-card">
+          <span class="mono cs__challenge-num">05</span>
+          <h3>AI Confidence</h3>
+          <p class="cs__challenge-problem">A raw percentage is meaningless without consequences. 96% of what? Confidence needed a behavioral contract.</p>
+          <div class="cs__challenge-move">
+            <span class="mono">Design move</span>
+            <p>The four-tier policy binds score to behavior — pre-fill, suggest, offer, or escalate. Agents learn the contract once.</p>
+          </div>
+        </article>
+        <article class="cs__challenge-card">
+          <span class="mono cs__challenge-num">06</span>
+          <h3>Medical Safety</h3>
+          <p class="cs__challenge-problem">A wrong restaurant suggestion is a shrug. A wrong specialty referral is a harm event in a HIPAA-conscious environment.</p>
+          <div class="cs__challenge-move">
+            <span class="mono">Design move</span>
+            <p>Clinical topics hard-route to escalation regardless of confidence. The AI schedules; it never advises.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 07 · Shipped ============ -->
+    <section class="cs__section" id="cs-final">
+      <div class="cs__sec-head">
+        <span class="mono cs__sec-num">07</span>
+        <h2 class="display cs__sec-title">Shipped<em>.</em></h2>
+        <p class="cs__sec-sub">The final experience</p>
+      </div>
+
+      <p class="cs__body">One panel. Four states. The full call lifecycle. Every element below exists because an earlier version failed without it.</p>
+
+      <div class="cs__video">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Aspen Health AI Copilot — product walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+
+      <div class="cs__shipped-points">
+        <div class="cs__shipped-point">
+          <h3>The call stays the hero</h3>
+          <p>Live transcript with entity highlights on the left — the panel never covers or competes with it.</p>
+          <span class="mono cs__shipped-note">Inherited from the wizard's failure.</span>
+        </div>
+        <div class="cs__shipped-point">
+          <h3>Structured cards, conversational voice</h3>
+          <p>Intent chips, a confidence bar, and tappable slot cards in one prioritized column.</p>
+          <span class="mono cs__shipped-note">Chat's tone, the timeline's persistence.</span>
+        </div>
+        <div class="cs__shipped-point">
+          <h3>Patient context on the right rail</h3>
+          <p>Appointments and prescriptions sit one glance away — the data agents used to dig through three systems to find.</p>
+        </div>
+        <div class="cs__shipped-point">
+          <h3>Composer as fallback, not front door</h3>
+          <p>"Help me find answers…" handles the long tail. The default path is suggested actions, so capability surfaces itself.</p>
+        </div>
+      </div>
+
+      <h3 class="cs__states-title">Four states</h3>
+
+      <div class="cs__hscroll" role="region" aria-label="Product states gallery" tabindex="0">
+        <div class="cs__hscroll-track">
+          <figure class="cs__state">
+            <img src="screenshots/cs/01-stage.png" alt="State 01 — Listening: Transcription starts, zero UI noise" loading="lazy" />
+            <figcaption>
+              <span class="mono cs__state-label">State 01 · Listening</span>
+              <p>Transcription starts. Zero UI noise.</p>
+            </figcaption>
+          </figure>
+          <figure class="cs__state">
+            <img src="screenshots/cs/02-stage.png" alt="State 02 — Intent Detected: Call type classified, entities extracted" loading="lazy" />
+            <figcaption>
+              <span class="mono cs__state-label">State 02 · Intent Detected</span>
+              <p>Call type classified, entities extracted. 96% · auto.</p>
+            </figcaption>
+          </figure>
+          <figure class="cs__state">
+            <img src="screenshots/cs/03-stage.png" alt="State 03 — Scheduling: Matched slots surface, human-in-loop" loading="lazy" />
+            <figcaption>
+              <span class="mono cs__state-label">State 03 · Scheduling</span>
+              <p>Matched slots surface. Human-in-loop · 1 click.</p>
+            </figcaption>
+          </figure>
+          <figure class="cs__state">
+            <img src="screenshots/cs/04-stage.png" alt="State 04 — Confirmed: Booking fires, four automations run in parallel" loading="lazy" />
+            <figcaption>
+              <span class="mono cs__state-label">State 04 · Confirmed</span>
+              <p>Booking fires, four automations run in parallel.</p>
+            </figcaption>
+          </figure>
+          <figure class="cs__state">
+            <img src="screenshots/cs/confirmed.png" alt="Confirmed state — appointment booked, call ended clean" loading="lazy" />
+            <figcaption>
+              <span class="mono cs__state-label">Confirmed</span>
+              <p>Appointment booked, call ended clean.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="cs__shipped-points cs__shipped-points--final">
+        <div class="cs__shipped-point">
+          <h3>One deliberate click books</h3>
+          <p>The confirm is the single irreversible act, and it always belongs to the human.</p>
+          <span class="mono cs__shipped-note">The trust bet, kept.</span>
+        </div>
+        <div class="cs__shipped-point">
+          <h3>Automations fire downstream</h3>
+          <p>SMS reminder, clinical note, calendar entry, and follow-up task run in parallel — visible, so the agent ends the call clean.</p>
+        </div>
+        <div class="cs__shipped-point">
+          <h3>The feed is the audit trail</h3>
+          <p>Every AI action stays in the chronological feed — inspectable after the call, which is what made compliance comfortable.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 08 · Impact ============ -->
+    <section class="cs__section cs__section--dark" id="cs-impact">
+      <div class="cs__sec-head">
+        <span class="mono cs__sec-num">08</span>
+        <h2 class="display cs__sec-title">Impact<em>.</em></h2>
+        <p class="cs__sec-sub">What moved</p>
+      </div>
+
+      <p class="cs__body">Numbers that moved real healthcare operations.</p>
+
+      <div class="cs__impact-stats">
+        <div class="cs__impact-stat">
+          <span class="cs__impact-num">58%</span>
+          <p>Reduction in average call handle time on AI-assisted bookings</p>
+        </div>
+        <div class="cs__impact-stat">
+          <span class="cs__impact-num">96%</span>
+          <p>Intent-classification confidence on the primary scheduling flow</p>
+        </div>
+        <div class="cs__impact-stat">
+          <span class="cs__impact-num">31%</span>
+          <p>Increase in AI-assisted workflow adoption after the V2 panel shipped</p>
+        </div>
+      </div>
+
+      <div class="cs__impact-groups">
+        <div class="cs__impact-group">
+          <h3 class="mono">User impact</h3>
+          <ul>
+            <li><strong>Zero context switches</strong> — Intent → slot → confirm without leaving the call view</li>
+            <li><strong>Faster task completion</strong> — Minutes of cross-system searching collapsed into seconds</li>
+            <li><strong>AI that surfaces itself</strong> — State-aware suggestions replaced the blank-box problem</li>
+          </ul>
+        </div>
+        <div class="cs__impact-group">
+          <h3 class="mono">Product impact</h3>
+          <ul>
+            <li><strong>Adoption, not mandate</strong> — Agents chose the copilot because it was faster than working around it</li>
+            <li><strong>Fewer overrides</strong> — Legible confidence cut second-guessing of correct suggestions</li>
+            <li><strong>A platform, not a feature</strong> — Refill and billing flows shipped on the same panel model</li>
+          </ul>
+        </div>
+        <div class="cs__impact-group">
+          <h3 class="mono">Team impact</h3>
+          <ul>
+            <li><strong>Shared card library</strong> — Six typed cards became a design-system pattern other teams reuse</li>
+            <li><strong>Faster iteration</strong> — The state contract let design and AI eng work in parallel</li>
+            <li><strong>Aligned vocabulary</strong> — "Act, suggest, offer, escalate" became how the whole team reasons about AI behavior</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 09 · Reflection ============ -->
+    <section class="cs__section" id="cs-reflection">
+      <div class="cs__sec-head">
+        <span class="mono cs__sec-num">09</span>
+        <h2 class="display cs__sec-title">V2<em>.</em></h2>
+        <p class="cs__sec-sub">What I'd build next</p>
+      </div>
+
+      <p class="cs__body">The shipped product is the floor, not the ceiling. Not lessons learned — a roadmap. Four investments I'd argue for next, in priority order.</p>
+
+      <div class="cs__v2-list">
+        <article class="cs__v2-item">
+          <span class="mono cs__v2-num">V2—01</span>
+          <h3>Long-term Patient Memory</h3>
+          <p>The rolling context window resets every call. Cross-call memory — last visit, standing preferences, open follow-ups — would let the copilot start each call already oriented, instead of re-learning the patient live.</p>
+        </article>
+        <article class="cs__v2-item">
+          <span class="mono cs__v2-num">V2—02</span>
+          <h3>Proactive Healthcare Workflows</h3>
+          <p>Today the AI reacts to intent. The data already knows who's overdue for a follow-up or out of refills — the next step is the copilot opening the call with the work pre-staged, before the patient asks.</p>
+        </article>
+        <article class="cs__v2-item">
+          <span class="mono cs__v2-num">V2—03</span>
+          <h3>Per-agent Personalization</h3>
+          <p>Tone defaults, suggestion density, and confirm friction are global today. Agents differ — a five-year veteran and a first-week hire shouldn't get the same level of hand-holding from the panel.</p>
+        </article>
+        <article class="cs__v2-item">
+          <span class="mono cs__v2-num">V2—04</span>
+          <h3>Explainability Beyond the Score</h3>
+          <p>The confidence bar says how sure; it doesn't say why. An evidence trace — the transcript moments that drove the classification — would turn the bar from a claim into an argument.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ Closing ============ -->
+    <section class="cs__closing">
+      <p class="mono cs__closing-note">The case study review includes interactive, high-fidelity prototypes of the key journeys.</p>
+      <a class="btn btn--solid" href="index.html">← Back to portfolio</a>
+    </section>
+
+  </main>
+
+  <footer class="foot cs__foot">
+    <span class="foot__logo">SYED ZUBAIR<i>.</i></span>
+    <span class="mono">&copy; 2026 Syed Zubair Ahmed. All rights reserved.</span>
+    <a class="mono foot__top" href="index.html">← Back to portfolio</a>
+  </footer>
+
+  <script>
+  (function carousel() {
+    const track = document.querySelector('.cs__carousel-track');
+    const cards = track.querySelectorAll('.cs__decision');
+    const prev = document.querySelector('.cs__carousel-btn--prev');
+    const next = document.querySelector('.cs__carousel-btn--next');
+    const counter = document.querySelector('.cs__carousel-current');
+    let idx = 0;
+    function go(i) {
+      idx = Math.max(0, Math.min(i, cards.length - 1));
+      cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      counter.textContent = idx + 1;
+      prev.disabled = idx === 0;
+      next.disabled = idx === cards.length - 1;
+    }
+    prev.addEventListener('click', () => go(idx - 1));
+    next.addEventListener('click', () => go(idx + 1));
+    const container = document.querySelector('.cs__carousel');
+    container.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') go(idx - 1);
+      if (e.key === 'ArrowRight') go(idx + 1);
+    });
+    let scrollTimer;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        const rect = track.getBoundingClientRect();
+        let closest = 0, minDist = Infinity;
+        cards.forEach((c, i) => {
+          const d = Math.abs(c.getBoundingClientRect().left - rect.left);
+          if (d < minDist) { minDist = d; closest = i; }
+        });
+        idx = closest;
+        counter.textContent = idx + 1;
+        prev.disabled = idx === 0;
+        next.disabled = idx === cards.length - 1;
+      }, 100);
+    });
+    go(0);
+  })();
+  </script>
+</body>
+</html>

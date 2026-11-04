@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide.ai component library</title>
+<meta name="description" content="Tokens and components of the Guide.ai design system, rendered live from ds.css.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ds.css?v=12">
+<style>
+/* Page layout only. Every component below is the real ds.css class used in the product. */
+body{height:auto;background:var(--bg-app)}
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.side{position:sticky;top:0;height:100vh;overflow:auto;background:#25125A;color:#F4F0FA;padding:24px 16px;display:flex;flex-direction:column;gap:18px}
+.side .brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:var(--fs-lg)}
+.side h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#B8AACF;margin:6px 8px 4px}
+.side a{display:block;color:#D6CCE6;text-decoration:none;font-size:var(--fs-sm);padding:6px 8px;border-radius:8px}
+.side a:hover{background:#3D1F72;color:#fff}
+main{padding:40px clamp(16px,4vw,56px) 80px;max-width:1100px}
+.pagehead h1{font-size:clamp(28px,4vw,40px);color:var(--plum-800);letter-spacing:-.01em;margin:8px 0}
+.pagehead p{color:var(--text-2);max-width:680px}
+section.lib{margin-top:56px;scroll-margin-top:24px}
+section.lib>h2{font-size:24px;color:var(--plum-800);margin-bottom:4px}
+section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;margin-bottom:18px}
+.spec{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:18px}
+.spec>header{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:14px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.spec>header h3{font-size:var(--fs-md)}
+.spec>header code{font-size:var(--fs-xs);color:var(--plum-700);background:var(--plum-100);padding:2px 8px;border-radius:6px}
+.stage{padding:22px 18px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;background:var(--canvas)}
+.stage.col{flex-direction:column;align-items:stretch}
+.stage.dark{background:#25125A}
+.cell{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.cell>small{font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 18px;border-top:1px solid var(--border);font-size:var(--fs-sm)}
+.notes b{display:block;font-size:var(--fs-xs);color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.notes p{color:var(--text-2)}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sw{align-items:start}
+.swc{display:flex;flex-direction:column;align-items:stretch;text-align:left;padding:0;height:auto;width:100%;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:#fff;cursor:copy;font:inherit;color:var(--text-1)}
+.swc i{display:block;height:64px}
+.swc div{padding:8px 10px;font-size:12px}
+.swc b{display:block;font-size:12px}
+.swc span{color:var(--text-3);font-variant-numeric:tabular-nums}
+.typescale{display:flex;flex-direction:column;gap:10px}
+.typescale div{display:flex;gap:16px;align-items:baseline;border-bottom:1px dashed var(--border);padding-bottom:8px}
+.typescale small{width:110px;flex:none;color:var(--text-3);font-size:12px}
+.boxes{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end}
+.boxes .bx{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:var(--text-3)}
+.boxes .bx i{display:block;background:var(--plum-100);border:2px solid var(--plum-500)}
+.w320{width:min(360px,100%)}.w480{width:min(520px,100%)}
+.mock .card{margin-left:0}
+@media (max-width:860px){.shell{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.notes{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="shell">
+<nav class="side" aria-label="Library">
+  <div class="brand"><span class="logo">✦</span><span>Guide<span class="dotai">.ai</span></span></div>
+  <div><h4>Foundations</h4><a href="#colour">Colour</a><a href="#type">Typography</a><a href="#space">Spacing &amp; radius</a><a href="#elev">Elevation &amp; motion</a></div>
+  <div><h4>Actions</h4><a href="#buttons">Buttons</a><a href="#chips">Chips &amp; tags</a><a href="#choices">Choice buttons</a></div>
+  <div><h4>Inputs</h4><a href="#fields">Fields</a></div>
+  <div><h4>Feedback</h4><a href="#badges">Badges</a><a href="#callouts">Callouts</a><a href="#toast">Toast &amp; sheet</a></div>
+  <div><h4>Conversation</h4><a href="#bubbles">Bubbles</a><a href="#tray">Question tray</a><a href="#summary">Summary card</a></div>
+  <div><h4>AI patterns</h4><a href="#sug">AI suggestion</a><a href="#quick">Suggested for you</a><a href="#compliance">Compliance gate</a><a href="#upload">Document reading</a><a href="#outcome">Outcome</a></div>
+  <div><h4>Navigation</h4><a href="#rail">Step rail</a></div>
+</nav>
+<main>
+  <div class="pagehead">
+    <span class="badge ai">✦ Design system · v2 Plum</span>
+    <h1>Guide.ai component library</h1>
+    <p>Every token and component here is rendered live from <code>ds.css</code>, the same file the assistant, landing page and case study use. If it looks right here, it looks right in the product.</p>
+  </div>
+
+  <!-- COLOUR -->
+  <section class="lib" id="colour"><h2>Colour</h2><p class="lead">Deep plum leads, a plum-to-violet gradient marks primary actions and AI, and lilac tints carry surfaces. Status colours always pair with an icon and text. Click a swatch to copy its value.</p>
+    <div class="spec"><header><h3>Brand &amp; surfaces</h3><code>--plum-* · --brand · --canvas</code></header><div class="stage col">
+      <div class="sw" id="swBrand"></div></div></div>
+    <div class="spec"><header><h3>Text &amp; status</h3><code>--text-* · --ok · --warn · --bad</code></header><div class="stage col"><div class="sw" id="swStatus"></div></div>
+      <div class="notes"><div><b>Contrast</b><p>Text-1 and text-2 pass AAA on white and lilac. Text-3 passes AA (≥4.5:1). Plum on white is about 12:1.</p></div><div><b>Rule</b><p>Never show status by colour alone. Pair it with an icon and a word: "Check this", "Acknowledged".</p></div></div></div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="lib" id="type"><h2>Typography</h2><p class="lead">Noto Sans for Latin text and Noto Kufi Arabic for Arabic, so both scripts share one rhythm. Headings are bold plum.</p>
+    <div class="spec"><header><h3>Type scale</h3><code>--fs-xs … --fs-xl</code></header><div class="stage col"><div class="typescale">
+      <div><small>Display · 40/700</small><span style="font-size:40px;font-weight:700;color:var(--plum-800)">Register your company</span></div>
+      <div><small>Title · 20/650</small><span style="font-size:var(--fs-xl);font-weight:650">Let's set up your company</span></div>
+      <div><small>Body L · 16</small><span style="font-size:var(--fs-lg)">One question at a time, about 5 minutes.</span></div>
+      <div><small>Body · 14</small><span style="font-size:var(--fs-md)">What would you like to call your company?</span></div>
+      <div><small>Secondary · 13</small><span style="font-size:var(--fs-sm);color:var(--text-2)">It must end with LLC, Ltd or Limited.</span></div>
+      <div><small>Caption · 12</small><span style="font-size:var(--fs-xs);color:var(--text-3)">Question 1 of 2</span></div>
+      <div><small>Arabic · 16</small><span lang="ar" dir="rtl" style="font-size:16px">ميريديان لابز ذ.م.م</span></div>
+    </div></div></div>
+  </section>
+
+  <!-- SPACE -->
+  <section class="lib" id="space"><h2>Spacing &amp; radius</h2><p class="lead">A 4-point spacing scale. Pills for actions and chips, 12–16px for cards and inputs.</p>
+    <div class="spec"><header><h3>Spacing</h3><code>--s1 … --s6</code></header><div class="stage"><div class="boxes" id="spaceBoxes"></div></div></div>
+    <div class="spec"><header><h3>Radius</h3><code>--r-sm · --r-md · --r-lg · --r-pill</code></header><div class="stage"><div class="boxes">
+      <div class="bx"><i style="width:56px;height:56px;border-radius:var(--r-sm)"></i>sm · 8</div><div class="bx"><i style="width:56px;height:56px;border-radius:var(--r-md)"></i>md · 12</div><div class="bx"><i style="width:56px;height:56px;border-radius:var(--r-lg)"></i>lg · 16</div><div class="bx"><i style="width:96px;height:40px;border-radius:var(--r-pill)"></i>pill</div></div></div></div>
+  </section>
+
+  <!-- ELEVATION -->
+  <section class="lib" id="elev"><h2>Elevation &amp; motion</h2><p class="lead">Three shadow levels. Motion is short (120–220ms) and switched off for people who ask for reduced motion.</p>
+    <div class="spec"><header><h3>Elevation</h3><code>--e1 · --e2 · --e3</code></header><div class="stage"><div class="boxes">
+      <div class="bx"><i style="width:110px;height:70px;border-radius:12px;background:#fff;border:0;box-shadow:var(--e1)"></i>e1 · card</div><div class="bx"><i style="width:110px;height:70px;border-radius:12px;background:#fff;border:0;box-shadow:var(--e2)"></i>e2 · menu, toast</div><div class="bx"><i style="width:110px;height:70px;border-radius:12px;background:#fff;border:0;box-shadow:var(--e3)"></i>e3 · modal</div></div></div>
+      <div class="notes"><div><b>Durations</b><p><code>--dur-fast</code> 120ms for hovers, <code>--dur</code> 220ms for entrances, 5s for the AI border rotation.</p></div><div><b>Reduced motion</b><p>All animation drops to near zero, and the AI border stops rotating.</p></div></div></div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section class="lib" id="buttons"><h2>Buttons</h2><p class="lead">Pill-shaped. One primary per view. Primary uses the plum gradient with a soft glow and a light sweep on hover.</p>
+    <div class="spec"><header><h3>Variants</h3><code>.btn · .primary · .ghost · .danger · .linkbtn</code></header><div class="stage">
+      <div class="cell"><small>Primary</small><button class="btn primary">Continue</button></div>
+      <div class="cell"><small>Secondary</small><button class="btn">Skip</button></div>
+      <div class="cell"><small>Ghost</small><button class="btn ghost">I'll change it</button></div>
+      <div class="cell"><small>Danger</small><button class="btn danger">Submit application</button></div>
+      <div class="cell"><small>Link</small><button class="linkbtn">Search all activities</button></div>
+      <div class="cell"><small>Small</small><button class="btn primary sm">+ Add</button></div>
+      <div class="cell"><small>Disabled</small><button class="btn primary" disabled>Continue</button></div></div>
+      <div class="notes"><div><b>Use</b><p>Primary moves the flow forward. Danger is only for irreversible actions, and gets a distinct label ("Submit application", never "OK").</p></div><div><b>Accessibility</b><p>36px minimum height, 44px on touch. Focus shows a 2px plum outline.</p></div></div></div>
+  </section>
+
+  <!-- CHIPS -->
+  <section class="lib" id="chips"><h2>Chips &amp; tags</h2><p class="lead">Chips answer in one tap. Tags show something you added, with a remove button.</p>
+    <div class="spec"><header><h3>Chips and tags</h3><code>.chip · .tag · .code</code></header><div class="stage">
+      <div class="cell"><small>Quick answers</small><div class="chips"><button class="chip">1,000</button><button class="chip">10,000</button><button class="chip">Not sure: use a typical estimate</button></div></div>
+      <div class="cell"><small>Removable tag</small><span class="tag">Advising on IT networks.<button aria-label="Remove">✕</button></span></div>
+      <div class="cell"><small>Code</small><span class="code">6311-001</span></div></div></div>
+  </section>
+
+  <!-- CHOICES -->
+  <section class="lib" id="choices"><h2>Choice buttons</h2><p class="lead">Large, one-tap answers for a single question. Number keys 1–9 select them. "Recommended" is set by the system, "Suggested" by the AI.</p>
+    <div class="spec"><header><h3>States</h3><code>.choice · .rec · label.choice (multi)</code></header><div class="stage col"><div class="choices w480">
+      <button class="choice rec"><span class="key">1</span><span class="cbody"><b>Yes, use the standard articles <span class="badge ai">Recommended</span></b><small>Ready to use. Suits most start-ups</small></span></button>
+      <button class="choice"><span class="key">2</span><span class="cbody"><b>No, I'll upload my own</b><small>Reviewed manually, so it takes longer</small></span></button>
+      <label class="choice"><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--brand)"><span class="cbody"><b>Shareholder</b><small>Multi-select: pick all that apply</small></span></label></div></div></div>
+  </section>
+
+  <!-- FIELDS -->
+  <section class="lib" id="fields"><h2>Fields</h2><p class="lead">One field per question. Errors appear under the field, in plain language, with an icon.</p>
+    <div class="spec"><header><h3>Inputs</h3><code>.f · .fl · .suffix · .phone · .hint · .err</code></header><div class="stage">
+      <div class="f w320"><label class="fl" for="c1">Company name</label><input id="c1" type="text" value="Meridian Labs LLC"><div class="stat ok">✓ “Meridian Labs LLC” is available.</div><div class="hint">21 / 100 characters</div></div>
+      <div class="f w320 invalid"><label class="fl" for="c2">Number of shares</label><input id="c2" type="number" value="50" aria-invalid="true"><div class="err">⚠ <span>That makes USD 500. The minimum is USD 1,000.</span></div></div>
+      <div class="f w320"><label class="fl" for="c3">Nominal value per share</label><span class="suffix"><input id="c3" type="number" value="10"><span>USD</span></span></div>
+      <div class="f w320"><label class="fl" for="c4">Phone number</label><div class="phone"><select aria-label="Country code"><option>🇦🇪 +971</option></select><input id="c4" type="tel" placeholder="50 123 4567"></div></div>
+      <div class="f w320"><label class="fl" for="c5">Name in Arabic</label><input id="c5" type="text" dir="rtl" lang="ar" value="ميريديان لابز ذ.م.م"><div class="hint">Right-to-left input in Noto Kufi Arabic</div></div>
+      <div class="f w320"><label class="fl" for="c6">Description of proposed activities</label><textarea id="c6">We build software and IT services for small businesses</textarea><div class="hint">9 / 2,000 words</div></div></div></div>
+  </section>
+
+  <!-- BADGES -->
+  <section class="lib" id="badges"><h2>Badges</h2><p class="lead">Short status labels. Always text, and an icon where it helps.</p>
+    <div class="spec"><header><h3>Variants</h3><code>.badge · .ok · .warn · .bad · .ai</code></header><div class="stage">
+      <span class="badge">Locked</span><span class="badge ok">✓ Read clearly</span><span class="badge ok">94% match</span><span class="badge warn">⚠ Check this</span><span class="badge bad">Expired</span><span class="badge ai">✦ Suggested for you</span><span class="badge ai">✦ Translated by AI · please check</span></div></div>
+  </section>
+
+  <!-- CALLOUTS -->
+  <section class="lib" id="callouts"><h2>Callouts</h2><p class="lead">Inline messages tied to the step you're on. Failure callouts always say what failed, why, what's safe, and what to do next.</p>
+    <div class="spec"><header><h3>Variants</h3><code>.callout · .ok · .warn · .bad</code></header><div class="stage col">
+      <div class="callout ok w480"><span>✓</span><span>All 9 sections are complete.</span></div>
+      <div class="callout warn w480"><span>ⓘ</span><span>Every company needs at least one shareholder and one director. One person can hold both roles.</span></div>
+      <div class="callout bad w480"><span>⚠</span><div><b>I couldn't use that passport.</b> It expired on 12 Mar 2024.<ul><li>Nothing from this file was saved.</li><li>Your other answers are untouched.</li></ul></div></div></div></div>
+  </section>
+
+  <!-- TOAST & SHEET -->
+  <section class="lib" id="toast"><h2>Toast &amp; confirm sheet</h2><p class="lead">One toast pattern (with Undo for reversible changes) and one confirm sheet (for destructive or unsaved changes).</p>
+    <div class="spec"><header><h3>Toast</h3><code>.toast</code></header><div class="stage" style="position:relative;min-height:80px"><div class="toast open" style="position:static;display:flex;width:min(440px,100%)"><span>Added “Advising on IT networks.”</span><button>Undo</button></div></div></div>
+    <div class="spec"><header><h3>Confirm sheet</h3><code>.sheet · .foot2</code></header><div class="stage"><div class="sheet" style="position:static;max-width:440px;border-radius:var(--r-lg);animation:none"><h3>Unsaved changes</h3><p style="color:var(--text-2)">You have unsaved changes in Company. Discard them and switch, or stay to keep editing?</p><div class="foot2"><button class="btn ghost">Stay</button><button class="btn danger">Discard changes</button></div></div></div></div>
+  </section>
+
+  <!-- BUBBLES -->
+  <section class="lib" id="bubbles"><h2>Chat bubbles</h2><p class="lead">Lilac for the assistant, solid plum for the user. Sources sit under factual answers.</p>
+    <div class="spec"><header><h3>Messages</h3><code>.msg · .bubble · .user · .typing · .src</code></header><div class="stage col"><div class="w480" style="display:flex;flex-direction:column;gap:10px">
+      <div class="msg"><div class="av">✦</div><div class="bubble">What would you like to call your company?</div></div>
+      <div class="msg user"><div class="bubble">Meridian Labs LLC</div></div>
+      <div class="msg"><div class="av">✦</div><div class="bubble">A nominee director acts for the real owner.<span class="src">ⓘ Registry guidance · not legal advice</span></div></div>
+      <div class="msg"><div class="av">✦</div><div class="bubble"><span class="typing"><i></i><i></i><i></i></span></div></div></div></div></div>
+  </section>
+
+  <!-- TRAY -->
+  <section class="lib" id="tray"><h2>Question tray</h2><p class="lead">The single answer area for the current question: one control, optional quick answers, a counter and one primary action.</p>
+    <div class="spec"><header><h3>Answer card</h3><code>.tray.card.active · .qcount</code></header><div class="stage mock"><form class="tray card active w480" onsubmit="return false"><div class="qcount">Question 2 of 4</div><div class="f"><label class="fl" for="t1">Number of shares</label><input id="t1" type="number" value="1000"></div><div class="chips"><button type="button" class="chip">100</button><button type="button" class="chip">1,000</button><button type="button" class="chip">10,000</button></div><div class="hint">Total capital must be at least USD 1,000.</div><div class="foot" style="padding:0;border:0"><button class="btn primary">Continue ➤</button></div></form></div></div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="lib" id="summary"><h2>Section summary card</h2><p class="lead">A finished section collapses into a read-only summary with Edit. After submission it shows Locked.</p>
+    <div class="spec"><header><h3>Summary</h3><code>.card.summary · .rows</code></header><div class="stage mock"><article class="card summary w480"><header><span class="num ok">✓</span><h3>Company</h3><button class="linkbtn">✎ Edit</button></header><dl class="rows"><dt>Company name</dt><dd>Meridian Labs LLC <span class="badge">LLC</span></dd><dt>Name in Arabic</dt><dd lang="ar" dir="rtl" style="text-align:left">ميريديان لابز ذ.م.م</dd><dt>Entity type</dt><dd>Limited liability company (LLC)</dd></dl></article></div></div>
+  </section>
+
+  <!-- AI SUGGESTION -->
+  <section class="lib" id="sug"><h2>AI suggestion</h2><p class="lead">One AI recommendation at a time, with an animated plum gradient border so AI output never blends in. Always shows why: match %, code, group and restrictions.</p>
+    <div class="spec"><header><h3>Recommendation card</h3><code>.sug</code></header><div class="stage"><div class="sug w480"><div class="t"><div class="qcount">Suggestion 1 of 6</div><button class="iconbtn" aria-label="Not relevant">✕</button></div><div style="display:flex;gap:8px;align-items:center"><span class="badge ok">61% match</span><span class="code">6311-001</span></div><b>Provision of infrastructure for hosting, data processing and related activities.</b><div class="why">Computer Programming, IT Consultancy and Related Activities</div><div class="acts"><button class="btn sm primary">+ Add</button><button class="btn sm">Add top 3</button><button class="btn sm">Not relevant</button></div></div></div>
+      <div class="notes"><div><b>Autonomy</b><p>Level 0, suggest. Nothing is added until the user taps Add.</p></div><div><b>Transparency</b><p>Every card shows its reasons, so the user can judge it rather than trust it blindly.</p></div></div></div>
+  </section>
+
+  <!-- QUICK -->
+  <section class="lib" id="quick"><h2>Suggested for you</h2><p class="lead">The AI pre-fills a whole section from earlier answers. One click accepts it, and every value is re-validated. "I'll change it" opens each question, prefilled.</p>
+    <div class="spec"><header><h3>Section proposal</h3><code>.card.quick</code></header><div class="stage mock"><article class="card active quick w480"><div class="body"><div class="aihead"><span class="badge ai">✦ Suggested for you</span><span class="hint">Based on your earlier answers</span></div><dl class="rows" style="padding:0"><dt>Authorised shares</dt><dd>1,000</dd><dt>Nominal value</dt><dd>USD 10</dd><dt>Share classes</dt><dd>1</dd></dl><div class="foot" style="padding:0;border:0"><button class="btn ghost">I'll change it</button><button class="btn primary">✓ Use this</button></div></div></article></div></div>
+  </section>
+
+  <!-- COMPLIANCE -->
+  <section class="lib" id="compliance"><h2>Compliance gate</h2><p class="lead">Deliberate friction where a regulator needs it: restrictions are listed, then a declaration must be ticked before Continue works.</p>
+    <div class="spec"><header><h3>Declaration</h3><code>.callout.bad.compl · .restr · .checkrow</code></header><div class="stage"><div class="callout bad compl w480"><span>⚠</span><div><b>Compliance review is required.</b><div>Some of your activities come with restrictions. Read them, then confirm.</div><div class="compitem"><b>Planning and designing of computer systems</b><ul class="restr"><li>May not sell or service hardware by way of business.</li><li>May not provide business-to-consumer services.</li></ul></div><label class="checkrow" style="margin-top:10px"><input type="checkbox"><span>I confirm the company will not carry out any DNFBP activities under the registry's anti-money-laundering rules.</span></label></div></div></div></div>
+  </section>
+
+  <!-- UPLOAD -->
+  <section class="lib" id="upload"><h2>Document reading</h2><p class="lead">The AI shows its steps while it reads, can always be stopped, and flags only the fields it is unsure about.</p>
+    <div class="spec"><header><h3>States</h3><code>.drop · .docrow · .plan · .fieldrow.low</code></header><div class="stage">
+      <div class="cell w320"><small>Empty</small><div class="drop" style="width:100%"><b>Upload a passport</b><span class="hint">PDF or photo · up to 10 MB</span><button class="btn primary sm">Choose file</button></div></div>
+      <div class="cell w320"><small>Reading</small><div class="docrow" style="width:100%;background:#fff"><span class="ico">📄</span><div style="flex:1"><b>passport-scan.pdf</b><ul class="plan"><li class="done">✓ Uploaded</li><li class="now"><span class="spin"></span> Reading document</li><li>Matching fields</li></ul></div><button class="btn sm">■ Stop</button></div></div>
+      <div class="cell w320"><small>Low confidence</small><div class="fieldrow low" style="width:100%"><div class="top2"><span class="fl">Passport number</span><span class="badge warn">⚠ Check this</span></div><input type="text" value="P4821 7893" aria-label="Passport number"><div class="hint">The scan is blurry here. Compare, then confirm.</div></div></div></div></div>
+  </section>
+
+  <!-- OUTCOME -->
+  <section class="lib" id="outcome"><h2>Outcome card</h2><p class="lead">A result, not a transcript: reference, status, what happens next, and what you can do.</p>
+    <div class="spec"><header><h3>Submitted</h3><code>.outcome · .next</code></header><div class="stage"><section class="outcome w480" style="margin-left:0"><h3>✓ the application submitted</h3><dl><dt>Reference</dt><dd><b>INC-2026-48217</b></dd><dt>Status</dt><dd>Under review</dd></dl><ol class="next"><li class="done"><b>Today</b> the application received and locked</li><li><b>Days 1–3</b> The registry reviews your pre-qualification</li><li><b>If approved</b> You're invited to the next stage</li></ol></section></div></div>
+  </section>
+
+  <!-- RAIL -->
+  <section class="lib" id="rail"><h2>Step rail</h2><p class="lead">The dark plum rail keeps progress visible: done, current and upcoming, each with an icon and text, never colour alone.</p>
+    <div class="spec"><header><h3>Progressive disclosure</h3><code>.rail.theme-dark · .dot</code></header><div class="stage dark"><aside class="rail theme-dark" style="display:flex;position:static;width:260px;border-radius:var(--r-lg)"><div class="brand"><span class="logo">✦</span><span>Guide<span class="dotai">.ai</span></span></div><div><h4>Your application</h4><ol style="margin-top:8px"><li><button><span class="dot done">✓</span>Company</button></li><li><button aria-current="step"><span class="dot now">2</span>Activities</button></li><li><button disabled><span class="dot">3</span>Share capital</button></li><li><button disabled><span class="dot">4</span>Members</button></li></ol></div></aside></div></div>
+  </section>
+</main>
+</div>
+<div class="toast" id="copied" role="status" aria-live="polite" style="position:fixed;left:auto;right:24px;bottom:24px;width:auto"><span id="copiedMsg">Copied</span></div>
+<script>
+(()=>{
+const tok=(n)=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const brand=[['--plum-900','Rail, deepest plum'],['--plum-800','Brand, headings'],['--plum-700','Gradient middle'],['--plum-500','Gradient end, accents'],['--plum-300','Lilac accent'],['--plum-200','AI borders'],['--plum-100','AI bubbles, tints'],['--plum-50','Canvas']];
+const status=[['--text-1','Primary text'],['--text-2','Secondary text'],['--text-3','Captions, hints'],['--border-input','Field borders'],['--ok','Success'],['--warn','Warning'],['--bad','Error'],['--ok-bg','Success surface']];
+const card=([n,d])=>`<button class="swc" type="button" data-copy="${n}" aria-label="Copy ${n}"><i style="background:var(${n})"></i><div><b>${n}</b><span>${tok(n)}</span><br><span>${d}</span></div></button>`;
+document.getElementById('swBrand').innerHTML=brand.map(card).join('')+`<button class="swc" type="button" data-copy="--ai-grad" aria-label="Copy --ai-grad"><i style="background:var(--ai-grad)"></i><div><b>--ai-grad</b><span>plum → violet</span><br><span>Primary buttons, AI marks</span></div></button>`;
+document.getElementById('swStatus').innerHTML=status.map(card).join('');
+document.getElementById('spaceBoxes').innerHTML=['--s1','--s2','--s3','--s4','--s5','--s6'].map(n=>`<div class="bx"><i style="width:var(${n});height:var(${n})"></i>${n.replace('--','')} · ${tok(n)}</div>`).join('');
+const t=document.getElementById('copied');let tm;
+document.addEventListener('click',e=>{const b=e.target.closest('[data-copy]');if(!b)return;const v=b.dataset.copy==='--ai-grad'?'var(--ai-grad)':`var(${b.dataset.copy})`;navigator.clipboard&&navigator.clipboard.writeText(v).catch(()=>{});document.getElementById('copiedMsg').textContent='Copied '+v;t.classList.add('open');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('open'),1600)});
+})();
+</script>
+</body>
+</html>

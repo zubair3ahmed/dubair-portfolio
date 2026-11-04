@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-33K0YHE1F7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-33K0YHE1F7');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Agents for D2C — Syed Zubair Ahmed</title>
+  <meta name="description" content="How a D2C fragrance brand can run its entire business with a multi-agent AI framework — a concept case study by Syed Zubair Ahmed." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050505; --bg-alt: #0a0a0a; --surface: #111;
+      --fg: #f0f0f0; --muted: rgba(240,240,240,.55);
+      --border: rgba(255,255,255,.08); --accent: #E4FE9A;
+      --lavender: #C8B4FF; --teal: #5EEAD4; --coral: #fb7185;
+      --blue: #60a5fa; --amber: #fbbf24;
+      --font-display: "Google Sans", -apple-system, sans-serif;
+      --font-body: "Google Sans Text", "Google Sans", -apple-system, sans-serif;
+      --font-mono: ui-monospace, "SF Mono", monospace;
+      --gutter: clamp(20px, 4vw, 56px);
+      --maxw: 1080px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--fg); font-family: var(--font-body); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Nav */
+    .nav { max-width: var(--maxw); margin: 0 auto; padding: 20px var(--gutter); display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 14px; letter-spacing: .06em; }
+    .nav__mark { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 10px; background: var(--accent); color: #050505; font-weight: 700; font-size: 12px; }
+    .nav__links { display: flex; gap: 28px; font-size: 14px; color: var(--muted); }
+    .nav__links a:hover { color: var(--fg); }
+    .nav__back { padding: 8px 18px; border-radius: 999px; border: 1px solid var(--border); font-size: 13px; transition: all .2s; }
+    .nav__back:hover { background: rgba(228,254,154,.08); border-color: rgba(228,254,154,.4); }
+
+    /* Hero */
+    .hero { max-width: var(--maxw); margin: 0 auto; padding: 80px var(--gutter) 60px; text-align: center; }
+    .hero__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .hero__title { font-family: var(--font-display); font-size: clamp(32px, 5vw, 56px); font-weight: 700; line-height: 1.08; letter-spacing: -.03em; }
+    .hero__title em { font-style: normal; color: var(--accent); }
+    .hero__sub { max-width: 660px; margin: 20px auto 0; font-size: 16px; color: var(--muted); }
+    .hero__brand { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; padding: 10px 22px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); font-size: 14px; font-weight: 600; }
+    .hero__brand-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
+
+    /* Section */
+    .sec { max-width: var(--maxw); margin: 0 auto; padding: 60px var(--gutter); }
+    .sec__label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .sec__title { font-family: var(--font-display); font-size: clamp(22px, 3vw, 32px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 16px; }
+    .sec__desc { font-size: 15px; color: var(--muted); max-width: 680px; margin-bottom: 32px; }
+    .sec__desc strong { color: var(--fg); font-weight: 600; }
+    .sec--border { border-top: 1px solid var(--border); }
+
+    /* Agent cards grid */
+    .agents { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .agent-card {
+      padding: 28px; border-radius: 20px;
+      border: 1px solid var(--border); background: var(--surface);
+      transition: border-color .3s, transform .2s, box-shadow .3s;
+      cursor: default;
+    }
+    .agent-card:hover { border-color: var(--card-accent, var(--accent)); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+    .agent-card__icon { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 16px; font-size: 20px; }
+    .agent-card__name { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .agent-card__role { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .agent-card__desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+    .agent-card__tasks { list-style: none; }
+    .agent-card__tasks li { font-size: 13px; padding: 6px 0; border-top: 1px solid var(--border); color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .agent-card__tasks li::before { content: '→'; color: var(--card-accent, var(--accent)); font-weight: 700; flex-shrink: 0; }
+
+    /* Architecture — SVG animated diagram */
+    .arch-svg { width: 100%; max-width: 720px; margin: 0 auto; display: block; }
+    .arch-svg text { font-family: var(--font-body); }
+    .arch-svg .node-box { fill: var(--surface); stroke: var(--border); stroke-width: 1; rx: 14; transition: stroke .3s, filter .3s; cursor: default; }
+    .arch-svg .node-box:hover { stroke: var(--accent); filter: drop-shadow(0 0 12px rgba(228,254,154,.15)); }
+    .arch-svg .node-box--chief { fill: rgba(228,254,154,.06); stroke: var(--accent); }
+    .arch-svg .node-label { fill: var(--fg); font-size: 13px; font-weight: 600; }
+    .arch-svg .node-sub { fill: var(--muted); font-size: 10px; }
+    .arch-svg .node-emoji { font-size: 16px; }
+    .arch-svg .conn-line { stroke: var(--border); stroke-width: 1; fill: none; }
+    @keyframes pulse-down { 0% { offset-distance: 0%; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+    .arch-svg .pulse { r: 3; fill: var(--accent); opacity: 0; offset-rotate: 0deg; animation: pulse-down 2s ease-in-out infinite; }
+    .arch-svg .pulse--1 { animation-delay: 0s; }
+    .arch-svg .pulse--2 { animation-delay: .35s; }
+    .arch-svg .pulse--3 { animation-delay: .7s; }
+    .arch-svg .pulse--4 { animation-delay: 1.05s; }
+    .arch-svg .pulse--5 { animation-delay: 1.4s; }
+    .arch-svg .pulse--6 { animation-delay: 1.75s; }
+
+    /* Agent cards — interactive highlight */
+    .agent-card.is-active { border-color: var(--card-accent, var(--accent)); box-shadow: 0 0 32px rgba(228,254,154,.12); transform: translateY(-4px); }
+    .agent-card__status { display: flex; align-items: center; gap: 6px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .agent-card__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: statusPulse 2s ease infinite; }
+    .agent-card__status-text { font-size: 11px; font-family: var(--font-mono); color: var(--muted); letter-spacing: .04em; }
+    @keyframes statusPulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+    .agent-card__ping { position: absolute; top: 16px; right: 16px; width: 8px; height: 8px; border-radius: 50%; background: var(--card-accent, var(--accent)); opacity: 0; transition: opacity .3s; }
+    .agent-card.is-active .agent-card__ping { opacity: 1; animation: statusPulse 1.5s ease infinite; }
+    .agent-card { position: relative; }
+
+    /* Guardrails */
+    .guardrails { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .guard {
+      padding: 24px; border-radius: 16px;
+      border: 1px solid var(--border); background: var(--surface);
+    }
+    .guard__title { font-size: 15px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .guard__icon { font-size: 18px; }
+    .guard__text { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* Autonomy ladder — horizontal */
+    .ladder { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    @media (max-width: 768px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .ladder { grid-template-columns: 1fr; } }
+    .ladder__step {
+      display: flex; flex-direction: column; align-items: flex-start;
+      padding: 20px; border-radius: 16px;
+      border: 1px solid var(--border); background: var(--surface);
+      transition: border-color .3s, transform .2s;
+    }
+    .ladder__step:hover { transform: translateY(-3px); }
+    .ladder__level {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: grid; place-items: center;
+      font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+      border: 1px solid var(--border); background: var(--bg);
+      margin-bottom: 14px; transition: all .3s;
+    }
+    .ladder__step:hover .ladder__level { border-color: var(--accent); color: var(--accent); }
+    .ladder__label { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .ladder__desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .ladder__example { font-size: 11px; color: var(--accent); margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+
+    /* Onboarding steps */
+    .onboard { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; counter-reset: step; }
+    .onboard__step {
+      padding: 24px; border-radius: 16px;
+      border: 1px solid var(--border); background: var(--surface);
+      counter-increment: step; position: relative;
+      transition: border-color .3s, transform .2s;
+    }
+    .onboard__step:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .onboard__step::before {
+      content: counter(step, decimal-leading-zero);
+      font-family: var(--font-mono); font-size: 11px; color: var(--accent);
+      letter-spacing: .06em; display: block; margin-bottom: 12px;
+    }
+    .onboard__step h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .onboard__step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* Metrics */
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .metric-card { padding: 24px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); text-align: center; }
+    .metric-card__num { font-family: var(--font-display); font-size: 36px; font-weight: 700; line-height: 1; }
+    .metric-card__label { font-size: 12px; color: var(--muted); margin-top: 8px; font-family: var(--font-mono); letter-spacing: .04em; }
+
+    /* Interactive command demo */
+    .cmd-demo { max-width: 560px; margin: 0 auto; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); overflow: hidden; }
+    .cmd-demo__header { padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .cmd-demo__dots { display: flex; gap: 6px; }
+    .cmd-demo__dot { width: 10px; height: 10px; border-radius: 50%; }
+    .cmd-demo__title { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-left: 8px; }
+    .cmd-demo__body { padding: 20px; font-family: var(--font-mono); font-size: 13px; line-height: 1.8; min-height: 280px; }
+    .cmd-line { opacity: 0; transform: translateY(8px); animation: cmdIn .3s var(--ease) forwards; }
+    .cmd-prompt { color: var(--accent); }
+    .cmd-agent { color: var(--teal); }
+    .cmd-action { color: var(--muted); }
+    .cmd-result { color: var(--amber); }
+    .cmd-system { color: var(--lavender); }
+    .cmd-dim { color: rgba(255,255,255,.3); }
+    @keyframes cmdIn { to { opacity: 1; transform: translateY(0); } }
+
+    /* CTA */
+    .cta-section { max-width: var(--maxw); margin: 0 auto; padding: 80px var(--gutter); text-align: center; }
+    .cta-section h2 { font-family: var(--font-display); font-size: clamp(22px, 3vw, 32px); font-weight: 700; margin-bottom: 12px; }
+    .cta-section p { color: var(--muted); font-size: 15px; margin-bottom: 24px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; font-size: 14px; font-weight: 600; transition: all .2s; }
+    .cta-btn--solid { background: var(--accent); color: #050505; }
+    .cta-btn--solid:hover { box-shadow: 0 0 24px rgba(228,254,154,.3); }
+    .cta-btn--ghost { border: 1px solid var(--border); color: var(--fg); }
+    .cta-btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Footer */
+    .foot { max-width: var(--maxw); margin: 0 auto; padding: 24px var(--gutter); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+    .foot a:hover { color: var(--accent); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .agents { grid-template-columns: 1fr; }
+      .arch__branches { grid-template-columns: 1fr 1fr; }
+      .guardrails { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .onboard { grid-template-columns: 1fr; }
+      .nav__links a:not(.nav__back) { display: none; }
+    }
+    @media (max-width: 480px) {
+      .arch__branches { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-33K0YHE1F7"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-33K0YHE1F7');</script>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav__logo" href="index.html">
+      <span class="nav__mark">SZ</span>
+      SYED ZUBAIR<span style="color:var(--accent)">.</span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="ai-simplified.html">AI Simplified</a>
+      <a class="nav__back" href="ai-simplified.html">← Back</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero__label">Design Exploration</p>
+    <h1 class="hero__title">Building an <em>AI Agent Workforce</em><br>for a D2C Fragrance Brand</h1>
+    <p class="hero__sub">How a business can deploy a Chief of Staff agent that delegates work to specialised AI agents handling storefront, marketing, support, and operations. Like a team that never sleeps.</p>
+    <div class="hero__brand"><span class="hero__brand-dot"></span> Attar & Oud · fictional D2C brand</div>
+  </section>
+
+  <!-- The Problem -->
+  <section class="sec sec--border">
+    <p class="sec__label">01 · The Problem</p>
+    <h2 class="sec__title">Running a D2C brand is a hundred jobs at once</h2>
+    <p class="sec__desc">A fragrance founder wears every hat: product descriptions, ad copy, customer support, inventory decisions, storefront design, email campaigns. They can't hire ten specialists, and a single generic AI tool doesn't understand their brand. <strong>What if one master agent could run the entire operation, delegating to specialised agents that each own a domain?</strong></p>
+
+    <div class="metrics">
+      <div class="metric-card"><div class="metric-card__num" style="color:var(--coral)">72%</div><div class="metric-card__label">D2C founders spend<br>time on ops, not product</div></div>
+      <div class="metric-card"><div class="metric-card__num" style="color:var(--blue)">6–10</div><div class="metric-card__label">Tools a typical brand<br>juggles daily</div></div>
+      <div class="metric-card"><div class="metric-card__num" style="color:var(--teal)">3.5×</div><div class="metric-card__label">Faster product launches<br>with AI-assisted ops</div></div>
+      <div class="metric-card"><div class="metric-card__num" style="color:var(--amber)">24/7</div><div class="metric-card__label">Agents work while<br>you sleep</div></div>
+    </div>
+  </section>
+
+  <!-- The Approach -->
+  <section class="sec sec--border">
+    <p class="sec__label">02 · The Approach</p>
+    <h2 class="sec__title">One Chief of Staff, six specialist agents</h2>
+    <p class="sec__desc">Think of it like hiring a chief of staff who manages a team. The business owner talks to the <strong>Chief of Staff agent</strong> in plain language ("launch the new oud collection this Friday") and it breaks the command down, assigns tasks to the right specialist agents, monitors progress, and reports back. Each agent has its own skills, memory, and brand bible baked in.</p>
+  </section>
+
+  <!-- Architecture -->
+  <section class="sec sec--border">
+    <p class="sec__label">03 · Architecture</p>
+    <h2 class="sec__title">How the system connects</h2>
+    <p class="sec__desc">The Chief of Staff sits at the centre. It understands the owner's intent, breaks it into tasks, routes each to the right specialist, and monitors progress. Every agent shares a <strong>Brand Bible</strong> (voice, visual rules, policies) and has its own <strong>skills, tools, and memory</strong>.</p>
+
+    <svg class="arch-svg" viewBox="0 0 720 520" xmlns="http://www.w3.org/2000/svg">
+      <!-- Business Owner node -->
+      <rect class="node-box" x="235" y="10" width="250" height="56" />
+      <text class="node-emoji" x="265" y="44" text-anchor="middle">👤</text>
+      <text class="node-label" x="360" y="36" text-anchor="middle">Business Owner</text>
+      <text class="node-sub" x="360" y="52" text-anchor="middle">"Launch the new oud collection this Friday"</text>
+
+      <!-- Connection: Owner → Chief -->
+      <path id="pathOwnerChief" class="conn-line" d="M360,66 L360,120" />
+      <circle class="pulse pulse--1"><animateMotion dur="2s" repeatCount="indefinite" keyTimes="0;1" keySplines="0.42 0 0.58 1"><mpath href="#pathOwnerChief"/></animateMotion></circle>
+
+      <!-- Chief of Staff node -->
+      <rect class="node-box node-box--chief" x="200" y="120" width="320" height="56" />
+      <text class="node-emoji" x="236" y="154" text-anchor="middle">🧠</text>
+      <text class="node-label" x="360" y="146" text-anchor="middle">Chief of Staff Agent</text>
+      <text class="node-sub" x="360" y="162" text-anchor="middle">Decompose · Delegate · Monitor · Report</text>
+
+      <!-- Connection lines: Chief → each agent (6 lines) -->
+      <!-- Row 1: Storefront, Marketing, Support -->
+      <path id="pathC1" class="conn-line" d="M280,176 L280,196 Q280,210 140,240 L140,280" />
+      <path id="pathC2" class="conn-line" d="M360,176 L360,280" />
+      <path id="pathC3" class="conn-line" d="M440,176 L440,196 Q440,210 580,240 L580,280" />
+
+      <!-- Row 2: Operations, Analytics, Product -->
+      <path id="pathC4" class="conn-line" d="M280,176 L280,196 Q280,210 140,330 L140,400" />
+      <path id="pathC5" class="conn-line" d="M360,176 L360,400" />
+      <path id="pathC6" class="conn-line" d="M440,176 L440,196 Q440,210 580,330 L580,400" />
+
+      <!-- Animated pulses on each path -->
+      <circle class="pulse pulse--1"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#pathC1"/></animateMotion></circle>
+      <circle class="pulse pulse--2"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#pathC2"/></animateMotion></circle>
+      <circle class="pulse pulse--3"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#pathC3"/></animateMotion></circle>
+      <circle class="pulse pulse--4"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#pathC4"/></animateMotion></circle>
+      <circle class="pulse pulse--5"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#pathC5"/></animateMotion></circle>
+      <circle class="pulse pulse--6"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#pathC6"/></animateMotion></circle>
+
+      <!-- Row 1 agent nodes -->
+      <g data-agent="storefront">
+        <rect class="node-box" x="40" y="280" width="200" height="56" style="stroke:rgba(251,191,36,.35)" />
+        <text class="node-emoji" x="72" y="314" text-anchor="middle">🎨</text>
+        <text class="node-label" x="140" y="306" text-anchor="middle" fill="#fbbf24">Storefront</text>
+        <text class="node-sub" x="140" y="322" text-anchor="middle">Design · Pages · UX</text>
+      </g>
+      <g data-agent="marketing">
+        <rect class="node-box" x="260" y="280" width="200" height="56" style="stroke:rgba(94,234,212,.35)" />
+        <text class="node-emoji" x="292" y="314" text-anchor="middle">📣</text>
+        <text class="node-label" x="360" y="306" text-anchor="middle" fill="#5eead4">Marketing</text>
+        <text class="node-sub" x="360" y="322" text-anchor="middle">Copy · Ads · Email</text>
+      </g>
+      <g data-agent="support">
+        <rect class="node-box" x="480" y="280" width="200" height="56" style="stroke:rgba(200,180,255,.35)" />
+        <text class="node-emoji" x="512" y="314" text-anchor="middle">💬</text>
+        <text class="node-label" x="580" y="306" text-anchor="middle" fill="#c8b4ff">Support</text>
+        <text class="node-sub" x="580" y="322" text-anchor="middle">Chat · Returns · FAQ</text>
+      </g>
+
+      <!-- Row 2 agent nodes -->
+      <g data-agent="operations">
+        <rect class="node-box" x="40" y="400" width="200" height="56" style="stroke:rgba(251,113,133,.35)" />
+        <text class="node-emoji" x="72" y="434" text-anchor="middle">📦</text>
+        <text class="node-label" x="140" y="426" text-anchor="middle" fill="#fb7185">Operations</text>
+        <text class="node-sub" x="140" y="442" text-anchor="middle">Inventory · Shipping · Orders</text>
+      </g>
+      <g data-agent="analytics">
+        <rect class="node-box" x="260" y="400" width="200" height="56" style="stroke:rgba(96,165,250,.35)" />
+        <text class="node-emoji" x="292" y="434" text-anchor="middle">📊</text>
+        <text class="node-label" x="360" y="426" text-anchor="middle" fill="#60a5fa">Analytics</text>
+        <text class="node-sub" x="360" y="442" text-anchor="middle">Sales · Trends · Reports</text>
+      </g>
+      <g data-agent="product">
+        <rect class="node-box" x="480" y="400" width="200" height="56" style="stroke:rgba(228,254,154,.35)" />
+        <text class="node-emoji" x="512" y="434" text-anchor="middle">🌸</text>
+        <text class="node-label" x="580" y="426" text-anchor="middle" fill="#e4fe9a">Product</text>
+        <text class="node-sub" x="580" y="442" text-anchor="middle">Catalog · Scents · Pricing</text>
+      </g>
+
+      <!-- Glow filter for hover -->
+      <defs>
+        <filter id="glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+    </svg>
+  </section>
+
+  <!-- Brand Bible -->
+  <section class="sec sec--border">
+    <p class="sec__label">04 · The Brand Bible</p>
+    <h2 class="sec__title">Every agent speaks the same brand language</h2>
+    <p class="sec__desc">Before any agent writes a word or makes a decision, it reads from a shared <strong>Brand Bible</strong>, a living document embedded in every agent's context that ensures consistency across all outputs.</p>
+
+    <div class="guardrails">
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">🎨</span> Visual identity</div>
+        <div class="guard__text">Colour palette, typography, logo usage, photography style. Every storefront page and marketing asset stays on-brand without manual review.</div>
+      </div>
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">✍️</span> Tone of voice</div>
+        <div class="guard__text">Luxurious but approachable. Never clinical. Product descriptions use sensory language: "warm amber with a whisper of saffron," not "contains amber fragrance compound."</div>
+      </div>
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">🎯</span> Target audience</div>
+        <div class="guard__text">UAE-based professionals, 25–45, who value artisanal quality. Agents tailor messaging to this persona. No generic "dear valued customer" copy.</div>
+      </div>
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">📜</span> Policies & SOPs</div>
+        <div class="guard__text">Return windows, shipping tiers, pricing rules, ingredient disclosures. Agents never contradict business policy because the policies live in their context.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agent Cards -->
+  <section class="sec sec--border">
+    <p class="sec__label">05 · The Agents</p>
+    <h2 class="sec__title">Six agents, each owning a domain</h2>
+    <p class="sec__desc">The business owner never talks to each one directly. The Chief of Staff delegates. But here's what each specialist does behind the scenes.</p>
+
+    <div class="agents" id="agentGrid">
+
+      <div class="agent-card" style="--card-accent: var(--amber)" data-agent="storefront">
+        <div class="agent-card__ping"></div>
+        <div class="agent-card__icon" style="background:rgba(251,191,36,.12)">🎨</div>
+        <div class="agent-card__name">Storefront Agent</div>
+        <div class="agent-card__role">Website Design & UX</div>
+        <div class="agent-card__desc">Designs and updates the e-commerce storefront. Creates landing pages, product layouts, collection pages, and seasonal themes, all aligned to the brand's visual identity.</div>
+        <ul class="agent-card__tasks">
+          <li>Generate product page layouts</li>
+          <li>Build collection landing pages</li>
+          <li>A/B test hero banners</li>
+          <li>Optimise mobile checkout flow</li>
+          <li>Seasonal theme rollouts</li>
+        </ul>
+        <div class="agent-card__status"><span class="agent-card__dot" style="background:var(--amber)"></span><span class="agent-card__status-text">Online · 3 tasks queued</span></div>
+      </div>
+
+      <div class="agent-card" style="--card-accent: var(--teal)" data-agent="marketing">
+        <div class="agent-card__ping"></div>
+        <div class="agent-card__icon" style="background:rgba(94,234,212,.12)">📣</div>
+        <div class="agent-card__name">Marketing Agent</div>
+        <div class="agent-card__role">Copy, Campaigns & Growth</div>
+        <div class="agent-card__desc">Writes product descriptions, email sequences, ad copy, and social captions. Knows the brand voice, the target audience, and what's trending in the fragrance market.</div>
+        <ul class="agent-card__tasks">
+          <li>Product description copywriting</li>
+          <li>Email drip campaign creation</li>
+          <li>Social media content calendar</li>
+          <li>Ad copy for Meta & Google</li>
+          <li>Cart abandonment email sequences</li>
+        </ul>
+        <div class="agent-card__status"><span class="agent-card__dot" style="background:var(--teal)"></span><span class="agent-card__status-text">Online · 5 campaigns active</span></div>
+      </div>
+
+      <div class="agent-card" style="--card-accent: var(--lavender)" data-agent="support">
+        <div class="agent-card__ping"></div>
+        <div class="agent-card__icon" style="background:rgba(200,180,255,.12)">💬</div>
+        <div class="agent-card__name">Customer Support Agent</div>
+        <div class="agent-card__role">Chat, Returns & Resolution</div>
+        <div class="agent-card__desc">Handles all customer-facing conversations. Answers product questions, processes returns, tracks orders, and escalates to a human when needed.</div>
+        <ul class="agent-card__tasks">
+          <li>24/7 chat support on website & WhatsApp</li>
+          <li>Order tracking & delivery updates</li>
+          <li>Return & exchange initiation</li>
+          <li>Scent recommendation for customers</li>
+          <li>Escalation to human with full context</li>
+        </ul>
+        <div class="agent-card__status"><span class="agent-card__dot" style="background:var(--lavender)"></span><span class="agent-card__status-text">Online · 12 tickets open</span></div>
+      </div>
+
+      <div class="agent-card" style="--card-accent: var(--coral)" data-agent="operations">
+        <div class="agent-card__ping"></div>
+        <div class="agent-card__icon" style="background:rgba(251,113,133,.12)">📦</div>
+        <div class="agent-card__name">Operations Agent</div>
+        <div class="agent-card__role">Inventory, Shipping & Fulfilment</div>
+        <div class="agent-card__desc">Monitors stock levels, manages reorders, coordinates shipping logistics, and flags supply chain issues before they become stockouts.</div>
+        <ul class="agent-card__tasks">
+          <li>Real-time inventory monitoring</li>
+          <li>Auto-reorder triggers at threshold</li>
+          <li>Shipping carrier selection & SLA tracking</li>
+          <li>Supplier communication drafts</li>
+          <li>Stockout prediction & alerts</li>
+        </ul>
+        <div class="agent-card__status"><span class="agent-card__dot" style="background:var(--coral)"></span><span class="agent-card__status-text">Online · 240 SKUs tracked</span></div>
+      </div>
+
+      <div class="agent-card" style="--card-accent: var(--blue)" data-agent="analytics">
+        <div class="agent-card__ping"></div>
+        <div class="agent-card__icon" style="background:rgba(96,165,250,.12)">📊</div>
+        <div class="agent-card__name">Analytics Agent</div>
+        <div class="agent-card__role">Sales, Trends & Reporting</div>
+        <div class="agent-card__desc">Pulls data from Shopify, ad platforms, and GA4. Generates daily/weekly reports, identifies trends, and surfaces insights the owner should act on.</div>
+        <ul class="agent-card__tasks">
+          <li>Daily revenue & conversion reports</li>
+          <li>Best/worst performing product analysis</li>
+          <li>Ad spend vs ROAS tracking</li>
+          <li>Customer cohort insights</li>
+          <li>Weekly business summary to owner</li>
+        </ul>
+        <div class="agent-card__status"><span class="agent-card__dot" style="background:var(--blue)"></span><span class="agent-card__status-text">Online · Last report 2h ago</span></div>
+      </div>
+
+      <div class="agent-card" style="--card-accent: var(--accent)" data-agent="product">
+        <div class="agent-card__ping"></div>
+        <div class="agent-card__icon" style="background:rgba(228,254,154,.12)">🌸</div>
+        <div class="agent-card__name">Product Agent</div>
+        <div class="agent-card__role">Catalog, Scent Profiles & Pricing</div>
+        <div class="agent-card__desc">Manages the product catalog: scent notes, ingredient lists, pricing tiers, and collection groupings. Knows the fragrance domain deeply.</div>
+        <ul class="agent-card__tasks">
+          <li>Scent profile tagging (notes, families)</li>
+          <li>Competitive pricing analysis</li>
+          <li>New product launch checklists</li>
+          <li>Collection curation (by mood, season, occasion)</li>
+          <li>Ingredient & allergen documentation</li>
+        </ul>
+        <div class="agent-card__status"><span class="agent-card__dot" style="background:var(--accent)"></span><span class="agent-card__status-text">Online · 48 products cataloged</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive demo -->
+  <section class="sec sec--border">
+    <p class="sec__label">06 · In Action</p>
+    <h2 class="sec__title">Watch the Chief of Staff delegate a product launch</h2>
+    <p class="sec__desc">The owner gives one command. The Chief of Staff breaks it into tasks, assigns each to the right specialist, and reports progress.</p>
+
+    <div class="cmd-demo" id="cmdDemo">
+      <div class="cmd-demo__header">
+        <div class="cmd-demo__dots">
+          <div class="cmd-demo__dot" style="background:#ff5f57"></div>
+          <div class="cmd-demo__dot" style="background:#febc2e"></div>
+          <div class="cmd-demo__dot" style="background:#28c840"></div>
+        </div>
+        <div class="cmd-demo__title">chief-of-staff — attar-oud</div>
+      </div>
+      <div class="cmd-demo__body" id="cmdBody"></div>
+    </div>
+  </section>
+
+  <!-- Guardrails -->
+  <section class="sec sec--border">
+    <p class="sec__label">07 · Guardrails</p>
+    <h2 class="sec__title">What the agents can't do matters as much as what they can</h2>
+    <p class="sec__desc">Every agent has hard boundaries, enforced at the system level, not just prompt instructions the model can ignore.</p>
+
+    <div class="guardrails">
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">💰</span> Spending limits</div>
+        <div class="guard__text">The Marketing Agent can create ad campaigns but can't set a budget above AED 500/day without owner approval. Hard limit, not a suggestion.</div>
+      </div>
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">🚫</span> No health claims</div>
+        <div class="guard__text">No agent can write that a fragrance is "safe for sensitive skin" or make any medical claim. Ingredient lists only, with "consult your dermatologist" as default.</div>
+      </div>
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">🔒</span> Publish requires review</div>
+        <div class="guard__text">Storefront and Marketing agents draft content but can't publish to the live site or send emails without human approval. Draft → Review → Publish flow.</div>
+      </div>
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">🤝</span> Escalation triggers</div>
+        <div class="guard__text">Support Agent escalates to a human after 3 failed resolution attempts, explicit customer frustration, allergy concerns, or orders above AED 2,000.</div>
+      </div>
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">🌍</span> Cultural sensitivity</div>
+        <div class="guard__text">For UAE/GCC market: no alcohol-based fragrance promos during Ramadan, gender-appropriate marketing when contextually relevant, respectful copy.</div>
+      </div>
+      <div class="guard">
+        <div class="guard__title"><span class="guard__icon">📊</span> Data boundaries</div>
+        <div class="guard__text">Analytics Agent can read all data but never expose individual customer PII in reports. Aggregated insights only. No customer data leaves the system.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Autonomy Levels -->
+  <section class="sec sec--border">
+    <p class="sec__label">08 · Autonomy Levels</p>
+    <h2 class="sec__title">How much freedom each agent gets</h2>
+    <p class="sec__desc">Not every task deserves the same autonomy. Low-risk tasks run silently. High-risk ones need the owner in the loop. <strong>Match autonomy to consequence.</strong></p>
+
+    <div class="ladder">
+      <div class="ladder__step">
+        <div class="ladder__level" style="border-color:var(--teal);color:var(--teal)">L0</div>
+        <div class="ladder__label">Fully autonomous</div>
+        <div class="ladder__desc">Runs without asking. Low-risk, high-frequency, reversible.</div>
+        <div class="ladder__example">Analytics → daily sales report auto-sent to Slack</div>
+      </div>
+      <div class="ladder__step">
+        <div class="ladder__level" style="border-color:var(--blue);color:var(--blue)">L1</div>
+        <div class="ladder__label">Act + notify</div>
+        <div class="ladder__desc">Does the action, then tells the owner what it did. Undoable.</div>
+        <div class="ladder__example">Operations → reorders stock at threshold, notifies owner</div>
+      </div>
+      <div class="ladder__step">
+        <div class="ladder__level" style="border-color:var(--amber);color:var(--amber)">L2</div>
+        <div class="ladder__label">Draft + approve</div>
+        <div class="ladder__desc">Prepares the work, shows a preview, waits for explicit approval.</div>
+        <div class="ladder__example">Marketing → drafts email campaign, owner reviews then sends</div>
+      </div>
+      <div class="ladder__step">
+        <div class="ladder__level" style="border-color:var(--coral);color:var(--coral)">L3</div>
+        <div class="ladder__label">Confirm with details</div>
+        <div class="ladder__desc">Shows full consequence. Requires deliberate confirmation. High risk.</div>
+        <div class="ladder__example">Storefront → redesigns checkout, shows before/after for approval</div>
+      </div>
+      <div class="ladder__step">
+        <div class="ladder__level" style="border-color:var(--lavender);color:var(--lavender)">L4</div>
+        <div class="ladder__label">Escalate to owner</div>
+        <div class="ladder__desc">Out of bounds. Agent can't proceed. Surfaces the situation with full context.</div>
+        <div class="ladder__example">Support → legal threat detected, immediate owner escalation</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Onboarding -->
+  <section class="sec sec--border">
+    <p class="sec__label">09 · Onboarding</p>
+    <h2 class="sec__title">How I help businesses set this up</h2>
+    <p class="sec__desc">This isn't a plug-and-play product. Each brand needs agents configured to its voice, workflows, and risk tolerance. Here's how I work with businesses to design and deploy the full system.</p>
+
+    <div class="onboard">
+      <div class="onboard__step">
+        <h4>Discovery & Audit</h4>
+        <p>Map the business's current workflows, tools, pain points, and team structure. Identify which tasks are automatable vs. human-critical.</p>
+      </div>
+      <div class="onboard__step">
+        <h4>Agent Architecture</h4>
+        <p>Design the master-agent structure: which specialists are needed, what tools they connect to, how they communicate, and the delegation logic.</p>
+      </div>
+      <div class="onboard__step">
+        <h4>Knowledge Base Setup</h4>
+        <p>Build each agent's domain knowledge (brand voice docs, product catalog, policies, SOPs, pricing rules) so they speak and act like the brand.</p>
+      </div>
+      <div class="onboard__step">
+        <h4>Guardrails & Permissions</h4>
+        <p>Define hard limits, approval flows, escalation triggers, and autonomy levels. What each agent can and can't do, enforced at the system level.</p>
+      </div>
+      <div class="onboard__step">
+        <h4>UX & Interface Design</h4>
+        <p>Design the owner's dashboard where they give commands, review drafts, approve actions, and monitor agent activity. The control centre.</p>
+      </div>
+      <div class="onboard__step">
+        <h4>Test, Iterate, Launch</h4>
+        <p>Run agents in shadow mode first. Compare agent outputs to human decisions. Tune confidence thresholds. Then go live, one agent at a time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Knowledge Base -->
+  <section class="sec sec--border">
+    <p class="sec__label">10 · Knowledge Layer</p>
+    <h2 class="sec__title">What powers each agent's intelligence</h2>
+    <p class="sec__desc">Every agent reads from a <strong>shared brand knowledge base</strong> but connects to different tools and APIs.</p>
+
+    <div class="agents" style="grid-template-columns: 1fr 1fr;">
+      <div class="agent-card" style="--card-accent:var(--accent)">
+        <div class="agent-card__name">Shared brand knowledge</div>
+        <div class="agent-card__role">All agents read from</div>
+        <ul class="agent-card__tasks">
+          <li>Brand voice & tone guidelines</li>
+          <li>Product catalog (120+ fragrances)</li>
+          <li>Ingredient database & allergen flags</li>
+          <li>Return, exchange & shipping policies</li>
+          <li>Target audience personas</li>
+          <li>Competitor landscape notes</li>
+        </ul>
+      </div>
+      <div class="agent-card" style="--card-accent:var(--blue)">
+        <div class="agent-card__name">Agent-specific tools</div>
+        <div class="agent-card__role">Connected per agent</div>
+        <ul class="agent-card__tasks">
+          <li>Storefront → Shopify Liquid, Figma API</li>
+          <li>Marketing → Meta Ads, Klaviyo, Canva</li>
+          <li>Support → Freshdesk, WhatsApp Business</li>
+          <li>Operations → Aramex/SMSA, inventory DB</li>
+          <li>Analytics → GA4, Shopify Admin, Mixpanel</li>
+          <li>Product → Scent graph API, pricing engine</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" style="border-top:1px solid var(--border)">
+    <p class="sec__label">Get in Touch</p>
+    <h2>Want to build an AI agent workforce for your brand?</h2>
+    <p>I design the full system, from agent architecture and guardrails to the owner dashboard and onboarding experience. Let's turn your operations into an intelligent, always-on team.</p>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn--solid" href="https://www.linkedin.com/in/zuuahmed/" target="_blank" rel="noopener">Hire Me ↗</a>
+      <a class="cta-btn cta-btn--ghost" href="mailto:zubair3ahmed@gmail.com">Email Me →</a>
+      <a class="cta-btn cta-btn--ghost" href="ai-simplified.html">← Back to AI Simplified</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Syed Zubair Ahmed</span>
+    <a href="index.html">Back to portfolio</a>
+  </footer>
+
+  <script>
+  (function(){
+    // Command demo - animated terminal showing Master Agent delegation
+    var cmdBody = document.getElementById('cmdBody');
+    var lines = [
+      { cls: 'cmd-prompt', text: '▸ owner:', rest: ' Launch the new Royal Oud collection this Friday' },
+      { cls: 'cmd-system', text: '  Chief of Staff:', rest: ' Breaking down into 5 tasks…' },
+      { cls: 'cmd-dim', text: '' },
+      { cls: 'cmd-agent', text: '  → Product Agent:', rest: ' Create catalog entries for 4 new SKUs' },
+      { cls: 'cmd-action', text: '    ✓ Added: Royal Oud EDP, EDT, Travel, Gift Set' },
+      { cls: 'cmd-dim', text: '' },
+      { cls: 'cmd-agent', text: '  → Storefront Agent:', rest: ' Build collection page + product pages' },
+      { cls: 'cmd-action', text: '    ✓ Collection page drafted, awaiting review' },
+      { cls: 'cmd-dim', text: '' },
+      { cls: 'cmd-agent', text: '  → Marketing Agent:', rest: ' Draft launch email + social posts' },
+      { cls: 'cmd-action', text: '    ✓ Email sequence (3 emails) drafted' },
+      { cls: 'cmd-action', text: '    ✓ Instagram carousel + story copy ready' },
+      { cls: 'cmd-dim', text: '' },
+      { cls: 'cmd-agent', text: '  → Operations Agent:', rest: ' Verify stock levels for launch' },
+      { cls: 'cmd-action', text: '    ✓ 240 units confirmed across 4 SKUs' },
+      { cls: 'cmd-dim', text: '' },
+      { cls: 'cmd-result', text: '  ⚡ 4/5 tasks complete. 1 awaiting owner review.' },
+      { cls: 'cmd-system', text: '  Chief of Staff:', rest: ' Review the storefront draft → [View draft]' },
+    ];
+
+    var delay = 800;
+    lines.forEach(function(line, i) {
+      (function(l, d) {
+        setTimeout(function() {
+          var el = document.createElement('div');
+          el.className = 'cmd-line';
+          el.style.animationDelay = '0ms';
+          if (l.text === '') {
+            el.innerHTML = '&nbsp;';
+          } else {
+            el.innerHTML = '<span class="' + l.cls + '">' + l.text + '</span>' + (l.rest || '');
+          }
+          cmdBody.appendChild(el);
+          cmdBody.scrollTop = cmdBody.scrollHeight;
+        }, d);
+      })(line, delay);
+      delay += (line.text === '' ? 150 : 350);
+    });
+
+    // Agent card ↔ SVG node click-to-highlight
+    var agentCards = document.querySelectorAll('.agent-card[data-agent]');
+    var svgGroups = document.querySelectorAll('.arch-svg g[data-agent]');
+    var pathMap = { storefront: '#pathC1', marketing: '#pathC2', support: '#pathC3', operations: '#pathC4', analytics: '#pathC5', product: '#pathC6' };
+
+    function highlightAgent(name) {
+      agentCards.forEach(function(c) {
+        if (c.dataset.agent === name) { c.classList.toggle('is-active'); }
+        else { c.classList.remove('is-active'); }
+      });
+      svgGroups.forEach(function(g) {
+        var box = g.querySelector('.node-box');
+        if (g.dataset.agent === name && !g.classList.contains('is-active')) {
+          g.classList.add('is-active');
+          box.style.filter = 'drop-shadow(0 0 16px rgba(228,254,154,.25))';
+          box.style.strokeWidth = '2';
+        } else {
+          g.classList.remove('is-active');
+          box.style.filter = '';
+          box.style.strokeWidth = '1';
+        }
+      });
+      // Brighten the matching connection line
+      Object.keys(pathMap).forEach(function(key) {
+        var p = document.querySelector(pathMap[key]);
+        if (p) {
+          if (key === name && !p.classList.contains('is-active')) {
+            p.classList.add('is-active');
+            p.style.stroke = '#E4FE9A';
+            p.style.strokeWidth = '2';
+            p.style.filter = 'drop-shadow(0 0 6px rgba(228,254,154,.3))';
+          } else {
+            p.classList.remove('is-active');
+            p.style.stroke = '';
+            p.style.strokeWidth = '';
+            p.style.filter = '';
+          }
+        }
+      });
+    }
+
+    agentCards.forEach(function(card) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function() { highlightAgent(card.dataset.agent); });
+    });
+    svgGroups.forEach(function(g) {
+      g.style.cursor = 'pointer';
+      g.addEventListener('click', function() { highlightAgent(g.dataset.agent); });
+    });
+
+    // Intersection observer for scroll reveals
+    var reveals = document.querySelectorAll('.agent-card, .guard, .ladder__step, .metric-card, .onboard__step, .arch-svg');
+    reveals.forEach(function(el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity .5s var(--ease), transform .5s var(--ease)';
+    });
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px 60px 0px' });
+    reveals.forEach(function(el) { obs.observe(el); });
+  })();
+  </script>
+</body>
+</html>

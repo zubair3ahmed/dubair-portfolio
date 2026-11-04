@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Simplified — Syed Zubair Ahmed</title>
+  <meta name="description" content="AI concepts broken down with real product examples. A visual series by Syed Zubair Ahmed, Senior Product Designer." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050505;
+      --bg-alt: #0a0a0a;
+      --surface: #111;
+      --fg: #f0f0f0;
+      --muted: rgba(240, 240, 240, .55);
+      --border: rgba(255, 255, 255, .08);
+      --accent: #E4FE9A;
+      --lavender: #C8B4FF;
+      --teal: #5EEAD4;
+      --indigo: #818CF8;
+      --font-display: "Google Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-body: "Google Sans Text", "Google Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: ui-monospace, "SF Mono", monospace;
+      --gutter: clamp(20px, 4vw, 56px);
+      --maxw: 1200px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--accent); color: #050505; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+    /* ============ Nav ============ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px var(--gutter);
+      background: rgba(5,5,5,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav__logo {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--font-display); font-weight: 700; font-size: 15px;
+      letter-spacing: .02em;
+    }
+    .nav__mark {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--accent); color: #050505;
+      display: grid; place-items: center;
+      font-size: 12px; font-weight: 700;
+    }
+    .nav__links { display: flex; align-items: center; gap: 24px; }
+    .nav__links a {
+      font-size: 14px; font-weight: 500; color: var(--muted);
+      transition: color .2s;
+    }
+    .nav__links a:hover { color: var(--fg); }
+    .nav__back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 600; color: var(--accent);
+      padding: 8px 16px; border-radius: 999px;
+      border: 1px solid rgba(228, 254, 154, .2);
+      transition: background .2s, border-color .2s;
+    }
+    .nav__back:hover { background: rgba(228, 254, 154, .08); border-color: rgba(228, 254, 154, .4); }
+
+    /* ============ Hero ============ */
+    .hero {
+      padding: 140px var(--gutter) 80px;
+      max-width: var(--maxw); margin: 0 auto;
+      text-align: center;
+    }
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent);
+      padding: 8px 18px; border-radius: 999px;
+      border: 1px solid rgba(228, 254, 154, .15);
+      background: rgba(228, 254, 154, .05);
+      margin-bottom: 28px;
+    }
+    .hero__badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-dot 2s ease infinite;
+    }
+    @keyframes pulse-dot { 0%,100%{box-shadow:0 0 0 0 rgba(228,254,154,.4)} 50%{box-shadow:0 0 0 6px rgba(228,254,154,0)} }
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 700;
+      line-height: .95;
+      letter-spacing: -.03em;
+      margin-bottom: 24px;
+    }
+    .hero__title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--teal));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero__sub {
+      font-size: 18px; color: var(--muted);
+      max-width: 580px; margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero__series-label {
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px;
+    }
+
+    /* ============ Category nav ============ */
+    .cat-nav {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+      max-width: 900px; margin: 0 auto 16px;
+    }
+    .cat-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-family: var(--font-body); font-size: 14px; font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color .2s, background .2s, color .2s, transform .15s;
+    }
+    .cat-pill:hover { border-color: rgba(255,255,255,.2); color: var(--fg); transform: translateY(-1px); }
+    .cat-pill.is-active {
+      background: var(--fg); color: var(--bg); border-color: var(--fg);
+    }
+    .cat-pill.is-active .cat-dot { box-shadow: none; }
+    .cat-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .cat-count {
+      font-family: var(--font-mono); font-size: 12px;
+      opacity: .6; margin-left: 2px;
+    }
+    .cat-pill.is-active .cat-count { opacity: .5; }
+
+    .cat-search {
+      display: block; width: 100%; max-width: 900px; margin: 0 auto 20px;
+      padding: 14px 20px; border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--fg); font-family: var(--font-body); font-size: 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .cat-search::placeholder { color: var(--muted); }
+    .cat-search:focus { border-color: rgba(255,255,255,.2); }
+
+    /* ============ Deck layout ============ */
+    .deck-section {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: 0 var(--gutter) 80px;
+    }
+    .deck-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* ============ Image stack ============ */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes sway1 {
+      0%, 100% { transform: rotate(3deg) translate(12px, 20px) scale(.96); }
+      50% { transform: rotate(4.5deg) translate(14px, 18px) scale(.96); }
+    }
+    @keyframes sway2 {
+      0%, 100% { transform: rotate(-2.5deg) translate(-10px, 38px) scale(.92); }
+      50% { transform: rotate(-4deg) translate(-12px, 36px) scale(.92); }
+    }
+    @keyframes sway3 {
+      0%, 100% { transform: rotate(4.5deg) translate(8px, 54px) scale(.88); }
+      50% { transform: rotate(3deg) translate(6px, 52px) scale(.88); }
+    }
+    @keyframes popIn {
+      0% { transform: scale(.94) rotate(2deg); opacity: .6; }
+      60% { transform: scale(1.02) rotate(-0.5deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    .img-stack {
+      position: relative;
+      height: 560px;
+      cursor: pointer;
+      perspective: 800px;
+    }
+    .img-stack__card {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: 0 8px 40px rgba(0,0,0,.5);
+      transition: transform .5s var(--ease), opacity .4s var(--ease), box-shadow .4s;
+      will-change: transform;
+      user-select: none;
+      transform-origin: center center;
+    }
+    .img-stack__card img {
+      width: 100%; display: block;
+      pointer-events: none;
+    }
+    .img-stack__card.is-active {
+      z-index: 10; opacity: 1;
+      box-shadow: 0 12px 48px rgba(0,0,0,.6);
+      animation: float 4s ease-in-out infinite;
+    }
+    .img-stack__card.is-active.no-float {
+      animation: popIn .45s var(--ease) forwards;
+    }
+    .img-stack:hover .img-stack__card.is-active:not(.no-float) {
+      animation: none;
+      box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(228,254,154,.15);
+      transition: transform .12s ease-out, box-shadow .3s;
+    }
+    .img-stack__card.is-behind-1 {
+      z-index: 9; opacity: .55;
+      animation: sway1 5s ease-in-out infinite;
+    }
+    .img-stack__card.is-behind-2 {
+      z-index: 8; opacity: .3;
+      animation: sway2 6s ease-in-out infinite .5s;
+    }
+    .img-stack__card.is-behind-3 {
+      z-index: 7; opacity: .15;
+      animation: sway3 7s ease-in-out infinite 1s;
+    }
+    .img-stack__card.is-gone {
+      z-index: 1; opacity: 0; pointer-events: none;
+      transform: rotate(0) translate(0, 80px) scale(.85);
+      animation: none;
+    }
+    .img-stack__card.is-exiting {
+      z-index: 11; opacity: 0;
+      transition: transform .5s cubic-bezier(.4, 0, .2, 1), opacity .35s;
+      animation: none;
+    }
+
+    /* Click hint */
+    .img-stack__hint {
+      position: absolute; bottom: 16px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 999px;
+      background: rgba(0,0,0,.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.1);
+      font-family: var(--font-mono); font-size: 11px;
+      color: rgba(255,255,255,.6); letter-spacing: .04em;
+      pointer-events: none;
+      opacity: 1; transition: opacity .3s;
+    }
+    .img-stack__hint svg { width: 14px; height: 14px; opacity: .5; }
+
+    /* ============ Text panel ============ */
+    .text-panel {
+      padding-top: 20px;
+    }
+    .text-panel__meta {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      margin-bottom: 20px;
+    }
+    .text-panel__tag {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .text-panel__tag--accent {
+      background: rgba(228, 254, 154, .1);
+      border-color: rgba(228, 254, 154, .2);
+      color: var(--accent);
+    }
+    .text-panel__title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.8vw, 36px);
+      font-weight: 700; line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 18px;
+      transition: opacity .3s;
+    }
+    .text-panel__excerpt {
+      font-size: 15px; color: var(--muted); line-height: 1.7;
+      margin-bottom: 20px;
+      transition: opacity .3s;
+    }
+    .text-panel__excerpt strong { color: var(--fg); font-weight: 600; }
+    .text-panel__takeaway {
+      padding: 16px 20px; border-radius: 12px;
+      background: rgba(228, 254, 154, .06);
+      border-left: 3px solid var(--accent);
+      font-size: 14px; color: var(--accent); font-weight: 600;
+      margin-bottom: 32px;
+      transition: opacity .3s;
+    }
+    .text-panel__takeaway span {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: .08em; text-transform: uppercase;
+      display: block; margin-bottom: 4px;
+      color: var(--muted); font-weight: 600;
+    }
+
+    /* ============ Controls ============ */
+    .deck-controls {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .deck-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--fg);
+      display: grid; place-items: center;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, transform .15s, box-shadow .2s;
+    }
+    .deck-btn:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.08); box-shadow: 0 0 20px rgba(228,254,154,.15); }
+    .deck-btn:active { transform: scale(.95); }
+    .deck-btn:disabled { opacity: .25; pointer-events: none; }
+    .deck-btn svg { width: 18px; height: 18px; }
+    .deck-counter {
+      font-family: var(--font-mono); font-size: 14px;
+      color: var(--muted); letter-spacing: .04em;
+      min-width: 60px; text-align: center;
+    }
+    .deck-counter em { font-style: normal; color: var(--fg); font-weight: 700; font-size: 18px; }
+    .deck-progress {
+      flex: 1; height: 3px;
+      background: var(--border); border-radius: 99px;
+      overflow: hidden; margin-left: 8px;
+    }
+    .deck-progress__bar {
+      height: 100%; border-radius: 99px;
+      background: var(--accent);
+      transition: width .4s var(--ease);
+    }
+
+    /* ============ CTA section ============ */
+    .cta-section {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: 80px var(--gutter);
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700; letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      color: var(--muted); font-size: 16px;
+      max-width: 500px; margin: 0 auto 32px;
+    }
+    .cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 999px;
+      font-size: 14px; font-weight: 600;
+      transition: all .2s;
+    }
+    .cta-btn--solid { background: var(--accent); color: #050505; }
+    .cta-btn--solid:hover { box-shadow: 0 0 24px rgba(228, 254, 154, .3); }
+    .cta-btn--ghost { border: 1px solid var(--border); color: var(--fg); }
+    .cta-btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ============ Footer ============ */
+    .foot {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: 24px var(--gutter);
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--muted);
+    }
+    .foot a { transition: color .2s; }
+    .foot a:hover { color: var(--accent); }
+
+    /* ============ Responsive ============ */
+    @media (max-width: 900px) {
+      .deck-layout { grid-template-columns: 1fr; gap: 32px; }
+      .img-stack { height: 400px; }
+      .text-panel { padding-top: 0; }
+      .cat-nav { gap: 6px; }
+      .cat-pill { padding: 8px 14px; font-size: 13px; }
+      .nav__links a:not(.nav__back) { display: none; }
+      .img-stack__hint { display: none; }
+    }
+    @media (max-width: 480px) {
+      .img-stack { height: 320px; }
+      .text-panel__title { font-size: 20px; }
+      .text-panel__excerpt { font-size: 13px; }
+    }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-33K0YHE1F7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-33K0YHE1F7');
+  </script>
+</head>
+<body>
+
+  <!-- ============ Nav ============ -->
+  <nav class="nav">
+    <a class="nav__logo" href="index.html">
+      <span class="nav__mark">SZ</span>
+      SYED ZUBAIR<span style="color:var(--accent)">.</span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#about">About</a>
+      <a class="nav__back" href="index.html">← Back to portfolio</a>
+    </div>
+  </nav>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero">
+    <div class="hero__badge">AI Simplified · Series</div>
+    <h1 class="hero__title">AI <em>Simplified.</em></h1>
+    <p class="hero__sub">Complex AI concepts broken down with real product examples. No jargon, just practical patterns every designer and PM should know.</p>
+
+    <div class="cat-nav" id="catNav"></div>
+    <input class="cat-search" type="text" id="catSearch" placeholder="Search titles and topics" />
+  </section>
+
+  <!-- ============ Card deck ============ -->
+  <section class="deck-section">
+    <div class="deck-layout">
+      <!-- Left: image stack -->
+      <div class="img-stack" id="imgStack">
+        <div class="img-stack__hint" id="stackHint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          Click for next
+        </div>
+      </div>
+      <!-- Right: text panel -->
+      <div class="text-panel" id="textPanel">
+        <div class="text-panel__meta" id="panelMeta"></div>
+        <h2 class="text-panel__title" id="panelTitle"></h2>
+        <p class="text-panel__excerpt" id="panelExcerpt"></p>
+        <div class="text-panel__takeaway" id="panelTakeaway"></div>
+        <div class="deck-controls">
+          <button class="deck-btn" id="prevBtn" aria-label="Previous card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="deck-counter" id="deckCounter"></div>
+          <button class="deck-btn" id="nextBtn" aria-label="Next card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="deck-progress"><div class="deck-progress__bar" id="progressBar"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ CTA ============ -->
+  <section class="cta-section">
+    <h2>Want to discuss AI design?</h2>
+    <p>I'm always up for conversations about responsible AI, design systems, and building products people trust.</p>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn--solid" href="https://www.linkedin.com/in/zuuahmed/" target="_blank" rel="noopener">Connect on LinkedIn ↗</a>
+      <a class="cta-btn cta-btn--ghost" href="mailto:zubair3ahmed@gmail.com">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="foot">
+    <span>© 2026 Syed Zubair Ahmed</span>
+    <a href="index.html">Back to portfolio</a>
+  </footer>
+
+  <script>
+  (function(){
+    var CATEGORIES = [
+      { name: "All guides", dot: null },
+      { name: "AI agents & agentic UX", dot: "#60a5fa" },
+      { name: "Conversational & generative AI", dot: "#4ade80" },
+      { name: "Responsible AI", dot: "#fb7185" }
+    ];
+
+    var POSTS = [
+      { day: 1, category: "AI agents & agentic UX", theme: "Agentic AI", title: "Chatbots answer questions. AI agents get things done.",
+        img: "day1-agentic-ai.mp4",
+        excerpt: "Think about replacing a broken laptop. <strong>Traditional workflow:</strong> Raise a ticket → Fill a form → Submit → Chase IT. <strong>Agentic workflow:</strong> \"My laptop is broken. Get me a replacement.\" The agent diagnoses the issue, checks warranty and stock, gets approval, confirms delivery details and resolves the request.",
+        takeaway: "The shift is from designing screens to designing systems that get things done." },
+      { day: 1, category: "Responsible AI", theme: "The mindset shift", title: "Same AI decision. Two different experiences.",
+        excerpt: "An AI loan assistant tells two people they're not eligible. One gets a dead end. The other gets a reason, the data behind it, and a path forward. <strong>Same model. Same decision.</strong> The difference is design.",
+        takeaway: "Responsible AI is also a design problem." },
+      { day: 2, category: "Responsible AI", theme: "Agents raise the stakes", title: "One prompt, two levels of risk.",
+        excerpt: '"Follow up with the client about the delay." A chatbot drafts 3 options. An agent sends an email to 14 people — including the client\'s CFO. <strong>When AI moves from suggesting to acting, design must answer 5 questions before anything runs.</strong>',
+        takeaway: "The further AI goes without oversight, the bigger the blast radius." },
+      { day: 3, category: "Responsible AI", theme: "Fairness & privacy", title: "Design for real users, not the \"ideal\" one.",
+        excerpt: "Most AI features are tested on one person: fluent, fast connection, latest phone. Real users switch languages mid-sentence, use screen readers, and have names the model rarely saw. <strong>If it only works for the ideal user, it's untested.</strong>",
+        takeaway: "Fairness and privacy aren't settings pages. They're design decisions." },
+      { day: 4, category: "Responsible AI", theme: "Transparency", title: "Explainable AI is five short answers.",
+        excerpt: "An expense app auto-categorises a AED 1,240 charge as Business travel. A transparent design shows: <strong>Why, What it used, Confidence, Limitation, Next step.</strong> Five lines. Now the user can decide whether to trust it.",
+        takeaway: "Transparency isn't exposing everything. It's giving people enough to act." },
+      { day: 5, category: "Responsible AI", theme: "Safety", title: "Products need the failure path.",
+        excerpt: "Every AI feature will fail. Users judge it by what happens next. <strong>Wrong policy quote → cite the source. Wrong date → restate intent first. Salary leak → check permissions before generating.</strong> Good AI products design the failure path just as carefully.",
+        takeaway: 'Ask in every review: "What does the user see when this is wrong?"' },
+      { day: 6, category: "Responsible AI", theme: "Human control", title: "Match oversight to the risk.",
+        excerpt: "Human-in-the-loop doesn't mean a confirmation popup on everything. <strong>Low risk: just show results. Medium: ask to confirm. High: explicit approval, every time.</strong> Then give an action receipt: what, when, why, source, and how to reverse it.",
+        takeaway: "Accountability is easy when users can see what happened and how to reverse it." },
+      { day: 7, category: "Responsible AI", theme: "Launch checklist", title: "Ship AI responsibly: the 7-point check.",
+        excerpt: "Before any AI feature ships, run it through 7 checks: <strong>User, Data, Output, Actions, Control, Transparency, Safety.</strong> One question per area. Pin this to your next design review.",
+        takeaway: "Autonomy makes AI useful. Control keeps it responsible." },
+      { day: 8, category: "Responsible AI", series: "plain words", theme: "Clarity", title: "An AI can be right and still leave people confused.",
+        img: "plainwords1-responsible-ai.webp",
+        excerpt: '"Request received." So… did the money go or not? <strong>Nothing broke. The words did.</strong> Making AI easy to understand is a design job.',
+        takeaway: "Nothing broke. The words did. Making AI easy to understand is a design job." },
+      { day: 9, category: "Responsible AI", series: "plain words", theme: "Inclusivity", title: 'Build it for everyone who will use it, not just the "average" user.',
+        img: "plainwords2-responsible-ai.webp",
+        excerpt: '"Call Mama." (said with an accent) — "Sorry, I didn\'t get that." Test with different accents, languages, ages and abilities. <strong>If it only works for some people, it doesn\'t work.</strong>',
+        takeaway: "If it only works for some people, it doesn’t work." },
+      { day: 10, category: "Responsible AI", series: "plain words", theme: "Data & consent", title: "Tell people what data the AI used, and let them say no.",
+        img: "plainwords3-responsible-ai.webp",
+        excerpt: '"You were near the mall yesterday. Here are some deals!" feels creepy. "Suggested because you bought running shoes last month" feels respectful. <strong>If you wouldn\'t say it to a customer\'s face, the AI shouldn\'t say it either.</strong>',
+        takeaway: "If you wouldn’t say it to a customer’s face, the AI shouldn’t say it either." },
+      { day: 11, category: "Responsible AI", series: "plain words", theme: "Explainability", title: "Don’t just give the answer. Say why, and what’s next.",
+        img: "plainwords4-responsible-ai.png",
+        excerpt: '"Your limit is AED 2,000" leaves you guessing. "Your limit is AED 2,000 <strong>because</strong> you\'ve paid on time for 6 months. Want more? <strong>Add your salary account</strong> and we\'ll review it." People don\'t need the maths. They need the reason and a next step.',
+        takeaway: "People don’t need the maths. They need the reason and a next step." },
+      { day: 12, category: "Responsible AI", series: "plain words", theme: "Error handling", title: "Plan for the moment the AI gets it wrong.",
+        img: "plainwords5-responsible-ai.png",
+        excerpt: 'Your milk was out of stock, so we sent almond milk instead… to someone with a nut allergy. <strong>Every AI makes mistakes. Good design catches them before they hurt someone.</strong>',
+        takeaway: "Every AI makes mistakes. Good design catches them before they hurt someone." },
+      { day: 13, category: "Responsible AI", series: "plain words", theme: "Accountability", title: "When AI does something, it should say what, why, and who allowed it.",
+        img: "plainwords6-responsible-ai.png",
+        excerpt: '"A payment of AED 1,200 was made" raises questions. "I paid your AED 1,200 electricity bill <strong>because you turned on auto-pay</strong> on 1 September. Changed your mind? You can cancel until 5 pm." <strong>If nobody can explain what the AI did, nobody can fix it when it\'s wrong.</strong>',
+        takeaway: "If nobody can explain what the AI did, nobody can fix it when it’s wrong." },
+      { day: 14, category: "Responsible AI", series: "plain words", theme: "Oversight", title: "The bigger the consequence, the more the AI should check with you.",
+        img: "plainwords7-responsible-ai.png",
+        excerpt: '"Sort my holiday photos" — Just do it. "Reply to my manager" — Show me first. "Pay this month\'s rent" — Ask me every time. <strong>Let AI do the small things freely. Keep people in charge of the big ones.</strong>',
+        takeaway: "Let AI do the small things freely. Keep people in charge of the big ones." },
+      { day: 2, category: "AI agents & agentic UX", theme: "The 7 layers", title: "An AI agent interface isn’t a chat screen. It’s a control system.",
+        img: "day2-agent-layers.mp4",
+        excerpt: 'I think about it in 7 layers. One example: “Plan a team offsite for 12 people next month.”<br><br><strong>1. Intent:</strong> A 2-day offsite for 12, within budget.<br><strong>2. Context:</strong> Team calendar, travel policy, last offsite feedback.<br><strong>3. Plan:</strong> Show the steps, not just “Working…”<br><strong>4. Tools & actions:</strong> Calendar, venue search, finance.<br><strong>5. Human control:</strong> You approve the $4,800 venue deposit before anything is paid.<br><strong>6. Outcome:</strong> “Offsite booked, 24–25 Nov, invites sent” — not a chat log.<br><strong>7. Transparency & recovery:</strong> “2 people are on leave that week. Pick another week, or go ahead without them?”',
+        takeaway: "Miss one layer and trust breaks. It’s usually #5 (human control) or #7 (transparency & recovery)." }
+    ];
+
+    var catNav = document.getElementById('catNav');
+    var searchInput = document.getElementById('catSearch');
+    var imgStack = document.getElementById('imgStack');
+    var stackHint = document.getElementById('stackHint');
+    var panelMeta = document.getElementById('panelMeta');
+    var panelTitle = document.getElementById('panelTitle');
+    var panelExcerpt = document.getElementById('panelExcerpt');
+    var panelTakeaway = document.getElementById('panelTakeaway');
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    var counterEl = document.getElementById('deckCounter');
+    var progressBar = document.getElementById('progressBar');
+    var activeCat = "All guides";
+    var currentIndex = 0;
+    var filtered = [];
+    var imgEls = [];
+    var isAnimating = false;
+
+    function getCounts() {
+      var counts = {};
+      CATEGORIES.forEach(function(c){ counts[c.name] = 0; });
+      POSTS.forEach(function(p){
+        if (counts[p.category] !== undefined) counts[p.category]++;
+      });
+      counts["All guides"] = POSTS.length;
+      return counts;
+    }
+
+    function buildCatNav() {
+      var counts = getCounts();
+      catNav.innerHTML = '';
+      CATEGORIES.forEach(function(c){
+        var btn = document.createElement('button');
+        btn.className = 'cat-pill' + (c.name === activeCat ? ' is-active' : '');
+        btn.type = 'button';
+        var html = '';
+        if (c.dot) html += '<span class="cat-dot" style="background:' + c.dot + '"></span>';
+        html += '<span>' + c.name + '</span>';
+        html += '<span class="cat-count">' + counts[c.name] + '</span>';
+        btn.innerHTML = html;
+        btn.addEventListener('click', function(){
+          activeCat = c.name;
+          searchInput.value = '';
+          currentIndex = 0;
+          buildCatNav();
+          buildDeck();
+        });
+        catNav.appendChild(btn);
+      });
+    }
+
+    function getSeriesLabel(p) {
+      if (p.series) {
+        var siblings = POSTS.filter(function(x){ return x.series === p.series; });
+        return (siblings.indexOf(p) + 1) + ' of ' + siblings.length;
+      }
+      return 'Day ' + p.day + ' of 7';
+    }
+
+    function getImgSrc(p) {
+      return p.img ? 'images/ai-simplified/' + p.img : 'images/ai-simplified/day' + p.day + '-responsible-ai.png';
+    }
+
+    function buildImgCard(p) {
+      var el = document.createElement('div');
+      el.className = 'img-stack__card is-gone';
+      var src = getImgSrc(p);
+      if (src.endsWith('.mp4')) {
+        el.innerHTML = '<video src="' + src + '" autoplay loop muted playsinline style="width:100%;border-radius:inherit;display:block;"></video>';
+      } else {
+        el.innerHTML = '<img src="' + src + '" alt="' + p.title + '" loading="lazy" />';
+      }
+      return el;
+    }
+
+    function updateTextPanel(p) {
+      panelMeta.innerHTML =
+        '<span class="text-panel__tag">' + p.theme + '</span>';
+      panelTitle.innerHTML = p.title;
+      panelExcerpt.innerHTML = p.excerpt;
+      panelTakeaway.innerHTML = '<span>Takeaway</span>' + p.takeaway;
+    }
+
+    function layoutStack() {
+      imgEls.forEach(function(el, i) {
+        el.className = 'img-stack__card';
+        var offset = i - currentIndex;
+        if (offset === 0) el.classList.add('is-active');
+        else if (offset === 1) el.classList.add('is-behind-1');
+        else if (offset === 2) el.classList.add('is-behind-2');
+        else if (offset === 3) el.classList.add('is-behind-3');
+        else el.classList.add('is-gone');
+      });
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= filtered.length - 1;
+      counterEl.innerHTML = '<em>' + (currentIndex + 1) + '</em> / ' + filtered.length;
+      progressBar.style.width = ((currentIndex + 1) / filtered.length * 100) + '%';
+      if (filtered.length) updateTextPanel(filtered[currentIndex]);
+      stackHint.style.opacity = currentIndex >= filtered.length - 1 ? '0' : '1';
+    }
+
+    function goTo(newIndex, direction) {
+      if (isAnimating || newIndex < 0 || newIndex >= filtered.length || newIndex === currentIndex) return;
+      isAnimating = true;
+      var leaving = imgEls[currentIndex];
+      leaving.classList.remove('is-active');
+      // random exit angle for playfulness
+      var angle = direction === 'next'
+        ? -(8 + Math.random() * 12)
+        : (8 + Math.random() * 12);
+      var tx = direction === 'next' ? -130 : 130;
+      var ty = -20 + Math.random() * 40;
+      leaving.style.transform = 'translateX(' + tx + '%) translateY(' + ty + 'px) rotate(' + angle + 'deg)';
+      leaving.classList.add('is-exiting');
+      // fade text
+      panelTitle.style.opacity = '0';
+      panelExcerpt.style.opacity = '0';
+      panelTakeaway.style.opacity = '0';
+      currentIndex = newIndex;
+      setTimeout(function(){
+        leaving.style.transform = '';
+        leaving.classList.remove('is-exiting');
+        leaving.classList.add('is-gone');
+        // pop-in the new active card
+        var entering = imgEls[currentIndex];
+        if (entering) {
+          entering.classList.add('no-float');
+          setTimeout(function(){ entering.classList.remove('no-float'); }, 500);
+        }
+        layoutStack();
+        panelTitle.style.opacity = '1';
+        panelExcerpt.style.opacity = '1';
+        panelTakeaway.style.opacity = '1';
+        isAnimating = false;
+      }, 480);
+    }
+
+    function buildDeck() {
+      // clear image cards (keep the hint)
+      var cards = imgStack.querySelectorAll('.img-stack__card');
+      cards.forEach(function(c){ c.remove(); });
+      imgEls = [];
+      var query = searchInput.value.toLowerCase().trim();
+      filtered = POSTS.filter(function(p){
+        var catMatch = activeCat === 'All guides' || p.category === activeCat;
+        var searchMatch = !query || p.title.toLowerCase().indexOf(query) > -1 ||
+          p.theme.toLowerCase().indexOf(query) > -1 ||
+          p.excerpt.toLowerCase().indexOf(query) > -1 ||
+          p.category.toLowerCase().indexOf(query) > -1;
+        return catMatch && searchMatch;
+      });
+      if (currentIndex >= filtered.length) currentIndex = Math.max(0, filtered.length - 1);
+      filtered.forEach(function(p){
+        var card = buildImgCard(p);
+        imgStack.insertBefore(card, stackHint);
+        imgEls.push(card);
+      });
+      layoutStack();
+    }
+
+    // Click on image stack advances to next
+    imgStack.addEventListener('click', function(e){
+      if (e.target.closest('.img-stack__hint')) return;
+      goTo(currentIndex + 1, 'next');
+    });
+
+    prevBtn.addEventListener('click', function(){ goTo(currentIndex - 1, 'prev'); });
+    nextBtn.addEventListener('click', function(){ goTo(currentIndex + 1, 'next'); });
+
+    document.addEventListener('keydown', function(e){
+      if (e.target.tagName === 'INPUT') return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goTo(currentIndex + 1, 'next'); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(currentIndex - 1, 'prev'); }
+    });
+
+    // Touch/swipe on image stack
+    var touchStartX = 0, touchStartY = 0, swiping = false;
+    imgStack.addEventListener('touchstart', function(e){
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      swiping = true;
+    }, { passive: true });
+    imgStack.addEventListener('touchend', function(e){
+      if (!swiping) return;
+      swiping = false;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) goTo(currentIndex + 1, 'next');
+        else goTo(currentIndex - 1, 'prev');
+      }
+    }, { passive: true });
+
+    // Mouse-follow tilt on active card
+    imgStack.addEventListener('mousemove', function(e){
+      if (isAnimating || !imgEls[currentIndex]) return;
+      var rect = imgStack.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      var active = imgEls[currentIndex];
+      if (active.classList.contains('is-active') && !active.classList.contains('no-float')) {
+        active.style.transform = 'perspective(800px) rotateY(' + (x * 8) + 'deg) rotateX(' + (-y * 6) + 'deg) scale(1.01)';
+      }
+    });
+    imgStack.addEventListener('mouseleave', function(){
+      if (!imgEls[currentIndex]) return;
+      var active = imgEls[currentIndex];
+      active.style.transform = '';
+    });
+
+    var searchTimer;
+    searchInput.addEventListener('input', function(){
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(function(){
+        currentIndex = 0;
+        buildDeck();
+      }, 200);
+    });
+
+    buildCatNav();
+    buildDeck();
+
+    // Dynamic back link based on referrer
+    var fromParam = new URLSearchParams(window.location.search).get('from');
+    if (fromParam === 'uae') {
+      var backUrl = 'uae/index.html';
+      document.querySelectorAll('a[href="index.html"]').forEach(function(a) {
+        a.href = backUrl;
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

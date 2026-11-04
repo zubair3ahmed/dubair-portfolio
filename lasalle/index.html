@@ -1,0 +1,634 @@
+<title>LaSalle Incentive Fee</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --navy: #0F1D3A;
+    --navy-mid: #1B2D52;
+    --accent: #2E5899;
+    --accent-light: #4A7BC8;
+    --gold: #C4A35A;
+    --gold-muted: #B8975040;
+    --surface: #F7F8FA;
+    --surface-alt: #EDF0F5;
+    --card: #FFFFFF;
+    --text: #1A1E2C;
+    --text-secondary: #5A6178;
+    --text-tertiary: #8B90A0;
+    --border: #D8DCE6;
+    --border-subtle: #E8EBF0;
+    --success: #2A8B5A;
+    --warning: #D4882A;
+    --critical: #C4423A;
+    --mockup-bg: #EDF0F5;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --navy: #0A1220;
+      --navy-mid: #131E34;
+      --accent: #5B8FD4;
+      --accent-light: #7BAAE0;
+      --gold: #D4B76A;
+      --gold-muted: #D4B76A25;
+      --surface: #0E1520;
+      --surface-alt: #141D2C;
+      --card: #1A2438;
+      --text: #E2E5ED;
+      --text-secondary: #9DA3B8;
+      --text-tertiary: #6B7290;
+      --border: #2A3550;
+      --border-subtle: #232E44;
+      --success: #3AAD72;
+      --warning: #E8A040;
+      --critical: #E05850;
+      --mockup-bg: #141D2C;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --navy: #0A1220;
+    --navy-mid: #131E34;
+    --accent: #5B8FD4;
+    --accent-light: #7BAAE0;
+    --gold: #D4B76A;
+    --gold-muted: #D4B76A25;
+    --surface: #0E1520;
+    --surface-alt: #141D2C;
+    --card: #1A2438;
+    --text: #E2E5ED;
+    --text-secondary: #9DA3B8;
+    --text-tertiary: #6B7290;
+    --border: #2A3550;
+    --border-subtle: #232E44;
+    --success: #3AAD72;
+    --warning: #E8A040;
+    --critical: #E05850;
+    --mockup-bg: #141D2C;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--surface);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.65;
+    padding-inline: 24px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  h1, h2, h3 {
+    font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+    font-weight: 400; line-height: 1.2; text-wrap: balance;
+  }
+
+  /* ── Hero ── */
+  .hero { padding: 72px 0 56px; border-bottom: 1px solid var(--border); }
+  .eyebrow {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+  }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 20px; }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--text-secondary);
+    max-width: 580px; line-height: 1.7; margin: 0;
+  }
+  .meta-row {
+    display: flex; flex-wrap: wrap; gap: 28px;
+    margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border);
+  }
+  .meta-item { min-width: 110px; }
+  .meta-label {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 3px;
+  }
+  .meta-value { font-size: 0.92rem; font-weight: 500; }
+
+  /* ── Sections ── */
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  section h2 { font-size: clamp(1.5rem, 3.2vw, 2rem); margin: 0 0 8px; }
+  .section-lead {
+    font-size: 1rem; color: var(--text-secondary);
+    max-width: 580px; margin: 0 0 32px;
+  }
+
+  /* ── Mockup frames ── */
+  .mockup-frame {
+    background: var(--mockup-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 24px 0;
+  }
+  .mockup-frame img {
+    width: 100%; height: auto; display: block;
+  }
+  .mockup-caption {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex; justify-content: space-between; align-items: baseline;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .mockup-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem; font-weight: 600; color: var(--text);
+  }
+  .mockup-desc {
+    font-size: 0.78rem; color: var(--text-tertiary); max-width: 400px;
+  }
+
+  /* ── Two-up ── */
+  .two-up {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0;
+  }
+  .two-up .mockup-frame { margin: 0; }
+
+  /* ── Hero image (full-bleed) ── */
+  .hero-mockup {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 40px 32px 0;
+    margin: 32px 0;
+    overflow: hidden;
+  }
+  .hero-mockup img {
+    width: 100%; height: auto; display: block;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -4px 40px rgba(0,0,0,0.3);
+  }
+
+  /* ── Stat tiles ── */
+  .stat-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px; margin: 28px 0;
+  }
+  .stat-tile {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 22px; text-align: center;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 2.2rem; color: var(--accent); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem; color: var(--text-tertiary);
+    margin-top: 5px; font-weight: 500;
+  }
+
+  /* ── Palette ── */
+  .palette { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+  .swatch { width: 64px; text-align: center; }
+  .swatch-color {
+    width: 64px; height: 40px; border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .swatch-name { font-size: 0.62rem; color: var(--text-tertiary); margin-top: 5px; font-weight: 500; }
+  .swatch-hex { font-size: 0.58rem; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+
+  /* ── Annotated image overlay ── */
+  .annotated {
+    position: relative; border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border); margin: 24px 0;
+  }
+  .annotated img { width: 100%; display: block; }
+  .callout {
+    position: absolute; background: var(--accent); color: #fff;
+    font-size: 0.68rem; font-weight: 600; padding: 4px 10px;
+    border-radius: 4px; white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  /* ── Flow nodes ── */
+  .flow-row {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    align-items: center; justify-content: center; margin: 24px 0;
+  }
+  .flow-node {
+    padding: 9px 16px; border-radius: 8px;
+    font-size: 0.78rem; font-weight: 600; white-space: nowrap;
+  }
+  .flow-arrow { color: var(--text-tertiary); font-size: 1.1rem; }
+
+  /* ── Blockquote ── */
+  blockquote {
+    border-left: 3px solid var(--gold); margin: 28px 0;
+    padding: 14px 22px; background: var(--gold-muted);
+    border-radius: 0 8px 8px 0;
+  }
+  blockquote p {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.1rem; font-style: italic; margin: 0 0 6px; line-height: 1.55;
+  }
+  blockquote cite {
+    font-family: 'Inter', sans-serif; font-style: normal;
+    font-size: 0.78rem; color: var(--text-tertiary); font-weight: 500;
+  }
+
+  /* ── Insight cards ── */
+  .insight-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px; margin: 24px 0;
+  }
+  .insight {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px 20px;
+  }
+  .insight h3 { font-size: 1rem; margin: 0 0 6px; }
+  .insight p {
+    font-size: 0.84rem; color: var(--text-secondary);
+    margin: 0; line-height: 1.6;
+  }
+
+  /* ── Component strip ── */
+  .comp-strip {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    align-items: center; margin: 12px 0;
+  }
+  .pill {
+    display: inline-block; padding: 4px 11px;
+    border-radius: 20px; font-size: 0.72rem; font-weight: 600;
+  }
+  .pill-approved { background: #2A8B5A20; color: var(--success); }
+  .pill-pending { background: #D4882A20; color: var(--warning); }
+  .pill-review { background: #2E589920; color: var(--accent); }
+
+  footer {
+    padding: 40px 0 32px; text-align: center;
+    color: var(--text-tertiary); font-size: 0.78rem;
+  }
+
+  /* ── Click to zoom ── */
+  .zoom-wrap {
+    position: relative;
+    cursor: zoom-in;
+  }
+  .zoom-hint {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: var(--navy);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    padding: 24px;
+  }
+  .lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.4);
+    transform: scale(0.92);
+    transition: transform 0.3s ease;
+  }
+  .lightbox.is-open img {
+    transform: scale(1);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    line-height: 1;
+    padding: 4px 8px;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
+  @media (max-width: 640px) {
+    body { padding-inline: 16px; }
+    .hero { padding: 48px 0 36px; }
+    section { padding: 36px 0; }
+    .two-up { grid-template-columns: 1fr; }
+    .hero-mockup { padding: 24px 16px 0; }
+    .flow-arrow { display: none; }
+    .flow-row { flex-direction: column; }
+    .callout { display: none; }
+    .zoom-hint { display: none; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">UX Case Study</div>
+    <h1>Redesigning Incentive Fee Management for LaSalle</h1>
+    <p class="hero-sub">Transforming a fragmented spreadsheet-based process into a unified platform for tracking real estate fund incentive fees, awards, and realization.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Client</div>
+        <div class="meta-value">LaSalle Investment Mgmt</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">UX/UI Designer</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value">2021</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Platform</div>
+        <div class="meta-value">Enterprise Internal Tool</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ════════ HERO MOCKUP ════════ -->
+  <div class="hero-mockup">
+    <div class="zoom-wrap">
+      <img src="img/screen-fund-details.png" alt="Fund details screen showing the Canada Real Estate Security Program IV with process stepper, allocation donut chart, and awards table">
+      <div class="zoom-hint">Click to zoom</div>
+    </div>
+  </div>
+
+  <!-- ════════ CHALLENGE ════════ -->
+  <section>
+    <h2>The Challenge</h2>
+    <p class="section-lead">LaSalle needed a centralized system to manage incentive fee calculations, award tracking, and realization workflows across global real estate portfolios.</p>
+    <div class="stat-row">
+      <div class="stat-tile">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Manual handoff points</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-num">14</div>
+        <div class="stat-label">Users interviewed</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Disconnected systems</div>
+      </div>
+    </div>
+    <blockquote>
+      <p>We spend more time hunting for the right spreadsheet version than actually reviewing the numbers.</p>
+      <cite>Senior Fund Manager, LaSalle</cite>
+    </blockquote>
+  </section>
+
+  <!-- ════════ PROCESS ════════ -->
+  <section>
+    <h2>Design Process</h2>
+    <p class="section-lead">From stakeholder interviews through workflow mapping, wireframes, and hi-fi prototypes.</p>
+
+    <div class="flow-row">
+      <div class="flow-node" style="background:var(--accent);color:#fff">Research</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-node" style="background:var(--gold-muted);color:var(--text)">User Flows</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-node" style="background:#D4882A20;color:var(--warning)">Wireframes</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-node" style="background:#2A8B5A20;color:var(--success)">Hi-Fi Mockups</div>
+    </div>
+
+    <!-- All hi-fi screens overview -->
+    <div class="mockup-frame">
+      <div class="zoom-wrap">
+        <img src="img/hifi-mockups.png" alt="Overview of all high-fidelity mockup screens showing the complete platform design">
+        <div class="zoom-lens"></div>
+        <div class="zoom-hint">Hover to zoom</div>
+      </div>
+      <div class="mockup-caption">
+        <span class="mockup-title">Hi-Fidelity Mockups</span>
+        <span class="mockup-desc">8 core screens covering the complete incentive fee lifecycle</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ KEY SCREENS ════════ -->
+  <section>
+    <h2>Key Screens</h2>
+    <p class="section-lead">The platform is organized around four primary views, each serving a distinct user need.</p>
+
+    <!-- Fund Details -->
+    <div class="annotated zoom-wrap">
+      <img src="img/screen-fund-details.png" alt="Fund details page with process stepper, donut chart allocations, and awards table">
+      <div class="zoom-lens"></div>
+      <span class="callout" style="top:6%;left:3%">Process Stepper</span>
+      <span class="callout" style="top:6%;right:5%">Allocation Donut</span>
+      <span class="callout" style="bottom:8%;left:3%">Awards Table</span>
+      <div class="zoom-hint">Hover to zoom</div>
+    </div>
+    <div class="mockup-caption" style="padding:0;margin-bottom:32px">
+      <span class="mockup-title">Fund Details &mdash; Overview</span>
+      <span class="mockup-desc">Process timeline, allocations, and award tracking in one view</span>
+    </div>
+
+    <!-- Dashboard + Activity side-by-side -->
+    <div class="two-up">
+      <div class="mockup-frame">
+        <div class="zoom-wrap">
+          <img src="img/screen-dashboard.png" alt="Dashboard with KPI tiles, funds realized YTD, awards realized, and realization forecast chart">
+          <div class="zoom-lens"></div>
+          <div class="zoom-hint">Hover to zoom</div>
+        </div>
+        <div class="mockup-caption">
+          <span class="mockup-title">Dashboard</span>
+          <span class="mockup-desc">KPIs and realization forecast</span>
+        </div>
+      </div>
+      <div class="mockup-frame">
+        <div class="zoom-wrap">
+          <img src="img/screen-activity.png" alt="Realization activity panel showing approval timeline, participant details, and document status">
+          <div class="zoom-lens"></div>
+          <div class="zoom-hint">Hover to zoom</div>
+        </div>
+        <div class="mockup-caption">
+          <span class="mockup-title">Activity Panel</span>
+          <span class="mockup-desc">Full audit trail and approvals</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fund Logs -->
+    <div class="annotated zoom-wrap">
+      <img src="img/screen-fund-logs.png" alt="Fund logs and details view with tabbed navigation showing fund-level data and status">
+      <div class="zoom-lens"></div>
+      <span class="callout" style="top:6%;left:3%">Tab Navigation</span>
+      <span class="callout" style="top:6%;right:3%">Status Filters</span>
+      <div class="zoom-hint">Hover to zoom</div>
+    </div>
+    <div class="mockup-caption" style="padding:0;margin-bottom:32px">
+      <span class="mockup-title">Fund Logs</span>
+      <span class="mockup-desc">Filterable fund-level detail with sortable columns</span>
+    </div>
+
+    <!-- Treemap + Awards Table -->
+    <div class="two-up">
+      <div class="mockup-frame">
+        <div class="zoom-wrap">
+          <img src="img/screen-treemap.png" alt="Treemap visualization of awards data showing proportional distribution across entities">
+          <div class="zoom-lens"></div>
+          <div class="zoom-hint">Hover to zoom</div>
+        </div>
+        <div class="mockup-caption">
+          <span class="mockup-title">Awards Treemap</span>
+          <span class="mockup-desc">Proportional award distribution</span>
+        </div>
+      </div>
+      <div class="mockup-frame">
+        <div class="zoom-wrap">
+          <img src="img/screen-awards-table.png" alt="Awards data table with employee names, amounts, asset values, and status indicators">
+          <div class="zoom-lens"></div>
+          <div class="zoom-hint">Hover to zoom</div>
+        </div>
+        <div class="mockup-caption">
+          <span class="mockup-title">Awards Table</span>
+          <span class="mockup-desc">Detailed per-employee breakdown</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Criteria modals -->
+    <div class="two-up">
+      <div class="mockup-frame">
+        <div class="zoom-wrap">
+          <img src="img/screen-new-criteria.png" alt="New criteria creation modal with name, description, and award type fields">
+          <div class="zoom-lens"></div>
+          <div class="zoom-hint">Hover to zoom</div>
+        </div>
+        <div class="mockup-caption">
+          <span class="mockup-title">New Criteria &mdash; Details</span>
+          <span class="mockup-desc">Define award type and parameters</span>
+        </div>
+      </div>
+      <div class="mockup-frame">
+        <div class="zoom-wrap">
+          <img src="img/screen-criteria-editor.png" alt="Criteria editor modal with allocation percentages, date ranges, and entity search">
+          <div class="zoom-lens"></div>
+          <div class="zoom-hint">Hover to zoom</div>
+        </div>
+        <div class="mockup-caption">
+          <span class="mockup-title">Criteria Editor</span>
+          <span class="mockup-desc">Configure allocation rules</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ DESIGN SYSTEM ════════ -->
+  <section>
+    <h2>Design System</h2>
+    <p class="section-lead">Purpose-built for institutional finance: dense data, complex states, and strict audit requirements.</p>
+
+    <div class="eyebrow" style="margin-top:24px">Color Palette</div>
+    <div class="palette">
+      <div class="swatch"><div class="swatch-color" style="background:#0F1D3A"></div><div class="swatch-name">Navy</div><div class="swatch-hex">#0F1D3A</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#2E5899"></div><div class="swatch-name">Primary</div><div class="swatch-hex">#2E5899</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#4A7BC8"></div><div class="swatch-name">Accent</div><div class="swatch-hex">#4A7BC8</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#2A8B5A"></div><div class="swatch-name">Success</div><div class="swatch-hex">#2A8B5A</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#D4882A"></div><div class="swatch-name">Warning</div><div class="swatch-hex">#D4882A</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C4423A"></div><div class="swatch-name">Critical</div><div class="swatch-hex">#C4423A</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#EDF0F5"></div><div class="swatch-name">Surface</div><div class="swatch-hex">#EDF0F5</div></div>
+    </div>
+
+    <div class="eyebrow" style="margin-top:28px">Status Indicators</div>
+    <div class="comp-strip">
+      <span class="pill pill-approved">Approved</span>
+      <span class="pill pill-pending">Waiting Approval</span>
+      <span class="pill pill-review">Under Review</span>
+    </div>
+  </section>
+
+  <!-- ════════ IMPACT ════════ -->
+  <section>
+    <h2>Impact</h2>
+    <p class="section-lead">The platform replaced disconnected spreadsheets with a single source of truth.</p>
+    <div class="stat-row">
+      <div class="stat-tile">
+        <div class="stat-num">73%</div>
+        <div class="stat-label">Reduction in reporting time</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-num">4&times;</div>
+        <div class="stat-label">Faster approval cycles</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Data reconciliation errors</div>
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight">
+        <h3>Density is a feature</h3>
+        <p>Financial users want more data on screen, not less. Progressive disclosure frustrated power users who needed to compare values side by side.</p>
+      </div>
+      <div class="insight">
+        <h3>Trust through transparency</h3>
+        <p>The audit trail panel was the most requested feature. In regulated finance, provenance matters as much as the number itself.</p>
+      </div>
+      <div class="insight">
+        <h3>Design the exception</h3>
+        <p>Edge cases (partial approvals, criteria amendments, multi-entity splits) were the majority of real usage.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>LaSalle Incentive Fee Platform &mdash; UX Case Study</footer>
+
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <img src="" alt="">
+</div>
+
+<script>
+(function() {
+  var lb = document.getElementById('lightbox');
+  var lbImg = lb.querySelector('img');
+  var lbClose = lb.querySelector('.lightbox-close');
+
+  document.querySelectorAll('.zoom-wrap').forEach(function(wrap) {
+    wrap.addEventListener('click', function(e) {
+      if (e.target.closest('.callout')) return;
+      var img = wrap.querySelector('img');
+      if (!img) return;
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLb() {
+    lb.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb || e.target === lbClose) closeLb();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lb.classList.contains('is-open')) closeLb();
+  });
+})();
+</script>

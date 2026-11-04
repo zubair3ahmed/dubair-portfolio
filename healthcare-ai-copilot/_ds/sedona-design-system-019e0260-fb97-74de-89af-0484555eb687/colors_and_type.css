@@ -1,0 +1,291 @@
+/* Sedona Design System — colors & type tokens
+   Source: Figma "Sedona design system.fig"
+   Lato is loaded from Google Fonts; Mona Sans substitutes for Motiva Sans (display).
+*/
+
+/* Local Lato (uploaded TTFs in /fonts) */
+@font-face { font-family:"Lato"; font-weight:100; font-style:normal; src:url("fonts/Lato-Thin.ttf") format("truetype"); font-display:swap; }
+@font-face { font-family:"Lato"; font-weight:100; font-style:italic; src:url("fonts/Lato-ThinItalic.ttf") format("truetype"); font-display:swap; }
+@font-face { font-family:"Lato"; font-weight:300; font-style:normal; src:url("fonts/Lato-Light.ttf") format("truetype"); font-display:swap; }
+@font-face { font-family:"Lato"; font-weight:300; font-style:italic; src:url("fonts/Lato-LightItalic.ttf") format("truetype"); font-display:swap; }
+@font-face { font-family:"Lato"; font-weight:400; font-style:normal; src:url("fonts/Lato-Regular.ttf") format("truetype"); font-display:swap; }
+@font-face { font-family:"Lato"; font-weight:400; font-style:italic; src:url("fonts/Lato-Italic.ttf") format("truetype"); font-display:swap; }
+@font-face { font-family:"Lato"; font-weight:700; font-style:normal; src:url("fonts/Lato-Bold.ttf") format("truetype"); font-display:swap; }
+@font-face { font-family:"Lato"; font-weight:700; font-style:italic; src:url("fonts/Lato-BoldItalic.ttf") format("truetype"); font-display:swap; }
+@font-face { font-family:"Lato"; font-weight:900; font-style:normal; src:url("fonts/Lato-Black.ttf") format("truetype"); font-display:swap; }
+@font-face { font-family:"Lato"; font-weight:900; font-style:italic; src:url("fonts/Lato-BlackItalic.ttf") format("truetype"); font-display:swap; }
+
+/* Mono + display fallbacks still come from Google Fonts (no local TTFs supplied) */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:wght@500;700;900&display=swap");
+
+:root {
+  /* ─── Brand / primary action ─────────────────────────────── */
+  --sd-blue-50:  #E2F2FF;
+  --sd-blue-100: #B8DEFF;
+  --sd-blue-200: #87CBFF;
+  --sd-blue-300: #49B6FF;
+  --sd-blue-400: #00A4FF;
+  --sd-blue-500: #0094FF;
+  --sd-blue-600: #0085FF;
+  --sd-blue-700: #0071FF;
+  --sd-blue-800: #005FEC;  /* PRIMARY */
+  --sd-blue-900: #1D3BCD;
+  --sd-blue-A50: #E3F5FC;
+
+  /* ─── Neutrals — Dark Grey scale (the workhorse) ─────────── */
+  --sd-grey-50:   #F7F8FA;
+  --sd-grey-100:  #EAEBEF;
+  --sd-grey-200:  #DEDFE4;
+  --sd-grey-300:  #C5C7CE;
+  --sd-grey-400:  #A9B3BE;
+  --sd-grey-500:  #7A7D8C;
+  --sd-grey-600:  #616576;
+  --sd-grey-700:  #54687F;
+  --sd-grey-800:  #171C34;
+  --sd-grey-850:  #151A31;
+  --sd-grey-900:  #0B1029;  /* MIDNIGHT — primary text */
+  --sd-grey-1000: #02040F;
+
+  /* ─── Accent palettes ────────────────────────────────────── */
+  --sd-orange-50:  #FFF2E1;
+  --sd-orange-100: #FFDEB5;
+  --sd-orange-200: #FFC985;
+  --sd-orange-300: #FFB357;
+  --sd-orange-400: #FFA238;
+  --sd-orange-500: #FF9325;
+  --sd-orange-600: #FB8724;
+  --sd-orange-700: #F47822;
+  --sd-orange-800: #ED6A21;
+  --sd-orange-900: #E24F1F;
+
+  --sd-yellow-300: #F2E29C;
+  --sd-yellow-500: #FFCB00;
+  --sd-yellow-700: #F6DB68;
+
+  --sd-green-50:  #E5FDF0;
+  --sd-green-300: #7EEDB4;
+  --sd-green-500: #34E08F;
+  --sd-green-700: #20BA75;
+  --sd-green-800: #18A868;
+  --sd-green-900: #068751;
+
+  --sd-teal-100: #AEE5D8;
+  --sd-teal-500: #00A680;
+  --sd-teal-700: #008763;
+
+  --sd-pink-500: #E8178A;
+
+  --sd-purple-500: #7B61FF;
+  --sd-purple-700: #5D10A8;
+
+  --sd-red-500: #DB3545;
+
+  /* ─── Semantic — colors with meaning ─────────────────────── */
+  --sd-color-primary:        var(--sd-blue-800);
+  --sd-color-primary-hover:  var(--sd-blue-900);
+  --sd-color-primary-light:  var(--sd-blue-50);
+  --sd-color-primary-lighter:var(--sd-blue-A50);
+
+  --sd-color-success:        var(--sd-teal-700);
+  --sd-color-success-light:  var(--sd-green-50);
+  --sd-color-warning:        var(--sd-orange-500);
+  --sd-color-warning-light:  var(--sd-orange-50);
+  --sd-color-danger:         var(--sd-red-500);
+  --sd-color-info:           var(--sd-blue-800);
+
+  /* ─── Surfaces ───────────────────────────────────────────── */
+  --sd-surface:              #FFFFFF;
+  --sd-surface-subtle:       var(--sd-grey-50);
+  --sd-surface-muted:        var(--sd-grey-100);
+  --sd-surface-inverse:      var(--sd-grey-900);
+
+  /* ─── Foreground / text ──────────────────────────────────── */
+  --sd-fg-primary:    var(--sd-grey-900);   /* #0B1029 */
+  --sd-fg-secondary:  #222648;
+  --sd-fg-muted:      var(--sd-grey-600);
+  --sd-fg-disabled:   var(--sd-grey-400);
+  --sd-fg-on-primary: #FFFFFF;
+  --sd-fg-link:       var(--sd-blue-800);
+
+  /* ─── Borders ────────────────────────────────────────────── */
+  --sd-border:        var(--sd-grey-200);   /* #DEDFE4 */
+  --sd-border-strong: var(--sd-grey-300);
+  --sd-border-focus:  var(--sd-blue-800);
+
+  /* ─── Type families ──────────────────────────────────────── */
+  --sd-font-sans:    "Lato", "Helvetica Neue", Arial, sans-serif;
+  --sd-font-display: "Mona Sans", "Lato", "Helvetica Neue", Arial, sans-serif;
+  --sd-font-mono:    "Roboto Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ─── Type scale (px sizes / lh / ls) ────────────────────── */
+  --sd-text-xs:    12px;  --sd-lh-xs:    16px;
+  --sd-text-sm:    14px;  --sd-lh-sm:    20px;
+  --sd-text-base:  16px;  --sd-lh-base:  24px;
+  --sd-text-md:    18px;  --sd-lh-md:    24px;
+  --sd-text-lg:    20px;  --sd-lh-lg:    28px;
+  --sd-text-xl:    24px;  --sd-lh-xl:    32px;
+  --sd-text-2xl:   32px;  --sd-lh-2xl:   40px;
+  --sd-text-3xl:   48px;  --sd-lh-3xl:   56px;
+  --sd-text-4xl:   60px;  --sd-lh-4xl:   72px;
+  --sd-text-display: 132px; --sd-lh-display: 132px;
+
+  /* ─── Spacing scale ──────────────────────────────────────── */
+  --sd-space-1:  4px;
+  --sd-space-2:  8px;
+  --sd-space-3:  12px;
+  --sd-space-4:  16px;
+  --sd-space-5:  24px;
+  --sd-space-6:  32px;
+  --sd-space-7:  40px;
+  --sd-space-8:  64px;
+  --sd-space-9:  80px;
+  --sd-space-10: 120px;
+
+  /* ─── Radii ──────────────────────────────────────────────── */
+  --sd-radius-sm:   4px;
+  --sd-radius-md:   8px;
+  --sd-radius-lg:   16px;
+  --sd-radius-pill: 999px;
+
+  /* ─── Elevation — shadows rooted in midnight blue ────────── */
+  --sd-shadow-sm: 0 1px 2px rgba(34,38,72,0.08);
+  --sd-shadow-md: 0 4px 12px rgba(34,38,72,0.16);
+  --sd-shadow-lg: 0 12px 32px rgba(34,38,72,0.32);
+  --sd-shadow-focus: 0 0 0 2px #FFFFFF, 0 0 0 4px var(--sd-blue-800);
+
+  /* ─── Motion ─────────────────────────────────────────────── */
+  --sd-ease: cubic-bezier(0.2, 0.6, 0.2, 1); /* @kind other */
+  --sd-dur-fast: 150ms; /* @kind other */
+  --sd-dur-base: 200ms; /* @kind other */
+  --sd-dur-slow: 300ms; /* @kind other */
+}
+
+/* ─── Dark theme — apply with <html data-theme="dark"> ─────────
+   Brand action stays Sedona blue but lifts to a brighter step
+   (Blue/700 → Blue/400 range) for AAA contrast on dark surfaces.
+   Surfaces step from 1000 (page) → 900 (card) → 800 (raised).
+*/
+:root[data-theme="dark"] {
+  /* Surfaces */
+  --sd-surface:              #0F1224;     /* card */
+  --sd-surface-subtle:       #070912;     /* page background — deepest */
+  --sd-surface-muted:        #1B1F35;     /* hover / track / chip */
+  --sd-surface-raised:       #181C32;     /* popover, tooltip */
+  --sd-surface-inverse:      #F2F4FA;
+
+  /* Foreground */
+  --sd-fg-primary:    #F2F4FA;
+  --sd-fg-secondary:  #C5C9DD;
+  --sd-fg-muted:      #9098B0;
+  --sd-fg-subtle:     #7A8195;
+  --sd-fg-disabled:   #5B6480;
+  --sd-fg-on-primary: #FFFFFF;
+  --sd-fg-link:       #3B82F7;
+
+  /* Borders */
+  --sd-border:        #262B44;
+  --sd-border-strong: #3A4060;
+  --sd-border-focus:  #3B82F7;
+
+  /* Action — primary blue lifts a step on dark to maintain WCAG AA on body text */
+  --sd-color-primary:        #3B82F7;
+  --sd-color-primary-hover:  #1F4FE0;
+  --sd-color-primary-light:  rgba(59,130,247,.18);
+  --sd-color-primary-lighter: rgba(59,130,247,.10);
+
+  /* Semantic — desaturated/lit one step for dark surfaces */
+  --sd-color-success:        #34E08F;
+  --sd-color-success-light:  rgba(52,224,143,.14);
+  --sd-color-warning:        #FFA238;
+  --sd-color-warning-light:  rgba(255,162,56,.16);
+  --sd-color-danger:         #FF5C6A;
+  --sd-color-info:           #3B82F7;
+
+  /* Shadows — black, deeper, no blue tint (the page itself IS midnight) */
+  --sd-shadow-sm:    0 1px 2px rgba(0,0,0,.40);
+  --sd-shadow-md:    0 4px 14px rgba(0,0,0,.50);
+  --sd-shadow-lg:    0 16px 40px rgba(0,0,0,.65);
+  --sd-shadow-focus: 0 0 0 2px #0F1224, 0 0 0 4px #3B82F7;
+}
+
+/* ─── Semantic typography classes ────────────────────────────
+   Use these directly on elements when you want the canonical
+   Sedona text style without rolling your own size/weight/lh.
+*/
+.sd-display {
+  font-family: var(--sd-font-display);
+  font-weight: 900;
+  font-size: var(--sd-text-display);
+  line-height: var(--sd-lh-display);
+  letter-spacing: -0.02em;
+  color: var(--sd-fg-on-primary);
+}
+.sd-h1 {
+  font-family: var(--sd-font-sans);
+  font-weight: 900;
+  font-size: var(--sd-text-4xl);
+  line-height: var(--sd-lh-4xl);
+  letter-spacing: -0.5px;
+  color: var(--sd-fg-primary);
+}
+.sd-h2 {
+  font-family: var(--sd-font-sans);
+  font-weight: 900;
+  font-size: var(--sd-text-3xl);
+  line-height: var(--sd-lh-3xl);
+  color: var(--sd-fg-primary);
+}
+.sd-h3 {
+  font-family: var(--sd-font-sans);
+  font-weight: 700;
+  font-size: var(--sd-text-xl);
+  line-height: var(--sd-lh-xl);
+  color: var(--sd-fg-primary);
+}
+.sd-h4 {
+  font-family: var(--sd-font-sans);
+  font-weight: 700;
+  font-size: var(--sd-text-md);
+  line-height: var(--sd-lh-md);
+  letter-spacing: 0.25px;
+  color: var(--sd-fg-primary);
+}
+.sd-body {
+  font-family: var(--sd-font-sans);
+  font-weight: 400;
+  font-size: var(--sd-text-base);
+  line-height: var(--sd-lh-base);
+  letter-spacing: 0.5px;
+  color: var(--sd-fg-primary);
+}
+.sd-body-sm {
+  font-family: var(--sd-font-sans);
+  font-weight: 400;
+  font-size: var(--sd-text-sm);
+  line-height: var(--sd-lh-sm);
+  letter-spacing: 0.25px;
+  color: var(--sd-fg-primary);
+}
+.sd-caption {
+  font-family: var(--sd-font-sans);
+  font-weight: 400;
+  font-size: var(--sd-text-xs);
+  line-height: var(--sd-lh-xs);
+  letter-spacing: 0.15px;
+  color: var(--sd-fg-muted);
+}
+.sd-label {
+  font-family: var(--sd-font-sans);
+  font-weight: 700;
+  font-size: var(--sd-text-sm);
+  line-height: var(--sd-lh-sm);
+  letter-spacing: 0.25px;
+  color: var(--sd-fg-primary);
+}
+.sd-mono {
+  font-family: var(--sd-font-mono);
+  font-weight: 500;
+  font-size: var(--sd-text-sm);
+  line-height: var(--sd-lh-sm);
+}

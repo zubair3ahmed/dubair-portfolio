@@ -1,0 +1,257 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>AI Workflow Timeline</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#080a14;font-family:"Inter",sans-serif;color:#eef0f8;-webkit-font-smoothing:antialiased}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden}
+.grid{position:absolute;inset:0;background-image:radial-gradient(rgba(139,132,255,.16) 1.2px,transparent 1.4px);background-size:40px 40px;mask-image:radial-gradient(ellipse at 60% 60%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 60% 60%,#000 20%,transparent 75%)}
+#glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(109,94,240,.28),rgba(160,92,240,.08) 40%,transparent 70%);transform:translate(-50%,-50%);pointer-events:none}
+#glow2{position:absolute;left:1500px;top:-200px;width:1000px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.10),transparent 65%);transform:translate(-50%,0)}
+svg{position:absolute;inset:0}
+.head{position:absolute;left:120px;top:92px}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:#a39eff}
+.eyebrow i{display:block;width:30px;height:2px;background:linear-gradient(90deg,#6d5ef0,#a05cf0)}
+.h1{font-size:64px;font-weight:750;letter-spacing:-.025em;line-height:1.08;overflow:hidden;padding-bottom:6px}
+.h1 span{display:inline-block}
+#l1{margin-top:18px}
+.grad{background:linear-gradient(90deg,#8b84ff,#a05cf0 40%,#38bdf8 75%,#34d399);-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{position:absolute;width:360px;padding:22px 24px 22px;border-radius:18px;background:rgba(18,22,40,.92);border:1.5px solid #2a3048;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.card.on{border-color:transparent;background:linear-gradient(#121628,#121628) padding-box,conic-gradient(from var(--a,0deg),#6d5ef0,#a05cf0,#38bdf8,#34d399,#6d5ef0) border-box;box-shadow:0 24px 60px -18px rgba(109,94,240,.65)}
+.ctop{display:flex;align-items:center;justify-content:space-between}
+.no{font-size:15px;font-weight:700;letter-spacing:.12em;color:#8b84ff}
+.tool{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:650;padding:5px 12px;border-radius:999px;background:#221f4a;color:#c9c5ff;border:1px solid #34307a}
+.tool b{width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#6d5ef0,#a05cf0);box-shadow:0 0 8px #8b84ff}
+.card h3{font-size:27px;font-weight:700;letter-spacing:-.015em;margin-top:14px;line-height:1.15}
+.card p{font-size:17px;line-height:1.5;color:#c3c8da;margin-top:10px}
+.tags{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.tags span{font-size:13.5px;font-weight:600;color:#aeb5ca;padding:4px 10px;border-radius:8px;background:#1d2236;border:1px solid #2a3048}
+.cp{position:absolute;font-size:14px;font-weight:650;color:#4ade80;letter-spacing:.04em;white-space:nowrap;transform:translateX(-50%);display:flex;align-items:center;gap:6px}
+.goalLbl{position:absolute;right:62px;top:248px;text-align:right;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.goalLbl .gk{font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#4ade80}
+.goalLbl .gv{font-size:22px;line-height:1.2;font-weight:700;padding:8px 14px;border-radius:12px;background:#12301f;border:1px solid #1f6b3e;color:#eef0f8}
+.stat{position:absolute;left:120px;top:322px;text-align:left}
+.guard{position:absolute;left:1060px;top:760px;width:740px;padding:18px 20px 14px;border-radius:18px;background:rgba(13,26,22,.88);border:1.5px solid #1f4a35;box-shadow:0 30px 60px -24px rgba(0,0,0,.7)}
+.gh{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#4ade80}
+.gh span{color:#7f8aa6;letter-spacing:.1em}
+.grow{position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;margin-top:12px;padding:12px 16px;border-radius:12px;background:#121628;border:1px solid #2a3048}
+.grow.done{border-color:#1f6b3e;background:#0f1d1a}
+.gsk{flex:1;min-width:0}
+.gsk code{font-family:"DejaVu Sans Mono",monospace;font-size:17px;font-weight:600;color:#c9c5ff;background:#221f4a;border:1px solid #34307a;border-radius:7px;padding:3px 9px}
+.gsk small{display:block;font-size:15px;color:#aeb5ca;margin-top:8px}
+.gst{flex:none;font-size:15px;font-weight:700;min-width:118px;text-align:right}
+.sweep{position:absolute;top:0;bottom:0;width:140px;background:linear-gradient(90deg,transparent,rgba(74,222,128,.22),transparent);pointer-events:none}
+.stat .k{font-size:17px;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:#aeb5ca}
+.stat .v{font-size:80px;font-weight:780;letter-spacing:-.04em;line-height:1;margin-top:10px;font-variant-numeric:tabular-nums}
+.stat .v small{font-size:52px;font-weight:600;color:#667085;letter-spacing:-.02em;margin:0 16px;position:relative;top:-6px}
+.stat .s{font-size:19px;color:#c3c8da;margin-top:12px}
+.brand{position:absolute;left:120px;bottom:44px;display:flex;align-items:center;gap:12px;font-size:17px;font-weight:600;color:#aeb5ca}
+.logo{width:34px;height:30px;border-radius:9px;background:linear-gradient(135deg,#6d5ef0,#a05cf0);display:grid;place-items:center}
+.motto{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);font-size:18px;color:#c3c8da;display:flex;gap:10px;align-items:center}
+.motto b{color:#4ade80}
+</style></head><body>
+<div id="stage">
+  <div class="grid"></div>
+  <div id="glow2"></div>
+  <div id="glow"></div>
+  <svg width="1920" height="1080" viewBox="0 0 1920 1080">
+    <defs>
+      <linearGradient id="g" gradientUnits="userSpaceOnUse" x1="60" y1="0" x2="1880" y2="0">
+        <stop offset="0" stop-color="#6d5ef0"/><stop offset=".4" stop-color="#a05cf0"/><stop offset=".72" stop-color="#38bdf8"/><stop offset="1" stop-color="#34d399"/>
+      </linearGradient>
+      <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="blur2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+    </defs>
+    <path id="track" fill="none" stroke="#2a3048" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/>
+    <path id="progGlow" fill="none" stroke="url(#g)" stroke-width="14" stroke-linecap="round" filter="url(#blur)" opacity=".7"/>
+    <path id="prog" fill="none" stroke="url(#g)" stroke-width="5" stroke-linecap="round"/>
+    <g id="connectors"></g>
+    <g id="checks"></g>
+    <g id="nodes"></g>
+    <g id="gconn"><line id="gl0" stroke-width="2" stroke-dasharray="4 6"/><line id="gl1" stroke-width="2" stroke-dasharray="4 6"/><circle id="gd0" r="4"/><circle id="gd1" r="4"/></g>
+    <g id="sh0" class="shield"><circle r="15" fill="#080a14" stroke="#4ade80" stroke-width="2"/><path d="M0 -8 L6.5 -5.4 V-0.7 C6.5 3.6 3.6 6.9 0 8 C-3.6 6.9 -6.5 3.6 -6.5 -0.7 V-5.4 Z" fill="#4ade80"/></g>
+    <g id="sh1" class="shield"><circle r="15" fill="#080a14" stroke="#4ade80" stroke-width="2"/><path d="M0 -8 L6.5 -5.4 V-0.7 C6.5 3.6 3.6 6.9 0 8 C-3.6 6.9 -6.5 3.6 -6.5 -0.7 V-5.4 Z" fill="#4ade80"/></g>
+    <g id="spark">
+      <circle r="34" fill="#a39eff" opacity=".35" filter="url(#blur)"/>
+      <circle r="14" fill="#fff" opacity=".6" filter="url(#blur2)"/>
+      <circle r="8" fill="#fff"/>
+    </g>
+    <circle id="burst" r="10" fill="none" stroke="#34d399" stroke-width="3"/>
+    <circle id="burst2" r="10" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+    <g id="goal">
+      <circle r="46" fill="#34d399" opacity=".25" filter="url(#blur)" id="goalHalo"/>
+      <rect id="goalBox" x="-26" y="-26" width="52" height="52" rx="15" fill="#080a14" stroke="#3a4262" stroke-width="3"/>
+      <path id="goalStar" d="M0 -13 l3.4 9.6 9.6 3.4 -9.6 3.4 -3.4 9.6 -3.4 -9.6 -9.6 -3.4 9.6 -3.4z" fill="#3a4262"/>
+    </g>
+  </svg>
+
+  <div class="head">
+    <div class="eyebrow" id="eb"><i></i>AI-assisted design workflow</div>
+    <div class="h1" id="l1"><span>From research to a working prototype,</span></div>
+    <div class="h1" id="l2"><span class="grad">with AI in every step.</span></div>
+  </div>
+
+  <div id="cards"></div>
+  <div class="goalLbl" id="goalLbl"><span class="gk">Finish</span><span class="gv">Prototype<br>ready</span></div>
+  <div id="cps"></div>
+
+  <div class="stat" id="stat">
+    <div class="k">End to end</div>
+    <div class="v"><span>Idea</span><small>→</small><span class="grad">Prototype</span></div>
+    <div class="s">AI does the heavy lifting. You make the calls.</div>
+  </div>
+  <div class="guard" id="guard">
+    <div class="gh"><svg width="18" height="20" viewBox="-10 -12 20 24" style="position:static"><path d="M0 -11 L9 -7.5 V-1 C9 5 5 9.5 0 11 C-5 9.5 -9 5 -9 -1 V-7.5 Z" fill="#4ade80"/></svg>Guardrails <span>· Claude skills</span></div>
+    <div class="grow" id="gr0"><div class="gsk"><code>design:accessibility-review</code><small>WCAG 2.1 AA audit: contrast, keyboard, focus, screen readers</small></div><div class="gst" id="gs0"></div><i class="sweep" id="sw0"></i></div>
+    <div class="grow" id="gr1"><div class="gsk"><code>ux-designer</code><small>Colour-contrast check across themes and states</small></div><div class="gst" id="gs1"></div><i class="sweep" id="sw1"></i></div>
+  </div>
+  <div class="motto" id="motto"><b>◆</b> A human decision at every hand-off</div>
+  <div class="brand" id="brand"><div class="logo"><svg width="16" height="16" viewBox="0 0 24 24" style="position:static"><path fill="#fff" d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></div>AI design workflow</div>
+</div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+const steps=[
+ {x:300,y:915,no:'01',tool:'ChatGPT',t:'Research & requirements',d:'Desk research, requirement analysis and a first draft of the logic.',tags:['Requirements','Logic draft']},
+ {x:700,y:790,no:'02',tool:'Figma AI',t:'Discovery workshop',d:'Insights and user journeys synthesised, then patterns mapped.',tags:['Insights','Journeys','AI patterns']},
+ {x:1100,y:665,no:'03',tool:'Claude Code',t:'Build',d:'Vibe-code a working prototype, iterating in conversation.',tags:['Prototype','Iteration']},
+ {x:1500,y:540,no:'04',tool:'AI + design system',t:'Design system',d:'Start from a base system, then customise tokens and components.',tags:['Tokens','Components']},
+];
+const checks=[{x:500,y:885},{x:900,y:760},{x:1300,y:635},{x:1690,y:505}];
+const pts=[[60,1000],[300,915],[500,885],[700,790],[900,760],[1100,665],[1300,635],[1500,540],[1690,505],[1810,418]];
+const GOAL={x:1810,y:418};
+// catmull-rom -> bezier
+function cr(p){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=0;i<p.length-1;i++){const p0=p[i-1]||p[i],p1=p[i],p2=p[i+1],p3=p[i+2]||p2;const k=6/1;d+=` C${p1[0]+(p2[0]-p0[0])/k} ${p1[1]+(p2[1]-p0[1])/k}, ${p2[0]-(p3[0]-p1[0])/k} ${p2[1]-(p3[1]-p1[1])/k}, ${p2[0]} ${p2[1]}`}return d}
+const D=cr(pts);
+['track','prog','progGlow'].forEach(id=>document.getElementById(id).setAttribute('d',D));
+const P=document.getElementById('prog');const L=P.getTotalLength();
+function lenAtX(x){let lo=0,hi=L;for(let i=0;i<40;i++){const m=(lo+hi)/2;P.getPointAtLength(m).x<x?lo=m:hi=m}return lo}
+const nodeLen=steps.map(s=>lenAtX(s.x)),checkLen=checks.map(c=>lenAtX(c.x));
+// build nodes
+const gN=document.getElementById('nodes'),gC=document.getElementById('checks'),gK=document.getElementById('connectors');
+steps.forEach((s,i)=>{
+  const g=document.createElementNS(NS,'g');g.innerHTML=`<circle class="pulse" r="18" fill="none" stroke="#a39eff" stroke-width="2"/><circle class="halo" r="22" fill="#6d5ef0" opacity=".25"/><circle class="ring" r="14" fill="#080a14" stroke="url(#g)" stroke-width="4"/><circle class="core" r="6" fill="#fff"/>`;
+  g.setAttribute('transform',`translate(${s.x} ${s.y})`);gN.appendChild(g);s.g=g;
+  const ln=document.createElementNS(NS,'line');ln.setAttribute('x1',s.x);ln.setAttribute('x2',s.x);ln.setAttribute('stroke','#3a4262');ln.setAttribute('stroke-width','2');ln.setAttribute('stroke-dasharray','4 6');gK.appendChild(ln);s.ln=ln;
+  const c=document.createElement('div');c.className='card';c.innerHTML=`<div class="ctop"><span class="no">STEP ${s.no}</span><span class="tool"><b></b>${s.tool}</span></div><h3>${s.t}</h3><p>${s.d}</p><div class="tags">${s.tags.map(t=>`<span>${t}</span>`).join('')}</div>`;
+  document.getElementById('cards').appendChild(c);s.c=c;
+});
+checks.forEach(c=>{
+  const g=document.createElementNS(NS,'g');g.innerHTML=`<rect class="dia" x="-9" y="-9" width="18" height="18" rx="3" transform="rotate(45)" fill="#080a14" stroke="#3a4262" stroke-width="2.5"/><path class="tick" d="M-4.5 0.5 L-1.2 3.6 L4.8 -3.2" fill="none" stroke="#08130d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+  g.setAttribute('transform',`translate(${c.x} ${c.y})`);gC.appendChild(g);c.g=g;
+  const l=document.createElement('div');l.className='cp';l.innerHTML='Human review ✓';l.style.left=c.x+'px';l.style.top=(c.y+24)+'px';document.getElementById('cps').appendChild(l);c.l=l;
+});
+// layout cards
+steps.forEach(s=>{const h=s.c.offsetHeight;s.h=h;let left=Math.min(Math.max(s.x-180,90),1920-90-360);s.left=left;s.bottom=s.y-62;s.c.style.left=left+'px';s.c.style.top=(s.bottom-h)+'px'});
+
+// easing
+const cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const pr=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3), eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.7,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+// timeline
+const T={launch:3.0,arrive:[4.0,7.4,10.8,14.2],leave:[6.0,9.4,12.8],end:17.6,endLeave:16.2};
+function sparkLen(t){
+  if(t<T.launch)return 0;
+  const segs=[[T.launch,T.arrive[0],0,nodeLen[0]]];
+  for(let i=0;i<3;i++)segs.push([T.leave[i],T.arrive[i+1],nodeLen[i],nodeLen[i+1]]);
+  segs.push([T.endLeave,T.end,nodeLen[3],L]);
+  let cur=0;for(const [a,b,l0,l1] of segs){if(t>=a){cur=t>=b?l1:l0+(l1-l0)*eio(pr(t,a,b))}}
+  return cur;
+}
+function render(t){
+  const $=id=>document.getElementById(id);
+  // header
+  const e1=eo(pr(t,.2,1.0));$('eb').style.opacity=e1;$('eb').style.transform=`translateX(${(1-e1)*-20}px)`;
+  const a=eo(pr(t,.45,1.35)),b=eo(pr(t,1.0,1.9));
+  $('l1').firstChild.style.transform=`translateY(${(1-a)*80}px)`;$('l1').style.opacity=a>0?1:0;
+  $('l2').firstChild.style.transform=`translateY(${(1-b)*80}px)`;$('l2').style.opacity=b>0?1:0;
+  // track
+  const tr=eio(pr(t,1.8,3.0));$('track').style.strokeDasharray=`2 12`;$('track').style.opacity=tr;
+  $('track').setAttribute('stroke-dashoffset',0);$('track').style.clipPath=`inset(0 ${(1-tr)*100}% 0 0)`;
+  // progress
+  const sl=sparkLen(t);
+  for(const id of ['prog','progGlow']){const p=$(id);p.style.strokeDasharray=`${sl} ${L+10}`;p.style.opacity=sl>0.5?1:0}
+  $('progGlow').style.opacity=sl>.5?.6:0;
+  const sp=P.getPointAtLength(sl);
+  const sOn=eo(pr(t,2.6,3.0))*(1-eo(pr(t,T.end,T.end+.35)));
+  const flick=1+.12*Math.sin(t*14);
+  $('spark').setAttribute('transform',`translate(${sp.x} ${sp.y}) scale(${sOn*flick})`);
+  $('glow').style.left=sp.x+'px';$('glow').style.top=sp.y+'px';$('glow').style.opacity=.4+.6*eo(pr(t,2.4,3.2));
+  // nodes + cards
+  steps.forEach((s,i)=>{
+    const at=T.arrive[i];
+    const pre=eo(pr(t,2.2+i*.12,2.8+i*.12));  // dormant node visible
+    const hit=pr(t,at-.05,at+.45);
+    const sc=.55*pre+ (t>=at-.05?back(hit)*0.45:0);
+    s.g.setAttribute('transform',`translate(${s.x} ${s.y}) scale(${sc||0.0001})`);
+    s.g.querySelector('.core').setAttribute('opacity',t>=at?1:.35);
+    s.g.querySelector('.ring').setAttribute('stroke',t>=at?'url(#g)':'#3a4262');
+    const pu=pr(t,at,at+1.0);s.g.querySelector('.pulse').setAttribute('r',18+pu*46);s.g.querySelector('.pulse').setAttribute('opacity',pu>0&&pu<1?(1-pu)*.9:0);
+    const pu2=pr(t,at+.25,at+1.25);s.g.querySelector('.halo').setAttribute('opacity',t>=at?.22+.1*Math.sin(t*3+i):0);
+    // connector
+    const cn=eo(pr(t,at+.1,at+.5));s.ln.setAttribute('y1',s.y-16);s.ln.setAttribute('y2',s.y-16-(46*cn));s.ln.setAttribute('opacity',cn>0?1:0);
+    // card
+    const cc=eo(pr(t,at+.3,at+.95));
+    const nextAt=T.arrive[i+1]??T.end;
+    const dim= (t>nextAt && t<T.end+.4)?.5:1;
+    const relight=eo(pr(t,T.end+.2,T.end+.9));
+    const op=cc*(dim<1?(.5+.5*relight):1);
+    s.c.style.opacity=op;s.c.style.transform=`translateY(${(1-cc)*36}px) scale(${.96+.04*cc})`;
+    const active=t>=at+.3&&t<nextAt;
+    s.c.classList.toggle('on',active);
+    s.c.style.setProperty('--a',(t*90%360)+'deg');
+    // inner stagger
+    const kids=[...s.c.children];kids.forEach((k,j)=>{const e=eo(pr(t,at+.45+j*.12,at+.9+j*.12));k.style.opacity=e;k.style.transform=`translateY(${(1-e)*10}px)`});
+  });
+  checks.forEach((c,i)=>{
+    const pass=sl>=checkLen[i];const tp=t; // approximate pass time via flag
+    if(c.tPass===undefined&&pass)c.tPass=t; if(!pass)c.tPass=undefined;
+    const k=c.tPass!==undefined?pr(t,c.tPass,c.tPass+.4):0;
+    const pre=eo(pr(t,2.4+i*.12,2.9+i*.12));
+    const sc=pre*(1+.35*Math.sin(Math.PI*k));
+    c.g.setAttribute('transform',`translate(${c.x} ${c.y}) scale(${sc||0.0001})`);
+    const dia=c.g.querySelector('.dia');dia.setAttribute('fill',k>0?'#4ade80':'#080a14');dia.setAttribute('stroke',k>0?'#4ade80':'#3a4262');
+    c.g.querySelector('.tick').setAttribute('opacity',k);
+    c.l.style.opacity=eo(k);c.l.style.transform=`translate(-50%,${(1-eo(k))*-8}px)`;
+  });
+  // end burst
+  const bu=pr(t,T.end-.05,T.end+.9);const end=P.getPointAtLength(L);
+  const burst=$('burst');burst.setAttribute('cx',end.x);burst.setAttribute('cy',end.y);burst.setAttribute('r',10+bu*70);burst.setAttribute('opacity',bu>0&&bu<1?1-bu:0);
+  // goal
+  const gIn=eo(pr(t,2.9,3.4));const gh=pr(t,T.end-.05,T.end+.55);
+  const gs=gIn*(.8+(t>=T.end-.05?back(gh)*.2:0)+.03*Math.sin(t*2.2)*(t>T.end?1:0));
+  $('goal').setAttribute('transform',`translate(${GOAL.x} ${GOAL.y}) scale(${gs||0.0001}) rotate(${(1-eo(gh))*-45})`);
+  const won=t>=T.end-.05;
+  $('goalBox').setAttribute('fill',won?'url(#gg)':'#080a14');$('goalBox').setAttribute('stroke',won?'#34d399':'#3a4262');
+  $('goalStar').setAttribute('fill',won?'#fff':'#3a4262');
+  $('goalHalo').setAttribute('opacity',won?.35+.12*Math.sin(t*3):0);
+  const b2=pr(t,T.end+.15,T.end+1.2);const bb=$('burst2');bb.setAttribute('cx',GOAL.x);bb.setAttribute('cy',GOAL.y);bb.setAttribute('r',20+b2*90);bb.setAttribute('opacity',b2>0&&b2<1?(1-b2)*.8:0);
+  const gl=eo(pr(t,T.end+.25,T.end+.85));$('goalLbl').style.opacity=gl;$('goalLbl').style.transform=`translateY(${(1-gl)*-14}px)`;
+  // guardrails
+  const G=[{n:steps[2],win:[12.3,13.5]},{n:steps[3],win:[14.9,16.0]}];
+  const gin=eo(pr(t,11.5,12.1));$('guard').style.opacity=gin;$('guard').style.transform=`translateY(${(1-gin)*30}px)`;
+  const gtop=760;
+  G.forEach((g,i)=>{
+    const [a,b]=g.win;const x=g.n.x,y0=g.n.y+44;
+    const ln=$('gl'+i),dt=$('gd'+i);const lp=eo(pr(t,11.7+i*.2,12.3+i*.2));
+    ln.setAttribute('x1',x);ln.setAttribute('x2',x);ln.setAttribute('y1',y0);ln.setAttribute('y2',y0+(gtop-y0)*lp);
+    const passed=t>=b;const col=passed?'#4ade80':'#3a4262';
+    ln.setAttribute('stroke',col);ln.setAttribute('opacity',lp>0?1:0);dt.setAttribute('cx',x);dt.setAttribute('cy',gtop);dt.setAttribute('fill',col);dt.setAttribute('opacity',lp>=1?1:0);
+    const sw=$('sw'+i),row=$('gr'+i),st=$('gs'+i);
+    const sp=pr(t,a,b);sw.style.left=(-140+sp*(row.offsetWidth+140))+'px';sw.style.opacity=(sp>0&&sp<1)?1:0;
+    row.classList.toggle('done',passed);
+    if(t<a){st.style.color='#7f8aa6';st.textContent='Queued'}
+    else if(!passed){st.style.color='#c3c8da';st.textContent='Auditing'+'.'.repeat(1+Math.floor(t*4)%3)}
+    else{st.style.color='#4ade80';st.textContent='✓ Passed'}
+    const sk=pr(t,b,b+.45);$('sh'+i).setAttribute('transform',`translate(${x} ${g.n.y+30}) scale(${t>=b?back(sk):0.0001})`);
+  });
+  // stat
+  const st=eo(pr(t,T.end+.1,T.end+.8));$('stat').style.opacity=st;$('stat').style.transform=`translateY(${(1-st)*30}px)`;
+  const m=eo(pr(t,T.end+1.5,T.end+2.2));$('motto').style.opacity=m;$('motto').style.transform=`translate(-50%,${(1-m)*14}px)`;
+  const br=eo(pr(t,.6,1.4));$('brand').style.opacity=br;
+}
+window.render=render;window.DUR=22.5;
+// live preview when opened directly
+if(!window.__capture){let t0=performance.now();(function loop(){const t=((performance.now()-t0)/1000)%(window.DUR+1);for(const c of checks)if(t<.1)c.tPass=undefined;render(Math.min(t,window.DUR));requestAnimationFrame(loop)})()}
+</script>
+</body></html>

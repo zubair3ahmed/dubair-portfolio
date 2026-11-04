@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-33K0YHE1F7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-33K0YHE1F7');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>On-Demand Ride Booking — RTL Product Design — Syed Zubair Ahmed</title>
+  <meta name="description" content="Designing a bilingual ride-booking experience for Saudi Arabia — Arabic RTL and English LTR in one cohesive product. A product design case study by Syed Zubair Ahmed." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0c0a13; --bg-alt: #12101a; --surface: #1a1726;
+      --fg: #f5f3fa; --muted: rgba(245,243,250,.5);
+      --border: rgba(255,255,255,.07);
+      --purple: #8b5cf6; --purple-soft: rgba(139,92,246,.12);
+      --gold: #f0c84d; --gold-soft: rgba(240,200,77,.1);
+      --cream: #faf5eb;
+      --font: 'Inter', -apple-system, sans-serif;
+      --gutter: clamp(20px, 4vw, 56px);
+      --maxw: 1080px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--fg); font-family: var(--font); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ---- Nav ---- */
+    .nav { max-width: var(--maxw); margin: 0 auto; padding: 20px var(--gutter); display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; letter-spacing: .06em; }
+    .nav__mark { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 10px; background: var(--purple); color: #fff; font-weight: 700; font-size: 12px; }
+    .nav__back { padding: 8px 18px; border-radius: 999px; border: 1px solid var(--border); font-size: 13px; transition: all .2s; color: var(--muted); }
+    .nav__back:hover { background: var(--purple-soft); border-color: rgba(139,92,246,.4); color: var(--fg); }
+
+    /* ---- Hero ---- */
+    .hero { max-width: var(--maxw); margin: 0 auto; padding: 80px var(--gutter) 48px; text-align: center; }
+    .hero__label { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--purple); margin-bottom: 28px; }
+    .hero__label::before, .hero__label::after { content: ''; width: 24px; height: 1px; background: var(--purple); opacity: .4; }
+    .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.03em; margin-bottom: 24px; }
+    .hero h1 .em { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 700; color: var(--gold); }
+    .hero__sub { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto 40px; line-height: 1.7; }
+    .hero__meta { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+    .hero__meta strong { color: var(--fg); font-weight: 600; display: block; }
+
+    /* ---- Sections ---- */
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+    .section { padding: 100px 0; }
+    .section--border { border-top: 1px solid var(--border); }
+    .sec-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--purple); margin-bottom: 16px; }
+    .sec-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 20px; }
+    .sec-title .em { color: var(--gold); font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 700; }
+    .sec-body { font-size: 16px; color: var(--muted); max-width: 680px; line-height: 1.8; }
+    .sec-body + .sec-body { margin-top: 16px; }
+
+    /* ---- Phone mockup ---- */
+    .phone { background: var(--surface); border: 1px solid rgba(255,255,255,.08); border-radius: 40px; padding: 12px; box-shadow: 0 24px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.03); overflow: hidden; display: inline-block; position: relative; }
+    .phone img { border-radius: 28px; display: block; width: 100%; }
+
+    /* ---- Screen showcase grid ---- */
+    .showcase { display: flex; gap: 24px; justify-content: center; align-items: flex-start; flex-wrap: wrap; margin-top: 56px; }
+    .showcase .phone { max-width: 240px; flex-shrink: 0; transition: transform .4s var(--ease); }
+    .showcase .phone:hover { transform: translateY(-12px); }
+
+    /* ---- Swipe comparison ---- */
+    .swipe-section { padding: 100px 0; overflow: hidden; }
+    .swipe-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+    .swipe-container { position: relative; margin-top: 56px; display: flex; justify-content: center; gap: 0; }
+    .swipe-pair { position: relative; display: flex; align-items: center; justify-content: center; gap: 0; cursor: pointer; }
+    .swipe-phone { max-width: 280px; position: relative; z-index: 1; transition: transform .6s var(--ease); }
+    .swipe-phone--en { transform: translateX(40px); }
+    .swipe-phone--ar { transform: translateX(-40px); }
+    .swipe-pair:hover .swipe-phone--en { transform: translateX(90px); }
+    .swipe-pair:hover .swipe-phone--ar { transform: translateX(-90px); }
+
+    .swipe-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 10px; pointer-events: none; }
+    .swipe-arrows { display: flex; align-items: center; gap: 6px; }
+    .swipe-arrow-line { width: 48px; height: 2px; background: var(--purple); border-radius: 1px; position: relative; opacity: .8; }
+    .swipe-arrow-line::after { content: ''; position: absolute; top: 50%; width: 8px; height: 8px; border: 2px solid var(--purple); border-radius: 1px; }
+    .swipe-arrow-line--left::after { right: -1px; transform: translateY(-50%) rotate(45deg); border-left: 0; border-bottom: 0; }
+    .swipe-arrow-line--right::after { left: -1px; transform: translateY(-50%) rotate(-135deg); border-left: 0; border-bottom: 0; }
+    .swipe-arrow-line--left { animation: swipe-nudge-left 2s var(--ease) infinite; }
+    .swipe-arrow-line--right { animation: swipe-nudge-right 2s var(--ease) infinite; }
+    @keyframes swipe-nudge-left { 0%, 100% { transform: translateX(0); opacity: .8; } 50% { transform: translateX(-8px); opacity: 1; } }
+    @keyframes swipe-nudge-right { 0%, 100% { transform: translateX(0); opacity: .8; } 50% { transform: translateX(8px); opacity: 1; } }
+
+    .swipe-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 16px rgba(139,92,246,.6), 0 0 40px rgba(139,92,246,.2); animation: swipe-pulse 2s ease-in-out infinite; }
+    @keyframes swipe-pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 16px rgba(139,92,246,.6), 0 0 40px rgba(139,92,246,.2); } 50% { transform: scale(1.3); box-shadow: 0 0 24px rgba(139,92,246,.8), 0 0 56px rgba(139,92,246,.3); } }
+
+    .swipe-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .15em; color: var(--muted); }
+    .swipe-label span { color: var(--purple); }
+
+    .swipe-pair:hover .swipe-arrow-line--left { animation: swipe-fly-left .6s var(--ease) forwards; }
+    .swipe-pair:hover .swipe-arrow-line--right { animation: swipe-fly-right .6s var(--ease) forwards; }
+    @keyframes swipe-fly-left { to { transform: translateX(-20px); opacity: 0; } }
+    @keyframes swipe-fly-right { to { transform: translateX(20px); opacity: 0; } }
+    .swipe-pair:hover .swipe-dot { animation: swipe-dot-pop .4s var(--ease) forwards; }
+    @keyframes swipe-dot-pop { to { transform: scale(0); opacity: 0; } }
+    .swipe-pair:hover .swipe-label { opacity: 0; transition: opacity .3s; }
+
+    /* ---- Stats row ---- */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; text-align: center; }
+    .stat-card strong { font-size: clamp(28px, 4vw, 40px); font-weight: 900; display: block; background: linear-gradient(135deg, var(--gold), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-card span { font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 4px; display: block; }
+
+    /* ---- Insight cards ---- */
+    .insights { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+    .insight { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; }
+    .insight__icon { width: 40px; height: 40px; border-radius: 12px; background: var(--purple-soft); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 18px; }
+    .insight h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .insight p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ---- Full bleed image ---- */
+    .full-bleed { margin: 80px 0; }
+    .full-bleed__inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+    .screen-strip { display: flex; gap: 16px; overflow-x: auto; padding: 20px 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .screen-strip::-webkit-scrollbar { display: none; }
+    .screen-strip .phone { max-width: 200px; flex-shrink: 0; }
+
+    /* ---- Flow section ---- */
+    .flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 56px; align-items: center; }
+    .flow-grid--reverse { direction: rtl; }
+    .flow-grid--reverse > * { direction: ltr; }
+    .flow-text { }
+    .flow-text h3 { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+    .flow-text p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+    .flow-visual { display: flex; justify-content: center; }
+    .flow-visual .phone { max-width: 260px; }
+
+    /* ---- RTL highlight banner ---- */
+    .rtl-banner { background: linear-gradient(135deg, #1a1130, #0f1a2e); border: 1px solid var(--border); border-radius: 24px; padding: 64px 48px; margin-top: 56px; text-align: center; position: relative; overflow: hidden; }
+    .rtl-banner::before { content: 'RTL'; position: absolute; top: -20px; right: -20px; font-size: 200px; font-weight: 900; color: rgba(139,92,246,.04); letter-spacing: -.05em; pointer-events: none; }
+    .rtl-banner h3 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+    .rtl-banner p { font-size: 15px; color: var(--muted); max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
+    .rtl-phones { display: flex; justify-content: center; gap: 20px; }
+    .rtl-phones .phone { max-width: 200px; }
+
+    /* ---- Outcome ---- */
+    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+    .outcome { border: 1px solid var(--border); border-radius: 16px; padding: 32px; text-align: center; }
+    .outcome__num { font-size: 36px; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+    .outcome h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .outcome p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ---- Footer ---- */
+    .foot { max-width: var(--maxw); margin: 0 auto; padding: 48px var(--gutter); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .foot__copy { font-size: 13px; color: var(--muted); }
+    .foot__links { display: flex; gap: 20px; }
+    .foot__links a { font-size: 13px; font-weight: 600; color: var(--muted); transition: color .2s; }
+    .foot__links a:hover { color: var(--purple); }
+
+    /* ---- Lightbox ---- */
+    .lb { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.85); backdrop-filter: blur(12px); display: grid; place-items: center; padding: 24px; cursor: zoom-out; opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .lb.is-open { opacity: 1; pointer-events: auto; }
+    .lb img { max-width: 90vw; max-height: 90vh; border-radius: 20px; box-shadow: 0 32px 80px rgba(0,0,0,.6); }
+
+    /* ---- AI Tools banner ---- */
+    .ai-tools { background: linear-gradient(135deg, #0f0a1f, #0a1520); border: 1px solid var(--border); border-radius: 24px; padding: 56px 48px; margin-top: 56px; position: relative; overflow: hidden; }
+    .ai-tools::before { content: ''; position: absolute; top: -120px; right: -120px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(139,92,246,.08), transparent 70%); pointer-events: none; }
+    .ai-tools::after { content: ''; position: absolute; bottom: -120px; left: -80px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(240,200,77,.06), transparent 70%); pointer-events: none; }
+    .ai-tools__header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .ai-tools__logo { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #d97706, #f59e0b); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .ai-tools__header h3 { font-size: 22px; font-weight: 800; }
+    .ai-tools__header h3 span { color: var(--gold); }
+    .ai-tools__body { font-size: 15px; color: var(--muted); line-height: 1.8; max-width: 680px; margin-bottom: 32px; }
+    .ai-tools__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .ai-tool-card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 24px; transition: border-color .3s, transform .3s; }
+    .ai-tool-card:hover { border-color: rgba(139,92,246,.3); transform: translateY(-2px); }
+    .ai-tool-card__icon { font-size: 24px; margin-bottom: 12px; display: block; }
+    .ai-tool-card h5 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .ai-tool-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .ai-tool-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; padding: 4px 10px; border-radius: 6px; margin-top: 10px; }
+    .ai-tool-tag--skill { background: rgba(139,92,246,.12); color: #a78bfa; }
+    .ai-tool-tag--claude { background: rgba(240,200,77,.1); color: var(--gold); }
+    @media (max-width: 768px) {
+      .ai-tools { padding: 32px 20px; }
+      .ai-tools__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ---- Anim ---- */
+    [data-anim] { opacity: 0; transform: translateY(32px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    [data-anim].is-visible { opacity: 1; transform: none; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .insights { grid-template-columns: 1fr; }
+      .flow-grid { grid-template-columns: 1fr; gap: 32px; }
+      .flow-grid--reverse { direction: ltr; }
+      .outcomes { grid-template-columns: 1fr; }
+      .swipe-phone { max-width: 180px; }
+      .showcase .phone { max-width: 160px; }
+      .rtl-phones .phone { max-width: 150px; }
+      .rtl-banner { padding: 40px 24px; }
+      .hero__meta { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <span class="nav__mark">SZ</span> SYED ZUBAIR
+    </a>
+    <a href="index.html" class="nav__back">&larr; Back to work</a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" data-anim>
+    <div class="hero__label">Product Design Case Study</div>
+    <h1>On-Demand Ride Booking<br>with <span class="em">RTL-First</span> Design</h1>
+    <p class="hero__sub">Designing a bilingual ride-hailing experience for Saudi Arabia. Every screen works seamlessly in both Arabic (RTL) and English (LTR), built with a shared component system that mirrors intelligently.</p>
+    <div class="hero__meta">
+      <div><strong>Role</strong>Senior Product Designer</div>
+      <div><strong>Platform</strong>iOS &amp; Android</div>
+      <div><strong>Market</strong>Saudi Arabia</div>
+      <div><strong>Duration</strong>4 months</div>
+    </div>
+  </header>
+
+  <!-- Challenge -->
+  <section class="section section--border">
+    <div class="wrap" data-anim>
+      <div class="sec-label">The Challenge</div>
+      <h2 class="sec-title">Build one app that feels <span class="em">native</span> in two directions</h2>
+      <p class="sec-body">Saudi Arabia's ride-hailing market is uniquely bilingual. Users switch between Arabic and English mid-session. The challenge was not just translating strings, but rethinking every interaction, from map overlays to swipe gestures, so the app feels native in both RTL and LTR without maintaining two separate codebases.</p>
+      <p class="sec-body">The existing ride-hailing apps in the region treated Arabic as an afterthought: mirrored layouts with broken alignment, icons pointing the wrong way, and typography that didn't breathe. We set out to design RTL-first.</p>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="wrap" data-anim>
+    <div class="stats">
+      <div class="stat-card"><strong>35+</strong><span>Screens Designed</span></div>
+      <div class="stat-card"><strong>2</strong><span>Languages (AR / EN)</span></div>
+      <div class="stat-card"><strong>100%</strong><span>RTL Coverage</span></div>
+      <div class="stat-card"><strong>3</strong><span>Vehicle Classes</span></div>
+    </div>
+  </div>
+
+  <!-- Swipe LTR vs RTL -->
+  <section class="swipe-section section--border">
+    <div class="swipe-wrap" data-anim>
+      <div class="sec-label">LTR ↔ RTL</div>
+      <h2 class="sec-title">One design, <span class="em">two directions</span></h2>
+      <p class="sec-body">Hover to see how the same screen transforms between English and Arabic. Every element mirrors intelligently: navigation chevrons flip, text alignment shifts, and the map UI repositions without breaking spatial hierarchy.</p>
+      <div class="swipe-container">
+        <div class="swipe-pair">
+          <div class="swipe-phone swipe-phone--en phone"><img src="images/ride-app/home-en.png" alt="Home — English LTR" /></div>
+          <div class="swipe-center">
+            <div class="swipe-arrows">
+              <div class="swipe-arrow-line swipe-arrow-line--right"></div>
+              <div class="swipe-dot"></div>
+              <div class="swipe-arrow-line swipe-arrow-line--left"></div>
+            </div>
+            <div class="swipe-label"><span>EN</span> ↔ <span>AR</span></div>
+          </div>
+          <div class="swipe-phone swipe-phone--ar phone"><img src="images/ride-app/home-ar.png" alt="Home — Arabic RTL" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flow 1: Home & Destination -->
+  <section class="section">
+    <div class="wrap" data-anim>
+      <div class="sec-label">Core Flow</div>
+      <h2 class="sec-title">From <span class="em">"Where to?"</span> to confirmed pickup</h2>
+      <div class="flow-grid">
+        <div class="flow-text">
+          <h3>Contextual Home Screen</h3>
+          <p>The home screen is a full-bleed map with a bottom sheet. We personalize the greeting ("Where to, Noura?") and surface the last destination, favourite drivers nearby, and saved places. In Arabic, the greeting reads "إلى أين تود الذهاب؟" with the search field aligned right.</p>
+          <br>
+          <h3>Smart Destination Search</h3>
+          <p>As the user types, we show distance-sorted suggestions with recognizable icons: office buildings, parks, airports. The Arabic keyboard layout works seamlessly with the search field, and results use Arabic numerals for distance (٤٫٢ كم).</p>
+        </div>
+        <div class="flow-visual">
+          <div class="phone"><img src="images/ride-app/typing-dest.png" alt="Typing destination" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Arabic RTL search -->
+  <section class="section section--border">
+    <div class="wrap" data-anim>
+      <div class="sec-label">Arabic Experience</div>
+      <h2 class="sec-title">Search in <span class="em">Arabic</span>, natively</h2>
+      <div class="flow-grid flow-grid--reverse">
+        <div class="flow-text">
+          <h3>RTL-First Input Design</h3>
+          <p>The destination search in Arabic mirrors the entire input paradigm. The search icon moves to the right, the clear button to the left, and suggested destinations list with Arabic numerals. Location types show culturally relevant icons.</p>
+          <br>
+          <h3>Arabic Keyboard Integration</h3>
+          <p>The search bar receives Arabic input with proper kerning and ligature rendering. We tested with real Saudi location names (مركز الملك عبدالله المالي, مطار الملك خالد الدولي) to ensure truncation never cuts mid-ligature.</p>
+        </div>
+        <div class="flow-visual">
+          <div class="phone"><img src="images/ride-app/dest-suggest-ar.png" alt="Destination suggestions — Arabic" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flow 2: Fare & Booking -->
+  <section class="section section--border">
+    <div class="wrap" data-anim>
+      <div class="sec-label">Fare & Vehicle</div>
+      <h2 class="sec-title">Choose your ride, <span class="em">see the price</span></h2>
+      <div class="flow-grid">
+        <div class="flow-text">
+          <h3>Transparent Fare Estimates</h3>
+          <p>Three vehicle tiers (Economy, Comfort, XL) with real-time pricing in SAR. Each option shows seat count, estimated wait time, and a clear price. The selected vehicle gets a purple highlight with the CTA updating dynamically: "Choose Economy · SAR 48".</p>
+          <br>
+          <h3>Confirm Your Pickup</h3>
+          <p>After selecting a vehicle, the map zooms to the pickup zone with a route line to the destination. The bottom sheet shows the exact address, allows pickup notes for the driver, and a single-tap confirmation button.</p>
+        </div>
+        <div class="flow-visual">
+          <div class="phone"><img src="images/ride-app/fare-estimate.png" alt="Fare estimate with vehicle selection" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RTL banner with phones -->
+  <section class="section">
+    <div class="wrap" data-anim>
+      <div class="rtl-banner">
+        <div class="sec-label">Mirrored Components</div>
+        <h3>Every screen, every direction</h3>
+        <p>The component system uses auto-layout with direction tokens. When the language switches, padding, icon positions, and text alignment all flip automatically. No manual overrides needed.</p>
+        <div class="rtl-phones">
+          <div class="phone"><img src="images/ride-app/whereto-ar.png" alt="Where to — Arabic" /></div>
+          <div class="phone"><img src="images/ride-app/fav-driver-ar.png" alt="Favourite driver nearby — Arabic" /></div>
+          <div class="phone"><img src="images/ride-app/ride-progress-ar.png" alt="Ride in progress — Arabic" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RTL Design Insights -->
+  <section class="section section--border">
+    <div class="wrap" data-anim>
+      <div class="sec-label">RTL Design Principles</div>
+      <h2 class="sec-title">What we <span class="em">learned</span> designing RTL</h2>
+      <div class="insights">
+        <div class="insight">
+          <div class="insight__icon">↔</div>
+          <h4>Mirror, Don't Flip</h4>
+          <p>Not everything should flip in RTL. Maps stay geographic (north is north). Progress bars that represent time move left-to-right universally. Play/media controls keep their global convention.</p>
+        </div>
+        <div class="insight">
+          <div class="insight__icon">🔤</div>
+          <h4>Typography Rhythm</h4>
+          <p>Arabic script is inherently wider and needs more line height. We use 1.7x line height for Arabic vs 1.5x for English, and adjusted font sizes to maintain visual weight parity.</p>
+        </div>
+        <div class="insight">
+          <div class="insight__icon">📍</div>
+          <h4>Map UI Positioning</h4>
+          <p>Map controls (zoom, recenter) move from right to left in RTL. The pickup pin, route line, and driver marker are directionally neutral. Location names render in the active language.</p>
+        </div>
+        <div class="insight">
+          <div class="insight__icon">🔢</div>
+          <h4>Number Systems</h4>
+          <p>Saudi users expect Eastern Arabic numerals (١٢٣) in Arabic mode but Western digits (123) in English. Prices always show in SAR with the correct numeral system for the active language.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flow 3: Ride in progress -->
+  <section class="section section--border">
+    <div class="wrap" data-anim>
+      <div class="sec-label">Live Trip</div>
+      <h2 class="sec-title">Driver on the way, <span class="em">ride in progress</span></h2>
+      <div class="flow-grid flow-grid--reverse">
+        <div class="flow-text">
+          <h3>Real-Time Driver Tracking</h3>
+          <p>Once matched, the rider sees the driver's real-time position with an ETA countdown. The driver card shows name, photo, rating, car details, and a bilingual license plate (both Arabic and Western characters).</p>
+          <br>
+          <h3>Meet at the Pickup Point</h3>
+          <p>A countdown timer anchors the meet-up screen. Pickup and destination addresses are clearly labelled. Trip details (vehicle type, distance) and payment info are visible. Two primary actions: confirm arrival or cancel.</p>
+        </div>
+        <div class="flow-visual">
+          <div class="phone"><img src="images/ride-app/meet-pickup.png" alt="Meet at pickup point" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full screen strip — scrollable -->
+  <div class="full-bleed" data-anim>
+    <div class="full-bleed__inner">
+      <div class="sec-label">Full Flow</div>
+      <h2 class="sec-title" style="margin-bottom: 8px;">The complete <span class="em">journey</span></h2>
+      <p class="sec-body" style="margin-bottom: 0;">Scroll through every step of the ride, from home to driver arrival.</p>
+    </div>
+    <div class="screen-strip" style="padding-left: var(--gutter); padding-right: var(--gutter);">
+      <div class="phone"><img src="images/ride-app/home-en.png" alt="Home" /></div>
+      <div class="phone"><img src="images/ride-app/typing-dest.png" alt="Search" /></div>
+      <div class="phone"><img src="images/ride-app/saved-places.png" alt="Saved places" /></div>
+      <div class="phone"><img src="images/ride-app/fare-estimate.png" alt="Fare estimate" /></div>
+      <div class="phone"><img src="images/ride-app/confirm-pickup.png" alt="Confirm pickup" /></div>
+      <div class="phone"><img src="images/ride-app/fav-driver-en.png" alt="Favourite driver" /></div>
+      <div class="phone"><img src="images/ride-app/upcoming-trip.png" alt="Upcoming trip" /></div>
+      <div class="phone"><img src="images/ride-app/driver-onway.png" alt="Driver on the way" /></div>
+      <div class="phone"><img src="images/ride-app/meet-pickup.png" alt="Meet at pickup" /></div>
+      <div class="phone"><img src="images/ride-app/ride-progress.png" alt="Ride in progress" /></div>
+    </div>
+  </div>
+
+  <!-- Favourite drivers -->
+  <section class="section section--border">
+    <div class="wrap" data-anim>
+      <div class="sec-label">Signature Feature</div>
+      <h2 class="sec-title"><span class="em">Favourite</span> driver nearby</h2>
+      <div class="flow-grid">
+        <div class="flow-text">
+          <h3>Ride With Drivers You Trust</h3>
+          <p>A unique feature that surfaces when a previously-favourited driver is nearby. The rider sees the driver's name, rating, car, distance, and ETA. One tap to request them specifically, creating a relationship layer that ride-hailing apps typically lack.</p>
+          <br>
+          <h3>Cultural Context</h3>
+          <p>In Saudi Arabia, trust and familiarity are central to service experiences. The favourite driver feature respects this by letting riders build a preferred driver network, especially important for family members who may prefer a known driver.</p>
+        </div>
+        <div class="flow-visual">
+          <div class="phone"><img src="images/ride-app/fav-driver-en.png" alt="Favourite driver nearby" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Design Workflow -->
+  <section class="section section--border">
+    <div class="wrap" data-anim>
+      <div class="sec-label">Design Workflow</div>
+      <h2 class="sec-title">Designed with <span class="em">Claude</span> &amp; custom skills</h2>
+      <p class="sec-body">This project was designed using Claude Code with custom design skills and guardrails built specifically for RTL product design. Rather than relying on generic AI assistance, I authored specialized skills that encode Arabic typography rules, bidirectional layout patterns, and cultural design considerations into reusable, enforceable guidelines.</p>
+      <div class="ai-tools">
+        <div class="ai-tools__header">
+          <div class="ai-tools__logo">⚡</div>
+          <h3>Custom <span>Claude Skills</span> for RTL Design</h3>
+        </div>
+        <p class="ai-tools__body">I built a suite of Claude Code skills that act as design guardrails, enforcing RTL best practices across every screen. These skills check spacing, typography, icon direction, numeral systems, and layout mirroring automatically, catching issues before they reach production.</p>
+        <div class="ai-tools__grid">
+          <div class="ai-tool-card">
+            <span class="ai-tool-card__icon">🪞</span>
+            <h5>RTL Layout Mirroring</h5>
+            <p>Auto-validates that every component mirrors correctly: padding, margins, icon positions, and text alignment flip based on direction tokens.</p>
+            <span class="ai-tool-tag ai-tool-tag--skill">Custom Skill</span>
+          </div>
+          <div class="ai-tool-card">
+            <span class="ai-tool-card__icon">🔤</span>
+            <h5>Arabic Typography Guardrails</h5>
+            <p>Enforces line-height ratios (1.7x for Arabic vs 1.5x English), font size adjustments, ligature-safe truncation, and proper Amiri/Noto Naskh usage.</p>
+            <span class="ai-tool-tag ai-tool-tag--skill">Custom Skill</span>
+          </div>
+          <div class="ai-tool-card">
+            <span class="ai-tool-card__icon">🔢</span>
+            <h5>Numeral System Checker</h5>
+            <p>Validates that prices, distances, and counts use Eastern Arabic numerals (١٢٣) in Arabic mode and Western digits (123) in English mode.</p>
+            <span class="ai-tool-tag ai-tool-tag--skill">Custom Skill</span>
+          </div>
+          <div class="ai-tool-card">
+            <span class="ai-tool-card__icon">🧭</span>
+            <h5>Directional Icon Audit</h5>
+            <p>Flags icons that should flip in RTL (chevrons, arrows) vs those that shouldn't (play, search, external link). Catches the subtle mistakes.</p>
+            <span class="ai-tool-tag ai-tool-tag--skill">Custom Skill</span>
+          </div>
+          <div class="ai-tool-card">
+            <span class="ai-tool-card__icon">🎨</span>
+            <h5>Design Review &amp; Critique</h5>
+            <p>Claude-powered design reviews using accessibility and UX heuristics, checking contrast ratios, touch targets, and visual hierarchy in both directions.</p>
+            <span class="ai-tool-tag ai-tool-tag--claude">Claude Code</span>
+          </div>
+          <div class="ai-tool-card">
+            <span class="ai-tool-card__icon">📐</span>
+            <h5>Component Consistency</h5>
+            <p>Validates that Figma components use auto-layout with direction-aware properties. Catches hardcoded positions that would break when language switches.</p>
+            <span class="ai-tool-tag ai-tool-tag--claude">Claude Code</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outcomes -->
+  <section class="section section--border">
+    <div class="wrap" data-anim>
+      <div class="sec-label">Outcomes & Reflection</div>
+      <h2 class="sec-title">Designing for <span class="em">both directions</span></h2>
+      <p class="sec-body">This project pushed the boundaries of what a component system can handle. By building RTL as a first-class citizen rather than an afterthought, we reduced localization effort and delivered a product that feels genuinely native in Arabic.</p>
+      <div class="outcomes">
+        <div class="outcome">
+          <div class="outcome__num">35+</div>
+          <h4>Screens Designed</h4>
+          <p>End-to-end ride flow from home to trip completion, in both languages.</p>
+        </div>
+        <div class="outcome">
+          <div class="outcome__num">1</div>
+          <h4>Component System</h4>
+          <p>Shared Figma library with direction-aware auto-layout for instant LTR/RTL switching.</p>
+        </div>
+        <div class="outcome">
+          <div class="outcome__num">0</div>
+          <h4>Manual Overrides</h4>
+          <p>The component system handles all mirroring automatically. No per-screen fixes needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="foot">
+    <span class="foot__copy">&copy; 2024 Syed Zubair Ahmed</span>
+    <div class="foot__links">
+      <a href="https://www.linkedin.com/in/zuuahmed/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:zubair3ahmed@gmail.com">Email</a>
+      <a href="index.html">Portfolio</a>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lb" id="lb"><img id="lbImg" src="" alt="" /></div>
+
+  <script>
+    // Intersection observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-anim]').forEach(el => observer.observe(el));
+
+    // Lightbox
+    const lb = document.getElementById('lb');
+    const lbImg = document.getElementById('lbImg');
+    document.querySelectorAll('.phone img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => {
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        lb.classList.add('is-open');
+      });
+    });
+    lb.addEventListener('click', () => lb.classList.remove('is-open'));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('is-open'); });
+
+  </script>
+</body>
+</html>

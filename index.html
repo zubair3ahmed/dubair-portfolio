@@ -1,468 +1,1282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dubair — Product Designer</title>
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --bg-card: #111111;
-      --bg-card-hover: #161616;
-      --text: #e0e0e0;
-      --text-muted: #777;
-      --text-dim: #555;
-      --accent: #667eea;
-      --accent-2: #764ba2;
-      --border: #1a1a1a;
-      --border-hover: #2a2a2a;
-      --radius: 16px;
-      --radius-sm: 10px;
-    }
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-33K0YHE1F7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+  gtag('config', 'G-33K0YHE1F7');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zubair Ahmed — Senior Product Designer | Dubai, UAE</title>
+  <meta name="description" content="Senior Product Designer with 10+ years crafting scalable, intuitive products across enterprise SaaS and AI-powered platforms." />
+  <meta name="author" content="Syed Zubair Ahmed" />
 
-    html { scroll-behavior: smooth; }
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://syed-zubair.com/" />
+  <meta property="og:title" content="Syed Zubair Ahmed — Senior Product Designer" />
+  <meta property="og:description" content="Senior Product Designer with 10+ years crafting scalable, intuitive products across enterprise SaaS and AI-powered platforms." />
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+  <meta name="theme-color" content="#050505" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-    .page {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Google+Sans+Code:wght@400;500&display=swap" rel="stylesheet" />
 
-    /* ── Nav ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10, 10, 10, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    nav .page {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-    .nav-logo {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-    }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); }
-
-    /* ── Hero ── */
-    .hero {
-      padding: 6rem 0 4rem;
-      max-width: 720px;
-    }
-    .hero-label {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      margin-bottom: 1.25rem;
-    }
-    .hero h1 {
-      font-size: clamp(2.25rem, 5vw, 3.5rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      margin-bottom: 1.5rem;
-    }
-    .hero p {
-      font-size: 1.125rem;
-      color: var(--text-muted);
-      max-width: 540px;
-      line-height: 1.7;
-    }
-
-    /* ── Section headings ── */
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 2rem;
-      padding-top: 5rem;
-    }
-    .section-header h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .section-header span {
-      font-size: 0.8125rem;
-      color: var(--text-dim);
-    }
-
-    /* ── Case Study Cards ── */
-    .cases {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-    .case-card {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.25s, border-color 0.25s, transform 0.25s;
-    }
-    .case-card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-hover);
-      transform: translateY(-2px);
-    }
-    .case-thumb {
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-    }
-    .case-thumb-inner {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: rgba(255,255,255,0.08);
-      letter-spacing: -0.02em;
-    }
-    .case-thumb-inner.t1 { background: linear-gradient(135deg, #1a1a2e, #16213e); }
-    .case-thumb-inner.t2 { background: linear-gradient(135deg, #1a1a1a, #0d1117); }
-    .case-thumb-inner.t3 { background: linear-gradient(135deg, #1c1c2e, #1a0e2e); }
-    .case-body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 2rem 2.5rem;
-    }
-    .case-tag {
-      font-size: 0.6875rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-    }
-    .case-title {
-      font-size: 1.375rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-      line-height: 1.3;
-    }
-    .case-desc {
-      font-size: 0.9375rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 1.25rem;
-    }
-    .case-meta {
-      display: flex;
-      gap: 1.5rem;
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* ── Skills / What I Do ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-    .skill-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 2rem 1.75rem;
-      transition: border-color 0.25s;
-    }
-    .skill-card:hover { border-color: var(--border-hover); }
-    .skill-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      margin-bottom: 1.25rem;
-    }
-    .skill-icon.i1 { background: rgba(102, 126, 234, 0.12); color: var(--accent); }
-    .skill-icon.i2 { background: rgba(118, 75, 162, 0.12); color: var(--accent-2); }
-    .skill-icon.i3 { background: rgba(102, 126, 234, 0.12); color: var(--accent); }
-    .skill-card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    .skill-card p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ── About strip ── */
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      padding-top: 5rem;
-      padding-bottom: 2rem;
-    }
-    .about h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.25rem;
-    }
-    .about p {
-      font-size: 0.9375rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-bottom: 1rem;
-    }
-    .about-stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      align-content: center;
-    }
-    .stat {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 1.5rem;
-    }
-    .stat-number {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .stat-label {
-      font-size: 0.8125rem;
-      color: var(--text-dim);
-      margin-top: 0.25rem;
-    }
-
-    /* ── Footer ── */
-    footer {
-      margin-top: 5rem;
-      padding: 3rem 0;
-      border-top: 1px solid var(--border);
-    }
-    footer .page {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .footer-left {
-      font-size: 0.875rem;
-      color: var(--text-dim);
-    }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--text); }
-
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      .case-card { grid-template-columns: 1fr; }
-      .case-body { padding: 1.5rem; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .about { grid-template-columns: 1fr; gap: 2rem; }
-      .about-stats { grid-template-columns: repeat(2, 1fr); }
-      .hero { padding: 4rem 0 2.5rem; }
-      .section-header { padding-top: 3.5rem; }
-      footer .page { flex-direction: column; gap: 1rem; text-align: center; }
-      .nav-links { gap: 1.25rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- Nav -->
-  <nav>
-    <div class="page">
-      <a href="#" class="nav-logo">dubair</a>
-      <div class="nav-links">
-        <a href="#work">Work</a>
-        <a href="#skills">Skills</a>
-        <a href="#about">About</a>
+  <a class="skip-link" href="#top">Skip to main content</a>
+
+  <!-- ============ Preloader ============ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__center">
+      <div class="loader__name" id="loaderName">
+        <span>S</span><span>Y</span><span>E</span><span>D</span><span class="loader__gap"> </span><span>Z</span><span>U</span><span>B</span><span>A</span><span>I</span><span>R</span><span class="loader__caret"></span>
       </div>
+      <div class="loader__tag mono">Senior Product Designer</div>
+      <div class="loader__quip mono">AI fears stakeholder feedback</div>
     </div>
-  </nav>
-
-  <div class="page">
-
-    <!-- Hero -->
-    <section class="hero">
-      <span class="hero-label">Product Designer</span>
-      <h1>I design products people actually want to use.</h1>
-      <p>Crafting intuitive, user-centered experiences from research through shipped pixels. Focused on turning complex problems into simple, elegant interfaces.</p>
-    </section>
-
-    <!-- Case Studies -->
-    <section id="work">
-      <div class="section-header">
-        <h2>Selected Work</h2>
-        <span>Case Studies</span>
-      </div>
-      <div class="cases">
-
-        <a href="#" class="case-card">
-          <div class="case-thumb">
-            <div class="case-thumb-inner t1">01</div>
-          </div>
-          <div class="case-body">
-            <div class="case-tag">Mobile App</div>
-            <div class="case-title">Redesigning the Checkout Experience</div>
-            <p class="case-desc">Reduced cart abandonment by 34% through streamlined flows and progressive disclosure.</p>
-            <div class="case-meta">
-              <span>UX Design</span>
-              <span>Prototyping</span>
-              <span>2024</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="#" class="case-card">
-          <div class="case-thumb">
-            <div class="case-thumb-inner t2">02</div>
-          </div>
-          <div class="case-body">
-            <div class="case-tag">SaaS Platform</div>
-            <div class="case-title">Building a Design System from Scratch</div>
-            <p class="case-desc">Created a scalable component library serving 12 product teams and 40+ engineers.</p>
-            <div class="case-meta">
-              <span>Design Systems</span>
-              <span>Strategy</span>
-              <span>2024</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="#" class="case-card">
-          <div class="case-thumb">
-            <div class="case-thumb-inner t3">03</div>
-          </div>
-          <div class="case-body">
-            <div class="case-tag">Dashboard</div>
-            <div class="case-title">Analytics That Tell a Story</div>
-            <p class="case-desc">Transformed a data-heavy dashboard into an actionable insights tool for non-technical users.</p>
-            <div class="case-meta">
-              <span>Data Viz</span>
-              <span>User Research</span>
-              <span>2023</span>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills">
-      <div class="section-header">
-        <h2>What I Do</h2>
-        <span>Capabilities</span>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-icon i1">&#9670;</div>
-          <h3>Product Design</h3>
-          <p>End-to-end design from discovery to delivery. Wireframes, prototypes, and production-ready specs.</p>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon i2">&#9679;</div>
-          <h3>User Research</h3>
-          <p>Interviews, usability testing, and synthesis. Decisions backed by evidence, not assumptions.</p>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon i3">&#9632;</div>
-          <h3>Design Systems</h3>
-          <p>Scalable component libraries and guidelines that keep teams aligned and shipping faster.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="about">
-      <div>
-        <h2>About Me</h2>
-        <p>I'm a product designer who thrives at the intersection of user needs and business goals. I believe the best design is invisible — it just works.</p>
-        <p>When I'm not pushing pixels, you'll find me exploring new tools, reading about behavioral psychology, or sketching ideas in my notebook.</p>
-      </div>
-      <div class="about-stats">
-        <div class="stat">
-          <div class="stat-number">5+</div>
-          <div class="stat-label">Years of experience</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">20+</div>
-          <div class="stat-label">Projects shipped</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">8</div>
-          <div class="stat-label">Happy clients</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">3</div>
-          <div class="stat-label">Design awards</div>
-        </div>
-      </div>
-    </section>
-
+    <div class="loader__count mono"><span id="loaderCount">0</span>%</div>
+    <div class="loader__bar"><span id="loaderBar"></span></div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="page">
-      <span class="footer-left">&copy; 2024 Dubair. All rights reserved.</span>
-      <div class="footer-links">
-        <a href="mailto:hello@dubair.com">Email</a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://dribbble.com" target="_blank" rel="noopener">Dribbble</a>
-        <a href="https://github.com/dubair" target="_blank" rel="noopener">GitHub</a>
+  <!-- ============ Custom cursor (Figma multiplayer style) ============ -->
+  <div class="fig-cursor" id="figCursor" aria-hidden="true">
+    <svg class="fig-cursor__arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 2.5 L19.5 11.4 L12.1 12.9 L8.4 19.6 Z" fill="var(--accent)" stroke="#050505" stroke-width="1.4" stroke-linejoin="round"/>
+    </svg>
+    <span class="fig-cursor__tag" id="cursorTag">You</span>
+  </div>
+
+  <!-- ============ Grain ============ -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ Header ============ -->
+  <header class="hdr" id="hdr">
+    <a class="hdr__logo" href="#top" data-cursor="hover">
+      <span class="hdr__mark">SZ</span>
+      <span class="hdr__name">SYED&nbsp;ZUBAIR<i>.</i></span>
+    </a>
+    <nav class="hdr__nav" aria-label="Primary">
+      <a href="projects.html" data-cursor="hover"><span class="mono hdr__num">01</span>Projects</a>
+      <a href="#about" data-cursor="hover"><span class="mono hdr__num">02</span>About</a>
+      <a href="#reviews" data-cursor="hover"><span class="mono hdr__num">03</span>Words</a>
+      <a href="#contact" data-cursor="hover"><span class="mono hdr__num">04</span>Contact</a>
+      <a href="ai-simplified.html" data-cursor="hover"><span class="mono hdr__num">05</span>AI Simplified</a>
+      <a class="hdr__cta" href="resume.html" target="_blank" rel="noopener" data-cursor="hover">RESUME&nbsp;↗</a>
+      <button class="hdr__ask" id="askZubairBtn" data-cursor="hover" aria-label="Ask Zubair — AI assistant"><span class="hdr__ask-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg></span>Ask Zubair</button>
+    </nav>
+    <div class="hdr__meta mono">
+      <span class="hdr__dot"></span><a href="uae/index.html" style="text-decoration:none;color:inherit" data-cursor="hover">🇦🇪&nbsp;DXB</a>&nbsp;<span id="clock">00:00</span>
+    </div>
+    <button class="hdr__sound" id="soundToggle" aria-label="Toggle sound effects" aria-pressed="true" data-cursor="hover">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 9.5v5h3.5L12 19V5L7.5 9.5H4Z" fill="currentColor"/>
+        <path class="hdr__sound-wave" d="M15.5 8.5c1 1 1.5 2.1 1.5 3.5s-.5 2.5-1.5 3.5M18 6c1.6 1.6 2.5 3.6 2.5 6s-.9 4.4-2.5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <button class="hdr__burger" id="burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ============ Mobile menu ============ -->
+  <div class="mmenu" id="mmenu" aria-hidden="true">
+    <nav class="mmenu__nav">
+      <a href="projects.html"><span class="mono">01</span>Projects</a>
+      <a href="#about"><span class="mono">02</span>About</a>
+      <a href="#reviews"><span class="mono">03</span>Words</a>
+      <a href="#contact"><span class="mono">04</span>Contact</a>
+      <a href="ai-simplified.html"><span class="mono">05</span>AI Simplified</a>
+      <a href="resume.html" target="_blank" rel="noopener"><span class="mono">06</span>Résumé ↗</a>
+      <button class="mmenu__ask" id="askZubairMobile" aria-label="Ask Zubair — AI assistant"><span class="mono">07</span>Ask Zubair ✦</button>
+    </nav>
+    <div class="mmenu__foot mono">
+      <a href="mailto:zubair3ahmed@gmail.com">zubair3ahmed@gmail.com</a>
+      <span>Dubai, UAE</span>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero">
+      <canvas class="hero__grid" id="heroGrid" aria-hidden="true"></canvas>
+      <div class="hero__inner">
+        <p class="hero__status mono" data-reveal>
+          <span class="hero__pulse"></span>Available for opportunities · remote &amp; relocation
+        </p>
+        <p class="hero__eyebrow mono" data-reveal>Based in Dubai, UAE &#127462;&#127466; · Senior Product Designer (UI/UX)</p>
+        <h1 class="hero__title display">
+          <span class="line"><span class="line__inner">ZUBAIR<em class="hero__accent">.</em></span></span>
+        </h1>
+        <div class="hero__row">
+          <p class="hero__sub" data-reveal>
+            10+ years crafting scalable, intuitive products across <strong>enterprise SaaS</strong> and
+            <strong>AI-powered</strong>, data-driven platforms translating complex business and AI needs
+            into seamless experiences that drive real impact.
+          </p>
+          <div class="hero__ctas" data-reveal>
+            <a class="btn btn--solid" href="#work" data-magnetic data-cursor="hover">View UX Case Studies <i>→</i></a>
+            <a class="btn btn--ai-glow" href="ai-simplified.html" data-magnetic data-cursor="hover"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:4px"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg> AI Simplified <i>→</i></a>
+            <a class="btn btn--ghost" href="visual-designs.html" data-magnetic data-cursor="hover"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:6px"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/></svg> Visual Design Works <i>→</i></a>
+          </div>
+        </div>
+        <p class="hero__ex mono" data-reveal>10+ YRS · EX-NEXTIVA | SHELL | JLL</p>
+      </div>
+      <div class="hero__scroll mono" data-reveal>Scroll<span class="hero__scroll-line"></span></div>
+    </section>
+
+    <!-- ============ Marquee ============ -->
+    <p class="sr-only">Skills: Product Design, UX Research, Design Systems, Figma Variables, Prototyping, HIPAA Compliance, AI Products, Enterprise SaaS, Mentorship.</p>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marqueeTrack">
+        <div class="marquee__group">
+          <span>Product Design</span><i>✦</i><span>UX Research</span><i>✦</i><span>Design Systems</span><i>✦</i><span>Figma Variables</span><i>✦</i><span>Prototyping</span><i>✦</i><span>HIPAA Compliance</span><i>✦</i><span>AI Products</span><i>✦</i><span>Enterprise SaaS</span><i>✦</i><span>Mentorship</span><i>✦</i>
+        </div>
+        <div class="marquee__group">
+          <span>Product Design</span><i>✦</i><span>UX Research</span><i>✦</i><span>Design Systems</span><i>✦</i><span>Figma Variables</span><i>✦</i><span>Prototyping</span><i>✦</i><span>HIPAA Compliance</span><i>✦</i><span>AI Products</span><i>✦</i><span>Enterprise SaaS</span><i>✦</i><span>Mentorship</span><i>✦</i>
+        </div>
       </div>
     </div>
+
+    <!-- HIDDEN: Live traffic ticker (unhide later) -->
+    <!--
+    <div class="traffic" data-reveal>
+      <div class="traffic__inner">
+        <div class="traffic__live">
+          <span class="traffic__dot"></span>
+          <span class="traffic__label mono">LIVE VISITORS</span>
+          <strong class="traffic__count" id="liveCount">0</strong>
+        </div>
+        <div class="traffic__ticker" id="trafficTicker">
+          <div class="traffic__track">
+            <div class="traffic__item"><span class="traffic__flag">🇺🇸</span><span class="mono">United States</span><strong>468</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇮🇳</span><span class="mono">India</span><strong>58</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇦🇪</span><span class="mono">UAE</span><strong>34</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇬🇧</span><span class="mono">United Kingdom</span><strong>27</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇩🇪</span><span class="mono">Germany</span><strong>19</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇶🇦</span><span class="mono">Qatar</span><strong>12</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇨🇦</span><span class="mono">Canada</span><strong>11</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇸🇪</span><span class="mono">Sweden</span><strong>8</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇮🇪</span><span class="mono">Ireland</span><strong>6</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇸🇬</span><span class="mono">Singapore</span><strong>5</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇺🇸</span><span class="mono">United States</span><strong>468</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇮🇳</span><span class="mono">India</span><strong>58</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇦🇪</span><span class="mono">UAE</span><strong>34</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇬🇧</span><span class="mono">United Kingdom</span><strong>27</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇩🇪</span><span class="mono">Germany</span><strong>19</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇶🇦</span><span class="mono">Qatar</span><strong>12</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇨🇦</span><span class="mono">Canada</span><strong>11</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇸🇪</span><span class="mono">Sweden</span><strong>8</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇮🇪</span><span class="mono">Ireland</span><strong>6</strong></div>
+            <div class="traffic__item"><span class="traffic__flag">🇸🇬</span><span class="mono">Singapore</span><strong>5</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+
+    <!-- ============ Projects ============ -->
+    <section class="work" id="work">
+      <div class="sec-head">
+        <p class="mono sec-head__label" data-reveal><span class="sec-head__tick">01</span> Selected projects · Case studies · 2014 — 2026</p>
+        <h2 class="sec-title display" data-fill>PROJECTS<em>.</em></h2>
+      </div>
+
+      <div class="work-tabs" data-reveal>
+        <button class="work-tab active" data-filter="all">All</button>
+        <button class="work-tab" data-filter="enterprise-saas">Enterprise SaaS</button>
+        <button class="work-tab" data-filter="cx">CX</button>
+        <button class="work-tab" data-filter="design-systems">Design Systems</button>
+        <button class="work-tab" data-filter="ai-agents">AI Agents</button>
+        <button class="work-tab" data-filter="proptech-fintech">PropTech / FinTech</button>
+      </div>
+
+      <div class="cards">
+
+        <article class="card card--amber" data-card data-category="ai-agents d2c agentic-ux" style="--card-accent:var(--amber,#fbbf24)">
+          <div class="card__top">
+            <span class="card__index mono">01 / AI Agent Workforce</span>
+            <span class="card__icon card__icon--arrow">↗</span>
+          </div>
+          <figure class="card__cover" style="background:#0a0a0a"><img src="images/cover-ai-agents.svg" alt="AI Agent architecture — Chief of Staff delegating to six specialist agents" loading="lazy" style="width:100%;height:100%;object-fit:contain" /></figure>
+          <h3 class="card__title display">How a D2C Brand Can Run Its Entire Business with AI Agents</h3>
+          <p class="card__desc">
+            <strong>Problem:</strong> D2C brands juggle six disconnected functions with no unified system.<br>
+            <strong>Solution:</strong> Designed a multi-agent framework — one Chief of Staff AI delegates to six specialist agents across storefront, marketing, support, operations, analytics, and product.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong>6</strong><span class="mono">Specialist agents</span></div>
+            <div class="metric"><strong>5</strong><span class="mono">Autonomy levels</span></div>
+            <div class="metric"><strong>1</strong><span class="mono">Chief of Staff</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>AI Agents</span><span>D2C</span><span>Agentic UX</span></div>
+            <a class="card__open" href="ai-agents-casestudy.html" data-cursor="open" aria-label="View AI Agents case study">View Case Study <i>↗</i></a>
+          </div>
+        </article>
+
+        <article class="card card--lavender" data-card data-category="enterprise-saas cx ai-agents">
+          <div class="card__top">
+            <span class="card__index mono">02 / Guide.ai</span>
+            <span class="card__icon card__icon--arrow">↗</span>
+          </div>
+          <figure class="card__cover" style="background:#e7e4fd"><img src="images/guide-ai-cover.gif" alt="Guide.ai — an AI assistant that turns a long company-registration form into a guided conversation" loading="lazy" style="object-fit:contain;height:100%" /></figure>
+          <h3 class="card__title display">Guide.ai — Turning a Long Legal Form into an AI-Guided Conversation</h3>
+          <p class="card__desc">
+            <strong>Problem:</strong> Applicants dropping off halfway through a 60-step registration form.<br>
+            <strong>Solution:</strong> Designed an AI assistant with compliance guardrails that cut the happy path from 60 interactions to 22.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong>~63%</strong><span class="mono">Fewer interactions</span></div>
+            <div class="metric"><strong>10</strong><span class="mono">Sections simplified</span></div>
+            <div class="metric"><strong>7</strong><span class="mono">AI design layers</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>AI Agent</span><span>Legal Tech</span><span>Conversational</span></div>
+            <a class="card__open" href="guide-ai/index.html" target="_blank" rel="noopener" data-cursor="open" aria-label="View Guide.ai case study">View Case Study <i>↗</i></a>
+          </div>
+        </article>
+
+        <article class="card card--lime" data-card data-category="enterprise-saas cx ai-agents">
+          <div class="card__top">
+            <span class="card__index mono">03 / AI Copilot</span>
+            <span class="card__icon">🔒</span>
+          </div>
+          <figure class="card__cover" style="background:#f0f2f5"><img src="images/nextiq-copilot-preview.gif" alt="Healthcare AI on the Nextiva platform — agent desktop with live call transcription and NextIQ suggested actions" loading="lazy" style="object-fit:contain;height:100%" /></figure>
+          <h3 class="card__title display">Rethinking Patient Communication with a Real-Time AI Healthcare Copilot</h3>
+          <p class="card__desc">
+            <strong>Problem:</strong> Fragmented phone queues causing delays in patient communication.<br>
+            <strong>Role:</strong> Senior Product Designer at Nextiva — led the AI copilot design for a HIPAA-compliant platform serving 100K+ healthcare professionals.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong><span data-count="100">100</span>K+</strong><span class="mono">Healthcare professionals served</span></div>
+            <div class="metric"><strong>Real-time</strong><span class="mono">Live call assistance</span></div>
+            <div class="metric"><strong>HIPAA</strong><span class="mono">Compliant by design</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>Nextiva</span><span>AI / ML</span><span>HIPAA</span></div>
+            <a class="card__open" href="healthcare-ai-copilot/index.html" data-cursor="open" data-locked
+               aria-label="Unlock case study: AI Healthcare Copilot"><span class="card__lock mono" aria-hidden="true">🔒</span>Unlock Case Study</a>
+          </div>
+        </article>
+
+        <article class="card card--teal" data-card data-category="cx ai-agents">
+          <div class="card__top">
+            <span class="card__index mono">04 / Travel AI</span>
+            <span class="card__icon card__icon--arrow">↗</span>
+          </div>
+          <figure class="card__cover" style="background:#fff"><img src="images/travel-ai-cover.gif" alt="AI Travel Concierge — plan holidays, Umrah, Hajj and meaningful journeys" loading="lazy" style="object-fit:contain;height:100%" /></figure>
+          <h3 class="card__title display">AI Travel Concierge — Plan Holidays, Umrah &amp; Hajj with an AI Agent</h3>
+          <p class="card__desc">
+            <strong>Problem:</strong> Planning multi-destination religious and leisure travel requires coordinating many disconnected services.<br>
+            <strong>Solution:</strong> Designed an AI-powered conversational agent that handles end-to-end travel planning across 6+ destinations.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong>AI</strong><span class="mono">Powered planning</span></div>
+            <div class="metric"><strong>6+</strong><span class="mono">Destinations</span></div>
+            <div class="metric"><strong>Conv.</strong><span class="mono">UX design</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>AI Agent</span><span>Travel</span><span>Conversational</span></div>
+            <a class="card__open" href="https://travel-ai-agent.zubair3ahmed.workers.dev/" target="_blank" rel="noopener" data-cursor="open" aria-label="View Travel AI case study">View Case Study <i>↗</i></a>
+          </div>
+        </article>
+
+        <article class="card card--coral" data-card data-category="cx ai-agents">
+          <div class="card__top">
+            <span class="card__index mono">05 / Healthcare</span>
+            <span class="card__icon" style="font-size:10px;font-family:var(--font-mono);letter-spacing:.04em;background:rgba(251,113,133,.15);color:#fb7185;padding:4px 10px;border-radius:999px;font-weight:600">IN PROGRESS</span>
+          </div>
+          <figure class="card__cover" style="background:#f0f5f0"><img src="images/saada-cover.gif" alt="Al-Saada Healthcare — Arabic RTL landing page for medical tourism in India" loading="lazy" style="object-fit:contain;height:100%" /></figure>
+          <h3 class="card__title display">Al-Saada Healthcare — RTL Landing Page for Medical Tourism</h3>
+          <p class="card__desc">
+            <strong>Problem:</strong> Arab patients had no clear pathway to connect with Indian hospitals for treatment.<br>
+            <strong>Solution:</strong> Designed a high-converting Arabic RTL landing page — 32 hospitals partnered, 48h quote turnaround.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong>RTL</strong><span class="mono">Arabic-first design</span></div>
+            <div class="metric"><strong>32</strong><span class="mono">Hospitals partnered</span></div>
+            <div class="metric"><strong>48h</strong><span class="mono">Quote turnaround</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>Healthcare</span><span>RTL</span><span>Landing Page</span></div>
+            <a class="card__open" href="https://al-saada-healthcare.zubair3ahmed.workers.dev/" target="_blank" rel="noopener" data-cursor="open" aria-label="View Al-Saada Healthcare case study">View Case Study <i>↗</i></a>
+          </div>
+        </article>
+
+        <article class="card card--indigo" data-card data-category="enterprise-saas proptech-fintech">
+          <div class="card__top">
+            <span class="card__index mono">06 / PropTech</span>
+            <span class="card__icon">🔒</span>
+          </div>
+          <figure class="card__cover"><img src="images/warm-work-lasalle.webp" alt="Global Incentive Fee Awards — fund payout dashboard with process streamline and allocations" loading="lazy" /></figure>
+          <h3 class="card__title display">Global Incentive Fee Awards</h3>
+          <p class="card__desc">
+            <strong>Problem:</strong> Fund payouts closing late — nobody could see the process.<br>
+            <strong>Role:</strong> Product Designer at JLL — made stage progress and stakeholder actions visible to the person accountable for the date.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong>UX</strong><span class="mono">Research to Handoff</span></div>
+            <div class="metric"><strong>Shipped</strong><span class="mono">Production</span></div>
+            <div class="metric"><strong>PropTech</strong><span class="mono">Real Estate</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>PropTech</span><span>FinTech</span><span>Enterprise</span></div>
+            <a class="card__open" href="lasalle/index.html" data-cursor="open" data-locked
+               aria-label="Unlock case study: Global Incentive Fee Awards">Unlock Case Study</a>
+          </div>
+        </article>
+
+        <article class="card card--indigo" data-card data-category="enterprise-saas">
+          <div class="card__top">
+            <span class="card__index mono">07 / Video</span>
+            <span class="card__icon">🔒</span>
+          </div>
+          <figure class="card__cover" style="background:#f0f0f0"><img src="images/meet-cover.gif" alt="Enterprise video conferencing platform with real-time chat and meeting controls" loading="lazy" style="object-fit:contain;height:100%" /></figure>
+          <h3 class="card__title display">Enterprise Video Platform</h3>
+          <p class="card__desc">
+            <strong>Problem:</strong> Distributed teams lacked a cohesive video collaboration experience.<br>
+            <strong>Role:</strong> Led end-to-end UX/UI — real-time collaboration, responsive design system, and seamless video conferencing.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong>E2E</strong><span class="mono">UX/UI Design</span></div>
+            <div class="metric"><strong>Real-time</strong><span class="mono">Collaboration</span></div>
+            <div class="metric"><strong>Responsive</strong><span class="mono">Design System</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>Video</span><span>Design System</span><span>Responsive</span></div>
+            <a class="card__open" href="https://video-conferencing-app.zubair3ahmed.workers.dev/" target="_blank" rel="noopener" data-cursor="open" data-locked
+               aria-label="Unlock case study: Enterprise Video Platform">Unlock Case Study</a>
+          </div>
+        </article>
+
+        <article class="card card--peach" data-card data-category="design-systems">
+          <div class="card__top">
+            <span class="card__index mono">08 / Design Systems</span>
+            <span class="card__icon">🔒</span>
+          </div>
+          <figure class="card__cover"><img src="images/warm-work-3.png" alt="Theming architecture preview — product UI built on Figma Variables" loading="lazy" /></figure>
+          <h3 class="card__title display">Designing Dark Mode with Figma Variables</h3>
+          <p class="card__desc">
+            <strong>Problem:</strong> Products needed consistent theming across light and dark modes without maintaining separate designs.<br>
+            <strong>Solution:</strong> Built a flexible theming architecture with Figma Variables — 120+ tokens, AA+ contrast verified.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong><span data-count="2">2</span></strong><span class="mono">Themes, one source</span></div>
+            <div class="metric"><strong>AA+</strong><span class="mono">Contrast verified</span></div>
+            <div class="metric"><strong><span data-count="120">120</span>+</strong><span class="mono">Tokens mapped</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>Figma Variables</span><span>Design System</span><span>Dark Mode</span></div>
+            <a class="card__open" href="https://dark-mode-design-systems.zubair3ahmed.workers.dev/" target="_blank" rel="noopener" data-cursor="open" data-locked
+               aria-label="Unlock case study: Designing Dark Mode with Figma Variables">Unlock Case Study</a>
+          </div>
+        </article>
+
+        <article class="card card--amber" data-card data-category="cx">
+          <div class="card__top">
+            <span class="card__index mono">09 / Ride Booking</span>
+            <span class="card__icon">🔒</span>
+          </div>
+          <figure class="card__cover"><img src="images/warm-work-ridebooking.png" alt="On-demand corporate ride booking iOS app — booking flow and driver selection" loading="lazy" /></figure>
+          <h3 class="card__title display">On-Demand Corporate Ride Booking</h3>
+          <p class="card__desc">
+            <strong>Problem:</strong> Enterprise clients needed a dedicated ride-hailing solution with corporate controls.<br>
+            <strong>Role:</strong> Designed end-to-end iOS app — booking flows, driver preferences, expense management, and scheduled trips.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong>E2E</strong><span class="mono">UX/UI Design</span></div>
+            <div class="metric"><strong>B2B</strong><span class="mono">Enterprise Clients</span></div>
+            <div class="metric"><strong>iOS</strong><span class="mono">Native App</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>Ride-Hailing</span><span>iOS</span><span>Enterprise</span></div>
+            <a class="card__open" href="https://on-demand-ride-booking.zubair3ahmed.workers.dev/" target="_blank" rel="noopener" data-cursor="open" data-locked
+               aria-label="Unlock case study: On-Demand Corporate Ride Booking">Unlock Case Study</a>
+          </div>
+        </article>
+
+        <article class="card card--purple" data-card data-category="">
+          <div class="card__top">
+            <span class="card__index mono">10 / Archive</span>
+            <span class="card__icon card__icon--arrow">↗</span>
+          </div>
+          <figure class="card__cover"><img src="images/warm-work-4.png" alt="Telehealth web design — connect with a doctor in minutes, landing page mockups" loading="lazy" /></figure>
+          <h3 class="card__title display">Earlier Work, Archives &amp; Experiments</h3>
+          <p class="card__desc">
+            A decade of earlier product, branding and freelance projects across fintech, edtech and
+            consumer apps — the foundation behind the systems thinking in the case studies above.
+          </p>
+          <div class="card__metrics">
+            <div class="metric"><strong><span data-count="40">40</span>+</strong><span class="mono">Projects shipped</span></div>
+            <div class="metric"><strong>2013</strong><span class="mono">Where it began</span></div>
+            <div class="metric"><strong><span data-count="6">6</span></strong><span class="mono">Industries spanned</span></div>
+          </div>
+          <div class="card__foot">
+            <div class="card__tags mono"><span>Freelance</span><span>Branding</span><span>Archive</span></div>
+            <a class="card__open" href="https://xd.adobe.com/view/6d701ed2-eb90-4d79-5fcb-a780421d407e-1b41/?fullscreen" target="_blank" rel="noopener" data-cursor="open" aria-label="View earlier work portfolio">View Case Study <i>↗</i></a>
+          </div>
+        </article>
+
+        <a class="card card--cta" href="projects.html" data-card data-cursor="hover">
+          <div class="card__cta-ripple" aria-hidden="true"><span></span><span></span><span></span></div>
+          <span class="card__cta-text display">View All Projects</span>
+          <span class="card__cta-arrow">→</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ============ About ============ -->
+    <section class="about" id="about">
+      <div class="sec-head">
+        <p class="mono sec-head__label" data-reveal><span class="sec-head__tick">02</span> About · Designing with purpose</p>
+        <h2 class="sec-title display" data-fill>ABOUT<em>.</em></h2>
+      </div>
+
+      <div class="about__stats" data-reveal-group>
+        <div class="stat"><strong><span data-count="10">10</span>+</strong><span class="mono">Years experience</span></div>
+        <div class="stat"><strong><span data-count="40">40</span>+</strong><span class="mono">Products shipped</span></div>
+        <div class="stat"><strong><span data-count="100">100</span>K+</strong><span class="mono">Users impacted</span></div>
+        <div class="stat"><strong><span data-count="3">3</span>×</strong><span class="mono">Design recognition</span></div>
+      </div>
+
+      <div class="about__grid">
+        <figure class="about__portrait" data-card>
+          <img src="images/profile.png" alt="Portrait of Syed Zubair Ahmed" loading="lazy" />
+          <figcaption class="mono">Syed Zubair Ahmed · Dubai, UAE</figcaption>
+        </figure>
+        <div class="about__bio">
+          <p class="about__lead" data-reveal>
+            I'm a Senior Product Designer with a passion for building <em>AI-first products</em> that
+            people actually love to use. From healthcare communication platforms to enterprise
+            collaboration tools, I bridge the gap between complex systems and human delight.
+          </p>
+          <p data-reveal>
+            When I'm not in Figma, I'm mentoring the next generation of designers and exploring the
+            intersection of design, code, and emerging technology. My approach is research-led and
+            systems-minded start with the people and the data, then build the patterns that let a
+            product scale without losing its clarity.
+          </p>
+          <a class="btn btn--ghost about__linkedin" href="https://www.linkedin.com/in/zuuahmed/" target="_blank" rel="noopener" data-magnetic data-cursor="hover" data-reveal aria-label="Connect with Syed Zubair on LinkedIn (opens in a new tab)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.5 8h4V23h-4V8Zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-7.9c0-1.88-.04-4.3-2.62-4.3-2.63 0-3.03 2.05-3.03 4.17V23H8V8Z"/></svg>
+            Connect on LinkedIn <i>↗</i>
+          </a>
+        </div>
+        <ul class="principles">
+          <li data-reveal>
+            <span class="mono principles__num">2026</span>
+            <div><strong>PRODUCT DESIGN CONSULTANT.</strong> Freelance | Enterprise & Startup UX.</div>
+          </li>
+          <li data-reveal>
+            <span class="mono principles__num">2025</span>
+            <div><strong>AS-SAFEER FRAGRANCES.</strong> Founder | Built a D2C e-commerce fragrance brand.</div>
+          </li>
+          <li data-reveal>
+            <span class="mono principles__num">2024</span>
+            <div><strong>NEXTIVA.</strong> Senior Product Designer | Enterprise UX & AI Platforms.</div>
+          </li>
+          <li data-reveal>
+            <span class="mono principles__num">2022</span>
+            <div><strong>SHELL.</strong> Senior UX Designer | Enterprise dashboards for Shell Lubricant Supply.</div>
+          </li>
+          <li data-reveal>
+            <span class="mono principles__num">2020</span>
+            <div><strong>JLL TECHNOLOGIES.</strong> Product Designer-2.</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ AI Workflow ============ -->
+    <section class="ai-workflow" id="ai-workflow" style="display:none">
+      <div class="sec-head">
+        <p class="mono sec-head__label" data-reveal><span class="sec-head__tick">03</span> Process · AI-assisted workflow</p>
+        <h2 class="sec-title display" data-fill>PROCESS<em>.</em></h2>
+      </div>
+      <p class="ai-workflow__desc" data-reveal>From research to a working prototype — with AI in every step and a human decision at every hand-off.</p>
+
+      <div class="wf-timeline" id="wfTimeline">
+        <svg class="wf-timeline__svg" id="wfSvg" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="wfGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--accent)"/>
+              <stop offset="1" stop-color="#5EEAD4"/>
+            </linearGradient>
+            <filter id="wfGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+          </defs>
+          <path id="wfTrack" class="wf-timeline__track" fill="none" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"/>
+          <path id="wfProg" class="wf-timeline__prog" fill="none" stroke="url(#wfGrad)" stroke-width="3" stroke-linecap="round"/>
+          <path id="wfProgGlow" class="wf-timeline__prog-glow" fill="none" stroke="url(#wfGrad)" stroke-width="10" stroke-linecap="round" filter="url(#wfGlow)" opacity=".5"/>
+          <circle id="wfSpark" class="wf-timeline__spark" r="6" fill="var(--accent)" opacity="0"/>
+          <circle id="wfSparkGlow" r="18" fill="var(--accent)" opacity="0" filter="url(#wfGlow)"/>
+        </svg>
+
+        <div class="wf-node" data-wf-step="0">
+          <div class="wf-node__ring"><span class="wf-node__core"></span></div>
+          <div class="wf-node__card">
+            <div class="wf-node__head"><span class="wf-node__no mono">01</span><span class="wf-node__tool mono">ChatGPT</span></div>
+            <h3 class="wf-node__title">Research &amp; Requirements</h3>
+            <p class="wf-node__desc">Desk research, requirement analysis and a first draft of the logic.</p>
+            <div class="wf-node__tags mono"><span>Requirements</span><span>Logic draft</span></div>
+          </div>
+          <div class="wf-node__check mono"><span class="wf-node__dia">◆</span> Human review</div>
+        </div>
+
+        <div class="wf-node" data-wf-step="1">
+          <div class="wf-node__ring"><span class="wf-node__core"></span></div>
+          <div class="wf-node__card">
+            <div class="wf-node__head"><span class="wf-node__no mono">02</span><span class="wf-node__tool mono">Figma AI</span></div>
+            <h3 class="wf-node__title">Discovery Workshop</h3>
+            <p class="wf-node__desc">Insights and user journeys synthesised, then patterns mapped.</p>
+            <div class="wf-node__tags mono"><span>Insights</span><span>Journeys</span><span>AI patterns</span></div>
+          </div>
+          <div class="wf-node__check mono"><span class="wf-node__dia">◆</span> Human review</div>
+        </div>
+
+        <div class="wf-node" data-wf-step="2">
+          <div class="wf-node__ring"><span class="wf-node__core"></span></div>
+          <div class="wf-node__card">
+            <div class="wf-node__head"><span class="wf-node__no mono">03</span><span class="wf-node__tool mono">Claude Code</span></div>
+            <h3 class="wf-node__title">Build</h3>
+            <p class="wf-node__desc">Vibe-code a working prototype, iterating in conversation.</p>
+            <div class="wf-node__tags mono"><span>Prototype</span><span>Iteration</span></div>
+          </div>
+          <div class="wf-node__check mono"><span class="wf-node__dia">◆</span> Human review</div>
+        </div>
+
+        <div class="wf-node" data-wf-step="3">
+          <div class="wf-node__ring"><span class="wf-node__core"></span></div>
+          <div class="wf-node__card">
+            <div class="wf-node__head"><span class="wf-node__no mono">04</span><span class="wf-node__tool mono">AI + Design System</span></div>
+            <h3 class="wf-node__title">Design System</h3>
+            <p class="wf-node__desc">Start from a base system, then customise tokens and components.</p>
+            <div class="wf-node__tags mono"><span>Tokens</span><span>Components</span></div>
+          </div>
+          <div class="wf-node__check mono"><span class="wf-node__dia">◆</span> Human review</div>
+        </div>
+
+        <div class="wf-node wf-node--goal" data-wf-step="4">
+          <div class="wf-node__ring wf-node__ring--goal"><span class="wf-node__star">✦</span></div>
+          <div class="wf-node__card">
+            <div class="wf-node__head"><span class="wf-node__no mono" style="color:#4ade80">FINISH</span></div>
+            <h3 class="wf-node__title">Prototype Ready</h3>
+            <p class="wf-node__desc">AI does the heavy lifting. You make the calls.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-guardrails" data-reveal>
+        <div class="wf-guardrails__head">
+          <span class="wf-guardrails__icon">🛡</span>
+          <span class="wf-guardrails__title mono">Guardrails</span>
+          <span class="wf-guardrails__sub mono">· Claude skills</span>
+        </div>
+        <div class="wf-guardrails__items">
+          <div class="wf-guardrails__item">
+            <code class="mono">design:accessibility-review</code>
+            <span>WCAG 2.1 AA audit — contrast, keyboard, focus, screen readers</span>
+          </div>
+          <div class="wf-guardrails__item">
+            <code class="mono">ux-designer</code>
+            <span>Colour-contrast check across themes and states</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="wf-motto mono" data-reveal>A human decision at every hand-off.</p>
+    </section>
+
+    <!-- ============ Tools ============ -->
+    <section class="tools" id="tools" aria-labelledby="tools-heading">
+      <p id="tools-heading" class="mono tools__label" data-reveal>Tools</p>
+      <div class="tools__grid" role="list" aria-label="Tools and software">
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 38 57" fill="none"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
+          <span class="tools__name mono">Figma</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" fill="#D97757" fill-rule="nonzero"/></svg>
+          <span class="tools__name mono">Claude</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.998 5.998 0 0 0-3.998 2.9 6.042 6.042 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.05 6.05 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071.005l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071-.005l4.83 2.786a4.494 4.494 0 0 1-.693 8.1v-5.686a.79.79 0 0 0-.39-.644zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.494 4.494 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v3.005l-2.602 1.5-2.607-1.5z" fill="#10A37F"/></svg>
+          <span class="tools__name mono">ChatGPT</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 64 64"><path fill="#FFD02F" d="M0 0h64v64H0z"/><path d="M17.4 11.2h6l9.6 14.4L42.6 11.2h6V52.8h-6V24L33 38.2l-9.6-14V52.8h-6z" fill="#050038"/></svg>
+          <span class="tools__name mono">Miro</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF6B6B"/></svg>
+          <span class="tools__name mono">Lovable</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M14.17 5L19 9.83V19H5V5h9.17zM14.17 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9.83c0-.53-.21-1.04-.59-1.41l-4.83-4.83A2 2 0 0 0 14.17 3z" fill="#fff"/><path d="M12 14l-2-3H8l3 4.5V18h2v-2.5L16 11h-2l-2 3z" fill="#fff" opacity=".6"/></svg>
+          <span class="tools__name mono">Paper</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 14 21"><path d="M0 14h7l7-7H7V0H0zM0 21l7-7H0z" fill="#05F"/><path d="M7 7h7v7l-7 7V14H0z" fill="#8CF"/></svg>
+          <span class="tools__name mono">Framer</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 240 234"><rect width="240" height="234" rx="42" fill="#001E36"/><text x="120" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-weight="600" font-size="120" fill="#31A8FF">Ps</text></svg>
+          <span class="tools__name mono">Photoshop</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 240 234"><rect width="240" height="234" rx="42" fill="#330000"/><text x="120" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-weight="600" font-size="120" fill="#FF9A00">Ai</text></svg>
+          <span class="tools__name mono">Illustrator</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" fill="#1a1a2e" stroke="#333" stroke-width="1"/><path d="M24 6a18 18 0 0 1 0 36" stroke="#E8442A" stroke-width="4" stroke-linecap="round"/><path d="M24 42a18 18 0 0 1 0-36" stroke="#F4A123" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="24" r="6" fill="none" stroke="#ccc" stroke-width="2.5"/></svg>
+          <span class="tools__name mono">DaVinci Resolve</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 100 100" fill="none"><path d="M15 10L85 50L15 90V10Z" fill="#fff"/><path d="M50 50L85 50L50 90V50Z" fill="#999"/></svg>
+          <span class="tools__name mono">Cursor</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 256 256" fill="none"><defs><linearGradient id="vscg1" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#32B5F1"/><stop offset="100%" stop-color="#2B9FED"/></linearGradient><linearGradient id="vscg2" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#0F6FB5"/><stop offset="100%" stop-color="#0960A5"/></linearGradient></defs><path d="M180.6 252.2l70.3-35.1c3.3-1.6 5.4-5 5.4-8.7V47.5c0-3.7-2.1-7.1-5.4-8.7L180.6 3.7a10.1 10.1 0 0 0-11.5 2L71.7 90.8 29.7 59.2a6.7 6.7 0 0 0-8.6.5L3.8 76a6.8 6.8 0 0 0 0 10.1l36.6 33.2L3.8 152.5a6.8 6.8 0 0 0 0 10.1l17.3 16.3a6.7 6.7 0 0 0 8.6.5L71.7 148l97.4 85.1a10.1 10.1 0 0 0 11.5 2.1z" fill="url(#vscg2)"/><path d="M180.6 252.2l70.3-35.1c3.3-1.6 5.4-5 5.4-8.7V47.5c0-3.7-2.1-7.1-5.4-8.7L180.6 3.7a10.1 10.1 0 0 0-11.5 2L71.7 90.8 29.7 59.2a6.7 6.7 0 0 0-8.6.5L3.8 76a6.8 6.8 0 0 0 0 10.1l36.6 33.2L3.8 152.5a6.8 6.8 0 0 0 0 10.1l17.3 16.3a6.7 6.7 0 0 0 8.6.5L71.7 148l97.4 85.1a10.1 10.1 0 0 0 11.5 2.1z" fill="url(#vscg1)" opacity=".25"/><path d="M180.8 252.3a10.2 10.2 0 0 1-11.6-2.1L71.7 148l-42 31.2a6.7 6.7 0 0 1-8.6-.5l-17.3-16.3a6.8 6.8 0 0 1 0-10.1l36.6-33.2L3.8 86.1a6.8 6.8 0 0 1 0-10.1L21.1 59.7a6.7 6.7 0 0 1 8.6-.5l42 31.2 97.5-85.1a10.2 10.2 0 0 1 11.6-2.1l70.1 35a10.2 10.2 0 0 1 5.4 8.7v161c0 3.7-2.1 7.1-5.4 8.7l-70.1 35.7z" fill="#007ACC"/><path d="M180.8 252.3a10.2 10.2 0 0 1-11.6-2.1c3.5 3.5 9.5 1 9.5-3.9V9.7c0-4.9-6-7.4-9.5-3.9a10.2 10.2 0 0 1 11.6-2.1l70.1 35a10.2 10.2 0 0 1 5.4 8.7v161c0 3.7-2.1 7.1-5.4 8.7l-70.1 35.2z" fill="#1F9CF0" opacity=".25"/></svg>
+          <span class="tools__name mono">VS Code</span>
+        </div>
+
+        <div class="tools__item" role="listitem">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2DCA72"/><path d="M8 12a4 4 0 0 1 8 0" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="10" r="1.2" fill="#fff"/><circle cx="14" cy="10" r="1.2" fill="#fff"/></svg>
+          <span class="tools__name mono">UserTesting</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ Reviews ============ -->
+    <section class="reviews" id="reviews">
+      <div class="sec-head">
+        <p class="mono sec-head__label" data-reveal><span class="sec-head__tick">03</span> Words from teammates · LinkedIn</p>
+        <h2 class="sec-title display" data-fill>WORDS<em>.</em></h2>
+      </div>
+
+      <div class="reviews__grid">
+        <figure class="review" data-card>
+          <span class="review__org mono">Nextiva</span>
+          <blockquote>
+            “Working with Zubair was a genuinely rewarding experience. He led several key design system
+            initiatives, including dark mode implementation and responsive layout frameworks, always
+            approaching each challenge with precision and user-centered thinking. Zubair consistently
+            delivered high-quality designs marked by attention to detail and a strong grasp of both
+            product goals and user needs. He's an amazing teammate — always open to feedback, supportive
+            of his peers, and committed to moving projects forward.”
+          </blockquote>
+          <figcaption>
+            <strong>Chinmay Joshi</strong>
+            <span class="mono">Principal Product Designer · Nextiva</span>
+          </figcaption>
+        </figure>
+
+        <figure class="review" data-card>
+          <span class="review__org mono">Nextiva</span>
+          <blockquote>
+            “I had the pleasure of working with Syed on the UX team at Nextiva, and he is an incredible
+            teammate and designer. Syed brought clarity and thoughtfulness to every project, digging deep
+            into user needs and translating them into intuitive, scalable solutions. At Nextiva, we often
+            worked under tight deadlines across complex systems, and Syed consistently delivered smart,
+            well-crafted designs that balanced business goals with user needs.”
+          </blockquote>
+          <figcaption>
+            <strong>Nader Nakhla</strong>
+            <span class="mono">Senior UX Designer · Nextiva</span>
+          </figcaption>
+        </figure>
+
+        <figure class="review" data-card>
+          <span class="review__org mono">OneTrust</span>
+          <blockquote>
+            “Zubair is an excellent collaborator who bridges business, design, and engineering
+            effectively. He excels at transforming early-stage concepts into practical product
+            experiences that resonate with clients and stakeholders. His clear communication,
+            solution-oriented approach, and ability to align design with business goals make him a
+            valuable Product Designer for any team.”
+          </blockquote>
+          <figcaption>
+            <strong>Nazir Hasan</strong>
+            <span class="mono">Engineering Manager · OneTrust</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ Contact ============ -->
+    <section class="contact" id="contact">
+      <p class="mono sec-head__label" data-reveal><span class="sec-head__tick">04</span> Get in touch · Available worldwide</p>
+      <h2 class="contact__title display">
+        <span class="line"><span class="line__inner">LET'S</span></span>
+        <span class="line"><span class="line__inner">TALK<em>.</em></span></span>
+      </h2>
+      <p class="contact__sub" data-reveal>
+        Actively exploring senior product design opportunities across the globe startups scaling fast,
+        enterprises rethinking their product experience, or recruiters with an exciting role.
+        Reach out and let's talk.
+      </p>
+
+      <ul class="contact__rows">
+        <li data-reveal>
+          <a href="mailto:zubair3ahmed@gmail.com" data-cursor="open">
+            <span class="mono contact__label">Email</span>
+            <span class="contact__val">zubair3ahmed@gmail.com</span>
+            <i>↗</i>
+          </a>
+        </li>
+        <li data-reveal>
+          <a href="https://wa.me/971563766211" target="_blank" rel="noopener" data-cursor="open">
+            <span class="mono contact__label">Phone / WhatsApp</span>
+            <span class="contact__val">&#127462;&#127466; +971 56 376 6211</span>
+            <i>↗</i>
+          </a>
+        </li>
+        <li data-reveal>
+          <a href="https://www.linkedin.com/in/zuuahmed/" target="_blank" rel="noopener" data-cursor="open">
+            <span class="mono contact__label">LinkedIn</span>
+            <span class="contact__val">/in/zuuahmed</span>
+            <i>↗</i>
+          </a>
+        </li>
+        <li data-reveal>
+          <a href="https://www.behance.net/ZuuAhmed" target="_blank" rel="noopener" data-cursor="open">
+            <span class="mono contact__label">Behance</span>
+            <span class="contact__val">/ZuuAhmed</span>
+            <i>↗</i>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ============ Password modal ============ -->
+  <div class="vault" id="vault" role="dialog" aria-modal="true" aria-labelledby="vaultTitle" hidden>
+    <div class="vault__backdrop" data-vault-close></div>
+    <div class="vault__panel">
+      <p class="vault__eyebrow mono">Protected work</p>
+      <h2 class="vault__title display" id="vaultTitle">Enter password</h2>
+      <p class="vault__hint">Interested in viewing the full case study? Request the password via
+        <a href="mailto:zubair3ahmed@gmail.com?subject=Case%20study%20password%20request&body=Hi%20Zubair%2C%20can%20you%20share%20the%20password%20for%20your%20case%20study%3F">zubair3ahmed@gmail.com</a> or
+        <a href="https://wa.me/919538328910?text=Hi%2C%20can%20you%20share%20the%20password%20for%20your%20case%20study%3F" target="_blank" rel="noopener">WhatsApp: +91-95383 28910</a>.</p>
+      <form class="vault__form" id="vaultForm" novalidate>
+        <label class="mono" for="vaultInput">Password</label>
+        <div class="vault__row">
+          <input id="vaultInput" name="password" type="password" autocomplete="off" spellcheck="false" required aria-describedby="vaultError" />
+          <button class="btn btn--solid" type="submit">Unlock</button>
+        </div>
+        <p class="vault__error mono" id="vaultError" role="alert" hidden>Incorrect password — try again</p>
+      </form>
+      <button class="vault__close" type="button" aria-label="Close password dialog" data-vault-close>✕</button>
+    </div>
+  </div>
+
+  <!-- ============ Ask Zubair chatbot ============ -->
+  <div class="azchat" id="azchat" role="dialog" aria-modal="true" aria-labelledby="azchatTitle" hidden>
+    <div class="azchat__backdrop" id="azchatBackdrop"></div>
+    <div class="azchat__panel">
+      <div class="azchat__header">
+        <div class="azchat__avatar" aria-hidden="true">SZ</div>
+        <div>
+          <h2 id="azchatTitle" class="azchat__name">Ask Zubair</h2>
+          <p class="azchat__status mono"><span class="azchat__dot" aria-hidden="true"></span>AI assistant · answers from portfolio</p>
+        </div>
+        <button class="azchat__restart" id="azchatRestart" aria-label="Restart conversation" title="Restart conversation">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+        </button>
+        <button class="azchat__close" id="azchatClose" aria-label="Close chat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="azchat__body" id="azchatBody" role="log" aria-live="polite" aria-relevant="additions">
+        <div class="azchat__msg azchat__msg--bot" role="status">
+          <p>Hey! I'm Zubair's AI assistant. I can help answer questions about his experience, skills, projects, and design process.</p>
+          <p class="azchat__hint mono">Try asking about his work, tools, or availability.</p>
+        </div>
+      </div>
+      <div class="azchat__chips" id="azchatChips" role="group" aria-label="Suggested questions">
+        <button class="azchat__chip" data-q="What's Zubair's experience?">Experience</button>
+        <button class="azchat__chip" data-q="What tools does Zubair use?">Tools & skills</button>
+        <button class="azchat__chip" data-q="Tell me about AI projects">AI projects</button>
+        <button class="azchat__chip" data-q="Is Zubair available for hire?">Availability</button>
+      </div>
+      <form class="azchat__input" id="azchatForm" autocomplete="off">
+        <label for="azchatField" class="sr-only">Type your question</label>
+        <input id="azchatField" type="text" class="azchat__field" placeholder="Ask about experience, projects, skills…" aria-label="Type your question" />
+        <button type="submit" class="azchat__send" aria-label="Send message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ 1:1 Mentoring CTA ============ -->
+  <section style="max-width:var(--maxw);margin:0 auto;padding:80px var(--gutter)">
+    <a href="https://topmate.io/syed_zubair_ahmed/" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;justify-content:space-between;padding:40px 48px;border-radius:24px;border:1px solid var(--border-clr);background:var(--surface-clr);text-decoration:none;transition:border-color .3s,box-shadow .3s" onmouseenter="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 40px rgba(228,254,154,.08)'" onmouseleave="this.style.borderColor='var(--border-clr)';this.style.boxShadow='none'">
+      <div>
+        <p class="mono" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-clr);margin-bottom:8px">Book a session</p>
+        <h2 class="display" style="font-size:clamp(28px,3vw,42px);letter-spacing:-.02em;line-height:1.1">1:1 Design Mentoring</h2>
+        <p style="font-size:15px;color:var(--muted-clr);margin-top:10px;max-width:480px">Portfolio reviews, career advice, AI product design — let's chat about what you're working on.</p>
+      </div>
+      <span style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:var(--accent);color:#050505;font-size:14px;font-weight:600;white-space:nowrap;flex-shrink:0">Book on Topmate <i>↗</i></span>
+    </a>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="foot">
+    <span class="foot__logo">SYED ZUBAIR<i>.</i></span>
+    <span class="mono">© 2026 Syed Zubair Ahmed. All rights reserved.</span>
+    <a class="mono foot__top" href="#top" data-cursor="hover">↑ Back to top</a>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  (function () {
+    var tabs = document.querySelectorAll(".work-tab");
+    var cards = document.querySelectorAll(".cards > .card:not(.card--cta)");
+    var cta = document.querySelector(".card--cta");
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        tabs.forEach(function (t) { t.classList.remove("active"); });
+        tab.classList.add("active");
+        var filter = tab.getAttribute("data-filter");
+        cards.forEach(function (card) {
+          if (filter === "all") {
+            card.classList.remove("hidden-by-filter");
+          } else {
+            var cats = (card.getAttribute("data-category") || "").split(" ");
+            if (cats.indexOf(filter) !== -1) {
+              card.classList.remove("hidden-by-filter");
+            } else {
+              card.classList.add("hidden-by-filter");
+            }
+          }
+        });
+        if (cta) cta.classList.remove("hidden-by-filter");
+      });
+    });
+  })();
+  </script>
+  <script>
+  (function () {
+    var el = document.getElementById("liveCount");
+    if (!el) return;
+    var target = 648;
+    var duration = 2000;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(ease * target).toLocaleString();
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        requestAnimationFrame(step);
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(el.closest(".traffic"));
+    setInterval(function () {
+      var delta = Math.random() > 0.5 ? 1 : -1;
+      target = Math.max(600, Math.min(720, target + delta));
+      el.textContent = target.toLocaleString();
+    }, 4000);
+  })();
+  </script>
+
+  <script>
+  (function(){
+    var tl = document.getElementById('wfTimeline');
+    if(!tl) return;
+    var svg = document.getElementById('wfSvg');
+    var track = document.getElementById('wfTrack');
+    var prog = document.getElementById('wfProg');
+    var progGlow = document.getElementById('wfProgGlow');
+    var spark = document.getElementById('wfSpark');
+    var sparkGlow = document.getElementById('wfSparkGlow');
+    var nodes = tl.querySelectorAll('.wf-node');
+    var isMobile = function(){ return window.innerWidth < 820; };
+
+    function layout(){
+      var W = tl.offsetWidth;
+      var mobile = isMobile();
+      var pts = [];
+      var nodePositions = [];
+
+      if(mobile){
+        var stepH = 320;
+        var totalH = (nodes.length) * stepH + 80;
+        tl.style.minHeight = totalH + 'px';
+        var cx = 40;
+        for(var i=0;i<nodes.length;i++){
+          var y = 60 + i * stepH;
+          pts.push({x: cx, y: y});
+          nodePositions.push({x: cx, y: y});
+        }
+      } else {
+        var stepW = W / (nodes.length);
+        var totalH = 650;
+        tl.style.minHeight = totalH + 'px';
+        for(var i=0;i<nodes.length;i++){
+          var x = stepW * 0.5 + i * stepW;
+          var y = 260 + (i % 2 === 0 ? 0 : 100);
+          pts.push({x: x, y: y});
+          nodePositions.push({x: x, y: y});
+        }
+      }
+
+      var d = 'M ' + pts[0].x + ' ' + pts[0].y;
+      for(var i=0;i<pts.length-1;i++){
+        var p0 = pts[i];
+        var p1 = pts[i+1];
+        if(mobile){
+          var cpX1 = p0.x + 80;
+          var cpY1 = p0.y + (p1.y - p0.y) * 0.5;
+          var cpX2 = p1.x - 80;
+          var cpY2 = p0.y + (p1.y - p0.y) * 0.5;
+          d += ' C ' + cpX1 + ' ' + cpY1 + ', ' + cpX2 + ' ' + cpY2 + ', ' + p1.x + ' ' + p1.y;
+        } else {
+          var cpX1 = p0.x + (p1.x - p0.x) * 0.5;
+          var cpY1 = p0.y;
+          var cpX2 = p0.x + (p1.x - p0.x) * 0.5;
+          var cpY2 = p1.y;
+          d += ' C ' + cpX1 + ' ' + cpY1 + ', ' + cpX2 + ' ' + cpY2 + ', ' + p1.x + ' ' + p1.y;
+        }
+      }
+
+      track.setAttribute('d', d);
+      prog.setAttribute('d', d);
+      progGlow.setAttribute('d', d);
+
+      var len = prog.getTotalLength();
+      prog.style.strokeDasharray = len;
+      prog.style.strokeDashoffset = len;
+      progGlow.style.strokeDasharray = len;
+      progGlow.style.strokeDashoffset = len;
+
+      nodes.forEach(function(node, i){
+        var p = nodePositions[i];
+        if(mobile){
+          node.style.left = (p.x + 30) + 'px';
+          node.style.top = (p.y - 22) + 'px';
+          node.style.flexDirection = 'column';
+        } else {
+          node.style.left = (p.x - 22) + 'px';
+          if(i % 2 === 0){
+            node.style.top = (p.y + 36) + 'px';
+            node.style.flexDirection = 'column';
+          } else {
+            node.style.top = (p.y - 320) + 'px';
+            node.style.flexDirection = 'column-reverse';
+          }
+        }
+      });
+
+      return len;
+    }
+
+    var pathLen = layout();
+
+    var tween = gsap.timeline({
+      scrollTrigger: {
+        trigger: tl,
+        start: 'top 70%',
+        end: 'bottom 30%',
+        scrub: 0.8,
+      }
+    });
+
+    tween.to([prog, progGlow], {
+      strokeDashoffset: 0,
+      ease: 'none',
+      duration: 1
+    }, 0);
+
+    tween.to([spark, sparkGlow], { opacity: 1, duration: 0.01 }, 0);
+
+    tween.to([spark, sparkGlow], {
+      motionPath: { path: prog, align: prog, alignOrigin: [0.5, 0.5] },
+      ease: 'none',
+      duration: 1
+    }, 0);
+
+    tween.to([spark, sparkGlow], { opacity: 0, duration: 0.01 }, 0.99);
+
+    nodes.forEach(function(node, i){
+      var appear = (i + 0.3) / nodes.length;
+      tween.fromTo(node,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.15, ease: 'power2.out',
+          onComplete: function(){
+            node.classList.add('active');
+            node.querySelector('.wf-node__ring').classList.add('lit');
+          }
+        },
+        appear
+      );
+    });
+
+    var resizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function(){
+        pathLen = layout();
+        ScrollTrigger.refresh();
+      }, 200);
+    });
+  })();
+  </script>
+
+  <!-- Ask Zubair chatbot logic -->
+  <script>
+  (function(){
+    var chat = document.getElementById('azchat');
+    var body = document.getElementById('azchatBody');
+    var form = document.getElementById('azchatForm');
+    var field = document.getElementById('azchatField');
+    var chips = document.getElementById('azchatChips');
+    var closeBtn = document.getElementById('azchatClose');
+    var backdrop = document.getElementById('azchatBackdrop');
+    var openBtn = document.getElementById('askZubairBtn');
+    var openMobile = document.getElementById('askZubairMobile');
+    var prevFocus = null;
+
+    var kb = {
+      name: 'Syed Zubair Ahmed',
+      title: 'Senior Product Designer',
+      location: 'Dubai, UAE',
+      email: 'zubair3ahmed@gmail.com',
+      linkedin: 'https://www.linkedin.com/in/zuuahmed/',
+      yearsExp: '10+',
+      productsShipped: '40+',
+      usersImpacted: '100K+',
+      tools: ['Figma', 'Claude', 'ChatGPT', 'Miro', 'Lovable', 'Paper', 'Framer', 'Photoshop'],
+      skills: ['Product Design', 'UX Research', 'AI/ML Product Design', 'Design Systems', 'Prototyping', 'Interaction Design', 'Conversational UX', 'RTL Design', 'Accessibility (WCAG)', 'User Testing', 'GSAP Animation', 'HTML/CSS'],
+      career: [
+        { year: '2026', role: 'Product Design Consultant', company: 'Freelance', detail: 'Enterprise & Startup UX' },
+        { year: '2025', role: 'Founder', company: 'As-Safeer Fragrances', detail: 'Built a D2C e-commerce fragrance brand' },
+        { year: '2024', role: 'Senior Product Designer', company: 'Nextiva', detail: 'Enterprise UX & AI Platforms' },
+        { year: '2022', role: 'Senior UX Designer', company: 'Shell', detail: 'Enterprise dashboards for Shell Lubricant Supply' },
+        { year: '2020', role: 'Product Designer-2', company: 'JLL Technologies', detail: 'PropTech & Real Estate' }
+      ],
+      projects: [
+        { name: 'Guide.ai', tags: 'AI Agent, Legal Tech, Conversational', desc: 'Turned a long legal registration form into an AI-guided conversation. Cut interactions from 60 to 22 — a ~63% reduction.', link: 'guide-ai/index.html' },
+        { name: 'AI Healthcare Copilot', tags: 'Nextiva, AI/ML, HIPAA', desc: 'Rethinking patient communication at Nextiva — real-time AI copilot serving 100K+ healthcare professionals. HIPAA-compliant by design.', link: null },
+        { name: 'AI Travel Concierge', tags: 'AI Agent, Travel, Conversational', desc: 'AI-powered travel planning agent for holidays, Umrah, Hajj and meaningful journeys across multiple destinations.', link: 'https://travel-ai-agent.zubair3ahmed.workers.dev/' },
+        { name: 'Al-Saada Healthcare', tags: 'Healthcare, RTL, Landing Page', desc: 'Arabic RTL landing page for medical tourism — connecting Arab patients with top hospitals in India. 32 hospitals partnered.', link: 'https://al-saada-healthcare.zubair3ahmed.workers.dev/' },
+        { name: 'Global Incentive Fee Awards', tags: 'PropTech, FinTech, Enterprise', desc: 'Fund payout dashboard at JLL — making stage progress and stakeholder actions visible to improve on-time closings.', link: null },
+        { name: 'Enterprise Video Platform', tags: 'Video, Design System, Responsive', desc: 'End-to-end UX/UI for real-time collaboration and video conferencing for distributed teams.', link: null },
+        { name: 'Dark Mode Design System', tags: 'Figma Variables, Design System, Dark Mode', desc: 'Flexible theming architecture with Figma Variables — 120+ tokens mapped, AA+ contrast verified.', link: null },
+        { name: 'Corporate Ride Booking', tags: 'Ride-Hailing, iOS, Enterprise', desc: 'Full-featured B2B ride-hailing iOS app with booking flows, driver preferences, and corporate expense management.', link: null }
+      ],
+      process: 'Research & Requirements (ChatGPT) → Discovery Workshop (Figma AI) → Build prototype (Claude Code) → Design System (AI + Design System). Human review checkpoint at every hand-off. Guardrails include accessibility review and colour-contrast checks.',
+      availability: 'Currently open to freelance and full-time Senior/Lead Product Design roles. Based in Dubai, UAE — open to remote and hybrid opportunities globally.',
+      education: 'Bachelor of Technology (B.Tech)',
+      industries: ['Enterprise SaaS', 'Healthcare', 'AI/ML', 'PropTech', 'FinTech', 'Travel', 'Legal Tech', 'Ride-Hailing', 'E-commerce']
+    };
+
+    var responses = [
+      { patterns: [/experience|background|career|work history|resume|cv|journey/i],
+        answer: function(){
+          var c = kb.career.map(function(r){ return '<strong>' + r.year + '</strong> — ' + r.role + ' at ' + r.company + '. ' + r.detail; }).join('<br>');
+          return '<p>Zubair has <strong>' + kb.yearsExp + ' years</strong> of product design experience with <strong>' + kb.productsShipped + ' products shipped</strong> impacting <strong>' + kb.usersImpacted + ' users</strong>.</p><p>' + c + '</p>' + linkTo('resume.html', 'View full résumé');
+        }},
+      { patterns: [/tool|software|figma|sketch|prototype|stack/i],
+        answer: function(){
+          return '<p>Zubair\'s design toolkit:</p><p><strong>' + kb.tools.join(', ') + '</strong></p><p>He also codes in HTML/CSS with GSAP for motion design, and uses Claude Code for AI-assisted prototyping.</p>';
+        }},
+      { patterns: [/skill|expertise|speciali|capabilit|what.*(do|can)/i],
+        answer: function(){
+          return '<p>Core skills:</p><p>' + kb.skills.map(function(s){ return '• ' + s; }).join('<br>') + '</p>';
+        }},
+      { patterns: [/available|hire|freelance|open to|looking|relocat|full.?time|contract/i],
+        answer: function(){
+          return '<p>' + kb.availability + '</p><p>Best way to reach out:</p>' + linkTo('mailto:' + kb.email, 'Email Zubair') + linkTo(kb.linkedin, 'LinkedIn');
+        }},
+      { patterns: [/\bai\b|artificial|machine learn|copilot|agent|llm|chatbot/i],
+        answer: function(){
+          var ai = kb.projects.filter(function(p){ return /AI|Copilot|Agent/i.test(p.tags); });
+          var list = ai.map(function(p){ return '<strong>' + p.name + '</strong> — ' + p.desc + (p.link ? ' ' + linkTo(p.link, 'View →') : ''); }).join('<br><br>');
+          return '<p>Zubair specialises in <strong>AI-first product design</strong>. Key AI projects:</p><p>' + list + '</p>';
+        }},
+      { patterns: [/project|case stud|portfolio|work samples/i],
+        answer: function(){
+          var list = kb.projects.map(function(p){ return '<strong>' + p.name + '</strong> (' + p.tags + ') — ' + p.desc; }).join('<br><br>');
+          return '<p>Here are Zubair\'s featured projects:</p><p>' + list + '</p>' + linkTo('projects.html', 'View all projects');
+        }},
+      { patterns: [/process|workflow|how.*(work|design|approach)/i],
+        answer: function(){
+          return '<p>Zubair follows an <strong>AI-assisted design process</strong>:</p><p>' + kb.process + '</p><p>His motto: <em>"A human decision at every hand-off."</em></p>';
+        }},
+      { patterns: [/contact|email|reach|connect|linkedin|phone|call/i],
+        answer: function(){
+          return '<p>You can reach Zubair at:</p><p>📧 <strong>' + kb.email + '</strong><br>📍 ' + kb.location + '</p>' + linkTo('mailto:' + kb.email, 'Send email') + linkTo(kb.linkedin, 'LinkedIn profile');
+        }},
+      { patterns: [/locat|where|based|city|country|dubai|uae|remote/i],
+        answer: function(){
+          return '<p>Zubair is based in <strong>' + kb.location + '</strong>. He\'s open to remote and hybrid roles globally.</p>';
+        }},
+      { patterns: [/design system|token|variable|theme|dark mode/i],
+        answer: function(){
+          var ds = kb.projects.filter(function(p){ return /Design System|Dark Mode/i.test(p.tags); });
+          var list = ds.map(function(p){ return '<strong>' + p.name + '</strong> — ' + p.desc; }).join('<br><br>');
+          return '<p>Zubair has deep expertise in <strong>design systems</strong>:</p><p>' + list + '</p>';
+        }},
+      { patterns: [/healthcare|hipaa|medical|patient/i],
+        answer: function(){
+          var hc = kb.projects.filter(function(p){ return /Healthcare|HIPAA|Medical/i.test(p.tags); });
+          var list = hc.map(function(p){ return '<strong>' + p.name + '</strong> — ' + p.desc + (p.link ? ' ' + linkTo(p.link, 'View →') : ''); }).join('<br><br>');
+          return '<p>Healthcare projects:</p><p>' + list + '</p>';
+        }},
+      { patterns: [/industr|domain|sector|vertical/i],
+        answer: function(){
+          return '<p>Zubair has designed across <strong>' + kb.industries.length + ' industries</strong>:</p><p>' + kb.industries.join(', ') + '</p>';
+        }},
+      { patterns: [/education|degree|university|college|school/i],
+        answer: function(){
+          return '<p>Zubair holds a <strong>' + kb.education + '</strong> degree.</p>';
+        }},
+      { patterns: [/hello|hi|hey|yo|sup|greet/i],
+        answer: function(){
+          return '<p>Hey there! 👋 I\'m Zubair\'s AI assistant. Ask me anything about his experience, projects, skills, or availability. What would you like to know?</p>';
+        }},
+      { patterns: [/thank|thanks|thx|cheers/i],
+        answer: function(){
+          return '<p>You\'re welcome! Feel free to ask anything else about Zubair\'s work. If you\'d like to connect directly:</p>' + linkTo('mailto:' + kb.email, 'Email Zubair') + linkTo(kb.linkedin, 'LinkedIn');
+        }},
+      { patterns: [/salary|compensation|rate|cost|price|charge/i],
+        answer: function(){
+          return '<p>For rate discussions, it\'s best to connect with Zubair directly — compensation depends on scope, timeline, and engagement type.</p>' + linkTo('mailto:' + kb.email, 'Start a conversation');
+        }}
+    ];
+
+    function linkTo(href, text){
+      var ext = /^http|^mailto/.test(href) ? ' target="_blank" rel="noopener"' : '';
+      return '<div class="azchat__links"><a href="' + href + '"' + ext + '>' + text + '</a></div>';
+    }
+
+    function getResponse(q){
+      for(var i=0;i<responses.length;i++){
+        for(var j=0;j<responses[i].patterns.length;j++){
+          if(responses[i].patterns[j].test(q)) return responses[i].answer();
+        }
+      }
+      return '<p>I don\'t have specific information on that, but I\'d recommend reaching out to Zubair directly — he\'d be happy to chat!</p>' + linkTo('mailto:' + kb.email, 'Email Zubair') + linkTo(kb.linkedin, 'Connect on LinkedIn');
+    }
+
+    function addMsg(html, type){
+      var d = document.createElement('div');
+      d.className = 'azchat__msg azchat__msg--' + type;
+      d.innerHTML = html;
+      body.appendChild(d);
+      requestAnimationFrame(function(){ body.scrollTop = body.scrollHeight; });
+      return d;
+    }
+
+    function showTyping(){
+      var d = document.createElement('div');
+      d.className = 'azchat__msg azchat__msg--bot azchat__msg--typing';
+      d.setAttribute('role', 'status');
+      d.setAttribute('aria-label', 'Thinking');
+      d.innerHTML = '<div class="azchat__dots"><span></span><span></span><span></span></div>';
+      body.appendChild(d);
+      requestAnimationFrame(function(){ body.scrollTop = body.scrollHeight; });
+      return d;
+    }
+
+    function ask(q){
+      addMsg('<p>' + q.replace(/</g,'&lt;') + '</p>', 'user');
+      var typing = showTyping();
+      setTimeout(function(){
+        typing.remove();
+        addMsg(getResponse(q), 'bot');
+      }, 600 + Math.random() * 400);
+    }
+
+    function openChat(){
+      prevFocus = document.activeElement;
+      chat.hidden = false;
+      document.body.style.overflow = 'hidden';
+      field.focus();
+      var mmenu = document.getElementById('mmenu');
+      if(mmenu && !mmenu.getAttribute('aria-hidden')) {
+        document.getElementById('burger').click();
+      }
+    }
+
+    function closeChat(){
+      chat.hidden = true;
+      document.body.style.overflow = '';
+      if(prevFocus) prevFocus.focus();
+    }
+
+    var restartBtn = document.getElementById('azchatRestart');
+
+    function restartChat(){
+      while(body.children.length > 0) body.removeChild(body.lastChild);
+      addMsg('<p>Hey! I\'m Zubair\'s AI assistant. I can help answer questions about his experience, skills, projects, and design process.</p><p class="azchat__hint mono">Try asking about his work, tools, or availability.</p>', 'bot');
+      chips.style.display = '';
+      field.focus();
+    }
+
+    restartBtn.addEventListener('click', restartChat);
+
+    if(openBtn) openBtn.addEventListener('click', openChat);
+    if(openMobile) openMobile.addEventListener('click', openChat);
+    closeBtn.addEventListener('click', closeChat);
+    backdrop.addEventListener('click', closeChat);
+
+    chat.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeChat();
+      if(e.key === 'Tab'){
+        var focusable = chat.querySelectorAll('button:not([disabled]),input,[href],textarea');
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var q = field.value.trim();
+      if(!q) return;
+      field.value = '';
+      ask(q);
+    });
+
+    chips.addEventListener('click', function(e){
+      var btn = e.target.closest('.azchat__chip');
+      if(!btn) return;
+      ask(btn.getAttribute('data-q'));
+    });
+  })();
+  </script>
 </body>
 </html>

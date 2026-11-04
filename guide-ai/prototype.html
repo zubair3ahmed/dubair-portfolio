@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide.ai — Incorporate your company by chatting</title>
+<meta name="description" content="Guide.ai turns a long incorporation form into a short, guided conversation. Upload, review, submit.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ds.css?v=13">
+<style>
+/* Landing-page layout only. Every colour, size, radius and shadow comes from ds.css tokens. */
+body{height:auto}
+.wrap{width:min(1120px,100% - 2*var(--s5));margin-inline:auto}
+.nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg-app) 88%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav .wrap{display:flex;align-items:center;gap:var(--s5);height:64px}
+.nav .brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:var(--fs-lg);color:var(--text-1);text-decoration:none}
+.nav nav{display:flex;gap:var(--s5);margin-left:auto;margin-right:var(--s2)}
+.nav nav a{color:var(--text-2);text-decoration:none;font-size:var(--fs-sm);font-weight:550}
+.nav nav a:hover{color:var(--brand)}
+.btn.lg{min-height:48px;padding:12px 22px;font-size:var(--fs-md);border-radius:var(--r-md)}
+.hero{padding:88px 0 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s6) 56px;align-items:center}
+.hero h1{font-size:clamp(34px,5vw,54px);line-height:1.08;letter-spacing:-.02em;margin:var(--s4) 0}
+.hero h1 em{font-style:normal;background:var(--ai-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:var(--fs-lg);color:var(--text-2);max-width:520px}
+.cta{display:flex;gap:var(--s3);flex-wrap:wrap;margin:var(--s6) 0 var(--s4)}
+.assure{display:flex;gap:var(--s5);flex-wrap:wrap;color:var(--text-3);font-size:var(--fs-sm)}
+.assure span{display:inline-flex;gap:6px;align-items:center}
+.assure svg{color:var(--ok)}
+/* hero product preview: real DS components, static */
+.preview{position:relative;background:var(--bg-surface);border:1px solid var(--border);border-radius:20px;box-shadow:var(--e3);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s3)}
+.preview .card{margin-left:0}
+.floatchip{position:absolute;right:-12px;bottom:-16px;background:var(--bg-surface);border:1px solid var(--border);box-shadow:var(--e2);border-radius:var(--r-md);padding:10px 14px;font-size:var(--fs-sm);display:flex;gap:8px;align-items:center}
+.floatchip svg{color:var(--ok)}
+.section{padding:72px 0}
+.section.alt{background:var(--bg-surface);border-block:1px solid var(--border)}
+.eyebrow{font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--brand)}
+.section h2{font-size:clamp(26px,3.4vw,36px);line-height:1.15;letter-spacing:-.01em;margin:var(--s2) 0 var(--s3);max-width:640px}
+.section .sub{color:var(--text-2);max-width:600px;font-size:var(--fs-lg)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s6)}
+.tile{border:1px solid var(--border);background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s5);box-shadow:var(--e1);display:flex;flex-direction:column;gap:var(--s2)}
+.section.alt .tile{background:var(--bg-app)}
+.tile .ico{width:40px;height:40px;border-radius:var(--r-md);background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;margin-bottom:var(--s2)}
+.tile h3{font-size:var(--fs-lg)} .tile p{color:var(--text-2);font-size:var(--fs-sm)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);margin-top:var(--s6);counter-reset:s}
+.steps li{list-style:none;position:relative;padding-top:var(--s6);border-top:2px solid var(--border)}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;top:-13px;left:0;width:24px;height:24px;border-radius:50%;background:var(--brand);color:var(--on-brand);font-size:12px;font-weight:700;display:grid;place-items:center}
+.steps b{display:block;margin-bottom:4px} .steps span{color:var(--text-2);font-size:var(--fs-sm)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s6)}
+.list{display:flex;flex-direction:column;gap:var(--s3);margin-top:var(--s3)}
+.list div{display:flex;gap:10px;font-size:var(--fs-sm);color:var(--text-2)}
+.list svg{flex:none;margin-top:2px}
+.yes svg{color:var(--ok)} .no svg{color:var(--bad)}
+.faq{margin-top:var(--s5);max-width:760px}
+.faq details{border-bottom:1px solid var(--border);padding:var(--s4) 0}
+.faq summary{cursor:pointer;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:var(--s4)}
+.faq summary::after{content:"+";color:var(--brand);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--text-2);margin-top:var(--s2);font-size:var(--fs-sm)}
+.band{background:var(--brand);color:var(--on-brand);border-radius:24px;padding:56px var(--s6);text-align:center;margin:var(--s6) 0 72px}
+.band h2{margin:0 auto var(--s3);color:inherit}
+.band p{opacity:1;color:rgba(255,255,255,.92);margin-bottom:var(--s5)}
+.band .btn{background:var(--bg-surface);color:var(--brand);border-color:transparent}
+footer{border-top:1px solid var(--border);padding:var(--s6) 0 var(--s6);color:var(--text-3);font-size:var(--fs-sm)}
+footer .wrap{display:flex;gap:var(--s5);flex-wrap:wrap;justify-content:space-between;align-items:flex-start}
+.proto{border:1px dashed var(--border-strong);border-radius:var(--r-md);padding:var(--s3) var(--s4);display:flex;flex-direction:column;gap:4px;background:var(--bg-surface)}
+.proto b{color:var(--text-2)} .proto label{display:flex;gap:6px;align-items:center}
+.fab{position:fixed;right:var(--s5);bottom:var(--s5);z-index:9;border-radius:var(--r-pill);padding:12px 18px 12px 14px;box-shadow:var(--e2);min-height:48px}
+
+/* ===== modern dark + motion ===== */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:radial-gradient(1200px 600px at 50% -10%,rgba(82,24,146,.22),transparent 60%)}
+.aurora i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;will-change:transform}
+.aurora i:nth-child(1){width:520px;height:520px;left:-120px;top:60px;background:#521892;animation:drift1 18s ease-in-out infinite alternate}
+.aurora i:nth-child(2){width:460px;height:460px;right:-100px;top:200px;background:#7444B3;opacity:.35;animation:drift2 22s ease-in-out infinite alternate}
+.aurora i:nth-child(3){width:380px;height:380px;left:40%;top:900px;background:#3D126B;opacity:.22;animation:drift1 26s ease-in-out infinite alternate-reverse}
+.aurora::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:56px 56px;opacity:.35;-webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 15%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 55% at 50% 15%,#000,transparent 75%)}
+@keyframes drift1{to{transform:translate(120px,80px) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-140px,60px) scale(1.2)}}
+.nav{transition:background var(--dur),box-shadow var(--dur),border-color var(--dur);border-bottom-color:transparent}
+.nav.scrolled{border-bottom-color:var(--border);box-shadow:var(--e2)}
+.nav nav a{position:relative}
+.nav nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform var(--dur) var(--ease)}
+.nav nav a:hover::after{transform:scaleX(1)}
+.section.alt{background:color-mix(in srgb,var(--bg-surface) 55%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+/* reveal on scroll */
+.rv{opacity:0}
+.rv.in{opacity:1;animation:up2 .7s var(--ease) backwards;animation-delay:calc(var(--d,0)*90ms)}
+@keyframes up2{from{opacity:0;transform:translateY(28px)}}
+.no-js .rv{opacity:1;transform:none}
+/* hero entrance */
+.hero .badge,.hero h1,.hero p.lead,.hero .cta,.hero .assure{opacity:0;transform:translateY(20px);animation:up .8s var(--ease) forwards}
+.hero h1{animation-delay:.08s}.hero p.lead{animation-delay:.18s}.hero .cta{animation-delay:.28s}.hero .assure{animation-delay:.38s}
+@keyframes up{to{opacity:1;transform:none}}
+.hero h1 em{background-size:200% 100%;background-image:linear-gradient(90deg,#C3A8F0,#D5C1F5,#B9A3DB,#C3A8F0);animation:shimmer 6s linear infinite}
+html[data-theme="light"] .hero h1 em{background-image:linear-gradient(90deg,#3D126B,#7444B3,#521892,#3D126B)}
+@keyframes shimmer{to{background-position:-200% 0}}
+/* buttons */
+.btn{transition:transform var(--dur-fast) var(--ease),box-shadow var(--dur) var(--ease),background var(--dur-fast),border-color var(--dur-fast)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.primary{position:relative;overflow:hidden;box-shadow:0 8px 24px -6px rgba(82,24,146,.65)}
+.btn.primary::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .6s var(--ease)}
+.btn.primary:hover::after{left:130%}
+.btn.primary:hover{box-shadow:0 12px 32px -6px rgba(195,168,240,.8)}
+.fab{animation:fabIn .6s 1s var(--ease) both}
+@keyframes fabIn{from{opacity:0;transform:translateY(20px) scale(.9)}}
+.fab::before{content:"";position:absolute;inset:-4px;border-radius:inherit;border:2px solid var(--brand);opacity:0;animation:ping 3s 2s ease-out infinite}
+@keyframes ping{0%{opacity:.6;transform:scale(.96)}70%,100%{opacity:0;transform:scale(1.18)}}
+/* hero preview: staged conversation + scan beam */
+.preview{border-color:var(--border-strong);transform-style:preserve-3d;transition:transform .25s var(--ease);box-shadow:var(--e3),0 0 0 1px rgba(195,168,240,.15),0 30px 120px -30px rgba(82,24,146,.55)}
+.preview>*{opacity:0;transform:translateY(14px);animation:up .6s var(--ease) forwards}
+.preview>*:nth-child(1){animation-delay:.6s}.preview>*:nth-child(2){animation-delay:1.2s}.preview>*:nth-child(3){animation-delay:2.1s}.preview>*:nth-child(4){animation-delay:2.9s}
+.preview .card{position:relative;overflow:hidden}
+.preview .card::after{content:"";position:absolute;left:0;right:0;top:0;height:40%;background:linear-gradient(180deg,transparent,rgba(195,168,240,.28),transparent);transform:translateY(-120%);animation:scan 1s 1.3s ease-in-out 1 forwards}
+@keyframes scan{to{transform:translateY(320%)}}
+.preview .fieldrow.low{animation:up .6s 2.1s var(--ease) forwards,glow 2.6s 3s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 4px rgba(251,191,36,.18)}}
+.floatchip{opacity:0;animation:pop2 .6s 2.9s var(--ease) forwards,bob 5s 3.6s ease-in-out infinite}
+@keyframes pop2{from{opacity:0;transform:scale(.8) translateY(10px)}to{opacity:1;transform:none}}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.preview .av{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(195,168,240,.18)}}
+/* tiles: glow border follows cursor */
+.tile{position:relative;overflow:hidden;transition:transform .35s var(--ease),border-color .35s,box-shadow .35s}
+.tile::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx,50%) var(--my,0%),rgba(195,168,240,.16),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none}
+.tile:hover{transform:translateY(-6px);border-color:var(--brand-border);box-shadow:var(--e2)}
+.tile:hover::before{opacity:1}
+.tile .ico{transition:transform .4s var(--ease),background .3s}
+.tile:hover .ico{transform:rotate(-8deg) scale(1.12);background:var(--brand-border)}
+/* steps: line draws in */
+.steps li{border-top:0}
+.steps li::after{content:"";position:absolute;top:-1px;left:0;height:2px;width:100%;background:linear-gradient(90deg,var(--brand),var(--border));transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease);transition-delay:calc(var(--d,0)*160ms + .2s)}
+.steps li.in::after{transform:scaleX(1)}
+/* faq */
+.faq details{transition:background var(--dur)}
+.faq details[open] summary::after{transform:rotate(180deg)}
+.faq summary::after{transition:transform var(--dur) var(--ease)}
+.faq details>p{animation:fade .35s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(-6px)}}
+/* CTA band */
+.band{position:relative;overflow:hidden;background:linear-gradient(120deg,#25125A,#3D126B,#7444B3,#25125A);background-size:300% 100%;animation:band 12s ease infinite;color:#fff}
+.band .btn{background:#fff;color:#3D126B;border-color:transparent}
+@keyframes band{50%{background-position:100% 0}}
+/* marquee */
+.marq{overflow:hidden;border-block:1px solid var(--border);padding:14px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marq div{display:flex;gap:var(--s6);width:max-content;animation:marq 32s linear infinite;color:var(--text-3);font-size:var(--fs-sm);white-space:nowrap}
+.marq:hover div,.marqwrap.paused .marq div{animation-play-state:paused}
+.marqwrap{position:relative}.marqbtn{position:absolute;right:var(--s2);top:50%;transform:translateY(-50%);z-index:2;background:var(--bg-surface);border-color:var(--border-input)}
+.marq span{display:inline-flex;gap:8px;align-items:center}.marq svg{color:var(--brand)}
+@keyframes marq{to{transform:translateX(-50%)}}
+.overlay{transition:opacity var(--dur) var(--ease)}
+.modal{box-shadow:var(--e3),0 0 0 1px var(--border-strong),0 40px 140px -20px rgba(82,24,146,.5)}
+@media (max-width:900px){.hero{grid-template-columns:1fr;padding-top:48px}.grid3,.split{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.nav nav{display:none}.nav .btn{margin-left:auto}.floatchip{right:8px}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}.band{padding:40px var(--s4)}}
+</style>
+</head>
+<body>
+<a class="skip" href="#home">Skip to main content</a>
+<div class="sr" id="announce" role="status" aria-live="polite" aria-atomic="true"></div>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#home"><span class="logo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span><span>Guide<span class="dotai">.ai</span></span></a>
+  <nav aria-label="Primary"><a href="#how">How it works</a><a href="#features">Features</a><a href="#trust">Trust</a><a href="#faq">FAQ</a></nav>
+  <button class="btn primary" data-open data-label="Start application"><span class="lbl">Start application</span></button>
+</div></header>
+
+<main id="home" tabindex="-1">
+<section class="wrap hero">
+  <div>
+    <span class="badge ai">✦ AI-guided incorporation</span>
+    <h1>Incorporate your company by <em>chatting</em>, not form-filling.</h1>
+    <p class="lead">Guide.ai turns a seven-section legal application into a short conversation. Upload a passport instead of typing it, get plain-language help, and review everything before anything is sent.</p>
+    <div class="cta">
+      <button class="btn primary lg" data-open data-label="Start your application"><span class="lbl">Start your application</span></button>
+      <a class="btn lg" href="#how" style="text-decoration:none">See how it works</a>
+    </div>
+    <div class="assure"><span><span aria-hidden="true">✓ </span>About 12 minutes</span><span><span aria-hidden="true">✓ </span>Saves automatically</span><span><span aria-hidden="true">✓ </span>You confirm before submit</span></div>
+  </div>
+  <div class="preview" aria-label="Product preview">
+    <div class="msg"><div class="av">✦</div><div class="bubble">Upload a passport and I'll read the details. You only check them.</div></div>
+    <article class="card summary"><header><span class="num ok">✓</span><h3>Passport read</h3><span class="badge ok">4 of 5 clear</span></header>
+      <dl class="rows"><dt>Full name</dt><dd>Amira Rahman</dd><dt>Nationality</dt><dd>Bangladeshi</dd><dt>Expiry</dt><dd>02 Nov 2031</dd></dl></article>
+    <div class="fieldrow low" style="margin-left:0"><div class="top2"><span class="fl">Passport number</span><span class="badge warn">⚠ Check this</span></div><input type="text" value="P4821 7893" aria-label="Passport number (sample)" readonly><div class="hint">The scan is blurry here. Compare, then confirm.</div></div>
+    <div class="floatchip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><b>Name available</b></div>
+  </div>
+</section>
+
+<div class="marqwrap"><button class="btn sm ghost marqbtn" aria-pressed="false" aria-label="Pause scrolling feature list">Pause</button><div class="marq" aria-hidden="true"><div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Document auto-fill</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Plain-language help</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Live name check</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Activity codes matched for you</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Edit any section</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cancel-window on submit</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Full audit trail</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Talk to a person</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Document auto-fill</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Plain-language help</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Live name check</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Activity codes matched for you</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Edit any section</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cancel-window on submit</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Full audit trail</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Talk to a person</span></div></div></div>
+<section class="section alt" id="how"><div class="wrap">
+  <div class="eyebrow rv">How it works</div>
+  <h2 class="rv">From blank form to submitted, one step at a time.</h2>
+  <p class="sub rv" style="--d:1">Eight short steps. You always see where you are, what's left, and can go back without losing work.</p>
+  <ol class="steps" data-stagger style="padding:0">
+    <li class="rv"><b>Name it</b><span>Live availability check, with alternatives if it's taken.</span></li>
+    <li class="rv"><b>Describe it</b><span>Tell Guide.ai what you'll do. It matches official activity codes.</span></li>
+    <li class="rv"><b>Upload, don't type</b><span>Passport details are read for you. You review and confirm.</span></li>
+    <li class="rv"><b>Review & submit</b><span>Final check, a declaration, and a 5-second cancel window.</span></li>
+  </ol>
+</div></section>
+
+<section class="section" id="features"><div class="wrap">
+  <div class="eyebrow rv">Features</div>
+  <h2 class="rv">Built to lower the anxiety of a high-stakes form.</h2>
+  <div class="grid3" data-stagger>
+    <div class="rv tile"><div class="ico" aria-hidden="true">⇪</div><h3>Document auto-fill</h3><p>Fields come with a confidence badge. Anything unclear is flagged and must be checked before it's saved.</p></div>
+    <div class="rv tile"><div class="ico" aria-hidden="true">✦</div><h3>Smart suggestions</h3><p>Ranked activity matches with a reason for each, plus a licence flag. Add or dismiss in one tap.</p></div>
+    <div class="rv tile"><div class="ico" aria-hidden="true">?</div><h3>Plain-language help</h3><p>Ask what a nominee director is, in your own words. Answers say where they come from.</p></div>
+    <div class="rv tile"><div class="ico" aria-hidden="true">↺</div><h3>Edit anything, anytime</h3><p>Finished sections collapse into summaries. Reopen one, change it, and carry on.</p></div>
+    <div class="rv tile"><div class="ico" aria-hidden="true">☰</div><h3>Full activity log</h3><p>A timestamped record of everything Guide.ai read or changed, for your own audit.</p></div>
+    <div class="rv tile"><div class="ico" aria-hidden="true">☺</div><h3>A person when you need one</h3><p>One tap hands your progress to support, so you never repeat yourself.</p></div>
+  </div>
+</div></section>
+
+<section class="section alt" id="trust"><div class="wrap">
+  <div class="eyebrow rv">Trust</div>
+  <h2 class="rv">Clear about what it does, and what it doesn't.</h2>
+  <div class="split" data-stagger>
+    <div class="rv tile yes"><h3>Guide.ai will</h3><div class="list">
+      <div><span aria-hidden="true">✓</span> <span>Explain terms in plain language and say where answers come from</span></div>
+      <div><span aria-hidden="true">✓</span> <span>Show what it understood and what data it used</span></div>
+      <div><span aria-hidden="true">✓</span> <span>Ask you to confirm anything it isn't sure about</span></div>
+      <div><span aria-hidden="true">✓</span> <span>Let you stop, undo, edit, or talk to a person at any point</span></div></div></div>
+    <div class="rv tile no"><h3>Guide.ai won't</h3><div class="list">
+      <div><span aria-hidden="true">✕</span> <span>Give legal advice</span></div>
+      <div><span aria-hidden="true">✕</span> <span>Submit anything without your explicit confirmation</span></div>
+      <div><span aria-hidden="true">✕</span> <span>Approve your application. A registry officer does that</span></div>
+      <div><span aria-hidden="true">✕</span> <span>Use your documents for anything except filling this application</span></div></div></div>
+  </div>
+</div></section>
+
+<section class="section" id="faq"><div class="wrap">
+  <div class="eyebrow rv">FAQ</div>
+  <h2 class="rv">Questions people ask first.</h2>
+  <div class="faq rv">
+    <details><summary>How long does it take?</summary><p>Most first-time founders finish in about 12 minutes. Progress saves automatically, so you can leave and resume.</p></details>
+    <details><summary>What if the passport scan is wrong?</summary><p>Every field shows how clearly it was read. Unclear ones are flagged and must be confirmed before they're added. You can also enter details manually.</p></details>
+    <details><summary>Can I change something after I finish a section?</summary><p>Yes. Open any completed section and edit it. Once you submit, the application locks and changes need a formal amendment.</p></details>
+    <details><summary>Is my data shared?</summary><p>Documents are used only to fill this application and are not shared outside the registry.</p></details>
+  </div>
+  <div class="band rv">
+    <h2 class="rv">Ready when you are.</h2><p>Start now, leave any time, pick up where you left off.</p>
+    <button class="btn lg" data-open data-label="Start your application"><span class="lbl">Start your application</span></button>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div>© 2026 Guide.ai · Incorporation assistant<br>Anonymised design case study. No real registry or data.</div>
+  <div class="proto"><b>Prototype controls</b>
+    <label><input type="radio" name="doc" value="valid" checked> Next passport is valid</label>
+    <label><input type="radio" name="doc" value="expired"> Next passport is expired</label>
+    <label><input type="radio" name="pay" value="approved" checked> Next payment is approved</label>
+    <label><input type="radio" name="pay" value="declined"> Next payment is declined</label>
+    <button class="btn sm" data-act="reset" style="margin-top:6px">Restart prototype</button></div>
+</div></footer>
+
+<button class="btn primary fab" data-open data-label="Ask Guide.ai"><span aria-hidden="true">✦</span><span class="lbl">Ask Guide.ai</span></button>
+
+<!-- Assistant modal -->
+<div class="overlay theme-light" id="overlay">
+  <div class="modal" id="panel" role="dialog" aria-modal="true" aria-label="Guide.ai, incorporation assistant">
+    <aside class="rail theme-dark" id="rail" aria-label="Application steps"></aside>
+    <div class="col"><div class="top" id="top"></div><div id="main" style="display:contents"></div></div>
+    <div class="menu" id="menu" role="menu"></div>
+    <div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastUndo">Undo</button></div>
+  </div>
+</div>
+<script>
+(()=>{
+ const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ document.querySelectorAll('[data-stagger]').forEach(p=>[...p.children].forEach((c,i)=>c.style.setProperty('--d',i)));
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+ document.querySelectorAll('.rv').forEach(el=>reduce?el.classList.add('in'):io.observe(el));
+ const nav=document.querySelector('.nav');const f=()=>nav.classList.toggle('scrolled',scrollY>8);addEventListener('scroll',f,{passive:true});f();
+ document.querySelectorAll('.tile').forEach(t=>t.addEventListener('pointermove',e=>{const r=t.getBoundingClientRect();t.style.setProperty('--mx',(e.clientX-r.left)+'px');t.style.setProperty('--my',(e.clientY-r.top)+'px')}));
+ document.querySelector('.marqbtn')?.addEventListener('click',e=>{const w=e.currentTarget.parentElement;const p=w.classList.toggle('paused');e.currentTarget.textContent=p?'Play':'Pause';e.currentTarget.setAttribute('aria-pressed',p);e.currentTarget.setAttribute('aria-label',(p?'Resume':'Pause')+' scrolling feature list')});
+ const pv=document.querySelector('.preview');
+ if(pv&&!reduce&&matchMedia('(hover:hover)').matches){const h=pv.parentElement;h.addEventListener('pointermove',e=>{const r=pv.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;pv.style.transform=`perspective(1000px) rotateY(${x*7}deg) rotateX(${-y*7}deg)`});h.addEventListener('pointerleave',()=>pv.style.transform='')}
+})();
+</script>
+<script src="app.js"></script>
+</body>
+</html>

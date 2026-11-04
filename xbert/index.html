@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-33K0YHE1F7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-33K0YHE1F7');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XBert AI — From Missed Calls to Always-on Service · Syed Zubair Ahmed</title>
+  <meta name="description" content="Case study: Designing an AI receptionist that gives restaurant teams time back during their busiest hours — onboarding, skill configuration, and pre-launch testing." />
+  <meta name="author" content="Syed Zubair Ahmed" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="XBert AI Case Study — Syed Zubair Ahmed" />
+  <meta property="og:description" content="An AI receptionist that gives restaurant teams time back during their busiest hours." />
+
+  <meta name="theme-color" content="#050505" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Google+Sans+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    /* XBert case study — page-level overrides */
+    body { background: #050505; }
+
+    /* Sticky sidebar nav */
+    .cs-sidebar {
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 220px;
+    }
+    .cs-sidebar__label {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+    }
+    .cs-sidebar a {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      transition: all .3s var(--ease);
+      text-decoration: none;
+    }
+    .cs-sidebar a:hover,
+    .cs-sidebar a.active {
+      background: rgba(255,255,255,.04);
+      color: var(--fg);
+    }
+    .cs-sidebar a.active {
+      border-left: 2px solid var(--accent);
+      padding-left: 12px;
+    }
+    .cs-sidebar a span {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: .06em;
+      min-width: 20px;
+    }
+
+    /* Two-column layout */
+    .cs-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 64px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    /* Hero override for full width */
+    .xb-hero {
+      padding: 140px var(--gutter) 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .xb-hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: .06em;
+      margin-bottom: 40px;
+      transition: color .3s;
+    }
+    .xb-hero__back:hover { color: var(--accent); }
+    .xb-hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .xb-hero__tag span {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .xb-hero__tag span:last-child {
+      color: var(--muted);
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+    .xb-hero__title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.05;
+      max-width: 800px;
+      margin-bottom: 12px;
+    }
+    .xb-hero__title em { font-style: normal; color: var(--accent); }
+    .xb-hero__sub {
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 680px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    /* Problem / outcome / challenge cards */
+    .xb-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 56px;
+    }
+    .xb-card {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--bg-alt);
+    }
+    .xb-card__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .xb-card__value {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .xb-card__desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Meta grid */
+    .xb-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      padding: 28px 32px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 64px;
+    }
+    .xb-meta__item {}
+    .xb-meta__label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .xb-meta__value {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Content sections */
+    .xb-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .xb-section:first-of-type { border-top: none; }
+
+    .xb-sec-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .xb-sec-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .xb-sec-title em { font-style: normal; color: var(--accent); }
+    .xb-body {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+    .xb-body strong { color: var(--fg); }
+
+    /* Screenshot placeholders */
+    .xb-screenshot {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      margin-bottom: 40px;
+    }
+    .xb-screenshot img {
+      width: 100%;
+      display: block;
+      cursor: zoom-in;
+    }
+
+    /* Click-to-zoom lightbox */
+    .xb-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s, visibility .3s;
+    }
+    .xb-lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .xb-lightbox img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 10px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.6);
+      transform: scale(.92);
+      transition: transform .3s cubic-bezier(.25,.46,.45,.94);
+    }
+    .xb-lightbox.active img {
+      transform: scale(1);
+    }
+    .xb-comp-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .xb-comp-item .xb-screenshot {
+      margin-bottom: 0;
+    }
+    .xb-sub-heading {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+      margin: 32px 0 8px;
+    }
+    .xb-screenshot__placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 40px;
+      text-align: center;
+    }
+    .xb-screenshot__placeholder-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: rgba(228, 254, 154, .1);
+      border: 1px solid rgba(228, 254, 154, .2);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+    }
+    .xb-screenshot__placeholder-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--fg);
+    }
+    .xb-screenshot__placeholder-desc {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 400px;
+    }
+    .xb-screenshot figcaption {
+      padding: 14px 20px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      letter-spacing: .04em;
+    }
+
+    /* Insight callout */
+    .xb-insight {
+      padding: 32px;
+      border-left: 3px solid var(--accent);
+      background: rgba(228, 254, 154, .03);
+      border-radius: 0 14px 14px 0;
+      margin-bottom: 48px;
+    }
+    .xb-insight p {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+
+    /* Two-column impact cards */
+    .xb-impact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .xb-impact__card {
+      padding: 28px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .xb-impact__card h4 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .xb-impact__card p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Insights numbered list */
+    .xb-insights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .xb-insight-card {
+      padding: 28px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .xb-insight-card--full {
+      grid-column: 1 / -1;
+    }
+    .xb-insight-card__num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .xb-insight-card h4 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .xb-insight-card p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .xb-insight-card__response {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .04em;
+      color: var(--accent);
+      padding: 10px 14px;
+      background: rgba(228, 254, 154, .05);
+      border: 1px solid rgba(228, 254, 154, .12);
+      border-radius: 8px;
+    }
+
+    /* Research table */
+    .xb-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 48px;
+    }
+    .xb-table th,
+    .xb-table td {
+      text-align: left;
+      padding: 16px 20px;
+      font-size: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+    .xb-table th {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--bg-alt);
+    }
+    .xb-table td { color: var(--muted); line-height: 1.6; }
+    .xb-table tr:hover td { background: rgba(255,255,255,.02); }
+
+    /* Onboarding steps */
+    .xb-steps {
+      display: grid;
+      gap: 2px;
+      margin-bottom: 48px;
+    }
+    .xb-step {
+      padding: 28px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color .3s var(--ease), transform .3s var(--ease);
+    }
+    .xb-step:hover {
+      border-color: rgba(228, 254, 154, .2);
+      transform: translateX(6px);
+    }
+    .xb-step__head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    .xb-step__num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .xb-step__head h4 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .xb-step__tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      margin-left: auto;
+    }
+    .xb-step p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      padding-left: 34px;
+    }
+
+    /* Journey flow */
+    .xb-journey {
+      margin-bottom: 48px;
+    }
+    .xb-journey__label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .xb-journey__steps {
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+    }
+    .xb-journey__step {
+      flex: 1;
+      padding: 20px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+    }
+    .xb-journey__step:first-child { border-radius: 12px 0 0 12px; }
+    .xb-journey__step:last-child { border-radius: 0 12px 12px 0; }
+    .xb-journey__step-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .xb-journey__step-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .xb-journey__step::after {
+      content: '→';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      font-size: 14px;
+      z-index: 2;
+    }
+    .xb-journey__step:last-child::after { display: none; }
+
+    /* Outcome comparison */
+    .xb-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .xb-comparison__col {
+      padding: 0;
+    }
+    .xb-comparison__header {
+      padding: 16px 24px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .xb-comparison__col:first-child .xb-comparison__header {
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+    }
+    .xb-comparison__col:last-child .xb-comparison__header {
+      background: rgba(228, 254, 154, .05);
+      color: var(--accent);
+    }
+    .xb-comparison__col:first-child {
+      border-right: 1px solid var(--border);
+    }
+    .xb-comparison__item {
+      padding: 16px 24px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+      border-bottom: 1px solid var(--border);
+    }
+    .xb-comparison__item:last-child { border-bottom: none; }
+    .xb-comparison__col:last-child .xb-comparison__item {
+      color: var(--fg);
+    }
+
+    /* Big stat */
+    .xb-big-stat {
+      text-align: center;
+      padding: 64px 0;
+    }
+    .xb-big-stat__label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .xb-big-stat__num {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(4rem, 10vw, 8rem);
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .xb-big-stat__desc {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--fg);
+    }
+
+    /* Takeaway cards */
+    .xb-takeaways {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .xb-takeaway {
+      padding: 28px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .xb-takeaway h4 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .xb-takeaway p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Validation table */
+    .xb-validation {
+      margin-bottom: 48px;
+    }
+
+    /* Next project CTA */
+    .xb-next {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 48px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-alt);
+      margin: 64px 0;
+      transition: border-color .4s var(--ease);
+    }
+    .xb-next:hover { border-color: rgba(228, 254, 154, .3); }
+    .xb-next__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .xb-next__title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      transition: color .3s;
+    }
+    .xb-next:hover .xb-next__title { color: var(--accent); }
+    .xb-next__arrow {
+      font-size: 32px;
+      color: var(--accent);
+      transition: transform .4s var(--ease);
+    }
+    .xb-next:hover .xb-next__arrow { transform: translateX(8px); }
+
+    /* Responsive */
+    @media (max-width: 920px) {
+      .cs-layout { grid-template-columns: 1fr; gap: 0; }
+      .cs-sidebar { display: none; }
+      .xb-cards { grid-template-columns: 1fr; }
+      .xb-insights-grid { grid-template-columns: 1fr; }
+      .xb-impact { grid-template-columns: 1fr; }
+      .xb-comparison { grid-template-columns: 1fr; }
+      .xb-comparison__col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .xb-takeaways { grid-template-columns: 1fr; }
+      .xb-journey__steps { flex-direction: column; }
+      .xb-journey__step { border-radius: 0 !important; }
+      .xb-journey__step:first-child { border-radius: 12px 12px 0 0 !important; }
+      .xb-journey__step:last-child { border-radius: 0 0 12px 12px !important; }
+      .xb-journey__step::after { display: none; }
+      .xb-next { flex-direction: column; gap: 20px; text-align: center; padding: 32px; }
+    }
+  </style>
+</head>
+<body class="cs-page">
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ============ Grain ============ -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ Header ============ -->
+  <header class="hdr cs__hdr" id="hdr">
+    <a class="hdr__logo" href="../index.html">
+      <span class="hdr__mark">SZ</span>
+      <span class="hdr__name">SYED&nbsp;ZUBAIR<i>.</i></span>
+    </a>
+    <nav class="hdr__nav" aria-label="Primary">
+      <a href="../projects.html"><span class="mono hdr__num">01</span>Projects</a>
+      <a href="../index.html#about"><span class="mono hdr__num">02</span>About</a>
+      <a href="../index.html#reviews"><span class="mono hdr__num">03</span>Words</a>
+      <a href="../index.html#contact"><span class="mono hdr__num">04</span>Contact</a>
+    </nav>
+    <button class="hdr__burger" id="burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ============ Mobile menu ============ -->
+  <div class="mmenu" id="mmenu" aria-hidden="true">
+    <nav class="mmenu__nav">
+      <a href="../projects.html"><span class="mono">01</span>Projects</a>
+      <a href="../index.html#about"><span class="mono">02</span>About</a>
+      <a href="../index.html#reviews"><span class="mono">03</span>Words</a>
+      <a href="../index.html#contact"><span class="mono">04</span>Contact</a>
+    </nav>
+    <div class="mmenu__foot mono">
+      <a href="mailto:zubair3ahmed@gmail.com">zubair3ahmed@gmail.com</a>
+      <span>Dubai, UAE</span>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ Hero ============ -->
+    <section class="xb-hero">
+      <a class="xb-hero__back" href="../projects.html">← Back to selected work</a>
+
+      <div class="xb-hero__tag">
+        <span>XBERT AI · NEXTIVA</span>
+        <span>8 MONTHS</span>
+      </div>
+
+      <h1 class="xb-hero__title">Let AI handle the call.<br><em>Keep people in control.</em></h1>
+
+      <p class="xb-hero__sub">
+        An AI receptionist that gives restaurant teams time back during their busiest hours.
+        I led the design for onboarding and support workflows, making AI easier to configure, test, and put to work.
+      </p>
+
+      <!-- Problem / Outcome / Challenge -->
+      <div class="xb-cards">
+        <div class="xb-card">
+          <span class="xb-card__label">The Problem</span>
+          <h3 class="xb-card__value">41% unanswered</h3>
+          <p class="xb-card__desc">Inbound customer inquiries went unanswered across a 14-location restaurant group.</p>
+        </div>
+        <div class="xb-card">
+          <span class="xb-card__label">The Outcome</span>
+          <h3 class="xb-card__value">Up to 50% fewer missed calls</h3>
+          <p class="xb-card__desc">Reported business impact after XBert. See outcomes for measurement context.</p>
+        </div>
+        <div class="xb-card">
+          <span class="xb-card__label">The Design Challenge</span>
+          <h3 class="xb-card__value">Autonomy with oversight</h3>
+          <p class="xb-card__desc">Give routine work to AI while keeping setup, testing, and escalation understandable.</p>
+        </div>
+      </div>
+
+      <!-- Meta -->
+      <div class="xb-meta">
+        <div class="xb-meta__item">
+          <span class="xb-meta__label">My Role</span>
+          <span class="xb-meta__value">Lead Product Designer</span>
+        </div>
+        <div class="xb-meta__item">
+          <span class="xb-meta__label">My Scope</span>
+          <span class="xb-meta__value">Onboarding & support workflows</span>
+        </div>
+        <div class="xb-meta__item">
+          <span class="xb-meta__label">Collaborators</span>
+          <span class="xb-meta__value">1 PM · 1 junior designer · 1 researcher · 4 engineers</span>
+        </div>
+        <div class="xb-meta__item">
+          <span class="xb-meta__label">Product Status</span>
+          <span class="xb-meta__value">Live · NEXT, NCX & N1</span>
+        </div>
+        <div class="xb-meta__item">
+          <span class="xb-meta__label">Setting</span>
+          <span class="xb-meta__value">14 restaurant locations</span>
+        </div>
+        <div class="xb-meta__item">
+          <span class="xb-meta__label">Languages</span>
+          <span class="xb-meta__value">English & Spanish</span>
+        </div>
+      </div>
+
+      <!-- Hero screenshot -->
+      <figure class="xb-screenshot">
+        <img src="images/skills-and-test-call.png" alt="XBert AI — skills configuration and phone call testing in a split-view workspace" loading="eager" />
+        <figcaption>XBert onboarding — skill picker and pre-launch testing interface</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ Two-column layout ============ -->
+    <div class="cs-layout">
+
+      <!-- Sidebar -->
+      <aside class="cs-sidebar" id="csSidebar">
+        <p class="cs-sidebar__label">In this case study</p>
+        <a href="#contribution" class="active"><span>01</span> My contribution</a>
+        <a href="#context"><span>02</span> Context & problem</a>
+        <a href="#research"><span>03</span> Research & priorities</a>
+        <a href="#solution"><span>04</span> End-to-end solution</a>
+        <a href="#testing"><span>05</span> Testing & validation</a>
+        <a href="#components"><span>06</span> AI Components</a>
+        <a href="#creating-agent"><span>07</span> Creating Your AI Agent</a>
+        <a href="#outcomes"><span>08</span> Outcomes</a>
+        <a href="#reflection"><span>09</span> Reflection</a>
+      </aside>
+
+      <!-- Content -->
+      <div>
+
+        <!-- 01. My contribution -->
+        <section class="xb-section" id="contribution">
+          <p class="xb-sec-label">01 / My Contribution</p>
+          <h2 class="xb-sec-title">My contribution</h2>
+          <p class="xb-body">
+            I led product design for XBert's onboarding and support workflows, partnering with product, research, design, and engineering over eight months. My focus was the <strong>owner's journey</strong>: defining the AI's identity, assigning skills, configuring coverage, and testing behavior before going live. The broader service journey connected routine automation with escalation to staff.
+          </p>
+
+          <figure class="xb-screenshot">
+            <img src="images/skills-and-test-call.png" alt="Split-view workspace — configure skills on the left, test with phone call and suggested questions on the right" loading="lazy" />
+            <figcaption>Define responsibilities. Test them before launch.</figcaption>
+          </figure>
+        </section>
+
+        <!-- 02. Context & problem -->
+        <section class="xb-section" id="context">
+          <p class="xb-sec-label">02 / Context & Problem</p>
+          <h2 class="xb-sec-title">The busiest hours were the <em>hardest to answer.</em></h2>
+          <p class="xb-body">
+            Casa Dorado Restaurant Group operated 14 locations: four fine-dining restaurants, seven casual-dining restaurants, and three fast-casual outlets. Reservations, takeout orders, catering inquiries, and everyday questions arrived in English and Spanish while staff were serving guests.
+          </p>
+          <p class="xb-body">
+            The project's customer snapshot reported that <strong>41% of inbound inquiries went unanswered</strong>. Every missed call could mean a lost reservation, an abandoned order, or another interruption for the team trying to call back.
+          </p>
+
+          <!-- Two perspectives -->
+          <div class="xb-impact">
+            <div class="xb-impact__card">
+              <h4>For the customer</h4>
+              <p>A simple question or reservation depended on someone being free to pick up. During peak service, the next step could become voicemail or trying another restaurant.</p>
+            </div>
+            <div class="xb-impact__card">
+              <h4>For the restaurant</h4>
+              <p>The same staff had to look after guests and answer the phone. Growing demand stretched that operating model across every location.</p>
+            </div>
+          </div>
+
+          <!-- Design challenge callout -->
+          <div class="xb-insight">
+            <p>How might we respond to customers immediately — without adding more work for the people serving them?</p>
+          </div>
+
+          <p class="xb-body">
+            XBert needed to handle routine requests and involve staff when needed. Just as importantly, <strong>owners needed a way to set it up and manage it without technical expertise</strong>.
+          </p>
+
+          <figure class="xb-screenshot">
+            <img src="images/coverage-and-chat-test.png" alt="Coverage settings and chat testing — inbox, schedule, and call-answering controls beside a live conversation test" loading="lazy" />
+            <figcaption>Connect the call data to the work on the floor</figcaption>
+          </figure>
+        </section>
+
+        <!-- 03. Research & priorities -->
+        <section class="xb-section" id="research">
+          <p class="xb-sec-label">03 / Research & Priorities</p>
+          <h2 class="xb-sec-title">Discovery methods and <em>their purpose</em></h2>
+          <p class="xb-body">
+            Discovery combined a 30-day call audit, host-stand shadowing, guest interviews, and competitive analysis. Together, these methods connected call patterns with operational bottlenecks and customer expectations.
+          </p>
+
+          <!-- Research methods table -->
+          <table class="xb-table">
+            <thead>
+              <tr>
+                <th>Research Method</th>
+                <th>What it helped us understand</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>30-day call audit</td>
+                <td>Call volume and patterns: when demand arrived and where coverage broke down.</td>
+              </tr>
+              <tr>
+                <td>Host-stand shadowing</td>
+                <td>How phone calls competed with in-person service during busy periods.</td>
+              </tr>
+              <tr>
+                <td>Guest interviews</td>
+                <td>What customers expected when contacting the restaurant.</td>
+              </tr>
+              <tr>
+                <td>Competitive analysis</td>
+                <td>How existing solutions approached customer communication.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="xb-sec-title" style="font-size:clamp(1.4rem,2.8vw,2rem)">Three insights shaped the priorities.</h3>
+
+          <!-- Insight cards -->
+          <div class="xb-insights-grid">
+            <div class="xb-insight-card">
+              <span class="xb-insight-card__num">01 / Timing</span>
+              <h4>Peak demand created peak failure.</h4>
+              <p>The dinner rush brought the highest call volume at the same time staff were busiest with guests.</p>
+              <div class="xb-insight-card__response">Design response: Make call coverage configurable so routine inquiries do not depend on staff availability.</div>
+            </div>
+            <div class="xb-insight-card">
+              <span class="xb-insight-card__num">02 / Repetition</span>
+              <h4>Much of the work was predictable.</h4>
+              <p>Table availability, reservations, opening hours, and takeout requests repeated across calls.</p>
+              <div class="xb-insight-card__response">Design response: Organize automation around recognizable business skills with clear responsibilities.</div>
+            </div>
+            <div class="xb-insight-card">
+              <span class="xb-insight-card__num">03 / Language</span>
+              <h4>Coverage had to work in two languages.</h4>
+              <p>English and Spanish were part of the restaurant group's everyday service needs.</p>
+              <div class="xb-insight-card__response">Design response: Make language a visible setup choice alongside the AI's voice and greeting.</div>
+            </div>
+            <div class="xb-insight-card xb-insight-card--full">
+              <span class="xb-insight-card__num">Product Requirement</span>
+              <h4>Owners needed confidence before launch.</h4>
+              <p>The brief called for setup and management without technical expertise.</p>
+              <div class="xb-insight-card__response">Design response: Put testing close to configuration, with responses and actions available to inspect.</div>
+            </div>
+          </div>
+
+          <div class="xb-insight">
+            <p>The priority: protect staff attention. Answer routine questions, support both languages, and make escalation part of the service.</p>
+          </div>
+        </section>
+
+        <!-- 04. End-to-end solution -->
+        <section class="xb-section" id="solution">
+          <p class="xb-sec-label">04 / End-to-End Solution</p>
+          <h2 class="xb-sec-title">Make the AI's responsibilities <em>visible before it goes live.</em></h2>
+          <p class="xb-body">
+            The onboarding experience breaks the work into understandable choices: how XBert represents the business, what it can do, and when it answers. These three decisions connect the restaurant's needs to the product screens.
+          </p>
+
+          <!-- Step 1: Identity -->
+          <div class="xb-steps">
+            <div class="xb-step">
+              <div class="xb-step__head">
+                <span class="xb-step__num">01</span>
+                <h4>Identity Before Automation</h4>
+                <span class="xb-step__tag">Voice · Language · Greeting</span>
+              </div>
+              <p>Make the AI's behavior a business choice. The first setup step brings voice, languages, personality, and greeting together. A business can choose how the AI represents it before assigning responsibilities.</p>
+            </div>
+          </div>
+
+          <figure class="xb-screenshot">
+            <img src="images/voice-and-style.png" alt="AI employee identity setup — voice selection, language options, personality traits, and greeting configuration" loading="lazy" />
+            <figcaption>Choose voice, language, and greeting together</figcaption>
+          </figure>
+
+          <!-- Step 2: Capabilities -->
+          <div class="xb-steps">
+            <div class="xb-step">
+              <div class="xb-step__head">
+                <span class="xb-step__num">02</span>
+                <h4>Capabilities with Boundaries</h4>
+                <span class="xb-step__tag">Skills · Dependencies · Catalog</span>
+              </div>
+              <p>Describe work as skills, not an open-ended promise. The skill picker presents tasks owners recognize — FAQs, appointments, takeout orders. Required apps are shown on the cards so a capability's dependencies are visible when selected.</p>
+            </div>
+          </div>
+
+          <figure class="xb-screenshot">
+            <img src="images/skill-library.png" alt="Skill library pairing business tasks with required applications and dependency chains" loading="lazy" />
+            <figcaption>Select the task and understand what it depends on</figcaption>
+          </figure>
+
+          <!-- Step 3: Confidence -->
+          <div class="xb-steps">
+            <div class="xb-step">
+              <div class="xb-step__head">
+                <span class="xb-step__num">03</span>
+                <h4>Confidence Before Launch</h4>
+                <span class="xb-step__tag">Test · Inspect · Schedule</span>
+              </div>
+              <p>Let owners inspect behavior while configuring coverage. The final setup view places inbox, schedule, and call-answering settings beside a chat test. Owners see the customer-facing reply and inspect the AI's actions in a separate panel.</p>
+            </div>
+          </div>
+
+          <figure class="xb-screenshot">
+            <img src="images/coverage-and-chat-test.png" alt="Pre-launch testing with coverage settings and chat test showing action inspector panel" loading="lazy" />
+            <figcaption>Make actions inspectable without exposing them to the customer</figcaption>
+          </figure>
+
+          <!-- Two journeys -->
+          <h3 class="xb-sec-title" style="font-size:clamp(1.4rem,2.8vw,2rem);margin-top:56px">Two connected journeys: the owner and the caller.</h3>
+          <p class="xb-body">The owner configures the service; the customer experiences it in a conversation. Keeping those journeys connected makes coverage, capabilities, and escalation part of the same product story.</p>
+
+          <!-- Owner journey -->
+          <div class="xb-journey">
+            <p class="xb-journey__label">The Owner: Configure, Test, Launch</p>
+            <div class="xb-journey__steps">
+              <div class="xb-journey__step">
+                <span class="xb-journey__step-num">01</span>
+                <span class="xb-journey__step-title">Define identity</span>
+              </div>
+              <div class="xb-journey__step">
+                <span class="xb-journey__step-num">02</span>
+                <span class="xb-journey__step-title">Assign skills</span>
+              </div>
+              <div class="xb-journey__step">
+                <span class="xb-journey__step-num">03</span>
+                <span class="xb-journey__step-title">Test behavior</span>
+              </div>
+              <div class="xb-journey__step">
+                <span class="xb-journey__step-num">04</span>
+                <span class="xb-journey__step-title">Set coverage & launch</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Caller journey -->
+          <div class="xb-journey">
+            <p class="xb-journey__label">The Caller: Get an Answer and a Next Step</p>
+            <div class="xb-journey__steps">
+              <div class="xb-journey__step">
+                <span class="xb-journey__step-num">01</span>
+                <span class="xb-journey__step-title">XBert answers</span>
+              </div>
+              <div class="xb-journey__step">
+                <span class="xb-journey__step-num">02</span>
+                <span class="xb-journey__step-title">Skill handles task</span>
+              </div>
+              <div class="xb-journey__step">
+                <span class="xb-journey__step-num">03</span>
+                <span class="xb-journey__step-title">Staff take over if needed</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="xb-insight">
+            <p>Autonomy with a defined scope. XBert handles routine work; owners define its responsibilities and coverage. Complex requests have a path to staff.</p>
+          </div>
+        </section>
+
+        <!-- 05. Testing & validation -->
+        <section class="xb-section" id="testing">
+          <p class="xb-sec-label">05 / Testing & Validation</p>
+          <h2 class="xb-sec-title">Make behavior testable <em>before customers depend on it.</em></h2>
+          <p class="xb-body">
+            The pre-launch experience supports phone and chat testing, suggested questions, and an owner-only view of AI actions. That lets an owner examine more than whether a reply sounds natural — they can check whether XBert used the expected skill and business information.
+          </p>
+
+          <figure class="xb-screenshot">
+            <img src="images/skills-and-test-call.png" alt="Multi-channel testing — phone call test and chat preview with suggested questions side by side" loading="lazy" />
+            <figcaption>Test across voice and text channels with full action transparency</figcaption>
+          </figure>
+
+          <h3 class="xb-sec-title" style="font-size:clamp(1.2rem,2.4vw,1.6rem);margin-top:48px">Proposed validation scenarios</h3>
+          <p class="xb-body">The following is a proposed validation plan, organized around the moments most likely to affect trust and service quality.</p>
+
+          <table class="xb-table">
+            <thead>
+              <tr>
+                <th>Scenario to test</th>
+                <th>Success signal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Owner sets busy-hour or after-hours coverage</td>
+                <td>They can explain when XBert will answer and correctly configure that behavior without help.</td>
+              </tr>
+              <tr>
+                <td>Caller asks a routine question in English or Spanish</td>
+                <td>The response uses the intended language and the correct business information.</td>
+              </tr>
+              <tr>
+                <td>A booking lookup fails or an integration is unavailable</td>
+                <td>The conversation communicates the failure and offers a useful next step.</td>
+              </tr>
+              <tr>
+                <td>A request requires staff, but nobody is available</td>
+                <td>The caller knows what happens next, and the request can be recovered with its context.</td>
+              </tr>
+              <tr>
+                <td>The owner spots an incorrect answer</td>
+                <td>They can find the relevant setting or knowledge, correct it, and retest the behavior.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 06. AI Components -->
+        <section class="xb-section" id="components">
+          <p class="xb-sec-label">06 / AI Components</p>
+          <h2 class="xb-sec-title">Component design from Figma</h2>
+          <p class="xb-body">The design system behind XBert's onboarding was built as a modular component library in Figma. Each screen composes from shared primitives — avatar pickers, skill cards, channel toggles, and testing interfaces — so the flow stays consistent as features grow.</p>
+
+          <div class="xb-comp-grid">
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/comp-personality.png" alt="AI Employee personality page — avatar selection, voice picker, language and greeting configuration" loading="lazy" />
+                <figcaption>Personality page — voice, face, and greeting setup</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/comp-questionnaire.png" alt="Business questionnaire — structured onboarding questions to train the AI employee" loading="lazy" />
+                <figcaption>Business questionnaire — structured onboarding inputs</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/comp-company-info.png" alt="Company information page — business details, FAQs, and knowledge base ingestion" loading="lazy" />
+                <figcaption>Company info — business details and knowledge ingestion</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/comp-skill-cards.png" alt="Skill cards component — modular cards showing skill name, description, and required integrations" loading="lazy" />
+                <figcaption>Skill cards — modular capability blocks with dependencies</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/comp-train-skills.png" alt="Train your skills page — skill training progress and configuration interface" loading="lazy" />
+                <figcaption>Skill training — progress tracking and configuration</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/comp-channels.png" alt="Turn on your channels — channel assignment, hand-off, notification, and transfer settings" loading="lazy" />
+                <figcaption>Channel assignment — hand-off, notifications, and transfers</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/comp-testing.png" alt="Testing page — full testing interface with chat simulation and action inspector" loading="lazy" />
+                <figcaption>Testing page — chat simulation with action inspector</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/comp-test-ai.png" alt="Test your AI page — voice and chat testing modes with example questions" loading="lazy" />
+                <figcaption>Test your AI — voice and chat modes with example prompts</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <!-- 07. Creating Your AI Agent -->
+        <section class="xb-section" id="creating-agent">
+          <p class="xb-sec-label">07 / Creating Your AI Agent</p>
+          <h2 class="xb-sec-title">From sign-up to live agent <em>in minutes.</em></h2>
+
+          <p class="xb-body">
+            The onboarding flow guides business owners through a step-by-step process to create and deploy their AI agent — from account setup and business details to voice configuration, knowledge review, testing, and channel assignment. The goal: make a complex AI product feel approachable, even for non-technical users.
+          </p>
+
+          <h3 class="xb-sub-heading">Account &amp; Business Setup</h3>
+          <p class="xb-body">
+            Onboarding begins with account creation and collecting core business information — company name, industry, address, and operating hours. This data seeds the AI agent's initial knowledge base so it can answer basic questions from day one.
+          </p>
+          <div class="xb-comp-grid">
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/agent-account-setup.png" alt="XBert account setup — name, email, and business details" loading="lazy" />
+                <figcaption>Account creation — the entry point for new business owners</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/agent-business-info.png" alt="Business information form — company name, industry, hours" loading="lazy" />
+                <figcaption>Business information — company details that seed the AI's knowledge</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <h3 class="xb-sub-heading">Voice &amp; Personality Configuration</h3>
+          <p class="xb-body">
+            Owners choose a voice, set the language and greeting style, and configure how the AI introduces itself. This step shapes the agent's personality — turning a generic bot into a branded experience that matches the business's tone.
+          </p>
+          <div class="xb-comp-grid">
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/agent-voice-config.png" alt="Voice and style configuration — voice selection, language, greeting" loading="lazy" />
+                <figcaption>Voice &amp; style — selecting personality, language, and greeting behavior</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <h3 class="xb-sub-heading">AI Knowledge Review</h3>
+          <p class="xb-body">
+            Before going live, the system presents an AI-generated summary of what it has learned about the business. Owners review and correct this knowledge, ensuring the agent's responses are accurate and reflect their actual services, policies, and FAQs.
+          </p>
+          <div class="xb-comp-grid">
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/agent-ai-review.png" alt="AI knowledge review — generated summary of business information" loading="lazy" />
+                <figcaption>AI knowledge review — verifying auto-generated business understanding</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <h3 class="xb-sub-heading">Testing &amp; Preview</h3>
+          <p class="xb-body">
+            A built-in test environment lets owners preview how the AI agent handles real conversations — via voice call or chat — before any customer interaction. This builds confidence and catches misconfigurations early.
+          </p>
+          <div class="xb-comp-grid">
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/agent-test-preview.png" alt="Test preview — simulated conversation with the AI agent" loading="lazy" />
+                <figcaption>Test preview — try the agent in voice or chat before going live</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <h3 class="xb-sub-heading">Channel Configuration &amp; Go-Live</h3>
+          <p class="xb-body">
+            The final step assigns the AI agent to communication channels — phone, SMS, or web chat. Owners configure which channels the agent handles, set up call forwarding rules, and activate the agent. Once live, the dashboard provides real-time monitoring.
+          </p>
+          <div class="xb-comp-grid">
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/agent-channel-config.png" alt="Channel configuration — assigning AI to phone, SMS, and chat" loading="lazy" />
+                <figcaption>Channel configuration — connecting the agent to phone, SMS, and chat</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/agent-dashboard.png" alt="Home dashboard — real-time agent monitoring and stats" loading="lazy" />
+                <figcaption>Home dashboard — monitoring agent performance after go-live</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <h3 class="xb-sub-heading">Management &amp; Inbox</h3>
+          <p class="xb-body">
+            Post-launch, the management view lets owners monitor all AI employee instances, while the General Inbox aggregates every conversation the agent has handled — giving full visibility into what the AI is saying on behalf of the business.
+          </p>
+          <div class="xb-comp-grid">
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/agent-management.png" alt="AI Employees management — list of active agents" loading="lazy" />
+                <figcaption>AI Employees — managing multiple agent instances</figcaption>
+              </figure>
+            </div>
+            <div class="xb-comp-item">
+              <figure class="xb-screenshot">
+                <img src="images/agent-inbox.png" alt="General Inbox — all AI-handled conversations in one view" loading="lazy" />
+                <figcaption>General Inbox — reviewing every AI-handled conversation</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <!-- 08. Outcomes -->
+        <section class="xb-section" id="outcomes">
+          <p class="xb-sec-label">08 / Outcomes</p>
+          <h2 class="xb-sec-title">Better coverage. <em>More time for guests.</em></h2>
+
+          <div class="xb-big-stat">
+            <p class="xb-big-stat__label">Reported reduction, up to</p>
+            <p class="xb-big-stat__num">50%</p>
+            <p class="xb-big-stat__desc">Fewer missed calls</p>
+          </div>
+
+          <p class="xb-body">
+            The project reports improved answer rates, more bookings captured, and less routine call handling for staff. The eight-month project delivered XBert across NEXT, NCX, and N1.
+          </p>
+
+          <!-- Before / After comparison -->
+          <div class="xb-comparison">
+            <div class="xb-comparison__col">
+              <div class="xb-comparison__header">Before XBert</div>
+              <div class="xb-comparison__item">41% of inbound inquiries unanswered</div>
+              <div class="xb-comparison__item">Staff split between calls and guests</div>
+              <div class="xb-comparison__item">Missed reservation opportunities</div>
+              <div class="xb-comparison__item">Coverage constrained by staff availability</div>
+            </div>
+            <div class="xb-comparison__col">
+              <div class="xb-comparison__header">Reported After XBert</div>
+              <div class="xb-comparison__item">Up to 50% fewer missed calls</div>
+              <div class="xb-comparison__item">AI handles routine inquiries, reducing workload</div>
+              <div class="xb-comparison__item">More bookings captured</div>
+              <div class="xb-comparison__item">24/7 response capability & simultaneous conversations</div>
+            </div>
+          </div>
+
+          <p class="xb-body" style="font-size:14px;color:var(--muted);">
+            Source: the supplied XBert project deck, customer snapshot and results sections. These are reported outcomes, not independently verified measurements. The deck does not specify a post-launch measurement window or sample size.
+          </p>
+        </section>
+
+        <!-- 09. Reflection -->
+        <section class="xb-section" id="reflection">
+          <p class="xb-sec-label">09 / Reflection</p>
+          <h2 class="xb-sec-title">What I take forward</h2>
+
+          <div class="xb-takeaways">
+            <div class="xb-takeaway">
+              <h4>Design the owner's confidence, too.</h4>
+              <p>A natural conversation is only one part of an AI service. Clear setup, explicit responsibilities, and inspectable actions help the business understand what it is putting in front of customers.</p>
+            </div>
+            <div class="xb-takeaway">
+              <h4>Treat response time as part of the service.</h4>
+              <p>For a restaurant, availability affects reservations and staff attention. The design has to connect customer convenience with the practical rhythm of the business.</p>
+            </div>
+            <div class="xb-takeaway">
+              <h4>Make correction and recovery the next priority.</h4>
+              <p>I would deepen the experience for correcting business knowledge, recovering from failed actions, and receiving escalations. Those moments determine whether staff can rely on the service.</p>
+            </div>
+          </div>
+
+          <!-- Next project -->
+          <a class="xb-next" href="../guide-ai/index.html">
+            <div>
+              <p class="xb-next__label">Next Case Study</p>
+              <p class="xb-next__title">Guide.ai</p>
+            </div>
+            <span class="xb-next__arrow">→</span>
+          </a>
+        </section>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="foot">
+    <span class="foot__logo">SYED ZUBAIR<i>.</i></span>
+    <span class="mono">© 2026 Syed Zubair Ahmed. All rights reserved.</span>
+    <a class="mono foot__top" href="#main">↑ Back to top</a>
+  </footer>
+
+  <script>
+  // Sidebar active state on scroll
+  (function() {
+    var sidebar = document.getElementById('csSidebar');
+    if (!sidebar) return;
+    var links = sidebar.querySelectorAll('a');
+    var sections = [];
+    links.forEach(function(link) {
+      var id = link.getAttribute('href').replace('#', '');
+      var el = document.getElementById(id);
+      if (el) sections.push({ id: id, el: el, link: link });
+    });
+
+    function update() {
+      var scrollY = window.scrollY + 160;
+      var active = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].el.offsetTop <= scrollY) active = sections[i];
+      }
+      links.forEach(function(l) { l.classList.remove('active'); });
+      if (active) active.link.classList.add('active');
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+
+  // Mobile burger
+  (function() {
+    var burger = document.getElementById('burger');
+    var mmenu = document.getElementById('mmenu');
+    if (!burger || !mmenu) return;
+    burger.addEventListener('click', function() {
+      var open = burger.classList.toggle('is-open');
+      mmenu.classList.toggle('is-open', open);
+      mmenu.setAttribute('aria-hidden', !open);
+      burger.setAttribute('aria-expanded', open);
+    });
+    mmenu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        burger.classList.remove('is-open');
+        mmenu.classList.remove('is-open');
+        mmenu.setAttribute('aria-hidden', 'true');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  // Header scroll behavior
+  (function() {
+    var hdr = document.getElementById('hdr');
+    var last = 0;
+    window.addEventListener('scroll', function() {
+      var y = window.scrollY;
+      hdr.classList.toggle('is-scrolled', y > 40);
+      hdr.classList.toggle('is-hidden', y > 400 && y > last);
+      last = y;
+    }, { passive: true });
+  })();
+  </script>
+
+  <!-- Click-to-zoom lightbox -->
+  <div class="xb-lightbox" id="xbLightbox">
+    <img src="" alt="" />
+  </div>
+  <script>
+  (function() {
+    var lb = document.getElementById('xbLightbox');
+    var lbImg = lb.querySelector('img');
+    document.querySelectorAll('.xb-screenshot img').forEach(function(img) {
+      img.addEventListener('click', function() {
+        lbImg.src = this.src;
+        lbImg.alt = this.alt;
+        lb.classList.add('active');
+      });
+    });
+    lb.addEventListener('click', function() {
+      lb.classList.remove('active');
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') lb.classList.remove('active');
+    });
+  })();
+  </script>
+
+</body>
+</html>
