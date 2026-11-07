@@ -116,7 +116,7 @@ let render;
 const log=(t)=>{S.log.unshift({t:now(),m:t})};
 
 /* ---------- ONE QUESTION AT A TIME: flows ---------- */
-const NAME_RULE=v=>{v=v.trim();if(!v)return 'Enter a company name to continue.';if(!/\b(LLC|Ltd|Limited)\.?$/i.test(v))return 'Names must end with LLC, Ltd or Limited. Try “'+v+' LLC”.';if(/northwind/i.test(v))return 'That name is already registered. Try “Northwind Labs LLC” or “Northwind Group LLC”.';return ''};
+const NAME_RULE=v=>{v=v.trim();if(!v)return 'Enter a company name to continue.';if(!/\b(LLC|Ltd|Limited)\.?$/i.test(v))return 'Names must end with LLC, Ltd or Limited. Try "'+v+' LLC".';if(/northwind/i.test(v))return 'That name is already registered. Try "Northwind Labs LLC" or "Northwind Group LLC".';return ''};
 const REQ=m=>v=>String(v).trim()?'':m;
 const NUM=m=>v=>(v!==''&&+v>=0)?'':m;
 const NOTSURE=(v)=>['Not sure: use a typical estimate',v];
@@ -150,7 +150,7 @@ const uboText=()=>{const u=uboList();return u.length?u.map(x=>`${x.name} (${x.pc
 const FLOW={
  comp:[
    {path:'name',type:'text',q:()=>S.prof==='read'?"I read this name from your MOA. Is it right?":"What would you like to call your company?",label:'Company name',ph:'e.g. Meridian Labs LLC',hint:'It must end with LLC, Ltd or Limited.',status:true,chars:100,validate:NAME_RULE,badge:()=>S.prof==='read'?'Read from your MOA':'',extra:()=>S.prof==='read'?'':'<button type="button" class="linkbtn" data-act="profUpload" style="align-self:flex-start;padding-left:0">Have your Memorandum of Association (MOA)? Upload it and I&rsquo;ll fill in the company details</button>',row:'Company name'},
-   {path:'nameAr',type:'text',dir:'rtl',lang:'ar',q:()=>`Here's the Arabic name I'd register for “${S.data.name}”. Check it, or correct it.`,label:'Name in Arabic',prefill:()=>arabicName(S.data.name),badge:()=>'Translated by AI · please check',hint:()=>'The public register needs the name in Arabic too. Entity type: '+(entityLong(entityOf(S.data.name))||'not detected')+', detected from the name.',validate:v=>!v.trim()?'Enter the Arabic name.':!/[\u0600-\u06FF]/.test(v)?'Use Arabic letters for this name.':'',row:'Name in Arabic'}],
+   {path:'nameAr',type:'text',dir:'rtl',lang:'ar',q:()=>`Here's the Arabic name I'd register for "${S.data.name}". Check it, or correct it.`,label:'Name in Arabic',prefill:()=>arabicName(S.data.name),badge:()=>'Translated by AI · please check',hint:()=>'The public register needs the name in Arabic too. Entity type: '+(entityLong(entityOf(S.data.name))||'not detected')+', detected from the name.',validate:v=>!v.trim()?'Enter the Arabic name.':!/[\u0600-\u06FF]/.test(v)?'Use Arabic letters for this name.':'',row:'Name in Arabic'}],
  acts:[{path:'desc',type:'textarea',q:()=>S.prof==='read'&&S.data.desc?"I also read the objects clause from your MOA. Edit it if it's not quite right.":"Describe what the company will do. A sentence or two is enough.",label:'Description of proposed activities',ph:'e.g. We build accounting software for small shops and sell it by subscription.',counter:2000,
    validate:v=>v.trim().length<12?'Tell me a little more. What do you sell, and to whom?':wc(v)>2000?'Please keep it under 2000 words.':'',badge:()=>S.prof==='read'?'Read from your MOA':'',row:'Business description'},{special:'sug'}],
  cap:[{special:'quick',key:'cap'},{path:'sh.count',type:'number',q:"How many shares will the company be authorised to issue?",label:'Authorised shares',chips:()=>[['100','100'],['1,000','1000'],['10,000','10000']],hint:'The maximum number of shares the company may ever issue.',validate:v=>(+v>=1&&Number.isInteger(+v))?'':'Enter a whole number of shares.',fmt:v=>fmt(v),row:'Authorised shares'},
@@ -698,9 +698,9 @@ const A={
  stopSug(){tok++;S.sug=null;if(S.editing!=null)S.editSub=null;else S.sub=0;S.tmp=S.data.desc;render()},
  rewrite(){S.sug=null;tok++;if(S.editing!=null)S.editSub=0;else S.sub=0;S.tmp=S.data.desc;S.err='';render()},
  fillDesc(el){S.data.desc=el.dataset.t;startSug()},
- addAct(){const sg=S.sug,s=sg.items[sg.i],idx=sg.i;S.data.acts.push({code:s.code,title:s.title,grp:s.grp,restr:s.restr||''});if(s.restr)S.data.actAck=false;sg.i++;S.openR=null;S.err='';log('Added activity '+s.code);render();announce('Added '+s.title);toast('Added “'+s.title.slice(0,50)+'”',()=>{S.data.acts=S.data.acts.filter(a=>a.code!==s.code);if(S.sug&&S.sug.items)S.sug.i=idx;render()})},
+ addAct(){const sg=S.sug,s=sg.items[sg.i],idx=sg.i;S.data.acts.push({code:s.code,title:s.title,grp:s.grp,restr:s.restr||''});if(s.restr)S.data.actAck=false;sg.i++;S.openR=null;S.err='';log('Added activity '+s.code);render();announce('Added '+s.title);toast('Added "'+s.title.slice(0,50)+'"',()=>{S.data.acts=S.data.acts.filter(a=>a.code!==s.code);if(S.sug&&S.sug.items)S.sug.i=idx;render()})},
  skipAct(){S.sug.i++;S.openR=null;render()},
- rmAct(el){const a=S.data.acts.find(x=>x.code===el.dataset.c);S.data.acts=S.data.acts.filter(x=>x.code!==a.code);render();toast('Removed “'+a.title.slice(0,50)+'”',()=>{S.data.acts.push(a);render()})},
+ rmAct(el){const a=S.data.acts.find(x=>x.code===el.dataset.c);S.data.acts=S.data.acts.filter(x=>x.code!==a.code);render();toast('Removed "'+a.title.slice(0,50)+'"',()=>{S.data.acts.push(a);render()})},
  sugDone(){if(!S.data.acts.length){S.err='Add at least one activity to continue.';render();return}if(needAck()&&!S.data.actAck){S.err='Please read and acknowledge the compliance requirements to continue.';S.compOpen=true;render();return}S.err='';if(S.editing!=null){S.editSub=null;render()}else completeSection(S.cur)},
  upload(){const my=++tok;S.mp='reading';S.up={step:0};S.err='';render();log('Uploaded passport');
    (async()=>{await wait(800);if(my!==tok)return;S.up.step=1;render();await wait(1300);if(my!==tok)return;S.up.step=2;render();await wait(800);if(my!==tok)return;
@@ -722,7 +722,7 @@ const A={
  cancelSub(){const card=S.pay&&S.pay.method==='card';S.subm=null;if(S.pay)S.pay={st:'methods'};log(card?'Payment and submission cancelled · hold released':'Submission cancelled');render();toast(card?'Cancelled. The hold on your card was released. Nothing was charged.':'Submission cancelled. Nothing was sent.')},
  log(){closeMenu();sheet(`<h3>Activity log</h3><p class="hint">Everything Guide.ai read or changed, newest first.</p><ul class="log">${S.log.length?S.log.map(l=>`<li><time>${l.t}</time><span>${esc(l.m)}</span></li>`).join(''):'<li>Nothing yet.</li>'}</ul><div class="foot2"><button class="btn" data-act="closeSheet">Close</button></div>`)},
  human(){closeMenu();sheet(`<h3>Talk to a person</h3><p style="color:var(--text-2)">I'll pass your progress so you don't have to repeat yourself.</p><div class="box" style="margin-top:12px"><h4>What they'll see</h4><span style="font-size:13px">${S.done.length} of ${N} steps complete · current step: ${esc(SECTIONS[Math.min(S.cur,REV)].label)} · activity log</span></div><p class="hint" style="margin-top:8px">Typical reply: within 1 working day. Your application stays saved.</p><div class="foot2"><button class="btn ghost" data-act="closeSheet">Not now</button><button class="btn primary" data-act="humanOk">Send to support</button></div>`)},
- humanOk(){closeSheet();log('Handed off to support');toast('Sent to support. We’ll email you.')},
+ humanOk(){closeSheet();log('Handed off to support');toast('Sent to support. We\'ll email you.')},
  save(){closeMenu();log('Saved & exited');const m=maskEmail(S.data.id.email);closeModal();toast('Saved. '+(m?'Link sent to '+m:'You can resume any time.'))},
  toast(el){toast(el.dataset.m)},
  closeSheet(){closeSheet()},
@@ -789,9 +789,9 @@ function checkName(){clearTimeout(nameT);const st=$('#nameStat'),v=(S.tmp||'').t
   if(v.length<3){st.className='stat';st.innerHTML='';return}
   st.className='stat';st.innerHTML='<span class="spin"></span> Checking availability…';
   nameT=setTimeout(()=>{let c='',h='';
-    if(/northwind/i.test(v)){c='bad';h=ic('alert',13)+' Already registered. Try “Northwind Labs LLC” or “Northwind Group LLC”.'}
+    if(/northwind/i.test(v)){c='bad';h=ic('alert',13)+' Already registered. Try "Northwind Labs LLC" or "Northwind Group LLC".'}
     else if(!/\b(LLC|Ltd|Limited)\.?$/i.test(v)){h=ic('info',13)+' Add LLC, Ltd or Limited at the end.'}
-    else{c='ok';h=ic('check',13)+' “'+esc(v)+'” is available.'}
+    else{c='ok';h=ic('check',13)+' "'+esc(v)+'" is available.'}
     st.className='stat '+c;st.innerHTML=h},600)}
 document.querySelectorAll('input[name=doc]').forEach(r=>r.onchange=()=>docMode=r.value);
 document.querySelectorAll('input[name=pay]').forEach(r=>r.onchange=()=>payMode=r.value);
