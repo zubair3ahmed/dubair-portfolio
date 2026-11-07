@@ -16,12 +16,12 @@
 <title>Incorporate your company by chatting | Guide.ai</title>
 <meta name="description" content="Guide.ai turns a long incorporation form into a short, guided conversation. Upload, review, submit.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ds.css?v=13">
+<link rel="stylesheet" href="ds.css?v=19">
 <style>
 /* Landing-page layout only. Every colour, size, radius and shadow comes from ds.css tokens. */
 body{height:auto}
 .wrap{width:min(1120px,100% - 2*var(--s5));margin-inline:auto}
-.nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg-app) 88%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav{position:sticky;top:0;z-index:10;background:var(--bg-app);border-bottom:1px solid var(--border)}
 .nav .wrap{display:flex;align-items:center;gap:var(--s5);height:64px}
 .nav .brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:var(--fs-lg);color:var(--text-1);text-decoration:none}
 .nav nav{display:flex;gap:var(--s5);margin-left:auto;margin-right:var(--s2)}
@@ -30,7 +30,7 @@ body{height:auto}
 .btn.lg{min-height:48px;padding:12px 22px;font-size:var(--fs-md);border-radius:var(--r-md)}
 .hero{padding:88px 0 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s6) 56px;align-items:center}
 .hero h1{font-size:clamp(34px,5vw,54px);line-height:1.08;letter-spacing:-.02em;margin:var(--s4) 0}
-.hero h1 em{font-style:normal;background:var(--ai-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 em{font-style:normal;color:var(--accent-text)}
 .hero p.lead{font-size:var(--fs-lg);color:var(--text-2);max-width:520px}
 .cta{display:flex;gap:var(--s3);flex-wrap:wrap;margin:var(--s6) 0 var(--s4)}
 .assure{display:flex;gap:var(--s5);flex-wrap:wrap;color:var(--text-3);font-size:var(--fs-sm)}
@@ -49,7 +49,6 @@ body{height:auto}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s6)}
 .tile{border:1px solid var(--border);background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s5);box-shadow:var(--e1);display:flex;flex-direction:column;gap:var(--s2)}
 .section.alt .tile{background:var(--bg-app)}
-.tile .ico{width:40px;height:40px;border-radius:var(--r-md);background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;margin-bottom:var(--s2)}
 .tile h3{font-size:var(--fs-lg)} .tile p{color:var(--text-2);font-size:var(--fs-sm)}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);margin-top:var(--s6);counter-reset:s}
 .steps li{list-style:none;position:relative;padding-top:var(--s6);border-top:2px solid var(--border)}
@@ -79,69 +78,25 @@ footer .wrap{display:flex;gap:var(--s5);flex-wrap:wrap;justify-content:space-bet
 /* ===== modern dark + motion ===== */
 html{scroll-behavior:smooth}
 body{overflow-x:hidden}
-.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:radial-gradient(1200px 600px at 50% -10%,rgba(82,24,146,.22),transparent 60%)}
-.aurora i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;will-change:transform}
-.aurora i:nth-child(1){width:520px;height:520px;left:-120px;top:60px;background:#521892;animation:drift1 18s ease-in-out infinite alternate}
-.aurora i:nth-child(2){width:460px;height:460px;right:-100px;top:200px;background:#7444B3;opacity:.35;animation:drift2 22s ease-in-out infinite alternate}
-.aurora i:nth-child(3){width:380px;height:380px;left:40%;top:900px;background:#3D126B;opacity:.22;animation:drift1 26s ease-in-out infinite alternate-reverse}
-.aurora::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:56px 56px;opacity:.35;-webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 15%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 55% at 50% 15%,#000,transparent 75%)}
-@keyframes drift1{to{transform:translate(120px,80px) scale(1.15)}}
-@keyframes drift2{to{transform:translate(-140px,60px) scale(1.2)}}
 .nav{transition:background var(--dur),box-shadow var(--dur),border-color var(--dur);border-bottom-color:transparent}
 .nav.scrolled{border-bottom-color:var(--border);box-shadow:var(--e2)}
 .nav nav a{position:relative}
 .nav nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform var(--dur) var(--ease)}
 .nav nav a:hover::after{transform:scaleX(1)}
-.section.alt{background:color-mix(in srgb,var(--bg-surface) 55%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-/* reveal on scroll */
-.rv{opacity:0}
-.rv.in{opacity:1;animation:up2 .7s var(--ease) backwards;animation-delay:calc(var(--d,0)*90ms)}
-@keyframes up2{from{opacity:0;transform:translateY(28px)}}
-.no-js .rv{opacity:1;transform:none}
-/* hero entrance */
-.hero .badge,.hero h1,.hero p.lead,.hero .cta,.hero .assure{opacity:0;transform:translateY(20px);animation:up .8s var(--ease) forwards}
-.hero h1{animation-delay:.08s}.hero p.lead{animation-delay:.18s}.hero .cta{animation-delay:.28s}.hero .assure{animation-delay:.38s}
-@keyframes up{to{opacity:1;transform:none}}
-.hero h1 em{background-size:200% 100%;background-image:linear-gradient(90deg,#C3A8F0,#D5C1F5,#B9A3DB,#C3A8F0);animation:shimmer 6s linear infinite}
-html[data-theme="light"] .hero h1 em{background-image:linear-gradient(90deg,#3D126B,#7444B3,#521892,#3D126B)}
-@keyframes shimmer{to{background-position:-200% 0}}
 /* buttons */
 .btn{transition:transform var(--dur-fast) var(--ease),box-shadow var(--dur) var(--ease),background var(--dur-fast),border-color var(--dur-fast)}
 .btn:hover{transform:translateY(-2px)}
 .btn:active{transform:translateY(0) scale(.98)}
-.btn.primary{position:relative;overflow:hidden;box-shadow:0 8px 24px -6px rgba(82,24,146,.65)}
-.btn.primary::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .6s var(--ease)}
-.btn.primary:hover::after{left:130%}
-.btn.primary:hover{box-shadow:0 12px 32px -6px rgba(195,168,240,.8)}
-.fab{animation:fabIn .6s 1s var(--ease) both}
-@keyframes fabIn{from{opacity:0;transform:translateY(20px) scale(.9)}}
-.fab::before{content:"";position:absolute;inset:-4px;border-radius:inherit;border:2px solid var(--brand);opacity:0;animation:ping 3s 2s ease-out infinite}
-@keyframes ping{0%{opacity:.6;transform:scale(.96)}70%,100%{opacity:0;transform:scale(1.18)}}
-/* hero preview: staged conversation + scan beam */
-.preview{border-color:var(--border-strong);transform-style:preserve-3d;transition:transform .25s var(--ease);box-shadow:var(--e3),0 0 0 1px rgba(195,168,240,.15),0 30px 120px -30px rgba(82,24,146,.55)}
-.preview>*{opacity:0;transform:translateY(14px);animation:up .6s var(--ease) forwards}
-.preview>*:nth-child(1){animation-delay:.6s}.preview>*:nth-child(2){animation-delay:1.2s}.preview>*:nth-child(3){animation-delay:2.1s}.preview>*:nth-child(4){animation-delay:2.9s}
+.btn.primary{position:relative;overflow:hidden}
+/* hero preview */
+.preview{border-color:var(--border-strong);transform-style:preserve-3d;transition:transform .25s var(--ease);box-shadow:var(--e3)}
 .preview .card{position:relative;overflow:hidden}
-.preview .card::after{content:"";position:absolute;left:0;right:0;top:0;height:40%;background:linear-gradient(180deg,transparent,rgba(195,168,240,.28),transparent);transform:translateY(-120%);animation:scan 1s 1.3s ease-in-out 1 forwards}
-@keyframes scan{to{transform:translateY(320%)}}
-.preview .fieldrow.low{animation:up .6s 2.1s var(--ease) forwards,glow 2.6s 3s ease-in-out infinite}
-@keyframes glow{50%{box-shadow:0 0 0 4px rgba(251,191,36,.18)}}
-.floatchip{opacity:0;animation:pop2 .6s 2.9s var(--ease) forwards,bob 5s 3.6s ease-in-out infinite}
-@keyframes pop2{from{opacity:0;transform:scale(.8) translateY(10px)}to{opacity:1;transform:none}}
-@keyframes bob{50%{transform:translateY(-8px)}}
-.preview .av{animation:pulse 2.4s ease-in-out infinite}
-@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(195,168,240,.18)}}
-/* tiles: glow border follows cursor */
-.tile{position:relative;overflow:hidden;transition:transform .35s var(--ease),border-color .35s,box-shadow .35s}
-.tile::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx,50%) var(--my,0%),rgba(195,168,240,.16),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none}
-.tile:hover{transform:translateY(-6px);border-color:var(--brand-border);box-shadow:var(--e2)}
-.tile:hover::before{opacity:1}
-.tile .ico{transition:transform .4s var(--ease),background .3s}
-.tile:hover .ico{transform:rotate(-8deg) scale(1.12);background:var(--brand-border)}
-/* steps: line draws in */
+/* tiles */
+.tile{position:relative;overflow:hidden;transition:border-color var(--dur),box-shadow var(--dur)}
+.tile:hover{border-color:var(--brand-border);box-shadow:var(--e2)}
+/* steps */
 .steps li{border-top:0}
-.steps li::after{content:"";position:absolute;top:-1px;left:0;height:2px;width:100%;background:linear-gradient(90deg,var(--brand),var(--border));transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease);transition-delay:calc(var(--d,0)*160ms + .2s)}
-.steps li.in::after{transform:scaleX(1)}
+.steps li::after{content:"";position:absolute;top:-1px;left:0;height:2px;width:100%;background:linear-gradient(90deg,var(--brand),var(--border))}
 /* faq */
 .faq details{transition:background var(--dur)}
 .faq details[open] summary::after{transform:rotate(180deg)}
@@ -149,18 +104,10 @@ html[data-theme="light"] .hero h1 em{background-image:linear-gradient(90deg,#3D1
 .faq details>p{animation:fade .35s var(--ease)}
 @keyframes fade{from{opacity:0;transform:translateY(-6px)}}
 /* CTA band */
-.band{position:relative;overflow:hidden;background:linear-gradient(120deg,#25125A,#3D126B,#7444B3,#25125A);background-size:300% 100%;animation:band 12s ease infinite;color:#fff}
-.band .btn{background:#fff;color:#3D126B;border-color:transparent}
-@keyframes band{50%{background-position:100% 0}}
-/* marquee */
-.marq{overflow:hidden;border-block:1px solid var(--border);padding:14px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.marq div{display:flex;gap:var(--s6);width:max-content;animation:marq 32s linear infinite;color:var(--text-3);font-size:var(--fs-sm);white-space:nowrap}
-.marq:hover div,.marqwrap.paused .marq div{animation-play-state:paused}
-.marqwrap{position:relative}.marqbtn{position:absolute;right:var(--s2);top:50%;transform:translateY(-50%);z-index:2;background:var(--bg-surface);border-color:var(--border-input)}
-.marq span{display:inline-flex;gap:8px;align-items:center}.marq svg{color:var(--brand)}
-@keyframes marq{to{transform:translateX(-50%)}}
+.band{position:relative;overflow:hidden;background:var(--burgundy);color:#fff}
+.band .btn{background:#fff;color:var(--burgundy);border-color:transparent}
 .overlay{transition:opacity var(--dur) var(--ease)}
-.modal{box-shadow:var(--e3),0 0 0 1px var(--border-strong),0 40px 140px -20px rgba(82,24,146,.5)}
+.modal{box-shadow:var(--e3),0 0 0 1px var(--border-strong),0 40px 140px -20px rgba(0,0,0,.5)}
 @media (max-width:900px){.hero{grid-template-columns:1fr;padding-top:48px}.grid3,.split{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.nav nav{display:none}.nav .btn{margin-left:auto}.floatchip{right:8px}}
 @media (max-width:520px){.steps{grid-template-columns:1fr}.band{padding:40px var(--s4)}}
 </style>
@@ -168,7 +115,6 @@ html[data-theme="light"] .hero h1 em{background-image:linear-gradient(90deg,#3D1
 <body>
 <a class="skip" href="#home">Skip to main content</a>
 <div class="sr" id="announce" role="status" aria-live="polite" aria-atomic="true"></div>
-<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 
 <header class="nav"><div class="wrap">
   <a class="brand" href="#home"><span class="logo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span><span>Guide<span class="dotai">.ai</span></span></a>
@@ -197,7 +143,6 @@ html[data-theme="light"] .hero h1 em{background-image:linear-gradient(90deg,#3D1
   </div>
 </section>
 
-<div class="marqwrap"><button class="btn sm ghost marqbtn" aria-pressed="false" aria-label="Pause scrolling feature list">Pause</button><div class="marq" aria-hidden="true"><div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Document auto-fill</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Plain-language help</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Live name check</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Activity codes matched for you</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Edit any section</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cancel-window on submit</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Full audit trail</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Talk to a person</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Document auto-fill</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Plain-language help</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Live name check</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Activity codes matched for you</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Edit any section</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cancel-window on submit</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Full audit trail</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Talk to a person</span></div></div></div>
 <section class="section alt" id="how"><div class="wrap">
   <div class="eyebrow rv">How it works</div>
   <h2 class="rv">From blank form to submitted, one step at a time.</h2>
@@ -214,12 +159,12 @@ html[data-theme="light"] .hero h1 em{background-image:linear-gradient(90deg,#3D1
   <div class="eyebrow rv">Features</div>
   <h2 class="rv">Made for a form where a typo means an amendment.</h2>
   <div class="grid3" data-stagger>
-    <div class="rv tile"><div class="ico" aria-hidden="true">⇪</div><h3>Document auto-fill</h3><p>Fields come with a confidence badge. Anything unclear is flagged and must be checked before it's saved.</p></div>
-    <div class="rv tile"><div class="ico" aria-hidden="true">✦</div><h3>Activity suggestions</h3><p>Ranked activity matches with a reason for each, plus a licence flag. Add or dismiss in one tap.</p></div>
-    <div class="rv tile"><div class="ico" aria-hidden="true">?</div><h3>Plain-language help</h3><p>Ask what a nominee director is, in your own words. Answers say where they come from.</p></div>
-    <div class="rv tile"><div class="ico" aria-hidden="true">↺</div><h3>Edit anything, anytime</h3><p>Finished sections collapse into summaries. Reopen one, change it, and carry on.</p></div>
-    <div class="rv tile"><div class="ico" aria-hidden="true">☰</div><h3>Full activity log</h3><p>A timestamped record of everything Guide.ai read or changed, for your own audit.</p></div>
-    <div class="rv tile"><div class="ico" aria-hidden="true">☺</div><h3>A person when you need one</h3><p>One tap hands your progress to support, so you never repeat yourself.</p></div>
+    <div class="rv tile"><h3>Document auto-fill</h3><p>Fields come with a confidence badge. Anything unclear is flagged and must be checked before it's saved.</p></div>
+    <div class="rv tile"><h3>Activity suggestions</h3><p>Ranked activity matches with a reason for each, plus a licence flag. Add or dismiss in one tap.</p></div>
+    <div class="rv tile"><h3>Plain-language help</h3><p>Ask what a nominee director is, in your own words. Answers say where they come from.</p></div>
+    <div class="rv tile"><h3>Edit anything, anytime</h3><p>Finished sections collapse into summaries. Reopen one, change it, and carry on.</p></div>
+    <div class="rv tile"><h3>Full activity log</h3><p>A timestamped record of everything Guide.ai read or changed, for your own audit.</p></div>
+    <div class="rv tile"><h3>A person when you need one</h3><p>One tap hands your progress to support, so you never repeat yourself.</p></div>
   </div>
 </div></section>
 
@@ -281,12 +226,7 @@ html[data-theme="light"] .hero h1 em{background-image:linear-gradient(90deg,#3D1
 <script>
 (()=>{
  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
- document.querySelectorAll('[data-stagger]').forEach(p=>[...p.children].forEach((c,i)=>c.style.setProperty('--d',i)));
- const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
- document.querySelectorAll('.rv').forEach(el=>reduce?el.classList.add('in'):io.observe(el));
  const nav=document.querySelector('.nav');const f=()=>nav.classList.toggle('scrolled',scrollY>8);addEventListener('scroll',f,{passive:true});f();
- document.querySelectorAll('.tile').forEach(t=>t.addEventListener('pointermove',e=>{const r=t.getBoundingClientRect();t.style.setProperty('--mx',(e.clientX-r.left)+'px');t.style.setProperty('--my',(e.clientY-r.top)+'px')}));
- document.querySelector('.marqbtn')?.addEventListener('click',e=>{const w=e.currentTarget.parentElement;const p=w.classList.toggle('paused');e.currentTarget.textContent=p?'Play':'Pause';e.currentTarget.setAttribute('aria-pressed',p);e.currentTarget.setAttribute('aria-label',(p?'Resume':'Pause')+' scrolling feature list')});
  const pv=document.querySelector('.preview');
  if(pv&&!reduce&&matchMedia('(hover:hover)').matches){const h=pv.parentElement;h.addEventListener('pointermove',e=>{const r=pv.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;pv.style.transform=`perspective(1000px) rotateY(${x*7}deg) rotateX(${-y*7}deg)`});h.addEventListener('pointerleave',()=>pv.style.transform='')}
 })();

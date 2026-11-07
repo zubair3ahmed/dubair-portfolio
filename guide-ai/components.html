@@ -16,29 +16,30 @@
 <title>Guide.ai component library</title>
 <meta name="description" content="Tokens and components of the Guide.ai design system, rendered live from ds.css.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ds.css?v=12">
+<link rel="stylesheet" href="ds.css?v=19">
 <style>
 /* Page layout only. Every component below is the real ds.css class used in the product. */
 body{height:auto;background:var(--bg-app)}
 .shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
-.side{position:sticky;top:0;height:100vh;overflow:auto;background:#25125A;color:#F4F0FA;padding:24px 16px;display:flex;flex-direction:column;gap:18px}
+.side{position:sticky;top:0;height:100vh;overflow:auto;background:var(--burgundy);color:#F7F7F7;padding:24px 16px;display:flex;flex-direction:column;gap:18px}
 .side .brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:var(--fs-lg)}
-.side h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#B8AACF;margin:6px 8px 4px}
-.side a{display:block;color:#D6CCE6;text-decoration:none;font-size:var(--fs-sm);padding:6px 8px;border-radius:8px}
-.side a:hover{background:#3D1F72;color:#fff}
+.side h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#E3B5CA;margin:6px 8px 4px}
+.side a{display:block;color:#F0DCE6;text-decoration:none;font-size:var(--fs-sm);padding:6px 8px;border-radius:8px}
+.side a:hover{background:var(--rose);color:#fff}
+.side .dotai{color:var(--rose-tint)}
 main{padding:40px clamp(16px,4vw,56px) 80px;max-width:1100px}
-.pagehead h1{font-size:clamp(28px,4vw,40px);color:var(--plum-800);letter-spacing:-.01em;margin:8px 0}
+.pagehead h1{font-size:clamp(28px,4vw,40px);color:var(--burgundy);letter-spacing:-.01em;margin:8px 0}
 .pagehead p{color:var(--text-2);max-width:680px}
 section.lib{margin-top:56px;scroll-margin-top:24px}
-section.lib>h2{font-size:24px;color:var(--plum-800);margin-bottom:4px}
+section.lib>h2{font-size:24px;color:var(--burgundy);margin-bottom:4px}
 section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;margin-bottom:18px}
 .spec{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:18px}
 .spec>header{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:14px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap}
 .spec>header h3{font-size:var(--fs-md)}
-.spec>header code{font-size:var(--fs-xs);color:var(--plum-700);background:var(--plum-100);padding:2px 8px;border-radius:6px}
+.spec>header code{font-size:var(--fs-xs);color:var(--text-2);background:var(--n-100);padding:2px 8px;border-radius:6px}
 .stage{padding:22px 18px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;background:var(--canvas)}
 .stage.col{flex-direction:column;align-items:stretch}
-.stage.dark{background:#25125A}
+.stage.dark{background:var(--burgundy)}
 .cell{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
 .cell>small{font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
 .notes{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 18px;border-top:1px solid var(--border);font-size:var(--fs-sm)}
@@ -56,7 +57,7 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
 .typescale small{width:110px;flex:none;color:var(--text-3);font-size:12px}
 .boxes{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end}
 .boxes .bx{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:var(--text-3)}
-.boxes .bx i{display:block;background:var(--plum-100);border:2px solid var(--plum-500)}
+.boxes .bx i{display:block;background:var(--n-100);border:2px solid var(--text-2)}
 .w320{width:min(360px,100%)}.w480{width:min(520px,100%)}
 .mock .card{margin-left:0}
 @media (max-width:860px){.shell{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.notes{grid-template-columns:1fr}}
@@ -76,14 +77,14 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
 </nav>
 <main>
   <div class="pagehead">
-    <span class="badge ai">✦ Design system · v2 Plum</span>
+    <span class="badge ai">✦ Design system · Burgundy theme</span>
     <h1>Guide.ai component library</h1>
     <p>Every token and component here is rendered live from <code>ds.css</code>, the same file the assistant, landing page and case study use. If it looks right here, it looks right in the product.</p>
   </div>
 
   <!-- COLOUR -->
   <section class="lib" id="colour"><h2>Colour</h2><p class="lead">Deep plum leads, a plum-to-violet gradient marks primary actions and AI, and lilac tints carry surfaces. Status colours always pair with an icon and text. Click a swatch to copy its value.</p>
-    <div class="spec"><header><h3>Brand &amp; surfaces</h3><code>--plum-* · --brand · --canvas</code></header><div class="stage col">
+    <div class="spec"><header><h3>Brand &amp; surfaces</h3><code>--burgundy · --rose · --rose-tint · --brand · --canvas</code></header><div class="stage col">
       <div class="sw" id="swBrand"></div></div></div>
     <div class="spec"><header><h3>Text &amp; status</h3><code>--text-* · --ok · --warn · --bad</code></header><div class="stage col"><div class="sw" id="swStatus"></div></div>
       <div class="notes"><div><b>Contrast</b><p>Text-1 and text-2 pass AAA on white and lilac. Text-3 passes AA (≥4.5:1). Plum on white is about 12:1.</p></div><div><b>Rule</b><p>Never show status by colour alone. Pair it with an icon and a word: "Check this", "Acknowledged".</p></div></div></div>
@@ -92,7 +93,7 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
   <!-- TYPE -->
   <section class="lib" id="type"><h2>Typography</h2><p class="lead">Noto Sans for Latin text and Noto Kufi Arabic for Arabic, so both scripts share one rhythm. Headings are bold plum.</p>
     <div class="spec"><header><h3>Type scale</h3><code>--fs-xs … --fs-xl</code></header><div class="stage col"><div class="typescale">
-      <div><small>Display · 40/700</small><span style="font-size:40px;font-weight:700;color:var(--plum-800)">Register your company</span></div>
+      <div><small>Display · 40/700</small><span style="font-size:40px;font-weight:700;color:var(--burgundy)">Register your company</span></div>
       <div><small>Title · 20/650</small><span style="font-size:var(--fs-xl);font-weight:650">Let's set up your company</span></div>
       <div><small>Body L · 16</small><span style="font-size:var(--fs-lg)">One question at a time, about 5 minutes.</span></div>
       <div><small>Body · 14</small><span style="font-size:var(--fs-md)">What would you like to call your company?</span></div>
@@ -234,10 +235,10 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
 <script>
 (()=>{
 const tok=(n)=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const brand=[['--plum-900','Rail, deepest plum'],['--plum-800','Brand, headings'],['--plum-700','Gradient middle'],['--plum-500','Gradient end, accents'],['--plum-300','Lilac accent'],['--plum-200','AI borders'],['--plum-100','AI bubbles, tints'],['--plum-50','Canvas']];
+const brand=[['--burgundy','Primary fill, rail, headings'],['--rose','Hover, accent, AI badge'],['--rose-tint','AI mark, accent on dark'],['--ink','Primary text'],['--n-50','Canvas'],['--n-100','Bubbles, tints'],['--n-200','Borders'],['--n-300','Strong borders']];
 const status=[['--text-1','Primary text'],['--text-2','Secondary text'],['--text-3','Captions, hints'],['--border-input','Field borders'],['--ok','Success'],['--warn','Warning'],['--bad','Error'],['--ok-bg','Success surface']];
 const card=([n,d])=>`<button class="swc" type="button" data-copy="${n}" aria-label="Copy ${n}"><i style="background:var(${n})"></i><div><b>${n}</b><span>${tok(n)}</span><br><span>${d}</span></div></button>`;
-document.getElementById('swBrand').innerHTML=brand.map(card).join('')+`<button class="swc" type="button" data-copy="--ai-grad" aria-label="Copy --ai-grad"><i style="background:var(--ai-grad)"></i><div><b>--ai-grad</b><span>plum → violet</span><br><span>Primary buttons, AI marks</span></div></button>`;
+document.getElementById('swBrand').innerHTML=brand.map(card).join('');
 document.getElementById('swStatus').innerHTML=status.map(card).join('');
 document.getElementById('spaceBoxes').innerHTML=['--s1','--s2','--s3','--s4','--s5','--s6'].map(n=>`<div class="bx"><i style="width:var(${n});height:var(${n})"></i>${n.replace('--','')} · ${tok(n)}</div>`).join('');
 const t=document.getElementById('copied');let tm;
