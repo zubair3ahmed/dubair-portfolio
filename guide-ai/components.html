@@ -16,22 +16,22 @@
 <title>Guide.ai component library</title>
 <meta name="description" content="Tokens and components of the Guide.ai design system, rendered live from ds.css.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ds.css?v=19">
+<link rel="stylesheet" href="ds.css?v=20">
 <style>
 /* Page layout only. Every component below is the real ds.css class used in the product. */
 body{height:auto;background:var(--bg-app)}
 .shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
-.side{position:sticky;top:0;height:100vh;overflow:auto;background:var(--burgundy);color:#F7F7F7;padding:24px 16px;display:flex;flex-direction:column;gap:18px}
+.side{position:sticky;top:0;height:100vh;overflow:auto;background:var(--ink);color:#F7F7F7;padding:24px 16px;display:flex;flex-direction:column;gap:18px}
 .side .brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:var(--fs-lg)}
-.side h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#E3B5CA;margin:6px 8px 4px}
-.side a{display:block;color:#F0DCE6;text-decoration:none;font-size:var(--fs-sm);padding:6px 8px;border-radius:8px}
-.side a:hover{background:var(--rose);color:#fff}
+.side h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#A3A6B3;margin:6px 8px 4px}
+.side a{display:block;color:#CBCDD6;text-decoration:none;font-size:var(--fs-sm);padding:6px 8px;border-radius:8px}
+.side a:hover{background:#2D303C;color:#fff}
 .side .dotai{color:var(--rose-tint)}
 main{padding:40px clamp(16px,4vw,56px) 80px;max-width:1100px}
-.pagehead h1{font-size:clamp(28px,4vw,40px);color:var(--burgundy);letter-spacing:-.01em;margin:8px 0}
+.pagehead h1{font-size:clamp(28px,4vw,40px);color:var(--ink);letter-spacing:-.01em;margin:8px 0}
 .pagehead p{color:var(--text-2);max-width:680px}
 section.lib{margin-top:56px;scroll-margin-top:24px}
-section.lib>h2{font-size:24px;color:var(--burgundy);margin-bottom:4px}
+section.lib>h2{font-size:24px;color:var(--ink);margin-bottom:4px}
 section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;margin-bottom:18px}
 .spec{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:18px}
 .spec>header{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:14px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap}
@@ -39,7 +39,7 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
 .spec>header code{font-size:var(--fs-xs);color:var(--text-2);background:var(--n-100);padding:2px 8px;border-radius:6px}
 .stage{padding:22px 18px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;background:var(--canvas)}
 .stage.col{flex-direction:column;align-items:stretch}
-.stage.dark{background:var(--burgundy)}
+.stage.dark{background:var(--ink)}
 .cell{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
 .cell>small{font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
 .notes{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 18px;border-top:1px solid var(--border);font-size:var(--fs-sm)}
@@ -93,7 +93,7 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
   <!-- TYPE -->
   <section class="lib" id="type"><h2>Typography</h2><p class="lead">Noto Sans for Latin text and Noto Kufi Arabic for Arabic, so both scripts share one rhythm. Headings are bold plum.</p>
     <div class="spec"><header><h3>Type scale</h3><code>--fs-xs … --fs-xl</code></header><div class="stage col"><div class="typescale">
-      <div><small>Display · 40/700</small><span style="font-size:40px;font-weight:700;color:var(--burgundy)">Register your company</span></div>
+      <div><small>Display · 40/700</small><span style="font-size:40px;font-weight:700;color:var(--ink)">Register your company</span></div>
       <div><small>Title · 20/650</small><span style="font-size:var(--fs-xl);font-weight:650">Let's set up your company</span></div>
       <div><small>Body L · 16</small><span style="font-size:var(--fs-lg)">One question at a time, about 5 minutes.</span></div>
       <div><small>Body · 14</small><span style="font-size:var(--fs-md)">What would you like to call your company?</span></div>
@@ -235,7 +235,7 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
 <script>
 (()=>{
 const tok=(n)=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const brand=[['--burgundy','Primary fill, rail, headings'],['--rose','Hover, accent, AI badge'],['--rose-tint','AI mark, accent on dark'],['--ink','Primary text'],['--n-50','Canvas'],['--n-100','Bubbles, tints'],['--n-200','Borders'],['--n-300','Strong borders']];
+const brand=[['--burgundy','Primary buttons only'],['--rose','Hover, accent, AI badge'],['--rose-tint','AI mark, accent on dark'],['--ink','Text, sidebar, tabs, user bubble'],['--n-50','Canvas'],['--n-100','Bubbles, tints'],['--n-200','Borders'],['--n-300','Strong borders']];
 const status=[['--text-1','Primary text'],['--text-2','Secondary text'],['--text-3','Captions, hints'],['--border-input','Field borders'],['--ok','Success'],['--warn','Warning'],['--bad','Error'],['--ok-bg','Success surface']];
 const card=([n,d])=>`<button class="swc" type="button" data-copy="${n}" aria-label="Copy ${n}"><i style="background:var(${n})"></i><div><b>${n}</b><span>${tok(n)}</span><br><span>${d}</span></div></button>`;
 document.getElementById('swBrand').innerHTML=brand.map(card).join('');
