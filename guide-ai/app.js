@@ -656,7 +656,7 @@ function guardUnsaved(cont){
 const A={
  start(){if(S.data.id.verified)beginApp();else{S.gate=0;S.tmp=undefined;S.err='';render()}},
  resume(){const d=DRAFT;S=fresh();Object.assign(S,{data:d.data,done:d.done,cur:d.cur,sub:d.sub,log:d.log||[],locked:!!d.locked,started:true});const st=stepsOf(secId(Math.min(S.cur,REV)))[S.sub];if(!st||st.special)S.sub=0;S.cur===REV&&(S.sub=0);log('Resumed application');render();announce('Welcome back. '+(S.locked?'Your application is submitted.':''));setTimeout(announceLast,200)},
- manualForm(){log('Chose to fill the form manually');closeModal();toast("No problem. Fill in the form on the page. I'm here if you need me.")},
+ manualForm(){log('Chose to fill the form manually');closeModal();toast("No problem, fill in the form on the page.")},
  mode(el){S.mode=el.dataset.v;log(S.mode==='consult'?'Opened Consulting':'Back to the form assistant');render();if(S.mode==='consult')setTimeout(()=>$('#cq')?.focus(),30)},
  cask(el){cask(el.dataset.q)},
  resend(){S.att=0;S.err='';toast('New code sent to '+maskEmail(S.data.id.email));render()},
