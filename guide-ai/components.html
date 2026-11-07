@@ -60,6 +60,11 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
 .boxes .bx i{display:block;background:var(--n-100);border:2px solid var(--text-2)}
 .w320{width:min(360px,100%)}.w480{width:min(520px,100%)}
 .mock .card{margin-left:0}
+.codebox{border-top:1px solid var(--border);background:var(--bg-surface)}
+.codebox.solo{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-top:16px;max-width:680px}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 18px;font-size:var(--fs-xs);font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3)}
+.codebox pre{margin:0;padding:16px 18px;background:var(--ink);color:#F7F7F7;overflow:auto;max-height:440px;font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;tab-size:2}
+.codebox pre:focus-visible{outline-offset:-3px}
 @media (max-width:860px){.shell{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.notes{grid-template-columns:1fr}}
 </style>
 </head>
@@ -243,6 +248,535 @@ document.getElementById('swStatus').innerHTML=status.map(card).join('');
 document.getElementById('spaceBoxes').innerHTML=['--s1','--s2','--s3','--s4','--s5','--s6'].map(n=>`<div class="bx"><i style="width:var(${n});height:var(${n})"></i>${n.replace('--','')} · ${tok(n)}</div>`).join('');
 const t=document.getElementById('copied');let tm;
 document.addEventListener('click',e=>{const b=e.target.closest('[data-copy]');if(!b)return;const v=b.dataset.copy==='--ai-grad'?'var(--ai-grad)':`var(${b.dataset.copy})`;navigator.clipboard&&navigator.clipboard.writeText(v).catch(()=>{});document.getElementById('copiedMsg').textContent='Copied '+v;t.classList.add('open');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('open'),1600)});
+
+/* ===== React snippets: one per component, copyable ===== */
+const REACT={
+setup:`// main.jsx: load the design system once, at the app root
+import "./ds.css";
+// Noto Sans and Noto Kufi Arabic come from Google Fonts (see the <link> in prototype.html).
+// Every snippet below is plain JSX that uses the ds.css classes shown in each header.`,
+
+"buttons:0":`export function Button({ variant, size, className, ...props }) {
+  const cls = ["btn", variant, size, className].filter(Boolean).join(" ");
+  return <button className={cls} {...props} />;
+}
+
+export function LinkButton(props) {
+  return <button className="linkbtn" {...props} />;
+}
+
+// Usage
+// variant: "primary" | "ghost" | "danger"   size: "sm"
+<Button variant="primary">Continue</Button>
+<Button>Skip</Button>
+<Button variant="ghost">I'll change it</Button>
+<Button variant="danger">Submit application</Button>
+<LinkButton>Search all activities</LinkButton>
+<Button variant="primary" size="sm">+ Add</Button>
+<Button variant="primary" disabled>Continue</Button>`,
+
+"chips:0":`export function Chip(props) {
+  return <button type="button" className="chip" {...props} />;
+}
+
+export function Tag({ children, onRemove }) {
+  return (
+    <span className="tag">
+      {children}
+      <button type="button" aria-label="Remove" onClick={onRemove}>✕</button>
+    </span>
+  );
+}
+
+export function Code({ children }) {
+  return <span className="code">{children}</span>;
+}
+
+// Usage
+<div className="chips">
+  <Chip onClick={() => setShares("1,000")}>1,000</Chip>
+  <Chip onClick={() => setShares("10,000")}>10,000</Chip>
+</div>
+<Tag onRemove={() => remove(activity.code)}>Advising on IT networks.</Tag>
+<Code>6311-001</Code>`,
+
+"choices:0":`export function Choice({ index, label, hint, recommended, onSelect }) {
+  return (
+    <button className={recommended ? "choice rec" : "choice"} onClick={onSelect}>
+      <span className="key">{index}</span>
+      <span className="cbody">
+        <b>
+          {label} {recommended && <span className="badge ai">Recommended</span>}
+        </b>
+        <small>{hint}</small>
+      </span>
+    </button>
+  );
+}
+
+export function MultiChoice({ label, hint, checked, onChange }) {
+  return (
+    <label className="choice">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        style={{ width: 18, height: 18, accentColor: "var(--brand)" }}
+      />
+      <span className="cbody">
+        <b>{label}</b>
+        <small>{hint}</small>
+      </span>
+    </label>
+  );
+}
+
+// Usage
+<div className="choices">
+  <Choice index={1} recommended label="Yes, use the standard articles" hint="Ready to use. Suits most start-ups" />
+  <Choice index={2} label="No, I'll upload my own" hint="Reviewed manually, so it takes longer" />
+  <MultiChoice label="Shareholder" hint="Multi-select: pick all that apply" checked onChange={toggle} />
+</div>`,
+
+"fields:0":`// as: "input" (default) or "textarea". Extra props go to the control.
+export function Field({ id, label, hint, error, suffix, as: Control = "input", ...control }) {
+  const input = <Control id={id} aria-invalid={error ? true : undefined} {...control} />;
+  return (
+    <div className={error ? "f invalid" : "f"}>
+      <label className="fl" htmlFor={id}>{label}</label>
+      {suffix ? <span className="suffix">{input}<span>{suffix}</span></span> : input}
+      {error ? <div className="err">⚠ <span>{error}</span></div> : hint && <div className="hint">{hint}</div>}
+    </div>
+  );
+}
+
+export function PhoneField({ id, label, codes, ...input }) {
+  return (
+    <div className="f">
+      <label className="fl" htmlFor={id}>{label}</label>
+      <div className="phone">
+        <select aria-label="Country code">
+          {codes.map((c) => <option key={c}>{c}</option>)}
+        </select>
+        <input id={id} type="tel" {...input} />
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<Field id="shares" label="Number of shares" type="number" error="That makes USD 500. The minimum is USD 1,000." />
+<Field id="nominal" label="Nominal value per share" type="number" suffix="USD" />
+<PhoneField id="phone" label="Phone number" codes={["🇦🇪 +971"]} placeholder="50 123 4567" />
+<Field id="name-ar" label="Name in Arabic" dir="rtl" lang="ar" hint="Right-to-left input in Noto Kufi Arabic" />
+<Field as="textarea" id="desc" label="Description of proposed activities" hint="9 / 2,000 words" />`,
+
+"badges:0":`// tone: "ok" | "warn" | "bad" | "ai"   (omit for the neutral badge)
+export function Badge({ tone, children }) {
+  return <span className={["badge", tone].filter(Boolean).join(" ")}>{children}</span>;
+}
+
+// Usage
+<Badge>Locked</Badge>
+<Badge tone="ok">✓ Read clearly</Badge>
+<Badge tone="ok">94% match</Badge>
+<Badge tone="warn">⚠ Check this</Badge>
+<Badge tone="bad">Expired</Badge>
+<Badge tone="ai">✦ Suggested for you</Badge>`,
+
+"callouts:0":`// tone: "ok" | "warn" | "bad". A failure callout says what failed, why, what is safe and what to do next.
+export function Callout({ tone, icon, title, children }) {
+  return (
+    <div className={["callout", tone].filter(Boolean).join(" ")}>
+      <span>{icon}</span>
+      <div>
+        {title && <b>{title} </b>}
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<Callout tone="ok" icon="✓">All 9 sections are complete.</Callout>
+<Callout tone="warn" icon="ⓘ">Every company needs at least one shareholder and one director.</Callout>
+<Callout tone="bad" icon="⚠" title="I couldn't use that passport.">
+  It expired on 12 Mar 2024.
+  <ul>
+    <li>Nothing from this file was saved.</li>
+    <li>Your other answers are untouched.</li>
+  </ul>
+</Callout>`,
+
+"toast:0":`// Pass onAction only for reversible changes, so Undo has something to undo.
+export function Toast({ message, actionLabel = "Undo", onAction }) {
+  return (
+    <div className="toast open" role="status" aria-live="polite">
+      <span>{message}</span>
+      {onAction && <button onClick={onAction}>{actionLabel}</button>}
+    </div>
+  );
+}
+
+// Usage
+<Toast message={'Added "Advising on IT networks."'} onAction={undoAdd} />`,
+
+"toast:1":`export function ConfirmSheet({ title, children, cancelLabel, confirmLabel, onCancel, onConfirm }) {
+  return (
+    <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <h3 id="sheet-title">{title}</h3>
+      <p style={{ color: "var(--text-2)" }}>{children}</p>
+      <div className="foot2">
+        <button className="btn ghost" onClick={onCancel}>{cancelLabel}</button>
+        <button className="btn danger" onClick={onConfirm}>{confirmLabel}</button>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<ConfirmSheet
+  title="Unsaved changes"
+  cancelLabel="Stay"
+  confirmLabel="Discard changes"
+  onCancel={keepEditing}
+  onConfirm={discard}
+>
+  You have unsaved changes in Company. Discard them and switch, or stay to keep editing?
+</ConfirmSheet>`,
+
+"bubbles:0":`// from: "ai" (default) | "user"
+export function Message({ from = "ai", source, children }) {
+  return (
+    <div className={from === "user" ? "msg user" : "msg"}>
+      {from === "ai" && <div className="av" aria-hidden="true">✦</div>}
+      <div className="bubble">
+        {children}
+        {source && <span className="src">ⓘ {source}</span>}
+      </div>
+    </div>
+  );
+}
+
+export function Typing() {
+  return (
+    <div className="msg">
+      <div className="av" aria-hidden="true">✦</div>
+      <div className="bubble">
+        <span className="typing"><i /><i /><i /></span>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<Message>What would you like to call your company?</Message>
+<Message from="user">Meridian Labs LLC</Message>
+<Message source="Registry guidance · not legal advice">A nominee director acts for the real owner.</Message>
+<Typing />`,
+
+"tray:0":`export function QuestionTray({ index, total, id, label, value, onChange, quick = [], hint, onSubmit }) {
+  return (
+    <form
+      className="tray card active"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+      }}
+    >
+      <div className="qcount">Question {index} of {total}</div>
+      <div className="f">
+        <label className="fl" htmlFor={id}>{label}</label>
+        <input id={id} type="number" value={value} onChange={(e) => onChange(e.target.value)} />
+      </div>
+      <div className="chips">
+        {quick.map((q) => (
+          <button key={q} type="button" className="chip" onClick={() => onChange(String(q))}>{q}</button>
+        ))}
+      </div>
+      {hint && <div className="hint">{hint}</div>}
+      <div className="foot" style={{ padding: 0, border: 0 }}>
+        <button className="btn primary">Continue ➤</button>
+      </div>
+    </form>
+  );
+}
+
+// Usage
+<QuestionTray
+  index={2}
+  total={4}
+  id="shares"
+  label="Number of shares"
+  value={shares}
+  onChange={setShares}
+  quick={[100, "1,000", "10,000"]}
+  hint="Total capital must be at least USD 1,000."
+  onSubmit={next}
+/>`,
+
+"summary:0":`import { Fragment } from "react";
+
+// rows: [["Company name", "Meridian Labs LLC"], ...]. After submission pass locked to show the Locked badge.
+export function SectionSummary({ title, rows, locked, onEdit }) {
+  return (
+    <article className="card summary">
+      <header>
+        <span className="num ok">✓</span>
+        <h3>{title}</h3>
+        {locked ? <span className="badge">Locked</span> : <button className="linkbtn" onClick={onEdit}>✎ Edit</button>}
+      </header>
+      <dl className="rows">
+        {rows.map(([term, value]) => (
+          <Fragment key={term}>
+            <dt>{term}</dt>
+            <dd>{value}</dd>
+          </Fragment>
+        ))}
+      </dl>
+    </article>
+  );
+}
+
+// Usage
+<SectionSummary
+  title="Company"
+  rows={[
+    ["Company name", "Meridian Labs LLC"],
+    ["Entity type", "Limited liability company (LLC)"],
+  ]}
+  onEdit={() => reopen("company")}
+/>`,
+
+"sug:0":`export function Suggestion({ index, total, match, code, title, why, onAdd, onAddTop, onDismiss }) {
+  return (
+    <div className="sug">
+      <div className="t">
+        <div className="qcount">Suggestion {index} of {total}</div>
+        <button className="iconbtn" aria-label="Not relevant" onClick={onDismiss}>✕</button>
+      </div>
+      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <span className="badge ok">{match}% match</span>
+        <span className="code">{code}</span>
+      </div>
+      <b>{title}</b>
+      <div className="why">{why}</div>
+      <div className="acts">
+        <button className="btn sm primary" onClick={onAdd}>+ Add</button>
+        <button className="btn sm" onClick={onAddTop}>Add top 3</button>
+        <button className="btn sm" onClick={onDismiss}>Not relevant</button>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+// Level 0, suggest: nothing is added until the user taps Add.
+<Suggestion
+  index={1}
+  total={6}
+  match={61}
+  code="6311-001"
+  title="Provision of infrastructure for hosting, data processing and related activities."
+  why="Computer Programming, IT Consultancy and Related Activities"
+  onAdd={add}
+  onAddTop={addTop3}
+  onDismiss={dismiss}
+/>`,
+
+"quick:0":`import { Fragment } from "react";
+
+export function SectionProposal({ rows, onAccept, onEdit }) {
+  return (
+    <article className="card active quick">
+      <div className="body">
+        <div className="aihead">
+          <span className="badge ai">✦ Suggested for you</span>
+          <span className="hint">Based on your earlier answers</span>
+        </div>
+        <dl className="rows" style={{ padding: 0 }}>
+          {rows.map(([term, value]) => (
+            <Fragment key={term}>
+              <dt>{term}</dt>
+              <dd>{value}</dd>
+            </Fragment>
+          ))}
+        </dl>
+        <div className="foot" style={{ padding: 0, border: 0 }}>
+          <button className="btn ghost" onClick={onEdit}>I'll change it</button>
+          <button className="btn primary" onClick={onAccept}>✓ Use this</button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+// Usage
+<SectionProposal
+  rows={[["Authorised shares", "1,000"], ["Nominal value", "USD 10"], ["Share classes", "1"]]}
+  onAccept={acceptAndValidate}
+  onEdit={openPrefilled}
+/>`,
+
+"compliance:0":`export function ComplianceGate({ items, statement, confirmed, onConfirm }) {
+  return (
+    <div className="callout bad compl">
+      <span>⚠</span>
+      <div>
+        <b>Compliance review is required.</b>
+        <div>Some of your activities come with restrictions. Read them, then confirm.</div>
+        {items.map((item) => (
+          <div className="compitem" key={item.title}>
+            <b>{item.title}</b>
+            <ul className="restr">
+              {item.restrictions.map((r) => <li key={r}>{r}</li>)}
+            </ul>
+          </div>
+        ))}
+        <label className="checkrow" style={{ marginTop: 10 }}>
+          <input type="checkbox" checked={confirmed} onChange={(e) => onConfirm(e.target.checked)} />
+          <span>{statement}</span>
+        </label>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+// Continue stays disabled until the declaration is ticked.
+<button className="btn primary" disabled={!confirmed}>Continue</button>`,
+
+"upload:0":`export function Dropzone({ onChoose }) {
+  return (
+    <div className="drop">
+      <b>Upload a passport</b>
+      <span className="hint">PDF or photo · up to 10 MB</span>
+      <button className="btn primary sm" onClick={onChoose}>Choose file</button>
+    </div>
+  );
+}
+
+// steps: [{ label: "Uploaded", state: "done" }, { label: "Reading document", state: "now" }, { label: "Matching fields" }]
+export function ReadingRow({ fileName, steps, onStop }) {
+  return (
+    <div className="docrow">
+      <span className="ico">📄</span>
+      <div style={{ flex: 1 }}>
+        <b>{fileName}</b>
+        <ul className="plan" aria-live="polite">
+          {steps.map(({ label, state }) => (
+            <li key={label} className={state}>
+              {state === "done" && "✓ "}
+              {state === "now" && <span className="spin" />} {label}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button className="btn sm" onClick={onStop}>■ Stop</button>
+    </div>
+  );
+}
+
+// Only fields the AI is unsure about get flagged.
+export function LowConfidenceField({ label, value, onChange, hint }) {
+  return (
+    <div className="fieldrow low">
+      <div className="top2">
+        <span className="fl">{label}</span>
+        <span className="badge warn">⚠ Check this</span>
+      </div>
+      <input type="text" value={value} onChange={onChange} aria-label={label} />
+      <div className="hint">{hint}</div>
+    </div>
+  );
+}`,
+
+"outcome:0":`// steps: [{ when: "Today", text: "Application received and locked", done: true }, ...]
+export function OutcomeCard({ title, reference, status, steps }) {
+  return (
+    <section className="outcome">
+      <h3>✓ {title}</h3>
+      <dl>
+        <dt>Reference</dt>
+        <dd><b>{reference}</b></dd>
+        <dt>Status</dt>
+        <dd>{status}</dd>
+      </dl>
+      <ol className="next">
+        {steps.map(({ when, text, done }) => (
+          <li key={when} className={done ? "done" : undefined}>
+            <b>{when}</b> {text}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}`,
+
+"rail:0":`// current: zero-based index of the active step. Earlier steps show a check, later ones are disabled.
+export function StepRail({ steps, current }) {
+  return (
+    <aside className="rail theme-dark">
+      <div className="brand">
+        <span className="logo">✦</span>
+        <span>Guide<span className="dotai">.ai</span></span>
+      </div>
+      <div>
+        <h4>Your application</h4>
+        <ol>
+          {steps.map((label, i) => {
+            const state = i < current ? "done" : i === current ? "now" : "";
+            return (
+              <li key={label}>
+                <button aria-current={i === current ? "step" : undefined} disabled={i > current}>
+                  <span className={["dot", state].filter(Boolean).join(" ")}>
+                    {state === "done" ? "✓" : i + 1}
+                  </span>
+                  {label}
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </aside>
+  );
+}
+
+// Usage
+<StepRail steps={["Company", "Activities", "Share capital", "Members"]} current={1} />`
+};
+
+const mkBox=(code,label,solo)=>{
+  const box=document.createElement('div');box.className='codebox'+(solo?' solo':'');
+  box.innerHTML='<div class="codebar"><span>React · JSX</span><button type="button" class="btn sm copycode"></button></div><pre tabindex="0"><code></code></pre>';
+  box.querySelector('code').textContent=code;
+  box.querySelector('pre').setAttribute('aria-label','React code: '+label);
+  const b=box.querySelector('.copycode');b.textContent='Copy';b.setAttribute('aria-label','Copy React code: '+label);
+  return box;
+};
+document.querySelectorAll('section.lib').forEach(sec=>{
+  const title=(sec.querySelector('h2')||{}).textContent||sec.id;
+  sec.querySelectorAll('.spec').forEach((spec,i)=>{
+    const code=REACT[sec.id+':'+i];if(!code)return;
+    const name=title+(sec.querySelectorAll('.spec').length>1?', '+((spec.querySelector('h3')||{}).textContent||''):'');
+    spec.querySelector('.stage').insertAdjacentElement('afterend',mkBox(code,name,false));
+  });
+});
+const head=document.querySelector('.pagehead p');
+if(head)head.insertAdjacentElement('afterend',mkBox(REACT.setup,'setup',true));
+const copyText=txt=>{
+  if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(txt);
+  return new Promise((ok,no)=>{const ta=document.createElement('textarea');ta.value=txt;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')?ok():no()}catch(e){no()}ta.remove()});
+};
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.copycode');if(!b)return;
+  const txt=b.closest('.codebox').querySelector('code').textContent;
+  copyText(txt).then(()=>{
+    b.textContent='Copied';document.getElementById('copiedMsg').textContent='Copied React code';
+    t.classList.add('open');clearTimeout(tm);tm=setTimeout(()=>{t.classList.remove('open');b.textContent='Copy'},1600);
+  }).catch(()=>{document.getElementById('copiedMsg').textContent='Copy failed. Select the code and copy it.';t.classList.add('open');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('open'),2600)});
+});
 })();
 </script>
 </body>
