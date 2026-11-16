@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XBert voice agent flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+/* Tokens read from the "Ai Employee" Figma file: grey canvas, white cards, one blue for actions, light-blue info banner. */
+:root{
+  --bg:#F4F4F5; --card:#fff; --line:#E3E4E8; --ink:#101828; --muted:#667085; --faint:#98A2B3;
+  --blue:#0B5CFF; --blue-hover:#0848C7; --blue-tint:#E6F0FF; --info:#E1F0FE; --info-ink:#175CD3;
+  --ok:#067647; --ok-tint:#E4F5EA; --warn:#B42318; --chip:#E9EAEE;
+  --r:6px; --r-lg:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Lato,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.45}
+button,select,input,textarea{font:inherit;color:inherit}
+.app{max-width:960px;margin:0 auto;padding:16px}
+.shell{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);display:flex;flex-direction:column;min-height:620px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:18px 24px;border-bottom:1px solid var(--line)}
+.top h1{font-size:16px;margin:0 0 2px}
+.top p{margin:0;color:var(--muted);font-size:13px}
+.top .step{font-weight:700;font-size:13px;white-space:nowrap;padding-top:2px}
+.bar{height:3px;background:var(--line)}
+.bar i{display:block;height:100%;background:var(--blue);width:25%;transition:width .25s}
+.body{flex:1;padding:32px 24px;display:flex;justify-content:center;align-items:flex-start}
+.pane{width:100%;max-width:760px;display:none}
+.pane.on{display:block}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 24px;border-top:1px solid var(--line)}
+.foot .r{display:flex;gap:8px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:var(--r);padding:8px 16px;font-weight:700;cursor:pointer;min-height:36px}
+.btn:hover{background:#F9FAFB}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--blue-hover)}
+.btn.outline{border-color:var(--blue);color:var(--blue)}
+.btn.outline:hover{background:var(--blue-tint)}
+.btn.end{background:var(--warn);border-color:var(--warn);color:#fff}
+.btn.quiet{border-color:transparent;background:none}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* step 1 */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.avatar{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.face{width:200px;height:200px;border-radius:50%;object-fit:cover;display:block;background:#DDDFFF}
+.avatar small{color:var(--muted);font-size:12px;max-width:240px}
+.hello{font-size:16px;font-weight:900;margin:0 0 16px}
+.hello b{color:var(--blue);cursor:text}
+.hello input{font:inherit;font-weight:900;color:var(--blue);border:0;border-bottom:1px solid var(--blue);background:none;width:120px;padding:0}
+label.l{display:block;color:var(--muted);margin:14px 0 6px;font-size:13px}
+.row{display:flex;gap:8px}
+select,textarea,.chips{width:100%;border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:8px 10px}
+select{height:38px}
+textarea{resize:vertical;min-height:84px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-height:38px;align-items:center;padding:4px 6px}
+.chip{background:var(--chip);border-radius:999px;padding:3px 6px 3px 10px;display:inline-flex;align-items:center;gap:6px;font-size:13px}
+.chip button{border:0;background:#667085;color:#fff;width:16px;height:16px;border-radius:50%;line-height:14px;font-size:11px;cursor:pointer;padding:0}
+.chips select{border:0;width:auto;flex:1;min-width:110px;height:30px;padding:0}
+.info{display:flex;gap:10px;align-items:flex-start;background:var(--info);color:#1D2939;border-radius:var(--r);padding:10px 12px;margin-top:14px;font-size:13px}
+.info button{margin-left:auto;border:0;background:none;cursor:pointer;color:var(--muted);font-size:16px;line-height:1}
+.info svg{flex:none;margin-top:1px}
+
+/* step 2 */
+.test{max-width:560px;margin:0 auto;text-align:center}
+.test .face{width:96px;height:96px;margin:0 auto 20px}
+.test h2{font-size:15px;margin:0 0 4px}
+.num{font-size:15px;font-weight:900}
+.eg{color:var(--muted);margin:22px 0 8px;font-size:13px}
+.q{display:block;width:100%;max-width:340px;margin:6px auto;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:8px 12px;cursor:pointer}
+.q:hover:not(:disabled){border-color:var(--blue);color:var(--blue)}
+.q:disabled{cursor:default;opacity:.55}
+.call{display:none;text-align:left;margin-top:18px}
+.call.on{display:block}
+.status{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;font-weight:700}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.wave{display:flex;gap:3px;align-items:center;height:22px}
+.wave i{width:3px;height:6px;background:var(--blue);border-radius:2px}
+.speaking .wave i{animation:w .9s ease-in-out infinite}
+.wave i:nth-child(2){animation-delay:.1s}.wave i:nth-child(3){animation-delay:.2s}.wave i:nth-child(4){animation-delay:.3s}.wave i:nth-child(5){animation-delay:.4s}
+@keyframes w{0%,100%{height:5px}50%{height:20px}}
+@media (prefers-reduced-motion:reduce){.speaking .wave i{animation:none;height:14px}.bar i{transition:none}}
+.log{background:#F9FAFB;border:1px solid var(--line);border-radius:var(--r);padding:12px;height:190px;overflow:auto;display:flex;flex-direction:column;gap:8px}
+.m{max-width:82%;padding:7px 11px;border-radius:var(--r);font-size:13px}
+.m.ai{background:#fff;border:1px solid var(--line);align-self:flex-start}
+.m.me{background:var(--blue-tint);align-self:flex-end}
+.m small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.action{align-self:flex-start;font-size:12px;color:var(--ok);background:var(--ok-tint);border-radius:999px;padding:2px 10px}
+.callbar{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px}
+.tabs{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:3px;margin-bottom:18px}
+.tabs button{border:0;background:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-weight:700;color:var(--muted)}
+.tabs button[aria-selected=true]{background:var(--blue-tint);color:var(--blue)}
+
+/* step 3 */
+.panel{border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;margin-top:14px}
+.panel h3{margin:0;font-size:14px}
+.sw{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tog{position:relative;width:38px;height:22px;border-radius:999px;background:#C2C6CE;border:0;cursor:pointer;flex:none}
+.tog::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s}
+.tog[aria-checked=true]{background:var(--blue)}
+.tog[aria-checked=true]::after{left:18px}
+.sub{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.sub[hidden]{display:none}
+.sub p{margin:0 0 8px;font-weight:700}
+.opt{display:flex;gap:8px;align-items:center;margin:6px 0}
+.opt input[type=text],.sub input[type=text],.sub input[type=email]{border:1px solid var(--line);border-radius:var(--r);padding:7px 10px;width:240px;max-width:100%}
+.err{color:var(--warn);font-size:12px;margin-top:4px}
+.hrs{color:var(--muted);font-size:13px;margin:6px 0 0}
+
+/* step 4 */
+.sum{max-width:520px;margin:0 auto}
+.sum h2{font-size:18px;margin:0 0 6px}
+.sum>p{color:var(--muted);margin:0 0 18px}
+.sum dl{margin:0;border:1px solid var(--line);border-radius:var(--r-lg)}
+.sum dl div{display:flex;justify-content:space-between;gap:16px;padding:11px 14px;border-bottom:1px solid var(--line)}
+.sum dl div:last-child{border:0}
+.sum dt{color:var(--muted)}.sum dd{margin:0;font-weight:700;text-align:right}
+.sum button.link{border:0;background:none;color:var(--blue);cursor:pointer;font-weight:700;padding:0;margin-left:10px}
+.live{display:none;text-align:center;max-width:460px;margin:30px auto}
+.live .tick{width:56px;height:56px;border-radius:50%;background:var(--ok-tint);color:var(--ok);display:grid;place-items:center;margin:0 auto 14px}
+.live .num{display:block;font-size:22px;margin:10px 0 18px}
+.sr{position:absolute;left:-9999px}
+
+/* stepper + welcome */
+.stepper{display:flex;align-items:center;gap:10px;padding:12px 24px;border-bottom:1px solid var(--line);font-size:13px;overflow-x:auto}
+.stepper .st{display:flex;align-items:center;gap:8px;white-space:nowrap;color:var(--muted);font-weight:700}
+.stepper .st b{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px}
+.stepper .st.on{color:var(--ink)}.stepper .st.on b{border-color:var(--blue);color:var(--blue)}
+.stepper .st.done b{background:var(--blue);border-color:var(--blue);color:#fff}
+.stepper .ln{flex:1;min-width:24px;height:2px;background:var(--line)}.stepper .ln.done{background:var(--blue)}
+.shell.welcome .top,.shell.welcome .bar,.shell.welcome .foot,.shell.welcome .stepper{display:none}
+.shell.welcome .body{padding:0;background:#EAF2FB;align-items:center;min-height:620px}
+.shell:not(.welcome) .stepper{display:flex}
+.wel{text-align:center;padding:40px 24px;max-width:560px;margin:0 auto}
+.wel h2{font-size:44px;font-weight:400;margin:0 0 18px;line-height:1.1}
+.wel p{font-size:18px;color:var(--muted);margin:0 0 24px}
+.wel small{display:block;color:var(--muted);font-size:11px;margin-top:12px}
+.wel .btn{min-width:260px;min-height:42px}
+/* knowledge base */
+.kbh{text-align:center;margin:0 0 22px}.kbh h2{font-size:20px;margin:0 0 6px}.kbh p{margin:0;color:var(--muted)}
+.kb{max-width:560px;margin:0 auto}
+.kb .blk{margin-top:20px}
+.kb .blk>b{display:block;font-size:13px;margin-bottom:2px}
+.kb .blk>span{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}
+.kb input[type=text]{width:100%;border:1px solid var(--line);border-radius:var(--r);padding:8px 10px}
+.kb textarea{min-height:230px;font-size:13px;line-height:1.5}
+.kb .meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;margin-top:6px}
+.drop{border:1.5px dashed #C2C6CE;border-radius:var(--r);background:#F9FAFB;text-align:center;padding:20px 12px;color:var(--muted);font-size:13px}
+.drop.over{border-color:var(--blue);background:var(--blue-tint)}
+.drop a,.link{color:var(--blue);font-weight:700;cursor:pointer;background:none;border:0;padding:0;text-decoration:none}
+.files{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.files li{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:var(--r);padding:6px 10px;font-size:13px}
+.files button{border:0;background:none;color:var(--muted);cursor:pointer;font-size:16px;line-height:1}
+.tabs.sm{margin:0}
+/* product shell */
+#product{display:none;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+#product.on{display:block}
+.ptop{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.logo{width:28px;height:28px;border-radius:6px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:900;font-size:13px}
+.ptop input{flex:1;max-width:340px;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+.pill{border:1.5px solid var(--blue);color:var(--blue);border-radius:999px;padding:4px 12px;font-weight:700;font-size:12px;background:#fff}
+.me{margin-left:auto;width:28px;height:28px;border-radius:50%;background:#F5C98B;display:grid;place-items:center;font-size:11px;font-weight:700}
+.pbody{display:grid;grid-template-columns:168px minmax(0,1fr);height:660px}
+.nav{border-right:1px solid var(--line);padding:12px 8px;display:flex;flex-direction:column;gap:2px}
+.nav small{padding:10px 10px 4px;color:var(--muted);font-size:11px}
+.nav button{border:0;background:none;text-align:left;padding:8px 10px;border-radius:var(--r);cursor:pointer;font-weight:700;color:#344054}
+.nav button:hover{background:#F2F4F7}.nav button[aria-current=page]{background:var(--blue-tint);color:var(--blue)}
+.view{display:none;padding:18px 20px;overflow:auto}.view.on{display:block}
+.view h2{margin:0 0 4px;font-size:18px}.view>p.sub{margin:0 0 14px;color:var(--muted)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:var(--r-lg);padding:12px 14px;background:#fff}
+.card h3{margin:0 0 10px;font-size:10.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.stat{display:flex;gap:20px}.stat div b{display:block;font-size:20px}.stat div span{color:var(--muted);font-size:12px}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;color:var(--muted);font-weight:700;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+table.t td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.ag{display:flex;align-items:center;gap:10px;font-weight:700}
+.ag img{width:30px;height:30px;border-radius:50%}
+.ic{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);margin-right:4px}
+.ic svg{width:12px;height:12px}
+.badge{display:inline-block;background:var(--ok-tint);color:var(--ok);border-radius:4px;padding:1px 8px;font-size:12px;font-weight:700}
+.badge.off{background:var(--chip);color:var(--muted)}
+.mini{border:1px solid var(--blue);color:var(--blue);background:#fff;border-radius:var(--r);padding:3px 10px;font-weight:700;cursor:pointer;font-size:12px}
+.mini:hover{background:var(--blue-tint)}
+.skills{display:none;background:#F9FAFB}
+.skills.on{display:table-row}
+.skills td{padding:10px 14px}
+.skills label{display:inline-flex;gap:6px;align-items:center;margin-right:16px}
+.tiles{display:flex;gap:10px;margin:12px 0}
+.tile{border:1px solid var(--line);border-radius:var(--r);padding:8px 14px;background:#fff;min-width:110px}
+.tile b{font-size:18px;display:block}.tile span{color:var(--muted);font-size:12px}
+.tile.on{border-color:var(--blue);background:var(--blue-tint)}
+.two2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:12px}
+.hb{display:flex;align-items:center;gap:8px;font-size:12px;margin:8px 0}.hb span:first-child{width:78px;color:var(--muted)}
+.hb i{display:block;height:12px;border-radius:2px}.hb em{font-style:normal;font-weight:700}
+.cols{display:flex;gap:26px;align-items:flex-end;height:130px;padding:0 10px}
+.col{flex:1;text-align:center;font-size:12px;color:var(--muted)}
+.col div{display:flex;flex-direction:column-reverse;margin:0 auto 6px;width:34px}
+.leg{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-top:8px;flex-wrap:wrap}.leg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.inbox{display:grid;grid-template-columns:270px minmax(0,1fr);border:1px solid var(--line);border-radius:var(--r-lg);height:540px;overflow:hidden}
+.ilist{border-right:1px solid var(--line);overflow:auto}
+.ilist h4{margin:0;padding:8px 12px;background:#F9FAFB;color:var(--muted);font-size:11px;border-bottom:1px solid var(--line)}
+.tk{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:#fff;padding:10px 12px;cursor:pointer}
+.tk:hover{background:#F9FAFB}.tk[aria-selected=true]{background:var(--blue-tint)}
+.tk .n{display:flex;justify-content:space-between;font-weight:700;font-size:13px}.tk .n span{font-weight:400;color:var(--muted);font-size:11px}
+.tk .p{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:2px 0 5px}
+.st2{font-size:11px;border-radius:4px;padding:1px 7px;display:inline-block;font-weight:700}
+.st2.ip{background:var(--blue-tint);color:var(--blue)}.st2.sc{background:#FEF0C7;color:#93370D}.st2.cl{background:var(--ok-tint);color:var(--ok)}
+.thread{display:flex;flex-direction:column;min-width:0}
+.thread .em{margin:auto;color:var(--muted);text-align:center}
+.th{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);gap:8px}
+.th b{font-size:14px}
+.tb{padding:14px;overflow:auto;display:flex;flex-direction:column;gap:8px;flex:1;background:#F9FAFB}
+@media (max-width:720px){.pbody{grid-template-columns:1fr;height:auto}.nav{flex-direction:row;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.nav small{display:none}.grid3,.two2{grid-template-columns:1fr}.inbox{grid-template-columns:1fr;height:auto}.ilist{max-height:220px;border-right:0;border-bottom:1px solid var(--line)}.tb{min-height:200px}.wel h2{font-size:32px}}
+/* image library modal */
+dialog{border:0;border-radius:var(--r-lg);padding:0;width:min(560px,calc(100vw - 32px));box-shadow:0 12px 40px rgba(16,24,40,.25)}
+dialog::backdrop{background:rgba(16,24,40,.5)}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;padding:18px 20px 12px}
+.dh h2{margin:0 0 2px;font-size:16px}.dh p{margin:0;color:var(--muted);font-size:13px}
+.dh button{border:0;background:none;font-size:22px;line-height:1;cursor:pointer;color:var(--muted)}
+.lib{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;padding:8px 20px 18px;max-height:52vh;overflow:auto}
+.lib label{position:relative;cursor:pointer;display:block;text-align:center;font-size:12px;color:var(--muted)}
+.lib input{position:absolute;opacity:0}
+.lib img{width:100%;aspect-ratio:1;border-radius:50%;display:block;border:3px solid transparent;padding:0}
+.lib input:checked+img{border-color:var(--blue)}
+.lib input:focus-visible+img{outline:2px solid var(--blue);outline-offset:2px}
+.lib label:hover img{border-color:var(--line)}
+.lib input:checked+img:hover{border-color:var(--blue)}
+.df{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid var(--line)}
+@media (max-width:520px){.lib{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:720px){.two{grid-template-columns:1fr;gap:24px}.face{width:140px;height:140px}.body{padding:24px 16px}.top,.foot{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+<div class="app">
+ <div class="shell welcome" id="shell">
+  <header class="top">
+   <div><h1 id="title"></h1><p id="sub"></p></div>
+   <span class="step" id="stepLabel"></span>
+  </header>
+  <div class="bar"><i id="prog"></i></div>
+  <nav class="stepper" id="stepper" aria-label="Setup progress"></nav>
+
+  <div class="body">
+
+   <!-- 1. Welcome -->
+   <section class="pane on" data-step="1" aria-label="Welcome">
+    <div class="wel">
+     <h2>Welcome Skylar Lin!</h2>
+     <p>Let's get started by learning about your business</p>
+     <button class="btn primary" id="cont">Continue to setup</button>
+     <small>We've used AI to learn about your business and preconfigure your account. Please review the setup, as AI may occasionally make mistakes.</small>
+    </div>
+   </section>
+
+   <!-- 2. Knowledge base -->
+   <section class="pane" data-step="2" aria-label="Review what your AI knows">
+    <div class="kbh"><h2>Review what your AI knows about your business</h2>
+     <p>These are the core details your AI will use to answer FAQs and describe your offerings to customers. We've pre-filled them from your website to get you started.</p></div>
+    <div class="kb">
+     <div class="blk" style="margin-top:0"><b>Brand name AI should use</b><input type="text" id="brand" value="The Lucky Spoon" aria-label="Brand name AI should use"></div>
+     <div class="blk"><b>Give your AI an overview of your business</b>
+      <span>Here's what we pulled from your website. Your AI uses this to talk about your business, answer FAQs, and describe what you offer.</span>
+      <div class="info" id="kbInfo" style="margin:0 0 8px"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#175CD3" stroke-width="1.5"/><path d="M8 7v4M8 5v.01" stroke="#175CD3" stroke-width="1.5" stroke-linecap="round"/></svg><span>Make sure your business hours are included here. Your AI will reference this when answering questions about your hours of operation.</span><button type="button" aria-label="Dismiss" id="kbInfoX">&times;</button></div>
+      <textarea id="overview" aria-label="Business overview"></textarea>
+      <div class="meta"><span id="ovCount"></span><button class="link" type="button" id="ovReset">Restore website text</button></div>
+     </div>
+     <div class="blk"><b>Do you have a list of your products and services? (optional)</b>
+      <span>Adding your detailed list will help your AI answer questions more accurately. For the most accurate results, use our CSV template.</span>
+      <div class="drop" data-kind="prod">Drag and drop your file here or <a role="button" tabindex="0">Choose a file</a></div>
+      <ul class="files" id="fProd"></ul></div>
+     <div class="blk"><b>Do you have additional documents you'd like your AI to use? (optional)</b>
+      <span>Attach any customer-facing documents your AI can use. For best results, include information not already covered above.</span>
+      <div class="drop" data-kind="docs">Drag and drop your file here or <a role="button" tabindex="0">Choose a file</a></div>
+      <ul class="files" id="fDocs"></ul></div>
+     <input type="file" id="picker" hidden multiple accept=".csv,.pdf,.doc,.docx,.txt">
+    </div>
+   </section>
+
+   <!-- 1. Voice and style -->
+   <section class="pane" data-step="3" aria-label="Voice and style">
+    <div class="two">
+     <div class="avatar">
+      <img class="face" id="face" alt="" width="200" height="200" src="images/avatars/woman2-denim.png">
+      <small>This image will appear to customers in live chat and in your message history.</small>
+      <button class="btn quiet" style="color:var(--blue)" id="chg">Change image</button>
+     </div>
+     <div>
+      <p class="hello">Hello! I'm <b id="nameShow" tabindex="0" role="button" aria-label="Edit name">Sophia</b>
+        <input id="nameIn" hidden maxlength="20" aria-label="AI employee name"></p>
+      <label class="l" for="voice">What should your AI's voice sound like? *</label>
+      <div class="row">
+       <select id="voice"></select>
+       <button class="btn outline" id="play" type="button">Play</button>
+      </div>
+      <label class="l" for="langSel">What languages should your AI speak? *</label>
+      <div class="chips" id="chips"></div>
+      <label class="l" for="greet">Default greeting</label>
+      <textarea id="greet">Hi, I'm {AI Employee Name}, the AI assistant at {Business Name}. How can I help?</textarea>
+      <div class="info" id="disc">
+       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#175CD3" stroke-width="1.5"/><path d="M8 7v4M8 5v.01" stroke="#175CD3" stroke-width="1.5" stroke-linecap="round"/></svg>
+       <span id="discTxt">It's best practice to include a disclosure that informs customers they are interacting with AI.</span>
+       <button type="button" aria-label="Dismiss" id="discX">&times;</button>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 2. Test call -->
+   <section class="pane" data-step="4" aria-label="Test the voice agent">
+    <div class="test">
+     <div class="tabs" role="tablist" aria-label="Test mode">
+      <button role="tab" aria-selected="true" id="tVoice">Voice</button>
+      <button role="tab" aria-selected="false" id="tChat">Chat</button>
+     </div>
+     <div id="vPane">
+      <img class="face" id="face2" alt="" width="96" height="96" src="images/avatars/woman2-denim.png">
+      <div id="idle">
+       <h2>Try it out! Call the number below to test your AI</h2>
+       <div class="num">+1 (480) 123-4567</div>
+       <p class="eg">Ask an example question</p>
+       <p style="margin:4px 0">"What are your hours of operation?"</p>
+       <p style="margin:4px 0">"Where are you located?"</p>
+       <button class="btn primary" style="margin-top:18px" id="startCall">Start test call</button>
+      </div>
+      <div class="call" id="call">
+       <div class="status" id="status"><span class="dot"></span><span id="callTxt">Connecting&hellip;</span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div>
+       <div class="log" id="log" aria-live="polite"></div>
+       <p class="eg" style="text-align:center;margin-bottom:4px">Pick something to ask</p>
+       <div id="qs"></div>
+       <div class="callbar"><span id="timer" style="color:var(--muted)">00:00</span><button class="btn end" id="endCall">End call</button></div>
+      </div>
+     </div>
+     <div id="cPane" hidden>
+      <p class="eg" style="margin-top:0">Here are some things you can ask&hellip;</p>
+      <div id="cqs"></div>
+      <div class="log" id="clog" style="margin-top:14px;height:150px"></div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 3. Coverage -->
+   <section class="pane" data-step="5" aria-label="Connect calls">
+    <label class="l" for="inbox" style="margin-top:0">Which inbox do you want me to be part of?</label>
+    <select id="inbox"><option>General inbox</option><option>Front desk</option></select>
+    <label class="l" for="sched">When are you open for business?</label>
+    <select id="sched"><option>Main schedule (9 AM - 5 PM)</option><option>Extended (7 AM - 11 PM)</option></select>
+    <div class="panel">
+     <div class="sw"><h3 id="callH">Calling</h3><button class="tog" role="switch" aria-checked="true" aria-labelledby="callH" id="tCalling"></button></div>
+     <div class="sub" id="callOpts">
+      <p>When do you want your AI Employee to be available?</p>
+      <select id="avail" aria-label="Availability"><option>Always on 24/7</option><option>Only outside business hours</option><option>Only when staff are busy</option></select>
+      <div class="sub">
+       <div class="sw"><p style="margin:0">Send a call summary for each call your AI answers.</p><button class="tog" role="switch" aria-checked="true" aria-label="Call summaries" id="tSum"></button></div>
+       <div id="sumOpts">
+        <div class="opt"><input type="checkbox" id="em" checked><label for="em">Send an email summary</label></div>
+        <input type="email" id="emIn" placeholder="example@company.com" aria-label="Summary email" value="">
+        <div class="err" id="emErr" hidden>Enter a valid email so the summary has somewhere to go.</div>
+        <div class="opt"><input type="checkbox" id="tx"><label for="tx">Send a text summary</label></div>
+       </div>
+      </div>
+      <div class="sub">
+       <p>What should happen if your AI can't resolve a request?</p>
+       <div class="opt"><input type="radio" name="fb" id="fbF" checked><label for="fbF">Forward the call to specific number</label></div>
+       <input type="text" id="fbNum" value="+1 (480) 123-3456" aria-label="Forward number">
+       <div class="opt"><input type="radio" name="fb" id="fbN"><label for="fbN">Send you a notification (select at least one)</label></div>
+      </div>
+     </div>
+    </div>
+    <p class="hrs">Business hours: Mon-Fri 9:00am-5:00pm, Sat-Sun closed.</p>
+   </section>
+
+   <!-- 4. Review / launch -->
+   <section class="pane" data-step="6" aria-label="Review and launch">
+    <div class="sum" id="sumBox">
+     <h2>Ready to go live</h2>
+     <p>Check these settings. You can change any of them after launch.</p>
+     <dl id="sumList"></dl>
+    </div>
+    <div class="live" id="live">
+     <div class="tick"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+     <h2 style="margin:0 0 4px" id="liveH"></h2>
+     <p style="color:var(--muted);margin:0" id="liveP"></p>
+     <span class="num">+1 (480) 123-4567</span>
+     <button class="btn primary" id="toApp">Open dashboard</button> <button class="btn" id="restart">Start over</button>
+    </div>
+   </section>
+  </div>
+
+  <footer class="foot">
+   <button class="btn quiet" id="saveExit">Save &amp; exit</button>
+   <div class="r"><button class="btn" id="back">Back</button><button class="btn primary" id="next">Next</button></div>
+  </footer>
+ </div>
+ <div id="product">
+  <div class="ptop"><div class="logo" aria-hidden="true">X</div><input type="search" placeholder="Search for anything" aria-label="Search" disabled><span class="pill">Setup complete</span><span class="me" aria-hidden="true">SL</span></div>
+  <div class="pbody">
+   <nav class="nav" aria-label="Main">
+    <button data-v="home" aria-current="page">Home</button>
+    <button data-v="emps">AI Employees</button>
+    <small>Inboxes</small>
+    <button data-v="inbox">General inbox</button>
+   </nav>
+   <div>
+    <section class="view on" id="v-home" aria-label="Home">
+     <h2>Home</h2><p class="sub">Sample numbers, so you can see how the dashboard reads once calls start coming in.</p>
+     <div class="grid3">
+      <div class="card"><h3>Calling handled by AI</h3><div class="stat"><div><b>323</b><span>Total</span></div><div><b>2m 5s</b><span>Avg. duration</span></div></div></div>
+      <div class="card"><h3>Text conversations handled by AI</h3><div class="stat"><div><b>632</b><span>Total</span></div></div></div>
+      <div class="card"><h3>Live chats handled by AI</h3><span style="color:var(--muted);font-size:13px">Add <a class="link" href="#" onclick="return false">code snippet</a> to your website.</span></div>
+     </div>
+     <div class="card" style="margin-top:12px"><div class="sw"><h3 style="margin:0">General inbox</h3><button class="link" data-go="inbox">Go to inbox</button></div>
+      <div class="tiles" id="homeTiles"></div></div>
+     <div class="card" style="margin-top:12px"><div class="sw" style="margin-bottom:8px"><h3 style="margin:0">AI Employees</h3><button class="btn outline" data-go="emps" style="min-height:30px;padding:4px 12px">Manage</button></div><table class="t" id="homeEmps"></table></div>
+     <div class="two2">
+      <div class="card"><h3>Conversation distribution</h3>
+       <div style="display:flex;align-items:center;gap:18px"><svg width="120" height="120" viewBox="0 0 42 42" role="img" aria-label="75 percent handled by AI employee"><circle cx="21" cy="21" r="15.9" fill="none" stroke="#6CC4B8" stroke-width="6"/><circle cx="21" cy="21" r="15.9" fill="none" stroke="#6B7FD7" stroke-width="6" stroke-dasharray="75 25" transform="rotate(-90 21 21)"/><text x="21" y="20" text-anchor="middle" font-size="3.4" fill="#667085">Total</text><text x="21" y="26" text-anchor="middle" font-size="6" font-weight="700" fill="#101828">320</text></svg>
+       <div class="leg" style="flex-direction:column;gap:6px;margin:0"><span><i style="background:#6B7FD7"></i>Handled by AI employee (240)</span><span><i style="background:#6CC4B8"></i>Handled by user (80)</span></div></div></div>
+      <div class="card"><h3>Channel distribution</h3>
+       <div class="hb"><span>Call</span><i style="width:45%;background:#EE7089"></i><em>45%</em></div>
+       <div class="hb"><span>Text message</span><i style="width:30%;background:#6B7FD7"></i><em>30%</em></div>
+       <div class="hb"><span>Live chat</span><i style="width:25%;background:#6CC4B8"></i><em>25%</em></div></div>
+     </div>
+     <div class="card" style="margin-top:12px"><h3>Ticket volume by status</h3><div class="cols" id="cols"></div>
+      <div class="leg"><span><i style="background:#6B7FD7"></i>In progress</span><span><i style="background:#EE7089"></i>Soft closed</span><span><i style="background:#6CC4B8"></i>Closed</span></div></div>
+    </section>
+
+    <section class="view" id="v-emps" aria-label="AI Employees">
+     <div class="sw"><div><h2>AI Employees</h2><p class="sub" style="margin:0 0 14px">Everyone answering for the business, with the channels and skills they cover.</p></div><button class="btn outline" id="newEmp">New AI Employee</button></div>
+     <div class="card" style="padding:0;overflow:auto"><table class="t" id="empTable"></table></div>
+     <div class="card" style="margin-top:12px"><h3>What this AI knows</h3><p style="margin:0 0 8px" id="kbSum"></p><button class="btn" id="editKb">Edit knowledge</button></div>
+    </section>
+
+    <section class="view" id="v-inbox" aria-label="General inbox">
+     <h2>General inbox</h2><p class="sub">Every conversation your AI employees handled, newest first.</p>
+     <div class="inbox">
+      <div class="ilist" id="ilist" role="listbox" aria-label="Tickets"></div>
+      <div class="thread" id="thread"><div class="em">Select a ticket to get started</div></div>
+     </div>
+    </section>
+   </div>
+  </div>
+ </div>
+<dialog id="libDlg" aria-labelledby="libT">
+ <div class="dh"><div><h2 id="libT">Choose an image</h2><p>Pick from the AI employee image library.</p></div><button type="button" id="libX" aria-label="Close">&times;</button></div>
+ <form method="dialog" id="libForm"><div class="lib" id="libGrid" role="radiogroup" aria-label="Image library"></div>
+ <div class="df"><button class="btn" value="cancel" id="libCancel">Cancel</button><button class="btn primary" value="ok" id="libOk">Use this image</button></div></form>
+</dialog>
+<div class="sr" role="status" id="live-sr"></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var STEPS=[
+ {t:"Welcome",s:""},
+ {t:"Review what your AI knows",s:"The details your AI uses to answer questions about the business."},
+ {t:"First, design my voice and style",s:"Pick the voice, face, and personality that'll represent your brand."},
+ {t:"Test how I sound",s:"Place a test call before any customer does."},
+ {t:"Assign where I work",s:"Choose when I answer calls and what happens when I can't help."},
+ {t:"Review and launch",s:"One last look before customers can reach me."}
+];
+var GROUPS=["Tell us about your business","Create your AI Employee","Turn on your channels"];
+var VOICES=[
+ {id:"Sophia",label:"Sophia - English (US) - Female",pitch:1.1,gender:"f",pic:"woman2"},
+ {id:"Daniel",label:"Daniel - English (US) - Male",pitch:.8,gender:"m",pic:"man2"},
+ {id:"Maya",label:"Maya - English (UK) - Female",pitch:1.0,gender:"f",lang:"en-GB",pic:"woman1"},
+ {id:"Mateo",label:"Mateo - Spanish (US) - Male",pitch:.9,gender:"m",lang:"es-US",pic:"man1"}
+];
+var OUTFITS={woman2:["denim","apron","business"],man2:["business","apron"],woman1:["denim","apron","business"],man1:["denim","business"]};
+var LANGS=["English","Spanish","French","Arabic"];
+var S={brand:"The Lucky Spoon",files:{prod:[],docs:[]},tx:[],outfit:0,step:1,name:"Sophia",voice:0,langs:["English"],callOn:true,sumOn:true,launched:false};
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- navigation ---------- */
+function go(n){
+ S.step=n;
+ document.querySelectorAll(".pane").forEach(function(p){p.classList.toggle("on",+p.dataset.step===n)});
+ $("#shell").classList.toggle("welcome",n===1);
+ $("#title").textContent=STEPS[n-1].t;$("#sub").textContent=STEPS[n-1].s;
+ $("#stepLabel").textContent="Step "+(n-1)+"/5";
+ $("#prog").style.width=((n-1)/5*100)+"%";
+ $("#back").style.visibility=n<=2?"hidden":"visible";
+ var nx=$("#next");nx.textContent=n===6?"Launch":"Next";
+ nx.disabled=false;
+ drawStepper(n);
+ if(n===6){buildSummary();$("#sumBox").style.display="";$("#live").style.display="none";}
+ if(n!==4)endCall(true);
+ $("#live-sr").textContent="Step "+n+" of 6: "+STEPS[n-1].t;
+}
+function drawStepper(n){
+ var g=n<=2?0:n<=4?1:2,box=$("#stepper");box.innerHTML="";
+ GROUPS.forEach(function(t,i){
+  if(i){var l=document.createElement("span");l.className="ln"+(i<=g?" done":"");box.appendChild(l)}
+  var d=document.createElement("span");d.className="st"+(i<g?" done":i===g?" on":"");
+  var b=document.createElement("b");b.textContent=i<g?"\u2713":i+1;d.appendChild(b);d.appendChild(document.createTextNode(t));box.appendChild(d);
+ });
+}
+$("#back").onclick=function(){if(S.step>2)go(S.step-1)};
+$("#next").onclick=function(){
+ if(S.step===3&&!S.langs.length){$("#langErr")||addErr();return}
+ if(S.step===5&&!validate3())return;
+ if(S.step===6){launch();return}
+ go(S.step+1);
+};
+$("#saveExit").onclick=function(){
+ var b=$("#saveExit");b.textContent="Saved";setTimeout(function(){b.innerHTML="Save &amp; exit"},1400);
+};
+function addErr(){
+ var e=document.createElement("div");e.className="err";e.id="langErr";e.textContent="Pick at least one language.";$("#chips").after(e);
+}
+
+/* ---------- welcome + knowledge base ---------- */
+var OVERVIEW="Contact Info\nName: The Lucky Spoon\nAddress: 185 1/2 Parker Ave, San Francisco, CA 94118\nPhone: +1 669-666-9930\n\nHours\nRegular service hours are Monday to Friday, 9 AM to 5 PM. Saturday and Sunday by appointment.\n\nReservations\nWe take reservations for parties of up to eight. Larger groups call ahead.\n\nMenu\nA third of the menu is vegetarian. The kitchen can adjust most dishes for allergies.";
+$("#overview").value=OVERVIEW;
+$("#cont").onclick=function(){go(2)};
+function ovInfo(){
+ var t=$("#overview").value;
+ $("#ovCount").textContent=t.length+" characters"+(/hours are|monday|\d\s?(am|pm)/i.test(t)?"":" · No opening hours found");
+}
+$("#overview").oninput=ovInfo;ovInfo();
+$("#ovReset").onclick=function(){$("#overview").value=OVERVIEW;ovInfo()};
+$("#brand").oninput=function(){S.brand=this.value.trim()||"your business"};
+$("#kbInfoX").onclick=function(){$("#kbInfo").style.display="none"};
+function kbFind(re){var m=$("#overview").value.match(re);return m&&m[1]?m[1].trim():null}
+function fmtSize(n){return n<1024?n+" B":n<1048576?Math.round(n/1024)+" KB":(n/1048576).toFixed(1)+" MB"}
+function renderFiles(k){
+ var ul=$(k==="prod"?"#fProd":"#fDocs");ul.innerHTML="";
+ S.files[k].forEach(function(f,i){
+  var li=document.createElement("li"),sp=document.createElement("span");sp.textContent=f.name+" · "+fmtSize(f.size);
+  var x=document.createElement("button");x.type="button";x.textContent="×";x.setAttribute("aria-label","Remove "+f.name);
+  x.onclick=function(){S.files[k].splice(i,1);renderFiles(k)};
+  li.appendChild(sp);li.appendChild(x);ul.appendChild(li);
+ });
+}
+var pickKind="prod";
+function addFiles(k,list){Array.prototype.forEach.call(list,function(f){S.files[k].push({name:f.name,size:f.size})});renderFiles(k)}
+document.querySelectorAll(".drop").forEach(function(d){
+ var go2=function(){pickKind=d.dataset.kind;$("#picker").click()};
+ d.querySelector("a").onclick=go2;
+ d.querySelector("a").onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go2()}};
+ d.ondragover=function(e){e.preventDefault();d.classList.add("over")};
+ d.ondragleave=function(){d.classList.remove("over")};
+ d.ondrop=function(e){e.preventDefault();d.classList.remove("over");addFiles(d.dataset.kind,e.dataTransfer.files)};
+});
+$("#picker").onchange=function(){addFiles(pickKind,this.files);this.value=""};
+
+/* ---------- voice ---------- */
+var vs=$("#voice");
+VOICES.forEach(function(v,i){var o=document.createElement("option");o.value=i;o.textContent=v.label;vs.appendChild(o)});
+vs.onchange=function(){
+ S.voice=+vs.value;S.outfit=0;S.custom=null;var v=VOICES[S.voice];
+ setName(v.id);
+ if(v.lang==="es-US"&&S.langs.indexOf("Spanish")<0){S.langs.push("Spanish");renderChips()}
+};
+function setPic(){
+ var p=VOICES[S.voice].pic,o=OUTFITS[p];
+ var src=S.custom||"images/avatars/"+p+"-"+o[S.outfit%o.length]+".png";
+ $("#face").src=src;$("#face2").src=src;
+}
+function setName(n){
+ S.name=n||"Sophia";$("#nameShow").textContent=S.name;
+ setPic();
+}
+$("#nameShow").onclick=startEdit;
+$("#nameShow").onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();startEdit()}};
+function startEdit(){var i=$("#nameIn");$("#nameShow").hidden=true;i.hidden=false;i.value=S.name;i.focus();i.select()}
+function endEdit(){var i=$("#nameIn");if(i.hidden)return;var v=i.value.trim();i.hidden=true;$("#nameShow").hidden=false;if(v)setName(v)}
+$("#nameIn").onblur=endEdit;
+$("#nameIn").onkeydown=function(e){if(e.key==="Enter")endEdit();if(e.key==="Escape"){this.value=S.name;endEdit()}};
+
+function renderChips(){
+ var box=$("#chips");box.innerHTML="";
+ S.langs.forEach(function(l){
+  var c=document.createElement("span");c.className="chip";c.textContent=l+" ";
+  var x=document.createElement("button");x.type="button";x.textContent="×";x.setAttribute("aria-label","Remove "+l);
+  x.onclick=function(){S.langs=S.langs.filter(function(a){return a!==l});renderChips()};
+  c.appendChild(x);box.appendChild(c);
+ });
+ var sel=document.createElement("select");sel.id="langSel";sel.setAttribute("aria-label","Add a language");
+ var ph=document.createElement("option");ph.value="";ph.textContent=S.langs.length?"Add language":"Select a language";sel.appendChild(ph);
+ LANGS.filter(function(l){return S.langs.indexOf(l)<0}).forEach(function(l){var o=document.createElement("option");o.textContent=l;sel.appendChild(o)});
+ sel.onchange=function(){if(sel.value){S.langs.push(sel.value);renderChips();var e=$("#langErr");if(e)e.remove();$("#langSel").focus()}};
+ box.appendChild(sel);
+}
+renderChips();
+
+function greeting(){
+ return $("#greet").value.replace(/\{AI Employee Name\}/g,S.name).replace(/\{Business Name\}/g,S.brand);
+}
+function hasDisclosure(){return /\bAI\b|assistant|virtual/i.test($("#greet").value)}
+$("#greet").oninput=function(){
+ var ok=hasDisclosure();
+ $("#disc").style.display=ok&&S.discHidden?"none":"flex";
+ $("#discTxt").textContent=ok?"Good: your greeting tells callers they're talking to an AI.":"It's best practice to include a disclosure that informs customers they are interacting with AI.";
+};
+$("#discX").onclick=function(){S.discHidden=true;$("#disc").style.display="none"};
+var NAMES={woman2:"Woman 2",man2:"Man 2",woman1:"Woman 1",man1:"Man 1"},OUTN={denim:"Denim",apron:"Apron",business:"Business casual"};
+var dlg=$("#libDlg"),grid=$("#libGrid");
+Object.keys(OUTFITS).forEach(function(p){OUTFITS[p].forEach(function(o){
+ var src="images/avatars/"+p+"-"+o+".png";
+ var l=document.createElement("label"),i=document.createElement("input"),im=document.createElement("img");
+ i.type="radio";i.name="av";i.value=src;
+ im.src=src;im.alt=NAMES[p]+", "+OUTN[o];im.loading="lazy";
+ l.appendChild(i);l.appendChild(im);grid.appendChild(l);
+});});
+$("#chg").onclick=function(){
+ var cur=$("#face").getAttribute("src");
+ grid.querySelectorAll("input").forEach(function(i){i.checked=i.value===cur});
+ dlg.showModal();
+};
+$("#libForm").onsubmit=function(e){
+ var c=grid.querySelector("input:checked");
+ if(e.submitter&&e.submitter.value==="ok"&&c){S.custom=c.value;setPic()}
+};
+$("#libX").onclick=function(){dlg.close()};
+dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+
+/* speech */
+var synth=window.speechSynthesis;
+function speak(text,done){
+ if(!synth){setTimeout(done||function(){},Math.min(2600,text.length*45));return}
+ synth.cancel();
+ var u=new SpeechSynthesisUtterance(text),v=VOICES[S.voice];
+ u.pitch=v.pitch;u.rate=1;
+ var all=synth.getVoices();
+ var want=(v.lang||"en-US");
+ var pick=all.filter(function(a){return a.lang.replace("_","-")===want})[0]||all.filter(function(a){return a.lang.indexOf(want.slice(0,2))===0})[0];
+ if(pick)u.voice=pick;
+ var finished=false;function fin(){if(finished)return;finished=true;done&&done()}
+ u.onend=fin;u.onerror=fin;
+ synth.speak(u);
+ setTimeout(fin,Math.max(3000,text.length*90));
+}
+var playing=false;
+$("#play").onclick=function(){
+ var b=$("#play");
+ if(playing){synth&&synth.cancel();return}
+ playing=true;b.textContent="Stop";
+ speak(greeting(),function(){playing=false;b.textContent="Play"});
+};
+
+/* ---------- step 2 ---------- */
+var NOKB={a:"I don't have that in my knowledge yet. I'll take a message and someone will call you back.",act:"No matching knowledge, took a message"};
+var QA=[
+ {q:"What are your hours of operation?",f:function(){var h=kbFind(/hours are ([^.\n]*)/i);return h?{a:"We're open "+h+".",act:"Used knowledge: Business overview (hours)"}:NOKB}},
+ {q:"Where are you located?",f:function(){var a=kbFind(/Address:\s*(.+)/i);return a?{a:"We're at "+a+".",act:"Used knowledge: Business overview (address)"}:NOKB}},
+ {q:"Can I book a table for four tonight?",f:function(){return /reservation/i.test($("#overview").value)?{a:"Yes, we take reservations. I have 7:30 and 8:15 open for four. Which works better?",act:"Used skill: Reservations"}:NOKB}},
+ {q:"Do you have vegetarian options?",f:function(){return /vegetarian/i.test($("#overview").value)?{a:"Yes, a third of the menu is vegetarian, and the kitchen can adjust most dishes.",act:"Used knowledge: Business overview (menu)"}:NOKB}},
+ {q:"I need to speak to a manager.",f:function(){return {a:"I'll connect you now. One moment.",act:"Escalation: forwarded to "+$("#fbNum").value}}}
+];
+var call=null;
+function mk(cls,txt,small){var d=document.createElement("div");d.className=cls;d.textContent=txt;if(small){var s=document.createElement("small");s.textContent=small;d.appendChild(s)}return d}
+function addLog(el,node){el.appendChild(node);el.scrollTop=el.scrollHeight}
+$("#startCall").onclick=function(){
+ $("#idle").style.display="none";$("#call").classList.add("on");
+ var log=$("#log");log.innerHTML="";
+ call={t0:Date.now(),busy:false};
+ call.tick=setInterval(function(){var s=Math.floor((Date.now()-call.t0)/1000);$("#timer").textContent=("0"+Math.floor(s/60)).slice(-2)+":"+("0"+s%60).slice(-2)},500);
+ $("#callTxt").textContent="Connecting…";setBusy(true);
+ setTimeout(function(){
+  if(!call)return;
+  $("#callTxt").textContent=S.name+" is speaking";
+  S.tx=[{t:greeting()}];addLog(log,mk("m ai",greeting(),S.name));
+  speak(greeting(),function(){if(call){setBusy(false);$("#callTxt").textContent="Listening"}});
+ },reduce?0:800);
+ var qs=$("#qs");qs.innerHTML="";
+ QA.forEach(function(x,i){
+  var b=document.createElement("button");b.className="q";b.textContent=x.q;b.dataset.i=i;
+  b.onclick=function(){ask(i)};qs.appendChild(b);
+ });
+};
+function setBusy(b){
+ if(call)call.busy=b;
+ $("#status").classList.toggle("speaking",b);
+ document.querySelectorAll("#qs .q").forEach(function(q){q.disabled=b});
+}
+function ask(i){
+ if(!call||call.busy)return;
+ S.tested=true;
+ var x=QA[i],r=x.f(),log=$("#log");
+ S.tx.push({me:1,t:x.q});S.tx.push({act:r.act});S.tx.push({t:r.a});
+ addLog(log,mk("m me",x.q,"You"));
+ setBusy(true);$("#callTxt").textContent=S.name+" is thinking";
+ setTimeout(function(){
+  if(!call)return;
+  $("#callTxt").textContent=S.name+" is speaking";
+  addLog(log,mk("action",r.act));
+  addLog(log,mk("m ai",r.a,S.name));
+  speak(r.a,function(){if(call){setBusy(false);$("#callTxt").textContent="Listening"}});
+ },reduce?0:700);
+}
+function endCall(silent){
+ if(call){clearInterval(call.tick);call=null}
+ synth&&synth.cancel();playing=false;$("#play").textContent="Play";
+ $("#call").classList.remove("on");$("#idle").style.display="";
+ $("#status").classList.remove("speaking");
+ if(silent!==true)$("#startCall").textContent="Start another test call";
+}
+$("#endCall").onclick=function(){endCall()};
+function tab(v){
+ $("#tVoice").setAttribute("aria-selected",v);$("#tChat").setAttribute("aria-selected",!v);
+ $("#vPane").hidden=!v;$("#cPane").hidden=v;
+ if(!v)endCall(true);
+}
+$("#tVoice").onclick=function(){tab(true)};$("#tChat").onclick=function(){tab(false)};
+(function(){
+ var box=$("#cqs");
+ QA.slice(0,4).forEach(function(x){
+  var b=document.createElement("button");b.className="q";b.style.display="inline-block";b.style.width="auto";b.style.margin="4px";b.textContent=x.q;
+  b.onclick=function(){
+   var l=$("#clog"),r=x.f();S.tested=true;addLog(l,mk("m me",x.q,"You"));
+   setTimeout(function(){addLog(l,mk("action",r.act));addLog(l,mk("m ai",r.a,S.name))},reduce?0:450);
+  };box.appendChild(b);
+ });
+})();
+
+/* ---------- step 3 ---------- */
+function tog(btn,fn){btn.onclick=function(){var v=btn.getAttribute("aria-checked")!=="true";btn.setAttribute("aria-checked",v);fn(v)}}
+tog($("#tCalling"),function(v){S.callOn=v;$("#callOpts").hidden=!v});
+tog($("#tSum"),function(v){S.sumOn=v;$("#sumOpts").hidden=!v});
+$("#fbNum").disabled=false;
+document.querySelectorAll("[name=fb]").forEach(function(r){r.onchange=function(){$("#fbNum").disabled=!$("#fbF").checked}});
+function validate3(){
+ var ok=true;$("#emErr").hidden=true;
+ if(S.callOn&&S.sumOn&&$("#em").checked){
+  var v=$("#emIn").value.trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){$("#emErr").hidden=false;$("#emIn").focus();ok=false}
+ }
+ return ok;
+}
+
+/* ---------- step 4 ---------- */
+function buildSummary(){
+ var nf=S.files.prod.length+S.files.docs.length;
+ var rows=[
+  ["Knowledge",S.brand+" \u00b7 "+$("#overview").value.length+" characters"+(nf?" \u00b7 "+nf+" file"+(nf>1?"s":""):""),2],
+  ["Name and voice",S.name+" \u00b7 "+VOICES[S.voice].label.split(" - ").slice(1).join(", "),3],
+  ["Languages",S.langs.join(", ")||"None",3],
+  ["Greeting",'"'+greeting()+'"',3],
+  ["Test calls",S.tested?"Done":"Skipped",4],
+  ["Calling",S.callOn?$("#avail").value:"Off",5],
+  ["Call summary",S.callOn&&S.sumOn?($("#em").checked?"Email to "+$("#emIn").value:"")+($("#tx").checked?($("#em").checked?" + ":"")+"Text":""):"Off",5],
+  ["If I can't help",$("#fbF").checked?"Forward to "+$("#fbNum").value:"Notify you",5]
+ ];
+
+ var dl=$("#sumList");dl.innerHTML="";
+ rows.forEach(function(r){
+  var d=document.createElement("div"),dt=document.createElement("dt"),dd=document.createElement("dd");
+  dt.textContent=r[0];dd.textContent=r[1]||"-";
+  var b=document.createElement("button");b.className="link";b.type="button";b.textContent="Edit";b.setAttribute("aria-label","Edit "+r[0]);
+  b.onclick=function(){go(r[2])};dd.appendChild(b);
+  d.appendChild(dt);d.appendChild(dd);dl.appendChild(d);
+ });
+}
+function launch(){
+ $("#sumBox").style.display="none";$("#live").style.display="block";
+ $("#liveH").textContent=S.name+" is live on calls";
+ $("#liveP").textContent="Callers reaching this number will now hear "+S.name+".";
+ $("#next").disabled=true;$("#back").style.visibility="hidden";
+ $("#live-sr").textContent=S.name+" is live";
+}
+$("#restart").onclick=function(){location.reload()};
+
+/* ---------- product (after launch) ---------- */
+var IC={call:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11 11 0 003.4.55 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.2.2 2.3.55 3.4a1 1 0 01-.25 1z"/></svg>',
+ text:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M4 4h16a1 1 0 011 1v11a1 1 0 01-1 1H8l-4 4V5a1 1 0 011-1z"/></svg>',
+ mail:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M3 5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1zm9 8L4 7.5V8l8 5 8-5v-.5z"/></svg>'};
+var SKILLS=["Business hours","Location","Reservations","Menu FAQ","Escalation"];
+var emps=[];
+var tickets=[
+ {id:1,n:"Savannah Nguyen",t:"11:23 am",g:"Today",p:"Do you have a table for six on Saturday?",st:"sc",ch:"Call"},
+ {id:2,n:"Evan Kirstel",t:"8:58 am",g:"Today",p:"What are your hours on Sunday?",st:"ip",ch:"Text"},
+ {id:3,n:"Jerome Bell",t:"Yesterday",g:"Yesterday",p:"Incoming call: asked about vegetarian dishes",st:"sc",ch:"Call"},
+ {id:4,n:"Ronald Richards",t:"Yesterday",g:"Yesterday",p:"Where do I park when I come in?",st:"cl",ch:"Text"},
+ {id:5,n:"James Manning",t:"Monday",g:"This week",p:"Can I get a reservation for four at 8?",st:"ip",ch:"Call"}
+];
+var STN={ip:"In progress",sc:"Soft close",cl:"Closed"};
+var REPLY={
+ "Call":"Thanks for calling. I checked the details and can help with that now.",
+ "Text":"Thanks for getting in touch. Here's what I have for you."
+};
+function chIcons(){return (S.callOn?'<span class="ic" title="Calls">'+IC.call+'</span>':'')+'<span class="ic" title="Text">'+IC.text+'</span>'+(S.callOn&&S.sumOn&&$("#em").checked?'<span class="ic" title="Email summary">'+IC.mail+'</span>':'')}
+function buildEmps(){
+ var other=VOICES[S.voice].pic==="woman1"?{name:"Sophia",pic:"images/avatars/woman2-denim.png"}:{name:"Maya",pic:"images/avatars/woman1-denim.png"};
+ var mine=$("#face").getAttribute("src");
+ emps=[{name:S.name,pic:mine,skills:[true,true,true,false,true],mine:true},{name:other.name,pic:other.pic,skills:[true,true,false,true,false]}];
+}
+function empRows(full){
+ var h='<thead><tr><th>Name</th><th>Channels</th><th>Skills</th><th>Status</th>'+(full?'<th></th>':'')+'</tr></thead><tbody>';
+ emps.forEach(function(e,i){
+  var n=e.skills.filter(Boolean).length;
+  h+='<tr><td><span class="ag"><img src="'+e.pic+'" alt="">'+esc(e.name)+'</span></td><td>'+(e.mine?chIcons():'<span class="ic">'+IC.call+'</span><span class="ic">'+IC.text+'</span>')+'</td><td><b>'+n+' skills</b></td><td><span class="badge">Active</span></td>'+(full?'<td style="text-align:right"><button class="mini" data-sk="'+i+'" aria-expanded="false">Add skills</button></td>':'')+'</tr>';
+  if(full){h+='<tr class="skills" id="sk'+i+'"><td colspan="5">'+SKILLS.map(function(k,j){return '<label><input type="checkbox" data-e="'+i+'" data-k="'+j+'"'+(e.skills[j]?' checked':'')+'>'+k+'</label>'}).join('')+'</td></tr>'}
+ });
+ return h+'</tbody>';
+}
+function esc(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML}
+function counts(){var c={ip:0,sc:0,cl:0};tickets.forEach(function(t){c[t.st]++});return c}
+function renderHome(){
+ var c=counts();
+ $("#homeTiles").innerHTML='<div class="tile on"><b>'+(c.ip+11)+'</b><span>In progress tickets</span></div><div class="tile"><b>'+(c.cl+15)+'</b><span>Closed tickets</span></div><div class="tile"><b>'+(c.sc+4)+'</b><span>Soft closed tickets</span></div>';
+ $("#homeEmps").innerHTML=empRows(false);
+ var data=[[emps[0].name,210,[110,50,50]],[emps[1].name,450,[190,110,150]],["Mark",360,[130,60,170]]];
+ $("#cols").innerHTML=data.map(function(d){
+  var mx=450,hh=100;
+  return '<div class="col"><div style="height:'+Math.round(d[1]/mx*hh)+'px"><i style="flex:'+d[2][0]+';background:#6CC4B8"></i><i style="flex:'+d[2][1]+';background:#EE7089"></i><i style="flex:'+d[2][2]+';background:#6B7FD7"></i></div>'+esc(d[0])+'</div>'}).join("");
+}
+function renderEmps(){
+ var t=$("#empTable");t.innerHTML=empRows(true);
+ t.querySelectorAll("[data-sk]").forEach(function(b){b.onclick=function(){
+  var r=$("#sk"+b.dataset.sk),on=!r.classList.contains("on");r.classList.toggle("on",on);b.setAttribute("aria-expanded",on);
+ }});
+ t.querySelectorAll("[data-k]").forEach(function(cb){cb.onchange=function(){emps[+cb.dataset.e].skills[+cb.dataset.k]=cb.checked;var open=document.querySelectorAll(".skills.on");var ids=[].map.call(open,function(r){return r.id});renderEmps();ids.forEach(function(id){$("#"+id).classList.add("on");$('[data-sk="'+id.slice(2)+'"]').setAttribute("aria-expanded","true")});renderHome()}});
+ var nf=S.files.prod.length+S.files.docs.length;
+ $("#kbSum").textContent=S.brand+": "+$("#overview").value.length+" characters of business overview"+(nf?", "+nf+" uploaded file"+(nf>1?"s":""):", no uploaded files")+".";
+}
+var selTk=null;
+function renderInbox(){
+ var list=$("#ilist");list.innerHTML="";var last="";
+ var all=tickets.slice();
+ if(S.tx.length&&!all.some(function(t){return t.id===0}))all.unshift({id:0,n:"Test call (you)",t:"Just now",g:"Today",p:"Setup test call with "+S.name,st:"cl",ch:"Call",mine:true});
+ tickets=all;
+ tickets.forEach(function(t){
+  if(t.g!==last){var h=document.createElement("h4");h.textContent=t.g;list.appendChild(h);last=t.g}
+  var b=document.createElement("button");b.className="tk";b.setAttribute("role","option");b.setAttribute("aria-selected",selTk===t.id);
+  b.innerHTML='<span class="n">'+esc(t.n)+'<span>'+esc(t.t)+'</span></span><div class="p">'+esc(t.p)+'</div><span class="st2 '+t.st+'">'+STN[t.st]+'</span>';
+  b.onclick=function(){selTk=t.id;renderInbox();openTk(t)};
+  list.appendChild(b);
+ });
+}
+function openTk(t){
+ var th=$("#thread"),msgs;
+ if(t.mine)msgs=S.tx.map(function(m){return m.act?'<div class="action">'+esc(m.act)+'</div>':'<div class="m '+(m.me?'me':'ai')+'">'+esc(m.t)+'<small>'+(m.me?"You":esc(S.name))+'</small></div>'});
+ else msgs=['<div class="m me">'+esc(t.p)+'<small>'+esc(t.n)+'</small></div>','<div class="action">Used knowledge: Business overview</div>','<div class="m ai">'+esc(REPLY[t.ch])+'<small>'+esc(S.name)+'</small></div>'];
+ th.innerHTML='<div class="th"><b>'+esc(t.n)+' · '+t.ch+'</b><span><span class="st2 '+t.st+'" id="thSt">'+STN[t.st]+'</span> <button class="mini" id="thBtn">'+(t.st==="cl"?"Reopen":"Close ticket")+'</button></span></div><div class="tb">'+msgs.join("")+'</div>';
+ $("#thBtn").onclick=function(){t.st=t.st==="cl"?"ip":"cl";renderInbox();openTk(t);renderHome()};
+}
+function view(v){
+ document.querySelectorAll(".view").forEach(function(x){x.classList.toggle("on",x.id==="v-"+v)});
+ document.querySelectorAll(".nav button").forEach(function(b){if(b.dataset.v===v)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
+ if(v==="home")renderHome();if(v==="emps")renderEmps();if(v==="inbox")renderInbox();
+}
+document.querySelectorAll(".nav button").forEach(function(b){b.onclick=function(){view(b.dataset.v)}});
+document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){view(b.dataset.go)}});
+$("#toApp").onclick=function(){
+ buildEmps();$("#shell").style.display="none";$("#product").classList.add("on");view("home");
+ $("#live-sr").textContent="Dashboard";
+};
+$("#newEmp").onclick=function(){$("#product").classList.remove("on");$("#shell").style.display="";go(3)};
+$("#editKb").onclick=function(){$("#product").classList.remove("on");$("#shell").style.display="";go(2)};
+
+if(synth&&synth.onvoiceschanged!==undefined)synth.onvoiceschanged=function(){};
+go(1);
+})();
+</script>
+</body>
+</html>

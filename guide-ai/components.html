@@ -1,61 +1,77 @@
 <!doctype html>
 <html lang="en" data-theme="light">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-33K0YHE1F7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-33K0YHE1F7');
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guide.ai component library</title>
 <meta name="description" content="Tokens and components of the Guide.ai design system, rendered live from ds.css.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ds.css?v=12">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ds.css?v=43">
 <style>
 /* Page layout only. Every component below is the real ds.css class used in the product. */
-body{height:auto;background:var(--bg-app)}
-.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
-.side{position:sticky;top:0;height:100vh;overflow:auto;background:#25125A;color:#F4F0FA;padding:24px 16px;display:flex;flex-direction:column;gap:18px}
-.side .brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:var(--fs-lg)}
-.side h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#B8AACF;margin:6px 8px 4px}
-.side a{display:block;color:#D6CCE6;text-decoration:none;font-size:var(--fs-sm);padding:6px 8px;border-radius:8px}
-.side a:hover{background:#3D1F72;color:#fff}
+body{height:auto;background:var(--sys-color-bg-canvas)}
+.shell{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+.side{position:sticky;top:0;height:100vh;overflow:auto;background:var(--sys-color-text-primary);color:#F7F7F7;padding:24px 16px;display:flex;flex-direction:column;gap:20px}
+.side .brand{display:flex;gap:12px;align-items:center;font-weight:700;font-size:var(--sys-font-size-lg)}
+.side h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#A3A6B3;margin:8px 8px 4px}
+.side a{display:block;color:#CBCDD6;text-decoration:none;font-size:var(--sys-font-size-sm);padding:8px 8px;border-radius:8px}
+.side a:hover{background:#2D303C;color:#fff}
+.side .dotai{color:var(--sys-color-brand-emphasis)}
 main{padding:40px clamp(16px,4vw,56px) 80px;max-width:1100px}
-.pagehead h1{font-size:clamp(28px,4vw,40px);color:var(--plum-800);letter-spacing:-.01em;margin:8px 0}
-.pagehead p{color:var(--text-2);max-width:680px}
+.pagehead h1{font-size:clamp(28px,4vw,40px);color:var(--sys-color-text-primary);letter-spacing:-.01em;margin:8px 0}
+.pagehead p{color:var(--sys-color-text-secondary);max-width:680px}
 section.lib{margin-top:56px;scroll-margin-top:24px}
-section.lib>h2{font-size:24px;color:var(--plum-800);margin-bottom:4px}
-section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;margin-bottom:18px}
-.spec{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:18px}
-.spec>header{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:14px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.spec>header h3{font-size:var(--fs-md)}
-.spec>header code{font-size:var(--fs-xs);color:var(--plum-700);background:var(--plum-100);padding:2px 8px;border-radius:6px}
-.stage{padding:22px 18px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;background:var(--canvas)}
+section.lib>h2{font-size:24px;color:var(--sys-color-text-primary);margin-bottom:4px}
+section.lib>p.lead{color:var(--sys-color-text-secondary);font-size:var(--sys-font-size-sm);max-width:680px;margin-bottom:20px}
+.spec{background:var(--sys-color-bg-surface);border:1px solid var(--sys-color-border-default);border-radius:var(--sys-radius-container);overflow:hidden;margin-bottom:20px}
+.spec>header{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:16px 20px;border-bottom:1px solid var(--sys-color-border-default);flex-wrap:wrap}
+.spec>header h3{font-size:var(--sys-font-size-md)}
+.spec>header code{font-size:var(--sys-font-size-xs);color:var(--sys-color-text-secondary);background:var(--sys-color-bg-sunken);padding:4px 8px;border-radius:8px}
+.stage{padding:24px 20px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;background:var(--sys-color-bg-surface)}
 .stage.col{flex-direction:column;align-items:stretch}
-.stage.dark{background:#25125A}
-.cell{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-.cell>small{font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-.notes{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 18px;border-top:1px solid var(--border);font-size:var(--fs-sm)}
-.notes b{display:block;font-size:var(--fs-xs);color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
-.notes p{color:var(--text-2)}
+.stage.dark{background:var(--sys-color-text-primary)}
+.cell{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.cell>small{font-size:11px;color:var(--sys-color-text-tertiary);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px;border-top:1px solid var(--sys-color-border-default);font-size:var(--sys-font-size-sm)}
+.notes b{display:block;font-size:var(--sys-font-size-xs);color:var(--sys-color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.notes p{color:var(--sys-color-text-secondary)}
 .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 .sw{align-items:start}
-.swc{display:flex;flex-direction:column;align-items:stretch;text-align:left;padding:0;height:auto;width:100%;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:#fff;cursor:copy;font:inherit;color:var(--text-1)}
+.swc{display:flex;flex-direction:column;align-items:stretch;text-align:left;padding:0;height:auto;width:100%;border:1px solid var(--sys-color-border-default);border-radius:var(--sys-radius-inset);overflow:hidden;background:#fff;cursor:copy;font:inherit;color:var(--sys-color-text-primary)}
 .swc i{display:block;height:64px}
-.swc div{padding:8px 10px;font-size:12px}
+.swc div{padding:8px 12px;font-size:12px}
 .swc b{display:block;font-size:12px}
-.swc span{color:var(--text-3);font-variant-numeric:tabular-nums}
-.typescale{display:flex;flex-direction:column;gap:10px}
-.typescale div{display:flex;gap:16px;align-items:baseline;border-bottom:1px dashed var(--border);padding-bottom:8px}
-.typescale small{width:110px;flex:none;color:var(--text-3);font-size:12px}
+.swc span{color:var(--sys-color-text-tertiary);font-variant-numeric:tabular-nums}
+.typescale{display:flex;flex-direction:column;gap:12px}
+.typescale div{display:flex;gap:16px;align-items:baseline;border-bottom:1px dashed var(--sys-color-border-default);padding-bottom:8px}
+.typescale small{width:110px;flex:none;color:var(--sys-color-text-tertiary);font-size:12px}
 .boxes{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end}
-.boxes .bx{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:var(--text-3)}
-.boxes .bx i{display:block;background:var(--plum-100);border:2px solid var(--plum-500)}
+.boxes .bx{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;color:var(--sys-color-text-tertiary)}
+.boxes .bx i{display:block;background:var(--sys-color-bg-sunken);border:1px solid var(--sys-color-text-secondary)}
 .w320{width:min(360px,100%)}.w480{width:min(520px,100%)}
 .mock .card{margin-left:0}
+.codebox{border-top:1px solid var(--sys-color-border-default);background:var(--sys-color-bg-surface)}
+.codebox.solo{border:1px solid var(--sys-color-border-default);border-radius:var(--sys-radius-container);overflow:hidden;margin-top:16px;max-width:680px}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 20px;font-size:var(--sys-font-size-xs);font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--sys-color-text-tertiary)}
+.codebox pre{margin:0;padding:16px 20px;background:var(--sys-color-text-primary);color:#F7F7F7;overflow:auto;max-height:440px;font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;tab-size:2}
+.codebox pre:focus-visible{outline-offset:-3px}
 @media (max-width:860px){.shell{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.notes{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="shell">
 <nav class="side" aria-label="Library">
-  <div class="brand"><span class="logo">✦</span><span>Guide<span class="dotai">.ai</span></span></div>
+  <div class="brand"><span class="logo" aria-hidden="true">G</span><span>Guide<span class="dotai">.ai</span></span></div>
   <div><h4>Foundations</h4><a href="#colour">Colour</a><a href="#type">Typography</a><a href="#space">Spacing &amp; radius</a><a href="#elev">Elevation &amp; motion</a></div>
   <div><h4>Actions</h4><a href="#buttons">Buttons</a><a href="#chips">Chips &amp; tags</a><a href="#choices">Choice buttons</a></div>
   <div><h4>Inputs</h4><a href="#fields">Fields</a></div>
@@ -63,60 +79,70 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
   <div><h4>Conversation</h4><a href="#bubbles">Bubbles</a><a href="#tray">Question tray</a><a href="#summary">Summary card</a></div>
   <div><h4>AI patterns</h4><a href="#sug">AI suggestion</a><a href="#quick">Suggested for you</a><a href="#compliance">Compliance gate</a><a href="#upload">Document reading</a><a href="#outcome">Outcome</a></div>
   <div><h4>Navigation</h4><a href="#rail">Step rail</a></div>
+  <div><h4>SaaS components</h4><a href="#saas-switch">Switch &amp; tabs</a><a href="#saas-table">Data table</a><a href="#saas-stat">Stat card &amp; avatars</a><a href="#saas-empty">Empty state</a></div>
 </nav>
 <main>
   <div class="pagehead">
-    <span class="badge ai">✦ Design system · v2 Plum</span>
+    <span class="badge ai">Design system</span>
     <h1>Guide.ai component library</h1>
     <p>Every token and component here is rendered live from <code>ds.css</code>, the same file the assistant, landing page and case study use. If it looks right here, it looks right in the product.</p>
   </div>
 
   <!-- COLOUR -->
-  <section class="lib" id="colour"><h2>Colour</h2><p class="lead">Deep plum leads, a plum-to-violet gradient marks primary actions and AI, and lilac tints carry surfaces. Status colours always pair with an icon and text. Click a swatch to copy its value.</p>
-    <div class="spec"><header><h3>Brand &amp; surfaces</h3><code>--plum-* · --brand · --canvas</code></header><div class="stage col">
+  <section class="lib" id="colour"><h2>Colour</h2><p class="lead">One blue for actions and the current step, cool greys for everything else, white cards with a 1px border. Colours are Radix Colors (indigo and slate, steps 1 to 12) and the tokens are also exposed under shadcn/ui's variable names (--background, --primary, --muted, --ring, --radius). Status colours always pair with an icon and text. Click a swatch to copy its value.</p>
+    <div class="spec"><header><h3>Brand &amp; surfaces</h3><code>--ref-color-brand-9 · --ref-color-brand-10 · --ref-color-brand-3 · --gray-*</code></header><div class="stage col">
       <div class="sw" id="swBrand"></div></div></div>
-    <div class="spec"><header><h3>Text &amp; status</h3><code>--text-* · --ok · --warn · --bad</code></header><div class="stage col"><div class="sw" id="swStatus"></div></div>
-      <div class="notes"><div><b>Contrast</b><p>Text-1 and text-2 pass AAA on white and lilac. Text-3 passes AA (≥4.5:1). Plum on white is about 12:1.</p></div><div><b>Rule</b><p>Never show status by colour alone. Pair it with an icon and a word: "Check this", "Acknowledged".</p></div></div></div>
+    <div class="spec"><header><h3>Text &amp; status</h3><code>--text-* · --sys-color-success-fg · --sys-color-warning-fg · --sys-color-danger-fg</code></header><div class="stage col"><div class="sw" id="swStatus"></div></div>
+      <div class="notes"><div><b>Contrast</b><p>Text-1 passes AAA on white. Text-2 and text-3 are slate 11, about 6:1. White on the brand blue (indigo 9) is about 4.9:1.</p></div><div><b>Rule</b><p>Never show status by colour alone. Pair it with an icon and a word: "Check this", "Acknowledged".</p></div></div></div>
   </section>
 
   <!-- TYPE -->
-  <section class="lib" id="type"><h2>Typography</h2><p class="lead">Noto Sans for Latin text and Noto Kufi Arabic for Arabic, so both scripts share one rhythm. Headings are bold plum.</p>
-    <div class="spec"><header><h3>Type scale</h3><code>--fs-xs … --fs-xl</code></header><div class="stage col"><div class="typescale">
-      <div><small>Display · 40/700</small><span style="font-size:40px;font-weight:700;color:var(--plum-800)">Register your company</span></div>
-      <div><small>Title · 20/650</small><span style="font-size:var(--fs-xl);font-weight:650">Let's set up your company</span></div>
-      <div><small>Body L · 16</small><span style="font-size:var(--fs-lg)">One question at a time, about 5 minutes.</span></div>
-      <div><small>Body · 14</small><span style="font-size:var(--fs-md)">What would you like to call your company?</span></div>
-      <div><small>Secondary · 13</small><span style="font-size:var(--fs-sm);color:var(--text-2)">It must end with LLC, Ltd or Limited.</span></div>
-      <div><small>Caption · 12</small><span style="font-size:var(--fs-xs);color:var(--text-3)">Question 1 of 2</span></div>
+  <section class="lib" id="type"><h2>Typography</h2><p class="lead">Lato for Latin text and Noto Kufi Arabic for Arabic, so both scripts share one rhythm. Headings are semibold in the darkest grey.</p>
+    <div class="spec"><header><h3>Type scale</h3><code>--sys-font-size-xs … --sys-font-size-xl</code></header><div class="stage col"><div class="typescale">
+      <div><small>Display · 40/700</small><span style="font-size:40px;font-weight:700;color:var(--sys-color-text-primary)">Register your company</span></div>
+      <div><small>Title · 20/650</small><span style="font-size:var(--sys-font-size-xl);font-weight:700">Let's set up your company</span></div>
+      <div><small>Body L · 16</small><span style="font-size:var(--sys-font-size-lg)">One question at a time, about 5 minutes.</span></div>
+      <div><small>Body · 14</small><span style="font-size:var(--sys-font-size-md)">What would you like to call your company?</span></div>
+      <div><small>Secondary · 13</small><span style="font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary)">It must end with LLC, Ltd or Limited.</span></div>
+      <div><small>Caption · 12</small><span style="font-size:var(--sys-font-size-xs);color:var(--sys-color-text-tertiary)">Question 1 of 2</span></div>
       <div><small>Arabic · 16</small><span lang="ar" dir="rtl" style="font-size:16px">ميريديان لابز ذ.م.م</span></div>
     </div></div></div>
   </section>
 
   <!-- SPACE -->
-  <section class="lib" id="space"><h2>Spacing &amp; radius</h2><p class="lead">A 4-point spacing scale. Pills for actions and chips, 12–16px for cards and inputs.</p>
-    <div class="spec"><header><h3>Spacing</h3><code>--s1 … --s6</code></header><div class="stage"><div class="boxes" id="spaceBoxes"></div></div></div>
-    <div class="spec"><header><h3>Radius</h3><code>--r-sm · --r-md · --r-lg · --r-pill</code></header><div class="stage"><div class="boxes">
-      <div class="bx"><i style="width:56px;height:56px;border-radius:var(--r-sm)"></i>sm · 8</div><div class="bx"><i style="width:56px;height:56px;border-radius:var(--r-md)"></i>md · 12</div><div class="bx"><i style="width:56px;height:56px;border-radius:var(--r-lg)"></i>lg · 16</div><div class="bx"><i style="width:96px;height:40px;border-radius:var(--r-pill)"></i>pill</div></div></div></div>
+  <section class="lib" id="space"><h2>Spacing &amp; radius</h2><p class="lead">A 4-point spacing scale. 8px for buttons, inputs and chips, 12px for inner blocks, 16px for cards. Only badges are pills.</p>
+    <div class="spec"><header><h3>Spacing</h3><code>--sys-space-1 … --sys-space-6</code></header><div class="stage"><div class="boxes" id="spaceBoxes"></div></div></div>
+    <div class="spec"><header><h3>Radius</h3><code>--sys-radius-control · --sys-radius-inset · --sys-radius-container · --sys-radius-pill</code></header><div class="stage"><div class="boxes">
+      <div class="bx"><i style="width:56px;height:56px;border-radius:var(--sys-radius-control)"></i>sm · 8</div><div class="bx"><i style="width:56px;height:56px;border-radius:var(--sys-radius-inset)"></i>md · 12</div><div class="bx"><i style="width:56px;height:56px;border-radius:var(--sys-radius-container)"></i>lg · 16</div><div class="bx"><i style="width:96px;height:40px;border-radius:var(--sys-radius-pill)"></i>pill</div></div></div></div>
   </section>
 
   <!-- ELEVATION -->
   <section class="lib" id="elev"><h2>Elevation &amp; motion</h2><p class="lead">Three shadow levels. Motion is short (120–220ms) and switched off for people who ask for reduced motion.</p>
-    <div class="spec"><header><h3>Elevation</h3><code>--e1 · --e2 · --e3</code></header><div class="stage"><div class="boxes">
-      <div class="bx"><i style="width:110px;height:70px;border-radius:12px;background:#fff;border:0;box-shadow:var(--e1)"></i>e1 · card</div><div class="bx"><i style="width:110px;height:70px;border-radius:12px;background:#fff;border:0;box-shadow:var(--e2)"></i>e2 · menu, toast</div><div class="bx"><i style="width:110px;height:70px;border-radius:12px;background:#fff;border:0;box-shadow:var(--e3)"></i>e3 · modal</div></div></div>
-      <div class="notes"><div><b>Durations</b><p><code>--dur-fast</code> 120ms for hovers, <code>--dur</code> 220ms for entrances, 5s for the AI border rotation.</p></div><div><b>Reduced motion</b><p>All animation drops to near zero, and the AI border stops rotating.</p></div></div></div>
+    <div class="spec"><header><h3>Elevation</h3><code>--sys-elevation-1 · --sys-elevation-2 · --sys-elevation-3</code></header><div class="stage"><div class="boxes">
+      <div class="bx"><i style="width:110px;height:70px;border-radius:12px;background:#fff;border:0;box-shadow:var(--sys-elevation-1)"></i>e1 · card</div><div class="bx"><i style="width:110px;height:70px;border-radius:12px;background:#fff;border:0;box-shadow:var(--sys-elevation-2)"></i>e2 · menu, toast</div><div class="bx"><i style="width:110px;height:70px;border-radius:12px;background:#fff;border:0;box-shadow:var(--sys-elevation-3)"></i>e3 · modal</div></div></div>
+      <div class="notes"><div><b>Durations</b><p><code>--sys-motion-duration-fast</code> 120ms for hovers, <code>--sys-motion-duration-base</code> 220ms for entrances, 5s for the AI border rotation.</p></div><div><b>Reduced motion</b><p>All animation drops to near zero, and the AI border stops rotating.</p></div></div></div>
   </section>
 
   <!-- BUTTONS -->
-  <section class="lib" id="buttons"><h2>Buttons</h2><p class="lead">Pill-shaped. One primary per view. Primary uses the plum gradient with a soft glow and a light sweep on hover.</p>
-    <div class="spec"><header><h3>Variants</h3><code>.btn · .primary · .ghost · .danger · .linkbtn</code></header><div class="stage">
+  <section class="lib" id="buttons"><h2>Buttons</h2><p class="lead">One shape: 8px corners, 14px medium text. One primary per view, filled with the brand colour. Secondary buttons sit on a light grey surface, so they read as a lighter choice than primary without needing a border. An outline button is the white option with a grey border.</p>
+    <div class="spec"><header><h3>Variants</h3><code>.btn · .primary · .secondary · .neutral · .ghost · .danger · .linkbtn</code></header><div class="stage">
       <div class="cell"><small>Primary</small><button class="btn primary">Continue</button></div>
-      <div class="cell"><small>Secondary</small><button class="btn">Skip</button></div>
+      <div class="cell"><small>Secondary</small><button class="btn secondary">I'll change it</button></div>
+      <div class="cell"><small>Outline</small><button class="btn">Skip</button></div>
+      <div class="cell"><small>Neutral</small><button class="btn neutral">Cancel</button></div>
       <div class="cell"><small>Ghost</small><button class="btn ghost">I'll change it</button></div>
       <div class="cell"><small>Danger</small><button class="btn danger">Submit application</button></div>
+      <div class="cell"><small>Soft danger</small><button class="btn soft-danger">Remove person</button></div>
       <div class="cell"><small>Link</small><button class="linkbtn">Search all activities</button></div>
       <div class="cell"><small>Small</small><button class="btn primary sm">+ Add</button></div>
       <div class="cell"><small>Disabled</small><button class="btn primary" disabled>Continue</button></div></div>
-      <div class="notes"><div><b>Use</b><p>Primary moves the flow forward. Danger is only for irreversible actions, and gets a distinct label ("Submit application", never "OK").</p></div><div><b>Accessibility</b><p>36px minimum height, 44px on touch. Focus shows a 2px plum outline.</p></div></div></div>
+    <div class="spec"><header><h3>Surfaces</h3><code>--sys-color-action-secondary-bg · --sys-color-action-neutral-bg · --sys-color-brand-subtle</code></header><div class="stage">
+      <div class="cell"><small>Secondary surface</small><button class="btn secondary">Add top 3</button><button class="btn secondary sm">Edit</button></div>
+      <div class="cell"><small>Neutral surface</small><button class="btn neutral">Back</button><button class="btn neutral sm">Details</button></div>
+      <div class="cell"><small>Button group</small><div class="btngroup" role="group" aria-label="View"><button class="btn" aria-pressed="true">Day</button><button class="btn" aria-pressed="false">Week</button><button class="btn" aria-pressed="false">Month</button></div></div>
+      <div class="cell"><small>Icon button</small><button class="btn icon" aria-label="More options"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button></div></div>
+      <div class="notes"><div><b>Surface tokens</b><p>Secondary uses light grey (<code>--sys-color-action-secondary-bg</code>) with dark text. Neutral is a lighter grey with a 1px border (<code>--sys-color-action-neutral-bg</code>). Blue tint (<code>--sys-color-brand-subtle</code>) is kept for selected states. All have a hover step and a dark-theme value.</p></div><div><b>Rule</b><p>One primary per view. Use secondary for the second-best action next to it, outline or neutral for cancel and back.</p></div></div></div>
+      <div class="notes"><div><b>Use</b><p>Primary moves the flow forward. Danger is only for irreversible actions, and gets a distinct label ("Submit application", never "OK").</p></div><div><b>Accessibility</b><p>36px minimum height, 44px on touch. Focus shows a 2px blue outline.</p></div></div></div>
   </section>
 
   <!-- CHIPS -->
@@ -132,7 +158,7 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
     <div class="spec"><header><h3>States</h3><code>.choice · .rec · label.choice (multi)</code></header><div class="stage col"><div class="choices w480">
       <button class="choice rec"><span class="key">1</span><span class="cbody"><b>Yes, use the standard articles <span class="badge ai">Recommended</span></b><small>Ready to use. Suits most start-ups</small></span></button>
       <button class="choice"><span class="key">2</span><span class="cbody"><b>No, I'll upload my own</b><small>Reviewed manually, so it takes longer</small></span></button>
-      <label class="choice"><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--brand)"><span class="cbody"><b>Shareholder</b><small>Multi-select: pick all that apply</small></span></label></div></div></div>
+      <label class="choice"><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--sys-color-brand-default)"><span class="cbody"><b>Shareholder</b><small>Multi-select: pick all that apply</small></span></label></div></div></div>
   </section>
 
   <!-- FIELDS -->
@@ -149,7 +175,7 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
   <!-- BADGES -->
   <section class="lib" id="badges"><h2>Badges</h2><p class="lead">Short status labels. Always text, and an icon where it helps.</p>
     <div class="spec"><header><h3>Variants</h3><code>.badge · .ok · .warn · .bad · .ai</code></header><div class="stage">
-      <span class="badge">Locked</span><span class="badge ok">✓ Read clearly</span><span class="badge ok">94% match</span><span class="badge warn">⚠ Check this</span><span class="badge bad">Expired</span><span class="badge ai">✦ Suggested for you</span><span class="badge ai">✦ Translated by AI · please check</span></div></div>
+      <span class="badge">Locked</span><span class="badge ok">✓ Read clearly</span><span class="badge ok">94% match</span><span class="badge warn">⚠ Check this</span><span class="badge bad">Expired</span><span class="badge ai">Suggested for you</span><span class="badge ai">Translated by AI · please check</span></div></div>
   </section>
 
   <!-- CALLOUTS -->
@@ -163,16 +189,16 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
   <!-- TOAST & SHEET -->
   <section class="lib" id="toast"><h2>Toast &amp; confirm sheet</h2><p class="lead">One toast pattern (with Undo for reversible changes) and one confirm sheet (for destructive or unsaved changes).</p>
     <div class="spec"><header><h3>Toast</h3><code>.toast</code></header><div class="stage" style="position:relative;min-height:80px"><div class="toast open" style="position:static;display:flex;width:min(440px,100%)"><span>Added “Advising on IT networks.”</span><button>Undo</button></div></div></div>
-    <div class="spec"><header><h3>Confirm sheet</h3><code>.sheet · .foot2</code></header><div class="stage"><div class="sheet" style="position:static;max-width:440px;border-radius:var(--r-lg);animation:none"><h3>Unsaved changes</h3><p style="color:var(--text-2)">You have unsaved changes in Company. Discard them and switch, or stay to keep editing?</p><div class="foot2"><button class="btn ghost">Stay</button><button class="btn danger">Discard changes</button></div></div></div></div>
+    <div class="spec"><header><h3>Confirm sheet</h3><code>.sheet · .foot2</code></header><div class="stage"><div class="sheet" style="position:static;max-width:440px;border-radius:var(--sys-radius-container);animation:none"><h3>Unsaved changes</h3><p style="color:var(--sys-color-text-secondary)">You have unsaved changes in Company. Discard them and switch, or stay to keep editing?</p><div class="foot2"><button class="btn ghost">Stay</button><button class="btn danger">Discard changes</button></div></div></div></div>
   </section>
 
   <!-- BUBBLES -->
-  <section class="lib" id="bubbles"><h2>Chat bubbles</h2><p class="lead">Lilac for the assistant, solid plum for the user. Sources sit under factual answers.</p>
-    <div class="spec"><header><h3>Messages</h3><code>.msg · .bubble · .user · .typing · .src</code></header><div class="stage col"><div class="w480" style="display:flex;flex-direction:column;gap:10px">
-      <div class="msg"><div class="av">✦</div><div class="bubble">What would you like to call your company?</div></div>
+  <section class="lib" id="bubbles"><h2>Chat bubbles</h2><p class="lead">The assistant's text sits on the page with no bubble. Only the user's answers are bubbles, in grey. Sources sit under factual answers.</p>
+    <div class="spec"><header><h3>Messages</h3><code>.msg · .bubble · .user · .typing · .src</code></header><div class="stage col"><div class="w480" style="display:flex;flex-direction:column;gap:12px">
+      <div class="msg"><div class="av" aria-hidden="true">G</div><div class="bubble">What would you like to call your company?</div></div>
       <div class="msg user"><div class="bubble">Meridian Labs LLC</div></div>
-      <div class="msg"><div class="av">✦</div><div class="bubble">A nominee director acts for the real owner.<span class="src">ⓘ Registry guidance · not legal advice</span></div></div>
-      <div class="msg"><div class="av">✦</div><div class="bubble"><span class="typing"><i></i><i></i><i></i></span></div></div></div></div></div>
+      <div class="msg"><div class="av" aria-hidden="true">G</div><div class="bubble">A nominee director acts for the real owner.<span class="src">ⓘ Registry guidance · not legal advice</span></div></div>
+      <div class="msg"><div class="av" aria-hidden="true">G</div><div class="bubble"><span class="typing"><i></i><i></i><i></i></span></div></div></div></div></div>
   </section>
 
   <!-- TRAY -->
@@ -186,19 +212,19 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
   </section>
 
   <!-- AI SUGGESTION -->
-  <section class="lib" id="sug"><h2>AI suggestion</h2><p class="lead">One AI recommendation at a time, with an animated plum gradient border so AI output never blends in. Always shows why: match %, code, group and restrictions.</p>
+  <section class="lib" id="sug"><h2>AI suggestion</h2><p class="lead">One recommendation at a time, in a bordered card with a blue-tinted badge that says where it came from.</p>
     <div class="spec"><header><h3>Recommendation card</h3><code>.sug</code></header><div class="stage"><div class="sug w480"><div class="t"><div class="qcount">Suggestion 1 of 6</div><button class="iconbtn" aria-label="Not relevant">✕</button></div><div style="display:flex;gap:8px;align-items:center"><span class="badge ok">61% match</span><span class="code">6311-001</span></div><b>Provision of infrastructure for hosting, data processing and related activities.</b><div class="why">Computer Programming, IT Consultancy and Related Activities</div><div class="acts"><button class="btn sm primary">+ Add</button><button class="btn sm">Add top 3</button><button class="btn sm">Not relevant</button></div></div></div>
       <div class="notes"><div><b>Autonomy</b><p>Level 0, suggest. Nothing is added until the user taps Add.</p></div><div><b>Transparency</b><p>Every card shows its reasons, so the user can judge it rather than trust it blindly.</p></div></div></div>
   </section>
 
   <!-- QUICK -->
   <section class="lib" id="quick"><h2>Suggested for you</h2><p class="lead">The AI pre-fills a whole section from earlier answers. One click accepts it, and every value is re-validated. "I'll change it" opens each question, prefilled.</p>
-    <div class="spec"><header><h3>Section proposal</h3><code>.card.quick</code></header><div class="stage mock"><article class="card active quick w480"><div class="body"><div class="aihead"><span class="badge ai">✦ Suggested for you</span><span class="hint">Based on your earlier answers</span></div><dl class="rows" style="padding:0"><dt>Authorised shares</dt><dd>1,000</dd><dt>Nominal value</dt><dd>USD 10</dd><dt>Share classes</dt><dd>1</dd></dl><div class="foot" style="padding:0;border:0"><button class="btn ghost">I'll change it</button><button class="btn primary">✓ Use this</button></div></div></article></div></div>
+    <div class="spec"><header><h3>Section proposal</h3><code>.card.quick</code></header><div class="stage mock"><article class="card active quick w480"><div class="body"><div class="aihead"><span class="badge ai">Suggested for you</span><span class="hint">Based on your earlier answers</span></div><dl class="rows" style="padding:0"><dt>Authorised shares</dt><dd>1,000</dd><dt>Nominal value</dt><dd>USD 10</dd><dt>Share classes</dt><dd>1</dd></dl><div class="foot" style="padding:0;border:0"><button class="btn ghost">I'll change it</button><button class="btn primary">✓ Use this</button></div></div></article></div></div>
   </section>
 
   <!-- COMPLIANCE -->
   <section class="lib" id="compliance"><h2>Compliance gate</h2><p class="lead">Deliberate friction where a regulator needs it: restrictions are listed, then a declaration must be ticked before Continue works.</p>
-    <div class="spec"><header><h3>Declaration</h3><code>.callout.bad.compl · .restr · .checkrow</code></header><div class="stage"><div class="callout bad compl w480"><span>⚠</span><div><b>Compliance review is required.</b><div>Some of your activities come with restrictions. Read them, then confirm.</div><div class="compitem"><b>Planning and designing of computer systems</b><ul class="restr"><li>May not sell or service hardware by way of business.</li><li>May not provide business-to-consumer services.</li></ul></div><label class="checkrow" style="margin-top:10px"><input type="checkbox"><span>I confirm the company will not carry out any DNFBP activities under the registry's anti-money-laundering rules.</span></label></div></div></div></div>
+    <div class="spec"><header><h3>Declaration</h3><code>.callout.bad.compl · .restr · .checkrow</code></header><div class="stage"><div class="callout bad compl w480"><span>⚠</span><div><b>Compliance review is required.</b><div>Some of your activities come with restrictions. Read them, then confirm.</div><div class="compitem"><b>Planning and designing of computer systems</b><ul class="restr"><li>May not sell or service hardware by way of business.</li><li>May not provide business-to-consumer services.</li></ul></div><label class="checkrow" style="margin-top:12px"><input type="checkbox"><span>I confirm the company will not carry out any DNFBP activities under the registry's anti-money-laundering rules.</span></label></div></div></div></div>
   </section>
 
   <!-- UPLOAD -->
@@ -215,8 +241,44 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
   </section>
 
   <!-- RAIL -->
-  <section class="lib" id="rail"><h2>Step rail</h2><p class="lead">The dark plum rail keeps progress visible: done, current and upcoming, each with an icon and text, never colour alone.</p>
-    <div class="spec"><header><h3>Progressive disclosure</h3><code>.rail.theme-dark · .dot</code></header><div class="stage dark"><aside class="rail theme-dark" style="display:flex;position:static;width:260px;border-radius:var(--r-lg)"><div class="brand"><span class="logo">✦</span><span>Guide<span class="dotai">.ai</span></span></div><div><h4>Your application</h4><ol style="margin-top:8px"><li><button><span class="dot done">✓</span>Company</button></li><li><button aria-current="step"><span class="dot now">2</span>Activities</button></li><li><button disabled><span class="dot">3</span>Share capital</button></li><li><button disabled><span class="dot">4</span>Members</button></li></ol></div></aside></div></div>
+  <section class="lib" id="rail"><h2>Step rail</h2><p class="lead">A white sidebar keeps progress visible. Each step has a bi-colour 3D icon (a front face, a light face and a shaded side, all flat fills). Each step has its own colour, so the list scans quickly. Done steps show a green tick, and the current step sits on a white tile with bold text.</p>
+    <div class="spec"><header><h3>Progressive disclosure</h3><code>.rail · .dot</code></header><div class="stage"><aside class="rail" style="display:flex;position:static;width:260px;border-radius:var(--sys-radius-container)"><div class="brand"><span class="logo" aria-hidden="true">G</span><span>Guide<span class="dotai">.ai</span></span></div><div><h4>Your application</h4><ol style="margin-top:8px"><li><button><span class="dot done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Company</button></li><li><button aria-current="step"><span class="dot ic s-acts now"><svg class="duo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect class="a" x="3" y="8" width="18" height="12" rx="2"/><path class="c" d="M9 8V6a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 6v2h-1.8V6.3h-2.4V8z"/><path class="b" d="M3 13h18v-1.5H3z"/></svg></span>Activities</button></li><li><button disabled><span class="dot ic s-cap"><svg class="duo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="b" d="M13 3a9 9 0 0 1 8 8h-8z"/><path class="a" d="M11 5.2A8 8 0 1 0 19 13h-8z"/><path class="c" d="M11 13h8a8 8 0 0 1-2.4 5.7z"/></svg></span>Share capital</button></li><li><button disabled><span class="dot ic s-mem"><svg class="duo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle class="b" cx="16" cy="8" r="3"/><path class="b" d="M11.5 20a4.5 4.5 0 0 1 9 0z"/><circle class="a" cx="9" cy="9" r="3.5"/><path class="a" d="M2.5 21a6.5 6.5 0 0 1 13 0z"/></svg></span>Members</button></li></ol></div></aside></div></div>
+  </section>
+
+  <!-- SAAS -->
+  <section class="lib" id="saas-switch"><h2>Switch &amp; tabs</h2><p class="lead">Switches turn one setting on or off straight away. Underline tabs split a page into views, with a count when it helps.</p>
+    <div class="spec"><header><h3>Switch</h3><code>.switch</code></header><div class="stage">
+      <div class="cell"><small>On</small><label class="switch"><input type="checkbox" checked><i></i>Email me when it's reviewed</label></div>
+      <div class="cell"><small>Off</small><label class="switch"><input type="checkbox"><i></i>Text message updates</label></div>
+      <div class="cell"><small>Disabled</small><label class="switch"><input type="checkbox" disabled><i></i>Share with registry</label></div></div></div>
+    <div class="spec"><header><h3>Underline tabs</h3><code>.utabs</code></header><div class="stage">
+      <div class="utabs" role="tablist" aria-label="Application views"><button role="tab" aria-selected="true">Overview</button><button role="tab" aria-selected="false">Documents<span class="count">4</span></button><button role="tab" aria-selected="false">Activity<span class="count">12</span></button><button role="tab" aria-selected="false">Payments</button></div></div></div>
+  </section>
+
+  <section class="lib" id="saas-table"><h2>Data table</h2><p class="lead">Rows of records with a grey header, 1px row dividers and a hover tint. Numbers align right and use tabular figures. Status always has text, never colour alone.</p>
+    <div class="spec"><header><h3>Table</h3><code>.dtable · .cellperson · .badge</code></header><div class="stage col">
+      <table class="dtable"><thead><tr><th>Person</th><th>Role</th><th>Status</th><th class="tnum">Shares</th></tr></thead><tbody>
+        <tr><td><div class="cellperson"><span class="avatar">A</span>Amira Rahman</div></td><td>Director, shareholder</td><td><span class="badge ok">Verified</span></td><td class="tnum">700</td></tr>
+        <tr><td><div class="cellperson"><span class="avatar">K</span>Karim Aziz</div></td><td>Shareholder</td><td><span class="badge warn">Check passport</span></td><td class="tnum">300</td></tr>
+        <tr><td><div class="cellperson"><span class="avatar">L</span>Lena Ortiz</div></td><td>Secretary</td><td><span class="badge">Invited</span></td><td class="tnum">0</td></tr></tbody></table>
+      <div class="pager" aria-label="Pagination"><button disabled aria-label="Previous page">&lsaquo;</button><button aria-current="page">1</button><button>2</button><button>3</button><button aria-label="Next page">&rsaquo;</button></div></div></div>
+  </section>
+
+  <section class="lib" id="saas-stat"><h2>Stat card &amp; avatars</h2><p class="lead">A stat card shows one number, its label and the change since last time. Avatars stack to show who is involved.</p>
+    <div class="spec"><header><h3>Stat card</h3><code>.statc</code></header><div class="stage">
+      <div class="statc"><span class="static"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span><span class="k">Members added</span><span class="v">3,782</span><span class="d up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg> 11.01%</span></div>
+      <div class="statc"><span class="static"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.7 4H7.3a2 2 0 0 0-1.8 1.1z"/></svg></span><span class="k">Open applications</span><span class="v">5,359</span><span class="d down"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg> 9.05%</span></div></div></div>
+    <div class="spec"><header><h3>Avatars</h3><code>.avatar · .avs</code></header><div class="stage">
+      <div class="cell"><small>Single</small><span class="avatar lg">AR</span></div>
+      <div class="cell"><small>Success</small><span class="avatar lg ok">KA</span></div>
+      <div class="cell"><small>Group</small><span class="avs"><span class="avatar">A</span><span class="avatar">K</span><span class="avatar">L</span><span class="avatar more">+4</span></span></div></div></div>
+  </section>
+
+  <section class="lib" id="saas-empty"><h2>Empty state &amp; breadcrumb</h2><p class="lead">An empty state says what belongs here and offers the one next action. Breadcrumbs show where the page sits.</p>
+    <div class="spec"><header><h3>Empty state</h3><code>.empty</code></header><div class="stage">
+      <div class="empty"><span class="static"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.7 4H7.3a2 2 0 0 0-1.8 1.1z"/></svg></span><h3>No documents yet</h3><p>Upload your Memorandum of Association and I'll fill in the company details for you to check.</p><div style="display:flex;gap:8px"><button class="btn secondary">Type details instead</button><button class="btn primary">Upload a document</button></div></div></div></div>
+    <div class="spec"><header><h3>Breadcrumb</h3><code>.crumbs</code></header><div class="stage">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Applications</a><span aria-hidden="true">/</span><a href="#">Meridian Labs LLC</a><span aria-hidden="true">/</span><span aria-current="page">Members</span></nav></div></div>
   </section>
 </main>
 </div>
@@ -224,14 +286,660 @@ section.lib>p.lead{color:var(--text-2);font-size:var(--fs-sm);max-width:680px;ma
 <script>
 (()=>{
 const tok=(n)=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const brand=[['--plum-900','Rail, deepest plum'],['--plum-800','Brand, headings'],['--plum-700','Gradient middle'],['--plum-500','Gradient end, accents'],['--plum-300','Lilac accent'],['--plum-200','AI borders'],['--plum-100','AI bubbles, tints'],['--plum-50','Canvas']];
-const status=[['--text-1','Primary text'],['--text-2','Secondary text'],['--text-3','Captions, hints'],['--border-input','Field borders'],['--ok','Success'],['--warn','Warning'],['--bad','Error'],['--ok-bg','Success surface']];
+const brand=[['--ref-color-brand-9','Primary buttons, current step, logo'],['--ref-color-brand-10','Hover, links, text on tints'],['--ref-color-brand-3','Selected rows, badges'],['--ref-color-brand-7','Active card border'],['--ref-color-slate-2','Page background'],['--ref-color-slate-3','User bubble, tab track'],['--ref-color-slate-5','Borders'],['--ref-color-slate-12','Toast, dark surfaces']];
+const status=[['--sys-color-text-primary','Primary text'],['--sys-color-text-secondary','Secondary text'],['--sys-color-text-tertiary','Captions, hints'],['--sys-color-border-input','Field borders'],['--sys-color-success-fg','Success'],['--sys-color-warning-fg','Warning'],['--sys-color-danger-fg','Error'],['--sys-color-success-bg','Success surface']];
 const card=([n,d])=>`<button class="swc" type="button" data-copy="${n}" aria-label="Copy ${n}"><i style="background:var(${n})"></i><div><b>${n}</b><span>${tok(n)}</span><br><span>${d}</span></div></button>`;
-document.getElementById('swBrand').innerHTML=brand.map(card).join('')+`<button class="swc" type="button" data-copy="--ai-grad" aria-label="Copy --ai-grad"><i style="background:var(--ai-grad)"></i><div><b>--ai-grad</b><span>plum → violet</span><br><span>Primary buttons, AI marks</span></div></button>`;
+document.getElementById('swBrand').innerHTML=brand.map(card).join('');
 document.getElementById('swStatus').innerHTML=status.map(card).join('');
-document.getElementById('spaceBoxes').innerHTML=['--s1','--s2','--s3','--s4','--s5','--s6'].map(n=>`<div class="bx"><i style="width:var(${n});height:var(${n})"></i>${n.replace('--','')} · ${tok(n)}</div>`).join('');
+document.getElementById('spaceBoxes').innerHTML=['--sys-space-1','--sys-space-2','--sys-space-3','--sys-space-4','--sys-space-5','--sys-space-6'].map(n=>`<div class="bx"><i style="width:var(${n});height:var(${n})"></i>${n.replace('--','')} · ${tok(n)}</div>`).join('');
 const t=document.getElementById('copied');let tm;
 document.addEventListener('click',e=>{const b=e.target.closest('[data-copy]');if(!b)return;const v=b.dataset.copy==='--ai-grad'?'var(--ai-grad)':`var(${b.dataset.copy})`;navigator.clipboard&&navigator.clipboard.writeText(v).catch(()=>{});document.getElementById('copiedMsg').textContent='Copied '+v;t.classList.add('open');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('open'),1600)});
+
+/* ===== React snippets: one per component, copyable ===== */
+const REACT={
+setup:`// main.jsx: load the design system once, at the app root
+import "./ds.css";
+// Lato and Noto Kufi Arabic come from Google Fonts (see the <link> in prototype.html).
+// Every snippet below is plain JSX that uses the ds.css classes shown in each header.
+// Colours are Radix Colors (indigo, slate) and ds.css also defines shadcn/ui's variables
+// (--background, --primary, --muted, --ring, --radius), so shadcn components pick up the theme.
+// For behaviour, wrap with Radix primitives. Radix Tabs sets aria-selected, which the .utabs styles
+// already respond to. Radix Switch renders a button (aria-checked), not the checkbox that .switch styles.`,
+
+"buttons:0":`export function Button({ variant, size, className, ...props }) {
+  const cls = ["btn", variant, size, className].filter(Boolean).join(" ");
+  return <button className={cls} {...props} />;
+}
+
+export function LinkButton(props) {
+  return <button className="linkbtn" {...props} />;
+}
+
+// Usage
+// variant: "primary" | "secondary" | "neutral" | "ghost" | "danger" (omit for outline)   size: "sm"
+<Button variant="secondary">I'll change it</Button>
+<Button variant="primary">Continue</Button>
+<Button>Skip</Button>
+<Button variant="ghost">I'll change it</Button>
+<Button variant="danger">Submit application</Button>
+<LinkButton>Search all activities</LinkButton>
+<Button variant="primary" size="sm">+ Add</Button>
+<Button variant="primary" disabled>Continue</Button>`,
+
+"buttons:1":`// variant: "secondary" (light grey surface) | "neutral" | "soft-danger" | "ghost" | "danger" | omit for outline
+<Button variant="secondary">Add top 3</Button>
+<Button variant="neutral">Back</Button>
+<Button variant="secondary" size="sm">Edit</Button>
+
+export function ButtonGroup({ options, value, onChange }) {
+  return (
+    <div className="btngroup" role="group">
+      {options.map((o) => (
+        <button key={o} className="btn" aria-pressed={value === o} onClick={() => onChange(o)}>{o}</button>
+      ))}
+    </div>
+  );
+}`,
+
+"saas-switch:0":`export function Switch({ label, checked, onChange, disabled }) {
+  return (
+    <label className="switch">
+      <input type="checkbox" checked={checked} disabled={disabled} onChange={(e) => onChange(e.target.checked)} />
+      <i />
+      {label}
+    </label>
+  );
+}`,
+
+"saas-switch:1":`export function Tabs({ tabs, value, onChange }) {
+  return (
+    <div className="utabs" role="tablist">
+      {tabs.map((t) => (
+        <button key={t.id} role="tab" aria-selected={value === t.id} onClick={() => onChange(t.id)}>
+          {t.label}
+          {t.count != null && <span className="count">{t.count}</span>}
+        </button>
+      ))}
+    </div>
+  );
+}`,
+
+"saas-table:0":`export function DataTable({ columns, rows }) {
+  // columns: [{ key, label, numeric }]   rows: array of objects; a cell may be a React node
+  return (
+    <table className="dtable">
+      <thead><tr>{columns.map((c) => <th key={c.key} className={c.numeric ? "tnum" : ""}>{c.label}</th>)}</tr></thead>
+      <tbody>
+        {rows.map((r, i) => (
+          <tr key={i}>{columns.map((c) => <td key={c.key} className={c.numeric ? "tnum" : ""}>{r[c.key]}</td>)}</tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+export function Pagination({ page, pages, onChange }) {
+  return (
+    <div className="pager" aria-label="Pagination">
+      <button disabled={page === 1} aria-label="Previous page" onClick={() => onChange(page - 1)}>&lsaquo;</button>
+      {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
+        <button key={n} aria-current={n === page ? "page" : undefined} onClick={() => onChange(n)}>{n}</button>
+      ))}
+      <button disabled={page === pages} aria-label="Next page" onClick={() => onChange(page + 1)}>&rsaquo;</button>
+    </div>
+  );
+}`,
+
+"saas-stat:0":`export function StatCard({ icon, label, value, change }) {
+  // change: a number; positive shows green, negative shows red, always with an arrow and text
+  const up = change >= 0;
+  return (
+    <div className="statc">
+      <span className="static">{icon}</span>
+      <span className="k">{label}</span>
+      <span className="v">{value}</span>
+      <span className={"d " + (up ? "up" : "down")}>{up ? "\u2191" : "\u2193"} {Math.abs(change)}%</span>
+    </div>
+  );
+}`,
+
+"saas-stat:1":`export function AvatarGroup({ people, max = 3 }) {
+  const shown = people.slice(0, max);
+  return (
+    <span className="avs">
+      {shown.map((p) => <span key={p} className="avatar">{p[0]}</span>)}
+      {people.length > max && <span className="avatar more">+{people.length - max}</span>}
+    </span>
+  );
+}`,
+
+"saas-empty:0":`export function EmptyState({ icon, title, body, actions }) {
+  return (
+    <div className="empty">
+      <span className="static">{icon}</span>
+      <h3>{title}</h3>
+      <p>{body}</p>
+      <div style={{ display: "flex", gap: 8 }}>{actions}</div>
+    </div>
+  );
+}`,
+
+"saas-empty:1":`export function Breadcrumb({ items }) {
+  return (
+    <nav className="crumbs" aria-label="Breadcrumb">
+      {items.map((it, i) => (
+        <Fragment key={it.label}>
+          {i > 0 && <span aria-hidden="true">/</span>}
+          {i === items.length - 1 ? <span aria-current="page">{it.label}</span> : <a href={it.href}>{it.label}</a>}
+        </Fragment>
+      ))}
+    </nav>
+  );
+}`,
+
+"chips:0":`export function Chip(props) {
+  return <button type="button" className="chip" {...props} />;
+}
+
+export function Tag({ children, onRemove }) {
+  return (
+    <span className="tag">
+      {children}
+      <button type="button" aria-label="Remove" onClick={onRemove}>✕</button>
+    </span>
+  );
+}
+
+export function Code({ children }) {
+  return <span className="code">{children}</span>;
+}
+
+// Usage
+<div className="chips">
+  <Chip onClick={() => setShares("1,000")}>1,000</Chip>
+  <Chip onClick={() => setShares("10,000")}>10,000</Chip>
+</div>
+<Tag onRemove={() => remove(activity.code)}>Advising on IT networks.</Tag>
+<Code>6311-001</Code>`,
+
+"choices:0":`export function Choice({ index, label, hint, recommended, onSelect }) {
+  return (
+    <button className={recommended ? "choice rec" : "choice"} onClick={onSelect}>
+      <span className="key">{index}</span>
+      <span className="cbody">
+        <b>
+          {label} {recommended && <span className="badge ai">Recommended</span>}
+        </b>
+        <small>{hint}</small>
+      </span>
+    </button>
+  );
+}
+
+export function MultiChoice({ label, hint, checked, onChange }) {
+  return (
+    <label className="choice">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        style={{ width: 18, height: 18, accentColor: "var(--sys-color-brand-default)" }}
+      />
+      <span className="cbody">
+        <b>{label}</b>
+        <small>{hint}</small>
+      </span>
+    </label>
+  );
+}
+
+// Usage
+<div className="choices">
+  <Choice index={1} recommended label="Yes, use the standard articles" hint="Ready to use. Suits most start-ups" />
+  <Choice index={2} label="No, I'll upload my own" hint="Reviewed manually, so it takes longer" />
+  <MultiChoice label="Shareholder" hint="Multi-select: pick all that apply" checked onChange={toggle} />
+</div>`,
+
+"fields:0":`// as: "input" (default) or "textarea". Extra props go to the control.
+export function Field({ id, label, hint, error, suffix, as: Control = "input", ...control }) {
+  const input = <Control id={id} aria-invalid={error ? true : undefined} {...control} />;
+  return (
+    <div className={error ? "f invalid" : "f"}>
+      <label className="fl" htmlFor={id}>{label}</label>
+      {suffix ? <span className="suffix">{input}<span>{suffix}</span></span> : input}
+      {error ? <div className="err">⚠ <span>{error}</span></div> : hint && <div className="hint">{hint}</div>}
+    </div>
+  );
+}
+
+export function PhoneField({ id, label, codes, ...input }) {
+  return (
+    <div className="f">
+      <label className="fl" htmlFor={id}>{label}</label>
+      <div className="phone">
+        <select aria-label="Country code">
+          {codes.map((c) => <option key={c}>{c}</option>)}
+        </select>
+        <input id={id} type="tel" {...input} />
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<Field id="shares" label="Number of shares" type="number" error="That makes USD 500. The minimum is USD 1,000." />
+<Field id="nominal" label="Nominal value per share" type="number" suffix="USD" />
+<PhoneField id="phone" label="Phone number" codes={["🇦🇪 +971"]} placeholder="50 123 4567" />
+<Field id="name-ar" label="Name in Arabic" dir="rtl" lang="ar" hint="Right-to-left input in Noto Kufi Arabic" />
+<Field as="textarea" id="desc" label="Description of proposed activities" hint="9 / 2,000 words" />`,
+
+"badges:0":`// tone: "ok" | "warn" | "bad" | "ai"   (omit for the neutral badge)
+export function Badge({ tone, children }) {
+  return <span className={["badge", tone].filter(Boolean).join(" ")}>{children}</span>;
+}
+
+// Usage
+<Badge>Locked</Badge>
+<Badge tone="ok">✓ Read clearly</Badge>
+<Badge tone="ok">94% match</Badge>
+<Badge tone="warn">⚠ Check this</Badge>
+<Badge tone="bad">Expired</Badge>
+<Badge tone="ai">Suggested for you</Badge>`,
+
+"callouts:0":`// tone: "ok" | "warn" | "bad". A failure callout says what failed, why, what is safe and what to do next.
+export function Callout({ tone, icon, title, children }) {
+  return (
+    <div className={["callout", tone].filter(Boolean).join(" ")}>
+      <span>{icon}</span>
+      <div>
+        {title && <b>{title} </b>}
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<Callout tone="ok" icon="✓">All 9 sections are complete.</Callout>
+<Callout tone="warn" icon="ⓘ">Every company needs at least one shareholder and one director.</Callout>
+<Callout tone="bad" icon="⚠" title="I couldn't use that passport.">
+  It expired on 12 Mar 2024.
+  <ul>
+    <li>Nothing from this file was saved.</li>
+    <li>Your other answers are untouched.</li>
+  </ul>
+</Callout>`,
+
+"toast:0":`// Pass onAction only for reversible changes, so Undo has something to undo.
+export function Toast({ message, actionLabel = "Undo", onAction }) {
+  return (
+    <div className="toast open" role="status" aria-live="polite">
+      <span>{message}</span>
+      {onAction && <button onClick={onAction}>{actionLabel}</button>}
+    </div>
+  );
+}
+
+// Usage
+<Toast message={'Added "Advising on IT networks."'} onAction={undoAdd} />`,
+
+"toast:1":`export function ConfirmSheet({ title, children, cancelLabel, confirmLabel, onCancel, onConfirm }) {
+  return (
+    <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <h3 id="sheet-title">{title}</h3>
+      <p style={{ color: "var(--sys-color-text-secondary)" }}>{children}</p>
+      <div className="foot2">
+        <button className="btn ghost" onClick={onCancel}>{cancelLabel}</button>
+        <button className="btn danger" onClick={onConfirm}>{confirmLabel}</button>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<ConfirmSheet
+  title="Unsaved changes"
+  cancelLabel="Stay"
+  confirmLabel="Discard changes"
+  onCancel={keepEditing}
+  onConfirm={discard}
+>
+  You have unsaved changes in Company. Discard them and switch, or stay to keep editing?
+</ConfirmSheet>`,
+
+"bubbles:0":`// from: "ai" (default) | "user"
+export function Message({ from = "ai", source, children }) {
+  return (
+    <div className={from === "user" ? "msg user" : "msg"}>
+      {from === "ai" && <div className="av" aria-hidden="true">G</div>}
+      <div className="bubble">
+        {children}
+        {source && <span className="src">ⓘ {source}</span>}
+      </div>
+    </div>
+  );
+}
+
+export function Typing() {
+  return (
+    <div className="msg">
+      <div className="av" aria-hidden="true">G</div>
+      <div className="bubble">
+        <span className="typing"><i /><i /><i /></span>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<Message>What would you like to call your company?</Message>
+<Message from="user">Meridian Labs LLC</Message>
+<Message source="Registry guidance · not legal advice">A nominee director acts for the real owner.</Message>
+<Typing />`,
+
+"tray:0":`export function QuestionTray({ index, total, id, label, value, onChange, quick = [], hint, onSubmit }) {
+  return (
+    <form
+      className="tray card active"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+      }}
+    >
+      <div className="qcount">Question {index} of {total}</div>
+      <div className="f">
+        <label className="fl" htmlFor={id}>{label}</label>
+        <input id={id} type="number" value={value} onChange={(e) => onChange(e.target.value)} />
+      </div>
+      <div className="chips">
+        {quick.map((q) => (
+          <button key={q} type="button" className="chip" onClick={() => onChange(String(q))}>{q}</button>
+        ))}
+      </div>
+      {hint && <div className="hint">{hint}</div>}
+      <div className="foot" style={{ padding: 0, border: 0 }}>
+        <button className="btn primary">Continue ➤</button>
+      </div>
+    </form>
+  );
+}
+
+// Usage
+<QuestionTray
+  index={2}
+  total={4}
+  id="shares"
+  label="Number of shares"
+  value={shares}
+  onChange={setShares}
+  quick={[100, "1,000", "10,000"]}
+  hint="Total capital must be at least USD 1,000."
+  onSubmit={next}
+/>`,
+
+"summary:0":`import { Fragment } from "react";
+
+// rows: [["Company name", "Meridian Labs LLC"], ...]. After submission pass locked to show the Locked badge.
+export function SectionSummary({ title, rows, locked, onEdit }) {
+  return (
+    <article className="card summary">
+      <header>
+        <span className="num ok">✓</span>
+        <h3>{title}</h3>
+        {locked ? <span className="badge">Locked</span> : <button className="linkbtn" onClick={onEdit}>✎ Edit</button>}
+      </header>
+      <dl className="rows">
+        {rows.map(([term, value]) => (
+          <Fragment key={term}>
+            <dt>{term}</dt>
+            <dd>{value}</dd>
+          </Fragment>
+        ))}
+      </dl>
+    </article>
+  );
+}
+
+// Usage
+<SectionSummary
+  title="Company"
+  rows={[
+    ["Company name", "Meridian Labs LLC"],
+    ["Entity type", "Limited liability company (LLC)"],
+  ]}
+  onEdit={() => reopen("company")}
+/>`,
+
+"sug:0":`export function Suggestion({ index, total, match, code, title, why, onAdd, onAddTop, onDismiss }) {
+  return (
+    <div className="sug">
+      <div className="t">
+        <div className="qcount">Suggestion {index} of {total}</div>
+        <button className="iconbtn" aria-label="Not relevant" onClick={onDismiss}>✕</button>
+      </div>
+      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <span className="badge ok">{match}% match</span>
+        <span className="code">{code}</span>
+      </div>
+      <b>{title}</b>
+      <div className="why">{why}</div>
+      <div className="acts">
+        <button className="btn sm primary" onClick={onAdd}>+ Add</button>
+        <button className="btn sm" onClick={onAddTop}>Add top 3</button>
+        <button className="btn sm" onClick={onDismiss}>Not relevant</button>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+// Level 0, suggest: nothing is added until the user taps Add.
+<Suggestion
+  index={1}
+  total={6}
+  match={61}
+  code="6311-001"
+  title="Provision of infrastructure for hosting, data processing and related activities."
+  why="Computer Programming, IT Consultancy and Related Activities"
+  onAdd={add}
+  onAddTop={addTop3}
+  onDismiss={dismiss}
+/>`,
+
+"quick:0":`import { Fragment } from "react";
+
+export function SectionProposal({ rows, onAccept, onEdit }) {
+  return (
+    <article className="card active quick">
+      <div className="body">
+        <div className="aihead">
+          <span className="badge ai">Suggested for you</span>
+          <span className="hint">Based on your earlier answers</span>
+        </div>
+        <dl className="rows" style={{ padding: 0 }}>
+          {rows.map(([term, value]) => (
+            <Fragment key={term}>
+              <dt>{term}</dt>
+              <dd>{value}</dd>
+            </Fragment>
+          ))}
+        </dl>
+        <div className="foot" style={{ padding: 0, border: 0 }}>
+          <button className="btn ghost" onClick={onEdit}>I'll change it</button>
+          <button className="btn primary" onClick={onAccept}>✓ Use this</button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+// Usage
+<SectionProposal
+  rows={[["Authorised shares", "1,000"], ["Nominal value", "USD 10"], ["Share classes", "1"]]}
+  onAccept={acceptAndValidate}
+  onEdit={openPrefilled}
+/>`,
+
+"compliance:0":`export function ComplianceGate({ items, statement, confirmed, onConfirm }) {
+  return (
+    <div className="callout bad compl">
+      <span>⚠</span>
+      <div>
+        <b>Compliance review is required.</b>
+        <div>Some of your activities come with restrictions. Read them, then confirm.</div>
+        {items.map((item) => (
+          <div className="compitem" key={item.title}>
+            <b>{item.title}</b>
+            <ul className="restr">
+              {item.restrictions.map((r) => <li key={r}>{r}</li>)}
+            </ul>
+          </div>
+        ))}
+        <label className="checkrow" style={{ marginTop: 10 }}>
+          <input type="checkbox" checked={confirmed} onChange={(e) => onConfirm(e.target.checked)} />
+          <span>{statement}</span>
+        </label>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+// Continue stays disabled until the declaration is ticked.
+<button className="btn primary" disabled={!confirmed}>Continue</button>`,
+
+"upload:0":`export function Dropzone({ onChoose }) {
+  return (
+    <div className="drop">
+      <b>Upload a passport</b>
+      <span className="hint">PDF or photo · up to 10 MB</span>
+      <button className="btn primary sm" onClick={onChoose}>Choose file</button>
+    </div>
+  );
+}
+
+// steps: [{ label: "Uploaded", state: "done" }, { label: "Reading document", state: "now" }, { label: "Matching fields" }]
+export function ReadingRow({ fileName, steps, onStop }) {
+  return (
+    <div className="docrow">
+      <span className="ico">📄</span>
+      <div style={{ flex: 1 }}>
+        <b>{fileName}</b>
+        <ul className="plan" aria-live="polite">
+          {steps.map(({ label, state }) => (
+            <li key={label} className={state}>
+              {state === "done" && "✓ "}
+              {state === "now" && <span className="spin" />} {label}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button className="btn sm" onClick={onStop}>■ Stop</button>
+    </div>
+  );
+}
+
+// Only fields the AI is unsure about get flagged.
+export function LowConfidenceField({ label, value, onChange, hint }) {
+  return (
+    <div className="fieldrow low">
+      <div className="top2">
+        <span className="fl">{label}</span>
+        <span className="badge warn">⚠ Check this</span>
+      </div>
+      <input type="text" value={value} onChange={onChange} aria-label={label} />
+      <div className="hint">{hint}</div>
+    </div>
+  );
+}`,
+
+"outcome:0":`// steps: [{ when: "Today", text: "Application received and locked", done: true }, ...]
+export function OutcomeCard({ title, reference, status, steps }) {
+  return (
+    <section className="outcome">
+      <h3>✓ {title}</h3>
+      <dl>
+        <dt>Reference</dt>
+        <dd><b>{reference}</b></dd>
+        <dt>Status</dt>
+        <dd>{status}</dd>
+      </dl>
+      <ol className="next">
+        {steps.map(({ when, text, done }) => (
+          <li key={when} className={done ? "done" : undefined}>
+            <b>{when}</b> {text}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}`,
+
+"rail:0":`// icons: one two-tone 3D icon per step. Give each .dot a class like "s-acts" to pick its hue.
+// current: zero-based index of the active step. Earlier steps show a check, later ones are disabled.
+export function StepRail({ steps, icons, current }) {
+  return (
+    <aside className="rail">
+      <div className="brand">
+        <span className="logo" aria-hidden="true">G</span>
+        <span>Guide<span className="dotai">.ai</span></span>
+      </div>
+      <div>
+        <h4>Your application</h4>
+        <ol>
+          {steps.map((label, i) => {
+            const state = i < current ? "done" : i === current ? "now" : "";
+            return (
+              <li key={label}>
+                <button aria-current={i === current ? "step" : undefined} disabled={i > current}>
+                  <span className={["dot", state].filter(Boolean).join(" ")}>
+                    {state === "done" ? <CheckIcon size={12} /> : icons[i]}
+                  </span>
+                  {label}
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </aside>
+  );
+}
+
+// Usage
+<StepRail steps={["Company", "Activities", "Share capital", "Members"]} current={1} />`
+};
+
+const mkBox=(code,label,solo)=>{
+  const box=document.createElement('div');box.className='codebox'+(solo?' solo':'');
+  box.innerHTML='<div class="codebar"><span>React · JSX</span><button type="button" class="btn sm copycode"></button></div><pre tabindex="0"><code></code></pre>';
+  box.querySelector('code').textContent=code;
+  box.querySelector('pre').setAttribute('aria-label','React code: '+label);
+  const b=box.querySelector('.copycode');b.textContent='Copy';b.setAttribute('aria-label','Copy React code: '+label);
+  return box;
+};
+document.querySelectorAll('section.lib').forEach(sec=>{
+  const title=(sec.querySelector('h2')||{}).textContent||sec.id;
+  sec.querySelectorAll('.spec').forEach((spec,i)=>{
+    const code=REACT[sec.id+':'+i];if(!code)return;
+    const name=title+(sec.querySelectorAll('.spec').length>1?', '+((spec.querySelector('h3')||{}).textContent||''):'');
+    spec.querySelector('.stage').insertAdjacentElement('afterend',mkBox(code,name,false));
+  });
+});
+const head=document.querySelector('.pagehead p');
+if(head)head.insertAdjacentElement('afterend',mkBox(REACT.setup,'setup',true));
+const copyText=txt=>{
+  if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(txt);
+  return new Promise((ok,no)=>{const ta=document.createElement('textarea');ta.value=txt;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')?ok():no()}catch(e){no()}ta.remove()});
+};
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.copycode');if(!b)return;
+  const txt=b.closest('.codebox').querySelector('code').textContent;
+  copyText(txt).then(()=>{
+    b.textContent='Copied';document.getElementById('copiedMsg').textContent='Copied React code';
+    t.classList.add('open');clearTimeout(tm);tm=setTimeout(()=>{t.classList.remove('open');b.textContent='Copy'},1600);
+  }).catch(()=>{document.getElementById('copiedMsg').textContent='Copy failed. Select the code and copy it.';t.classList.add('open');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('open'),2600)});
+});
 })();
 </script>
 </body>

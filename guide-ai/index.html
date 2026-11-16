@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-brand="blue">
 <head>
 <meta charset="utf-8">
 <!-- Google tag (gtag.js) -->
@@ -14,208 +14,367 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guide.ai case study — AI-guided incorporation</title>
 <meta name="description" content="Case study: designing a trustworthy AI assistant that turns a long company-registration form into a short conversation.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ds.css?v=12">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ds.css?v=43">
 <style>
 /* Layout only. Colours, radii, spacing, type and components all come from ds.css, the same file the product uses. */
 body{height:auto;overflow-x:hidden}
-.wrap{width:min(1120px,100% - 2*var(--s5));margin-inline:auto}
-.aurora{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 480px at 12% -5%,rgba(82,24,146,.13),transparent 60%),radial-gradient(700px 420px at 92% 8%,rgba(160,92,240,.10),transparent 60%)}
-.nav{position:sticky;top:0;z-index:20;background:var(--bg-app);border-bottom:1px solid var(--border)}
-.nav .wrap{display:flex;align-items:center;gap:var(--s5);height:60px}
-.nav a.brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:var(--fs-lg);color:var(--text-1);text-decoration:none}
-.nav nav{display:flex;gap:var(--s5);margin-left:auto}
-.nav nav a{color:var(--text-2);text-decoration:none;font-size:var(--fs-sm);font-weight:550}
-.nav nav a:hover{color:var(--brand)}
-.nav .btn.primary{background:#15803d;border-color:#15803d;color:#fff;box-shadow:0 8px 24px -6px rgba(21,128,61,.6)}
-.nav .btn.primary:hover{background:#166534;border-color:#166534;box-shadow:0 12px 32px -6px rgba(21,128,61,.75)}
+.wrap{width:min(1120px,100% - 2*var(--sys-space-5));margin-inline:auto}
+
+.nav{position:sticky;top:0;z-index:20;background:var(--sys-color-bg-surface);border-bottom:1px solid var(--sys-color-border-default)}
+.nav .wrap{display:flex;align-items:center;gap:var(--sys-space-5);height:60px}
+.nav a.brand{display:flex;gap:12px;align-items:center;font-weight:700;font-size:var(--sys-font-size-lg);color:var(--sys-color-text-primary);text-decoration:none}
+.nav nav{display:flex;gap:var(--sys-space-5);margin-left:auto}
+.nav nav a{color:var(--sys-color-text-label);text-decoration:none;font-size:var(--sys-font-size-md)}
+.nav nav a:hover{color:var(--sys-color-text-brand)}
+
+
 section{padding:72px 0}
-.eyebrow{font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--brand)}
-h1{font-size:clamp(32px,4.6vw,52px);line-height:1.08;letter-spacing:-.02em;margin:var(--s4) 0}
-h1 em{font-style:normal;background:linear-gradient(90deg,#3D126B,#7444B3,#521892);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:clamp(24px,3vw,34px);line-height:1.15;letter-spacing:-.01em;margin:var(--s2) 0 var(--s3);max-width:680px}
-.sub{color:var(--text-2);font-size:var(--fs-lg);max-width:620px}
-.metas{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s5) 0}
+.eyebrow{font-size:var(--sys-font-size-md);font-weight:700;color:var(--sys-color-text-brand)}
+h1{font-size:clamp(32px,4.6vw,52px);line-height:1.08;letter-spacing:-.02em;margin:var(--sys-space-4) 0}
+h1 em{font-style:normal;color:var(--sys-color-text-brand)}
+h2{font-size:clamp(24px,3vw,34px);line-height:1.15;letter-spacing:-.01em;margin:var(--sys-space-2) 0 var(--sys-space-3);max-width:680px}
+.sub{color:var(--sys-color-text-secondary);font-size:var(--sys-font-size-lg);max-width:620px}
+.metas{display:flex;flex-wrap:wrap;gap:var(--sys-space-2);margin:var(--sys-space-5) 0}
 .metas .chip{cursor:default}
 .hero{padding:56px 0 48px;display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
-.nda{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--border-strong);background:var(--bg-surface);border-radius:var(--r-md);padding:12px 14px;font-size:var(--fs-sm);color:var(--text-2);max-width:560px}
-.nda svg{flex:none;color:var(--warn);margin-top:2px}
+.nda{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--sys-color-border-strong);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-inset);padding:12px 16px;font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary);max-width:560px}
+.nda svg{flex:none;color:var(--sys-color-warning-fg);margin-top:4px}
 
-.impact{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin:var(--s5) 0 0;max-width:620px}
-.impact div{background:var(--bg-surface);border:1px solid var(--brand-border);border-radius:var(--r-md);padding:12px;display:flex;flex-direction:column;gap:4px}
-.impact b{font-size:26px;letter-spacing:-.02em;line-height:1;color:var(--brand)}
-.impact span{font-size:var(--fs-xs);color:var(--text-2);line-height:1.35}
+.impact{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sys-space-3);margin:var(--sys-space-5) 0 0;max-width:620px}
+.impact div{background:var(--sys-color-bg-surface);border:1px solid var(--sys-color-border-default);border-radius:var(--sys-radius-inset);padding:12px;display:flex;flex-direction:column;gap:4px}
+.impact b{font-size:26px;letter-spacing:-.02em;line-height:1;color:var(--sys-color-text-primary)}
+.impact span{font-size:var(--sys-font-size-xs);color:var(--sys-color-text-secondary);line-height:1.35}
 @media (max-width:560px){.impact{grid-template-columns:1fr}}
 /* bands */
-.herobg{background:linear-gradient(180deg,#EDE8F5 0%,#F6F4FA 70%,#F3F0F8 100%);border-bottom:1px solid var(--border)}
-.bgA{background:#F3F0F8}
-.bgB{background:#ffffff;border-block:1px solid var(--border)}
-.bgC{background:#EDE8F5;border-block:1px solid #DCD2EC}
-.bgDark{background:#1A0B33}
-footer.theme-dark{background:#120826;border-top:1px solid #3A2860;color:var(--text-3);padding:var(--s6) 0;font-size:var(--fs-sm)}
+.herobg{background:var(--sys-color-bg-canvas);border-bottom:1px solid var(--sys-color-border-default)}
+.bgA{background:var(--sys-color-bg-canvas)}
+.bgB{background:#ffffff;border-block:1px solid var(--sys-color-border-default)}
+.bgC{background:var(--sys-color-bg-canvas);border-block:1px solid var(--sys-color-border-default)}
+.bgDark{background:var(--ref-color-slate-12)}
+footer.theme-dark{background:var(--ref-color-slate-12);border-top:1px solid var(--sys-color-border-default);color:var(--sys-color-text-tertiary);padding:var(--sys-space-6) 0;font-size:var(--sys-font-size-sm)}
 /* real screenshots + magnifier */
 .zwrap{position:relative}
-.zoomable{position:relative;display:block;overflow:hidden;border-radius:var(--r-lg);border:1px solid var(--border-strong);background:#fff;cursor:zoom-in;box-shadow:0 18px 50px -16px rgba(61,18,107,.35)}
-.zoomable:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+.zoomable{position:relative;display:block;overflow:hidden;border-radius:var(--sys-radius-container);border:1px solid var(--sys-color-border-default);background:#fff;cursor:zoom-in;box-shadow:var(--sys-elevation-2)}
+.zoomable:focus-visible{outline:2px solid var(--sys-color-brand-default);outline-offset:3px}
 .slidebox{aspect-ratio:2000/1660}
-.slidebox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s ease}
+.slidebox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s var(--sys-motion-ease-standard)}
 .slidebox img.on{opacity:1}
-.shot{aspect-ratio:1250/469;background-repeat:no-repeat;background-size:calc(2000/var(--rw)*100%) auto;background-position:calc(var(--rx)/(2000 - var(--rw))*100%) calc(var(--ry)/(1660 - var(--rh))*100%);box-shadow:none;border-radius:var(--r-md)}
-.lens{position:absolute;width:180px;height:180px;border-radius:50%;border:3px solid #fff;box-shadow:0 12px 36px rgba(20,23,43,.45),0 0 0 1px rgba(20,23,43,.2);background-repeat:no-repeat;pointer-events:none;opacity:0;transition:opacity .12s;z-index:5}
-.zhint{position:absolute;right:12px;bottom:12px;background:rgba(20,23,43,.82);color:#fff;font-size:var(--fs-xs);padding:5px 10px;border-radius:var(--r-pill);pointer-events:none;z-index:4;transition:opacity .15s}
-@media (pointer:coarse){.lens{display:none}}
-.caption{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:var(--s3)}
-.caption b{font-size:var(--fs-md)}
-.dots{display:flex;gap:6px;margin-left:auto;align-items:center}
+.shot{aspect-ratio:1250/469;background-repeat:no-repeat;background-size:calc(2000/var(--rw)*100%) auto;background-position:calc(var(--rx)/(2000 - var(--rw))*100%) calc(var(--ry)/(1660 - var(--rh))*100%);box-shadow:none;border-radius:var(--sys-radius-inset)}
+.caption{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:var(--sys-space-3)}
+.caption b{font-size:var(--sys-font-size-md)}
+.dots{display:flex;gap:8px;margin-left:auto;align-items:center}
 .dots button{width:22px;height:22px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;padding:0}
-.dots button i{width:8px;height:8px;border-radius:50%;background:var(--border-strong);transition:all .25s}
-.dots button[aria-current=true] i{background:var(--brand);width:18px;border-radius:6px}
+.dots button i{width:8px;height:8px;border-radius:50%;background:var(--sys-color-border-strong);transition:width .25s var(--sys-motion-ease-standard),background-color .25s var(--sys-motion-ease-standard),border-radius .25s var(--sys-motion-ease-standard)}
+.dots button[aria-current=true] i{background:var(--sys-color-brand-default);width:18px;border-radius:8px}
 /* lightbox */
 .lb{position:fixed;inset:0;z-index:100;background:rgba(10,12,24,.88);display:none;flex-direction:column}
 .lb.open{display:flex}
 .lbbar{display:flex;gap:8px;align-items:center;justify-content:center;padding:12px;color:#fff}
-.lbbar button{min-width:40px;height:40px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-weight:700;font-size:18px;padding:0 12px}
+.lbbar button{min-width:40px;height:40px;border-radius:var(--sys-radius-control);border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-weight:700;font-size:18px;padding:0 12px}
 .lbbar button:hover{background:rgba(255,255,255,.18)}
-.lbbar #lbPct{min-width:56px;text-align:center;font-size:var(--fs-sm)}
+.lbbar #lbPct{min-width:56px;text-align:center;font-size:var(--sys-font-size-sm)}
 .lbview{flex:1;overflow:auto;padding:0 16px 16px;cursor:grab}
-.lbview img{display:block;margin:0 auto;width:100%;max-width:none;border-radius:var(--r-md);user-select:none;-webkit-user-drag:none}
-.lbcap{color:#c3c8da;text-align:center;font-size:var(--fs-sm);padding:0 16px 14px}
+.lbview img{display:block;margin:0 auto;width:100%;max-width:none;border-radius:var(--sys-radius-inset);user-select:none;-webkit-user-drag:none}
+.lbcap{color:#c3c8da;text-align:center;font-size:var(--sys-font-size-sm);padding:0 16px 16px}
 /* problem */
-.problem{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:var(--s4);margin-top:var(--s5)}
-.pcard{position:relative;border:1px solid var(--border);background:#fff;border-radius:var(--r-lg);padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3)}
-.pcard h3{font-size:var(--fs-lg)}
-.pcard.bet{background:var(--brand-soft);border-color:var(--brand-border)}
-.pnum{position:absolute;top:-12px;left:18px;width:26px;height:26px;border-radius:50%;background:var(--brand);color:var(--on-brand);font-weight:700;font-size:13px;display:grid;place-items:center}
-.plist{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:var(--fs-sm);color:var(--text-2)}
-.plist li{display:flex;gap:10px;align-items:flex-start}
-.pi{flex:none;width:26px;height:26px;border-radius:8px;background:var(--bg-sunken);color:var(--brand);display:grid;place-items:center;font-weight:700}
-.pbig{font-size:var(--fs-lg);font-weight:650;line-height:1.3}
-.funnel{display:flex;flex-direction:column;gap:10px}
-.fbars{display:flex;align-items:flex-end;gap:6px;height:130px}
+.problem{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:var(--sys-space-4);margin-top:var(--sys-space-5)}
+.pcard{position:relative;border:1px solid var(--sys-color-border-default);background:#fff;border-radius:var(--sys-radius-container);padding:var(--sys-space-5);display:flex;flex-direction:column;gap:var(--sys-space-3)}
+.pcard h3{font-size:var(--sys-font-size-lg)}
+.pcard.bet{background:var(--sys-color-brand-subtle);border-color:var(--sys-color-brand-subtle-border)}
+.pnum{position:absolute;top:-12px;left:18px;width:26px;height:26px;border-radius:50%;background:var(--sys-color-brand-default);color:var(--sys-color-text-on-brand);font-weight:700;font-size:13px;display:grid;place-items:center}
+.plist{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary)}
+.plist li{display:flex;gap:12px;align-items:flex-start}
+.pi{flex:none;width:24px;height:24px;border-radius:8px;background:var(--sys-color-bg-sunken);color:var(--sys-color-text-label);display:grid;place-items:center;font-weight:700;font-size:var(--sys-font-size-sm)}
+.pbig{font-size:var(--sys-font-size-lg);font-weight:700;line-height:1.3}
+.funnel{display:flex;flex-direction:column;gap:12px}
+.fbars{display:flex;align-items:flex-end;gap:8px;height:130px}
 .fb{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}
-.fb i{width:100%;background:var(--border-strong);border-radius:4px 4px 0 0;display:block}
-.fb.dropbar i{background:var(--bad)}
-.fb span{font-size:11px;color:var(--text-3)}
-.fnote{font-size:var(--fs-sm);color:var(--text-2)}
-.note{font-size:var(--fs-xs);color:var(--text-3);margin-top:var(--s3)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);margin-top:var(--s4)}
-.stat2{border:1px solid var(--border);background:#fff;border-radius:var(--r-lg);padding:var(--s4)}
+.fb i{width:100%;background:var(--sys-color-border-strong);border-radius:4px 4px 0 0;display:block}
+.fb.dropbar i{background:var(--sys-color-danger-fg)}
+.fb span{font-size:11px;color:var(--sys-color-text-tertiary)}
+.fnote{font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary)}
+.note{font-size:var(--sys-font-size-xs);color:var(--sys-color-text-tertiary);margin-top:var(--sys-space-3)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sys-space-4);margin-top:var(--sys-space-4)}
+.stat2{border:1px solid var(--sys-color-border-default);background:#fff;border-radius:var(--sys-radius-container);padding:var(--sys-space-4)}
 .stat2 b{display:block;font-size:34px;letter-spacing:-.02em;line-height:1.1}
-.stat2 span{color:var(--text-2);font-size:var(--fs-sm)}
-.bars{display:flex;align-items:flex-end;gap:4px;height:36px;margin-top:10px}
-.bars i{flex:1;background:var(--border-strong);border-radius:3px 3px 0 0}
-.bars i.on{background:var(--brand)}
+.stat2 span{color:var(--sys-color-text-secondary);font-size:var(--sys-font-size-sm)}
+.bars{display:flex;align-items:flex-end;gap:4px;height:36px;margin-top:12px}
+.bars i{flex:1;background:var(--sys-color-border-strong);border-radius:4px 4px 0 0}
+.bars i.on{background:var(--sys-color-brand-default)}
 /* ai logic */
-.modes{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:var(--s5)}
-.mode{border-radius:var(--r-md);padding:14px;display:flex;flex-direction:column;gap:6px;font-size:var(--fs-sm);color:#14172b}
-.mode b{font-size:var(--fs-md)}.mode small{font-size:var(--fs-xs);color:#2d3345}
-.m1{background:#E4DAF5}.m2{background:#D9CCF0}.m3{background:#fbd5e8}.m4{background:#fde3b4}.m5{background:#c8f0da}
-.pipe{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:var(--s5)}
-.node{border:1px solid var(--border);background:var(--bg-surface);border-radius:var(--r-md);padding:12px 10px;display:flex;flex-direction:column;gap:6px;transition:transform .3s var(--ease),border-color .3s}
-.node:hover{transform:translateY(-4px);border-color:var(--brand)}
-.node .n{width:22px;height:22px;border-radius:50%;background:var(--brand-soft);color:var(--brand);font-size:12px;font-weight:700;display:grid;place-items:center}
-.node b{font-size:var(--fs-sm)}.node small{color:var(--text-2);font-size:var(--fs-xs);line-height:1.35}
-.tabs{display:flex;gap:6px;margin:var(--s6) 0 var(--s4);flex-wrap:wrap}
-.tab{border:1px solid var(--border-strong);background:transparent;border-radius:var(--r-pill);padding:8px 16px;font-weight:600;font-size:var(--fs-sm);color:var(--text-2)}
-.tab[aria-selected=true]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.modes{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:var(--sys-space-5)}
+.mode{border:1px solid var(--sys-color-border-default);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-inset);padding:16px;display:flex;flex-direction:column;gap:8px;font-size:var(--sys-font-size-sm);color:var(--sys-color-text-primary)}
+.mode b{font-size:var(--sys-font-size-md)}.mode small{font-size:var(--sys-font-size-xs);color:var(--sys-color-text-secondary)}
+
+.pipe{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:var(--sys-space-5)}
+.node{border:1px solid var(--sys-color-border-default);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-inset);padding:12px 12px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s}
+.node:hover{border-color:var(--sys-color-brand-default)}
+.node .n{width:24px;height:24px;border-radius:50%;background:var(--sys-color-brand-subtle);color:var(--sys-color-text-brand);font-size:12px;font-weight:700;display:grid;place-items:center}
+.node b{font-size:var(--sys-font-size-sm)}.node small{color:var(--sys-color-text-secondary);font-size:var(--sys-font-size-xs);line-height:1.35}
+.tabs{display:flex;gap:8px;margin:var(--sys-space-6) 0 var(--sys-space-4);flex-wrap:wrap}
+.tab{border:1px solid var(--sys-color-border-strong);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-control);padding:8px 16px;font-weight:700;font-size:var(--sys-font-size-sm);color:var(--sys-color-text-label)}
+.tab[aria-selected=true]{background:var(--sys-color-brand-default);border-color:var(--sys-color-brand-default);color:var(--sys-color-text-on-brand)}
 .panel2{display:none}.panel2.on{display:block}
 .ladder{display:flex;flex-direction:column;gap:8px}
-.rung{display:grid;grid-template-columns:44px 190px 1fr;gap:12px;align-items:center;border:1px solid var(--border);background:var(--bg-surface);border-radius:var(--r-md);padding:10px 14px}
-.rung .lv{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-weight:700;background:var(--brand-soft);color:var(--brand)}
-.rung.off{opacity:.65;border-style:dashed}.rung.esc .lv{background:var(--warn-bg);color:var(--warn)}
-.rung b{font-size:var(--fs-sm)}.rung .acts2{display:flex;gap:6px;flex-wrap:wrap}
-.matrix{display:grid;grid-template-columns:110px repeat(3,1fr);gap:6px;font-size:var(--fs-sm)}
-.matrix div{border-radius:var(--r-sm);padding:10px;min-height:64px}
-.matrix .h{background:transparent;color:var(--text-3);font-weight:650;font-size:var(--fs-xs);display:flex;align-items:center;min-height:0;padding:4px}
-.cell-act{background:var(--ok-bg)}.cell-ask{background:var(--warn-bg)}.cell-esc{background:var(--bad-bg)}
-.matrix b{display:block;font-size:var(--fs-sm)}.matrix small{color:var(--text-2);font-size:var(--fs-xs)}
-.guards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.guard{border:1px solid var(--border);background:var(--bg-surface);border-radius:var(--r-md);padding:12px;display:flex;flex-direction:column;gap:6px;font-size:var(--fs-sm)}
-.guard .gi{width:30px;height:30px;border-radius:9px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
-.guard small{color:var(--text-2);font-size:var(--fs-xs)}
-.shots3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
-.shots3 figcaption{font-size:var(--fs-sm);color:var(--text-2);margin-top:8px}.shots3 figcaption b{color:var(--text-1)}
+.rung{display:grid;grid-template-columns:44px 190px 1fr;gap:12px;align-items:center;border:1px solid var(--sys-color-border-default);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-inset);padding:12px 16px}
+.rung .lv{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-weight:700;background:var(--sys-color-brand-subtle);color:var(--sys-color-text-brand)}
+.rung.off{opacity:.65;border-style:dashed}.rung.esc .lv{background:var(--sys-color-warning-bg);color:var(--sys-color-warning-fg)}
+.rung b{font-size:var(--sys-font-size-sm)}.rung .acts2{display:flex;gap:8px;flex-wrap:wrap}
+.matrix{display:grid;grid-template-columns:110px repeat(3,1fr);gap:8px;font-size:var(--sys-font-size-sm)}
+.matrix div{border-radius:var(--sys-radius-control);padding:12px;min-height:64px}
+.matrix .h{background:transparent;color:var(--sys-color-text-tertiary);font-weight:700;font-size:var(--sys-font-size-xs);display:flex;align-items:center;min-height:0;padding:4px}
+.cell-act{background:var(--sys-color-success-bg)}.cell-ask{background:var(--sys-color-warning-bg)}.cell-esc{background:var(--sys-color-danger-bg)}
+.matrix b{display:block;font-size:var(--sys-font-size-sm)}.matrix small{color:var(--sys-color-text-secondary);font-size:var(--sys-font-size-xs)}
+.guards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.guard{border:1px solid var(--sys-color-border-default);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-inset);padding:12px;display:flex;flex-direction:column;gap:8px;font-size:var(--sys-font-size-sm)}
+.guard .gi{width:32px;height:32px;border-radius:8px;background:var(--sys-color-bg-sunken);color:var(--sys-color-text-label);display:grid;place-items:center}
+.guard small{color:var(--sys-color-text-secondary);font-size:var(--sys-font-size-xs)}
+.shots3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sys-space-4);margin-top:var(--sys-space-4)}
+.shots3 figcaption{font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary);margin-top:8px}.shots3 figcaption b{color:var(--sys-color-text-primary)}
 /* decisions */
-.dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);margin-top:var(--s5)}
-.dcard{border:1px solid var(--border);background:#fff;border-radius:var(--r-lg);padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);transition:transform .3s var(--ease),border-color .3s}
-.dcard:hover{transform:translateY(-4px);border-color:var(--brand-border)}
-.dcard h3{font-size:var(--fs-lg)}
-.dcard p{font-size:var(--fs-sm);color:var(--text-2)}
-.tradeoff{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:var(--fs-xs)}
-.tradeoff div{border-radius:var(--r-sm);padding:8px 10px}
-.tradeoff .g{background:var(--ok-bg)}.tradeoff .l{background:var(--warn-bg)}
-.tradeoff b{display:block;font-size:var(--fs-xs);margin-bottom:2px}
+.dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sys-space-4);margin-top:var(--sys-space-5)}
+.dcard{border:1px solid var(--sys-color-border-default);background:#fff;border-radius:var(--sys-radius-container);padding:var(--sys-space-5);display:flex;flex-direction:column;gap:var(--sys-space-3);transition:border-color .2s}
+.dcard:hover{border-color:var(--sys-color-border-strong)}
+.dcard h3{font-size:var(--sys-font-size-lg)}
+.dcard p{font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary)}
+
+/* Principles: an editorial list, not cards */
+.prins{margin-top:var(--sys-space-6);border-top:1px solid var(--sys-color-border-default)}
+.prin{display:grid;grid-template-columns:48px minmax(0,1.1fr) minmax(0,1.5fr) 120px;gap:var(--sys-space-5);align-items:baseline;padding:var(--sys-space-5) 0;border-bottom:1px solid var(--sys-color-border-default)}
+.prin .pn{font-size:var(--sys-font-size-xl);font-weight:700;color:var(--sys-color-text-brand)}
+.prin h3{font-size:var(--sys-font-size-xl);line-height:1.25}
+.prin p{color:var(--sys-color-text-secondary);font-size:var(--sys-font-size-md);line-height:1.6}
+.plink{text-align:right;font-size:var(--sys-font-size-sm);font-weight:700;color:var(--sys-color-text-brand);text-decoration:none;white-space:nowrap}
+.plink:hover{text-decoration:underline}
+/* Decisions sit on a tinted indigo band so the white screenshots stand out between two white sections */
+.decs{background:var(--ref-color-slate-12);border-block:1px solid #33373d;color:#edeef0}
+.decs .eyebrow{color:#9eb1ff}
+.decs h2{color:#fff}
+.decs .sub{color:#c3c6cc}
+/* Each decision is one white card: header, screenshot and text together */
+.decs .chaps{gap:var(--sys-space-5)}
+.decs .chaps .chap{background:#fff;color:var(--ref-color-slate-12);border:0;border-radius:var(--sys-radius-container);padding:var(--sys-space-5);overflow:hidden}
+.decs .chaps .chap:nth-child(-n+3){padding-top:var(--sys-space-5)}
+.decs .ctag{color:var(--ref-color-indigo-11)}
+.decs .chap h3,.decs .cmetric b{color:var(--ref-color-slate-12)}
+.decs .cmetric span,.decs .cshot figcaption{color:var(--ref-color-slate-11)}
+.decs .cn{color:var(--ref-color-indigo-7)}
+.decs .cshot .shot{border:1px solid #e0e1e6;box-shadow:none}
+.decs .pin b{background:var(--ref-color-slate-12);color:#fff}
+.decs .cbody{background:none;border-radius:0;padding:0;gap:var(--sys-space-4)}
+.decs .cbody p{color:var(--ref-color-slate-11)}
+.decs .cbody .why p{color:var(--ref-color-slate-12)}
+.decs .cbody h4{color:var(--ref-color-slate-11)}.decs .cbody .why h4{color:#046c43}.decs .cbody .cost h4{color:#8f3a05}
+/* The text is one grey panel running to the card edges, so it reads apart from the white screenshot */
+.decs .cbody{background:var(--ref-color-slate-4);margin:var(--sys-space-2) calc(-1 * var(--sys-space-5)) calc(-1 * var(--sys-space-5));padding:var(--sys-space-5);border-radius:0;gap:var(--sys-space-4)}
+.decs .cbody>div{background:none;padding:0;border-radius:0}
+.decs .cbody>div+div{border-top:1px solid var(--ref-color-slate-7);padding-top:var(--sys-space-4)}
+.decs .cbody>div p{color:var(--ref-color-slate-12)}
+.decs .cbody h4{color:var(--ref-color-slate-11)}.decs .cbody .why h4{color:#046c43}.decs .cbody .cost h4{color:#7a3204}
+.decs .shot.plain{cursor:default}
+/* Decisions: one chapter each, with the screenshot given the full width */
+.chaps{margin-top:var(--sys-space-6)}
+.chap{padding:var(--sys-space-8) 0;border-top:1px solid var(--sys-color-border-default)}
+.chap:first-child{border-top:0;padding-top:var(--sys-space-4)}
+.chap-h{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--sys-space-5);align-items:end;margin-bottom:var(--sys-space-5)}
+.cn{font-size:56px;line-height:1;font-weight:700;color:var(--ref-color-brand-7);letter-spacing:-.02em}
+.ctag{display:block;font-size:var(--sys-font-size-sm);font-weight:700;color:var(--sys-color-text-brand);margin-bottom:var(--sys-space-1)}
+.chap h3{font-size:clamp(24px,3vw,32px);line-height:1.15;letter-spacing:-.01em}
+.cmetric{text-align:right;max-width:200px}
+.cmetric b{display:block;font-size:32px;line-height:1.1;font-weight:700;color:var(--sys-color-text-primary)}
+.cmetric span{display:block;font-size:var(--sys-font-size-sm);color:var(--sys-color-text-tertiary);margin-top:var(--sys-space-1)}
+.cshot{margin:0 0 var(--sys-space-5)}
+.cshot .shot{width:100%}
+.cshot figcaption{font-size:var(--sys-font-size-sm);color:var(--sys-color-text-tertiary);margin-top:var(--sys-space-2)}
+.cbody{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sys-space-6)}
+.cbody h4{font-size:var(--sys-font-size-sm);font-weight:700;color:var(--sys-color-text-tertiary);margin-bottom:var(--sys-space-2)}
+.cbody .why h4{color:var(--sys-color-success-fg)}.cbody .cost h4{color:var(--sys-color-warning-fg)}
+.cbody p{font-size:var(--sys-font-size-md);line-height:1.6;color:var(--sys-color-text-secondary)}
+.cbody .why p{color:var(--sys-color-text-primary)}
+@media (max-width:980px){.prin{grid-template-columns:32px minmax(0,1fr);row-gap:var(--sys-space-2)}.prin p,.prin .plink{grid-column:2}.chap-h{grid-template-columns:auto minmax(0,1fr)}.cmetric{grid-column:1/-1;text-align:left;max-width:none;display:flex;gap:var(--sys-space-3);align-items:baseline}.cmetric b{font-size:24px}.cbody{grid-template-columns:1fr;gap:var(--sys-space-4)}.cn{font-size:40px}}
+
+/* Decisions in a 2 x 2 gallery: chapters share row tracks so headers, images and text line up across each pair */
+@media (min-width:981px){
+  .chaps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--sys-space-8);row-gap:0}
+  .chap{display:grid;grid-template-rows:subgrid;grid-row:span 3;row-gap:var(--sys-space-4);padding:var(--sys-space-7) 0 var(--sys-space-6);border-top:1px solid var(--sys-color-border-default)}
+  .chap:nth-child(-n+2){border-top:0;padding-top:var(--sys-space-4)}
+  .chap-h{grid-template-columns:auto minmax(0,1fr);align-items:start;margin:0;column-gap:var(--sys-space-4)}
+  .cn{font-size:40px}
+  .chap h3{font-size:24px}
+  .cmetric{grid-column:1/-1;text-align:left;max-width:none;display:flex;gap:var(--sys-space-3);align-items:baseline}
+  .cmetric b{font-size:24px}
+  .cmetric span{margin:0}
+  .cshot{margin:0;align-self:start}
+  .cbody{grid-template-columns:1fr;gap:var(--sys-space-3)}
+  .cbody p{font-size:var(--sys-font-size-md)}
+}
+
+/* Pointers on the decision screenshots: a pulsing dot and a label on the detail that matters */
+.pin{position:absolute;width:0;height:0;pointer-events:none;z-index:2}
+.pin i{position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:#ff6a00;border:3px solid #fff;box-shadow:0 2px 6px rgba(16,24,40,.35)}
+.pin i::before,.pin i::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:3px solid #ff6a00;animation:pinpulse 1.8s var(--sys-motion-ease-standard) infinite}
+.pin i::after{animation-delay:.9s}
+.pin b{position:absolute;top:-14px;white-space:nowrap;background:var(--ref-color-indigo-12);color:#fff;font-size:var(--sys-font-size-xs);font-weight:700;line-height:1;padding:8px 12px;border-radius:var(--sys-radius-control)}
+.pin.up b{top:-48px;right:-6px}
+.pin.r b{left:18px}.pin.l b{right:18px}
+@keyframes pinpulse{0%{transform:scale(1);opacity:.9}100%{transform:scale(4.2);opacity:0}}
+@media (max-width:640px){.pin b{display:none}}
+@media (prefers-reduced-motion:reduce){.pin i::before,.pin i::after{animation:none}.pin i::before{opacity:.4;transform:scale(2.2)}.pin i::after{display:none}}
+
+/* Decisions in a 3 x 3 gallery on wide screens */
+.decs .wrap{width:min(1360px,100% - 2*var(--sys-space-5))}
+@media (min-width:1100px){
+  .chaps{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--sys-space-7)}
+  .chap:nth-child(-n+3){border-top:0;padding-top:var(--sys-space-4)}
+  .chap:nth-child(3n) ~ .chap:nth-child(-n+3){border-top:0}
+  .chap h3{font-size:20px}
+  .cn{font-size:36px}
+  .cmetric b{font-size:22px}
+  .pin b{font-size:11px;padding:6px 8px;top:-12px}
+  .pin.up b{top:-40px}
+}
+
+/* At a glance */
+.glance{display:grid;grid-template-columns:1fr 1fr;gap:var(--sys-space-3) var(--sys-space-5);margin:var(--sys-space-4) 0;padding:var(--sys-space-4) 0;border-block:1px solid var(--sys-color-border-default)}
+.glance dt{font-size:var(--sys-font-size-xs);font-weight:700;color:var(--sys-color-text-tertiary);margin-bottom:var(--sys-space-1)}
+.glance dd{margin:0;font-size:var(--sys-font-size-sm);line-height:1.45;color:var(--sys-color-text-primary)}
+/* Where my judgment set the defaults, and the failure case */
+.mine{margin-top:var(--sys-space-6);padding:var(--sys-space-5);background:var(--sys-color-bg-surface);border:1px solid var(--sys-color-border-default);border-radius:var(--sys-radius-container)}
+.mine h3{font-size:var(--sys-font-size-lg);margin-bottom:var(--sys-space-3)}
+.mine ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sys-space-3) var(--sys-space-5);list-style:none;padding:0}
+.mine li{font-size:var(--sys-font-size-md);line-height:1.55;color:var(--sys-color-text-secondary)}
+.mine li b{display:block;color:var(--sys-color-text-primary);margin-bottom:2px}
+.fail{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:var(--sys-space-6);align-items:center;margin-top:var(--sys-space-7)}
+.fail figure{margin:0}
+.fail h3{font-size:var(--sys-font-size-xl);line-height:1.25;margin:var(--sys-space-2) 0 var(--sys-space-3)}
+.fail ul{list-style:none;padding:0;display:grid;gap:var(--sys-space-3)}
+.fail li{font-size:var(--sys-font-size-md);line-height:1.55;color:var(--sys-color-text-secondary)}
+.fail li b{color:var(--sys-color-text-primary)}
+@media (max-width:980px){.fail{grid-template-columns:1fr}.mine ul{grid-template-columns:1fr}.glance{grid-template-columns:1fr}}
+/* Before / after line on each decision */
+.decs .cmetric.ba{display:grid;grid-template-columns:1fr 1fr;gap:var(--sys-space-3);text-align:left;max-width:none;align-items:start}
+.decs .cmetric.ba span{display:block;font-size:11px;font-weight:700;color:var(--ref-color-slate-11);margin:0 0 2px}
+.decs .cmetric.ba b{display:block;font-size:14px;line-height:1.35;font-weight:700;color:var(--ref-color-slate-12)}
+.decs .cmetric.ba div+div b{color:var(--ref-color-indigo-11)}
+
+/* Audit: first build next to the redesign */
+.arows{display:grid;gap:var(--sys-space-6);margin-top:var(--sys-space-6)}
+.arow h3{display:flex;align-items:center;gap:var(--sys-space-3);font-size:var(--sys-font-size-xl);margin-bottom:var(--sys-space-3)}
+.an{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ref-color-slate-12);color:#fff;font-size:var(--sys-font-size-sm);flex:none}
+.apair{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:var(--sys-space-4)}
+.aside{margin:0;background:var(--sys-color-bg-canvas);border:1px solid var(--sys-color-border-default);border-radius:var(--sys-radius-container);padding:var(--sys-space-4);display:flex;flex-direction:column;gap:var(--sys-space-3)}
+.aside.new{background:var(--ref-color-brand-2)}
+.atag{display:inline-block;font-size:var(--sys-font-size-xs);font-weight:700;padding:4px 8px;border-radius:var(--sys-radius-control)}
+.atag.bad{background:var(--sys-color-danger-bg);color:var(--sys-color-danger-fg)}
+.atag.ok{background:var(--sys-color-success-bg);color:var(--sys-color-success-fg)}
+.apic{height:400px;display:flex;align-items:center;justify-content:center;background:#fff;padding:var(--sys-space-2)}
+.apic img{max-height:100%;max-width:100%;display:block;border-radius:var(--sys-radius-control)}
+.aside p{font-size:var(--sys-font-size-md);line-height:1.55;color:var(--sys-color-text-secondary)}
+.aside p b{color:var(--sys-color-text-primary)}
+.afound{margin-top:var(--sys-space-6);padding:var(--sys-space-5);border:1px solid var(--sys-color-border-default);border-radius:var(--sys-radius-container);background:var(--sys-color-bg-canvas)}
+.afound h3{font-size:var(--sys-font-size-lg);margin-bottom:var(--sys-space-3)}
+.afound ul{display:grid;grid-template-columns:1fr 1fr;gap:var(--sys-space-2) var(--sys-space-5);padding-left:18px;color:var(--sys-color-text-secondary);font-size:var(--sys-font-size-md);line-height:1.55}
+@media (max-width:980px){.apair,.afound ul{grid-template-columns:1fr}.apic{height:320px}}
+
+/* Dev-ready component library callout */
+.devready{display:grid;grid-template-columns:auto 1fr;gap:var(--sys-space-4);margin:var(--sys-space-5) 0 var(--sys-space-6);padding:var(--sys-space-5);border-radius:var(--sys-radius-container);background:var(--ref-color-slate-12,#1c2024);color:#edeef0}
+.dr-ic{width:44px;height:44px;border-radius:var(--sys-radius-inset);display:grid;place-items:center;background:rgba(255,255,255,.08);color:#fff}
+.dr-tag{display:inline-block;font-size:var(--sys-font-size-xs);font-weight:700;color:#5fdca0;margin-bottom:var(--sys-space-1)}
+.devready h3{font-size:var(--sys-font-size-xl);line-height:1.25;color:#fff;margin-bottom:var(--sys-space-2)}
+.devready p{font-size:var(--sys-font-size-md);line-height:1.6;color:#c3c6cc;max-width:760px}
+.dr-chips{display:flex;flex-wrap:wrap;gap:var(--sys-space-2);margin:var(--sys-space-3) 0 var(--sys-space-4)}
+.dr-chips span{font-size:var(--sys-font-size-xs);font-weight:700;padding:4px 8px;border-radius:var(--sys-radius-control);background:rgba(255,255,255,.08);color:#e9eaee}
+@media (max-width:560px){.devready{grid-template-columns:1fr}}
+.tradeoff{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:var(--sys-font-size-xs)}
+
+.tradeoff div{border-radius:var(--sys-radius-control);padding:8px 12px}
+.tradeoff .g{background:var(--sys-color-success-bg)}.tradeoff .l{background:var(--sys-color-warning-bg)}
+.tradeoff b{display:block;font-size:var(--sys-font-size-xs);margin-bottom:4px}
 /* design system band */
-.dsgrid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:var(--s4);margin-top:var(--s5)}
-.dscard{border:1px solid var(--border);background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s3)}
-.dscard h3{font-size:var(--fs-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--text-3)}
+.dsgrid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:var(--sys-space-4);margin-top:var(--sys-space-5)}
+.dscard{border:1px solid var(--sys-color-border-default);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-container);padding:var(--sys-space-4);display:flex;flex-direction:column;gap:var(--sys-space-3)}
+.dscard h3{font-size:var(--sys-font-size-sm);font-weight:700;color:var(--sys-color-text-tertiary)}
+
+/* Colour tokens card: three tiers */
+.dsgrid .dscard.wide{grid-column:1/-1}.dsgrid .dscard.w2{grid-column:span 2}
+.tokcard{gap:var(--sys-space-4)}
+.tokcard{--sys-color-brand-default:light-dark(var(--ref-color-plum-9),var(--ref-color-plum-dark-9));--sys-color-brand-subtle:light-dark(var(--ref-color-plum-3),var(--ref-color-plum-dark-3));--sys-color-text-brand:light-dark(var(--ref-color-plum-10),var(--ref-color-plum-dark-11));--sys-color-text-on-brand:light-dark(var(--ref-color-white),var(--ref-color-plum-dark-1));--ref-color-brand-7:var(--ref-color-plum-7)}
+.tk-lead{font-size:var(--sys-font-size-md);color:var(--sys-color-text-secondary);max-width:720px}
+.tiers{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:var(--sys-space-3);align-items:stretch}
+.tier{display:flex;flex-direction:column;gap:var(--sys-space-3);padding:var(--sys-space-4);background:var(--sys-color-bg-canvas);border-radius:var(--sys-radius-inset);border:1px solid var(--sys-color-border-default)}
+.tier-h{display:flex;gap:var(--sys-space-3);align-items:center}
+.tier-h b{display:block;font-size:var(--sys-font-size-lg)}
+.tier-h code{font-size:var(--sys-font-size-xs);color:var(--sys-color-text-secondary)}
+.tier-n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--sys-color-bg-inverse);color:#fff;font-size:var(--sys-font-size-sm);font-weight:700;flex:none}
+.tier p{font-size:var(--sys-font-size-sm);line-height:1.5;color:var(--sys-color-text-secondary)}
+.tier code,.tk-foot code{font-size:.92em;background:var(--sys-color-bg-sunken);border-radius:4px;padding:1px 4px}
+.tier-arrow{align-self:center;color:var(--sys-color-text-tertiary);font-size:var(--sys-font-size-xl)}
+.sws3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sys-space-2);margin-top:auto}
+.sw2{min-height:64px;border-radius:var(--sys-radius-control);border:1px solid var(--sys-color-border-default);padding:6px;display:flex;flex-direction:column;justify-content:flex-end;font-size:10px;line-height:1.25}
+.sw2 b{font-weight:700;word-break:break-word}.sw2 span{opacity:.85}
+.tk-foot{display:grid;grid-template-columns:1fr 1fr;gap:var(--sys-space-5);font-size:var(--sys-font-size-sm);line-height:1.5;color:var(--sys-color-text-secondary)}
+.tk-foot b{color:var(--sys-color-text-primary)}
+@media (max-width:980px){.dsgrid .dscard.w2{grid-column:1/-1}.tiers{grid-template-columns:1fr}.tier-arrow{transform:rotate(90deg);justify-self:center}.tk-foot{grid-template-columns:1fr}}
 .sws{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.sw{height:64px;border-radius:var(--r-sm);display:flex;align-items:flex-end;padding:6px 8px;font-size:11px;font-weight:650;border:1px solid var(--border)}
-.type{display:flex;flex-direction:column;gap:2px}
-.radii{display:flex;gap:10px;align-items:flex-end}
-.radii i{display:block;width:44px;height:44px;border:2px solid var(--brand);background:var(--brand-soft)}
+.sws.five{grid-template-columns:repeat(5,1fr)}.sws.two{grid-template-columns:repeat(2,1fr);max-width:50%}
+.ctk{font-size:var(--sys-font-size-xs);color:var(--sys-color-text-secondary);margin:var(--sys-space-3) 0 var(--sys-space-2)}.ctk:first-of-type{margin-top:0}.ctk b{color:var(--sys-color-text-primary)}
+.sw{height:56px;border-radius:var(--sys-radius-control);display:flex;align-items:flex-end;padding:6px;font-size:10px;line-height:1.2;font-weight:700;border:1px solid var(--sys-color-border-default)}
+.type{display:flex;flex-direction:column;gap:4px}
+.radii{display:flex;gap:12px;align-items:flex-end}
+.radii i{display:block;width:44px;height:44px;border:1px solid var(--sys-color-brand-default);background:var(--sys-color-brand-subtle)}
 .comps{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 
 /* process */
-.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);margin-top:var(--s5);position:relative}
-.step{position:relative;border:1px solid var(--border);background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2)}
-.step::after{content:"→";position:absolute;right:-14px;top:34px;width:24px;height:24px;border-radius:50%;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font-size:13px;z-index:2}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sys-space-4);margin-top:var(--sys-space-5);position:relative}
+.step{position:relative;border:1px solid var(--sys-color-border-default);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-container);padding:var(--sys-space-4);display:flex;flex-direction:column;gap:var(--sys-space-2)}
+.step::after{content:"→";position:absolute;right:-14px;top:34px;width:24px;height:24px;border-radius:50%;background:var(--sys-color-bg-surface);border:1px solid var(--sys-color-border-default);color:var(--sys-color-text-label);display:grid;place-items:center;font-size:13px;z-index:2}
 .step:last-child::after{display:none}
-.snum{width:28px;height:28px;border-radius:50%;background:var(--brand-soft);color:var(--brand);font-weight:700;display:grid;place-items:center;font-size:13px}
-.step h3{font-size:var(--fs-md)}
-.tool{display:inline-flex;align-self:flex-start;gap:7px;align-items:center;background:#14172b;color:#fff;border-radius:var(--r-pill);padding:4px 12px 4px 5px;font-size:var(--fs-sm);font-weight:650}
+.snum{width:28px;height:28px;border-radius:50%;background:var(--sys-color-brand-subtle);color:var(--sys-color-text-brand);font-weight:700;display:grid;place-items:center;font-size:13px}
+.step h3{font-size:var(--sys-font-size-md)}
+.tool{display:inline-flex;align-self:flex-start;gap:8px;align-items:center;background:var(--sys-color-bg-sunken);color:var(--sys-color-text-primary);border:1px solid var(--sys-color-border-default);border-radius:var(--sys-radius-pill);padding:4px 12px 4px 4px;font-size:var(--sys-font-size-sm);font-weight:700}
 .ti{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex:none}
-.step p{font-size:var(--fs-sm);color:var(--text-2)}
+.step p{font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary)}
 .step .chips{margin-top:auto}
-.skillgrp{margin-top:var(--s6)}
-.skillgrp>h3{display:flex;gap:10px;align-items:center;font-size:var(--fs-md);margin-bottom:var(--s3)}
-.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3)}
-.skill{border:1px solid var(--border);background:var(--bg-surface);border-radius:var(--r-md);padding:var(--s3) var(--s4);display:flex;flex-direction:column;gap:6px}
-.skill code{align-self:flex-start;font-size:var(--fs-sm);font-weight:700;background:var(--brand-soft);color:var(--brand);border-radius:6px;padding:2px 8px}
-.skill p{font-size:var(--fs-sm);color:var(--text-2)}
-.skill small{font-size:var(--fs-xs);color:var(--text-3)}
-.skill small b{color:var(--text-2)}
+.skillgrp{margin-top:var(--sys-space-6)}
+.skillgrp>h3{display:flex;gap:12px;align-items:center;font-size:var(--sys-font-size-md);margin-bottom:var(--sys-space-3)}
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sys-space-3)}
+.skill{border:1px solid var(--sys-color-border-default);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-inset);padding:var(--sys-space-3) var(--sys-space-4);display:flex;flex-direction:column;gap:8px}
+.skill code{align-self:flex-start;font-size:var(--sys-font-size-sm);font-weight:700;background:var(--sys-color-brand-subtle);color:var(--sys-color-text-brand);border-radius:8px;padding:4px 8px}
+.skill p{font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary)}
+.skill small{font-size:var(--sys-font-size-xs);color:var(--sys-color-text-tertiary)}
+.skill small b{color:var(--sys-color-text-secondary)}
 @media (max-width:980px){.flow{grid-template-columns:repeat(2,1fr)}.step::after{display:none}.skills{grid-template-columns:1fr}}
 @media (max-width:560px){.flow{grid-template-columns:1fr}}
 
-/* process: dark band, one colour per step so the cards stand apart */
-#process .step{color:#14172b;border:0;box-shadow:0 14px 36px -14px rgba(0,0,0,.6)}
-#process .step h3{color:#14172b}
-#process .step p{color:#2d3345}
-#process .snum{background:#fff;color:#14172b}
-#process .step .chip{background:rgba(255,255,255,.7);border-color:rgba(20,23,43,.18);color:#14172b}
-.step.s1{background:#E4DAF5}.step.s2{background:#D9CCF0}.step.s3{background:#fbd5e8}.step.s4{background:#fde3b4}
-#process .skill{background:#161a2b;border-color:#3A2860}
-#process .skill p{color:#c3c8da}
 /* tests */
-.tests{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);margin-top:var(--s5)}
-.test{border:1px solid var(--border);background:#fff;border-radius:var(--r-lg);padding:var(--s4);display:flex;flex-direction:column;gap:8px;font-size:var(--fs-sm)}
-.test h3{font-size:var(--fs-md)}
-.test dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;color:var(--text-2)}.test dt{color:var(--text-3);font-weight:600}
+.tests{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sys-space-4);margin-top:var(--sys-space-5)}
+.test{border:1px solid var(--sys-color-border-default);background:#fff;border-radius:var(--sys-radius-container);padding:var(--sys-space-4);display:flex;flex-direction:column;gap:8px;font-size:var(--sys-font-size-sm)}
+.test h3{font-size:var(--sys-font-size-md)}
+.test dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;color:var(--sys-color-text-secondary)}.test dt{color:var(--sys-color-text-tertiary);font-weight:700}
 /* prototype */
-.protohead{display:flex;gap:var(--s3);flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:var(--s4)}
-.pframe{border:1px solid #4C3778;border-radius:20px;overflow:hidden;box-shadow:0 24px 70px -20px rgba(195,168,240,.45);background:var(--bg-app)}
-.pframe .chrome{display:flex;gap:6px;padding:10px 14px;background:var(--bg-surface);border-bottom:1px solid var(--border);align-items:center}
-.pframe .chrome i{width:10px;height:10px;border-radius:50%;background:var(--border-strong)}
-.pframe .chrome span{margin-left:10px;font-size:var(--fs-xs);color:var(--text-3)}
-.pframe iframe{display:block;width:100%;height:760px;border:0;background:#120826}
-.tips{display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s4)}
-.tip{border:1px solid var(--border);background:var(--bg-surface);border-radius:var(--r-md);padding:10px 14px;font-size:var(--fs-sm);color:var(--text-2)}
-.tip b{color:var(--text-1)}
-.rv{opacity:0}.rv.in{opacity:1;animation:up2 .6s var(--ease) backwards}
-@keyframes up2{from{opacity:0;transform:translateY(20px)}}
+.protohead{display:flex;gap:var(--sys-space-3);flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:var(--sys-space-4)}
+.pframe{border:1px solid var(--sys-color-border-default);border-radius:var(--sys-radius-container);overflow:hidden;background:var(--sys-color-bg-canvas)}
+.pframe .chrome{display:flex;gap:8px;padding:12px 16px;background:var(--sys-color-bg-surface);border-bottom:1px solid var(--sys-color-border-default);align-items:center}
+.pframe .chrome i{width:10px;height:10px;border-radius:50%;background:var(--sys-color-border-strong)}
+.pframe .chrome span{margin-left:12px;font-size:var(--sys-font-size-xs);color:var(--sys-color-text-tertiary)}
+.pframe iframe{display:block;width:100%;height:760px;border:0;background:var(--ref-color-slate-2)}
+.tips{display:flex;gap:var(--sys-space-3);flex-wrap:wrap;margin-top:var(--sys-space-4)}
+.tip{border:1px solid var(--sys-color-border-default);background:var(--sys-color-bg-surface);border-radius:var(--sys-radius-inset);padding:12px 16px;font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary)}
+.tip b{color:var(--sys-color-text-primary)}
+.rv{opacity:1}
+
 @media (max-width:980px){.hero{grid-template-columns:1fr}.pipe{grid-template-columns:repeat(2,1fr)}.modes{grid-template-columns:repeat(2,1fr)}.dgrid,.tests,.problem,.dsgrid,.shots3{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.guards{grid-template-columns:repeat(2,1fr)}.nav nav{display:none}.rung{grid-template-columns:36px 1fr}.rung .acts2{grid-column:1/-1}.matrix{grid-template-columns:70px repeat(3,1fr)}}
 @media (max-width:560px){section{padding:48px 0}.pframe iframe{height:640px}}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1!important;animation:none!important}.slidebox img{transition:none}}
 </style>
 </head>
 <body>
-<div class="aurora" aria-hidden="true"></div>
 <a class="skip" href="#top">Skip to content</a>
 
 <header class="nav"><div class="wrap">
-  <a class="brand" href="#top"><span class="logo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span><span>Guide<span class="dotai">.ai</span> <span style="color:var(--text-3);font-weight:500">case study</span></span></a>
-  <nav aria-label="Sections"><a href="#prototype">Prototype</a><a href="#process">Process</a><a href="#logic">AI logic</a><a href="#decisions">Decisions</a><a href="#system">System</a><a href="#tests">Testing</a></nav>
+  <a class="brand" href="#top"><span class="logo" aria-hidden="true">G</span><span>Guide<span class="dotai">.ai</span> <span style="color:var(--sys-color-text-tertiary);font-weight:700">case study</span></span></a>
+  <nav aria-label="Sections"><a href="#prototype">Prototype</a><a href="#audit">Audit</a><a href="#logic">AI logic</a><a href="#principles">Principles</a><a href="#decisions">Why it works</a><a href="#tests">Testing</a><a href="#process">Tools</a></nav>
   <a class="btn primary sm" href="#prototype">Try the prototype</a>
 </div></header>
 
@@ -223,33 +382,36 @@ footer.theme-dark{background:#120826;border-top:1px solid #3A2860;color:var(--te
 <!-- HERO -->
 <div class="herobg"><div class="wrap hero">
   <div>
-    <span class="badge ai">✦ AI product design · consulting project</span>
+    <span class="badge ai">AI product design · consulting project</span>
     <h1>An AI assistant that makes a legal form feel like <em>a conversation</em>.</h1>
-    <p class="sub">Applicants were dropping off halfway through a long manual form. I built an AI assistant that does most of the typing and deciding for them, cutting the clicks on the happy path roughly in half (59 → 30) in my prototype, while every legal check and consent a regulator needs stays in place.</p>
-    <div class="impact" aria-label="Impact"><div><b>~49%</b><span>fewer interactions, 59 → 30 (prototype)</span></div><div><b>1</b><span>question per turn, with AI pre-filling whole sections</span></div><div><b>0</b><span>risky actions without consent or a cancel window</span></div></div>
-    <div class="metas" aria-label="Project facts">
-      <span class="chip">Role: product design lead</span><span class="chip">Consulting for a tech start-up</span><span class="chip">Business registry · Middle East</span><span class="chip">AI logic · design system · prototype</span>
-    </div>
-    <div class="nda" role="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span><b style="color:var(--text-1)">Under NDA.</b> This was a project for a business registry in the Middle East. I've removed all client information and rebuilt the names, data and screens as a fictional product. The design thinking is real.</span></div>
+    <p class="sub">Applicants were dropping off halfway through a long manual form. I designed an AI assistant that does most of the typing and deciding for them, plus the rules for what it may never do alone. Every legal check and consent the regulator needs stays in place. In my prototype the happy path drops from 59 to 30 interactions (scripted runs, not user data).</p>
+    <div class="impact" aria-label="Impact"><div><b>0</b><span>risky actions without consent or a cancel window</span></div><div><b>1</b><span>question per turn, with AI pre-filling whole sections</span></div><div><b>59 → 30</b><span>interactions on the happy path (prototype, scripted runs)</span></div></div>
+    <dl class="glance" aria-label="At a glance">
+      <div><dt>Role</dt><dd>Product design lead, consulting for a tech start-up</dd></div>
+      <div><dt>I delivered</dt><dd>Research synthesis, AI logic, design system, working prototype</dd></div>
+      <div><dt>Outside my scope</dt><dd>Launch and user validation, so no live results yet</dd></div>
+      <div><dt>Constraint</dt><dd>Regulated business registry: consent and a trail on every legal step</dd></div>
+    </dl>
+    <div class="nda" role="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span><b style="color:var(--sys-color-text-primary)">Under NDA.</b> This was a project for a business registry in the Middle East. I've removed all client information and rebuilt the names, data and screens as a fictional product. The design thinking is real.</span></div>
   </div>
   <div class="stagewrap">
     <div class="zwrap" id="heroZ">
-      <div class="zoomable slidebox" id="slidebox" data-src="assets/gate.jpg" role="button" tabindex="0" aria-label="Enlarge screenshot">
-        <img class="on" src="assets/gate.jpg" alt="Guide.ai asking for the 6-digit email code before the application opens">
-        <img src="assets/moa.jpg" alt="Guide.ai reading an uploaded Memorandum of Association to fill in the company details">
-        <img src="assets/arabic.jpg" alt="AI-suggested Arabic company name in a right-to-left field, marked please check">
-        <img src="assets/activities.jpg" alt="AI-recommended activity with a green match percentage and a view restrictions link">
-        <img src="assets/compliance.jpg" alt="Compliance review panel listing restrictions with an acknowledge button">
-        <img src="assets/quick.jpg" alt="Suggested for you card with a gradient border and a Use this button">
-        <img src="assets/passport.jpg" alt="Passport read by the AI with the blurry number flagged and role choices">
-        <img src="assets/roles.jpg" alt="Picking several roles for a company member, such as shareholder and director">
-        <img src="assets/projection.jpg" alt="Final financial forecast read from the uploaded document, shown as a table to confirm before it is attached">
-        <img src="assets/ubo.jpg" alt="UBO step: the AI lists the beneficial owner from the share allocation and asks to confirm">
-        <img src="assets/checkout.jpg" alt="Secure checkout inside the assistant with an itemised total and a Pay button">
-        <img src="assets/consult.jpg" alt="Consulting tab answering what a UBO is and handing an unknown legal question to a person">
-        <img src="assets/outcome.jpg" alt="Application submitted card with reference number and what happens next">
+      <div class="zoomable slidebox" id="slidebox" data-src="assets/gate.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge screenshot">
+        <img class="on" src="assets/gate.jpg?v=4" alt="Guide.ai asking for the 6-digit email code before the application opens">
+        <img src="assets/moa.jpg?v=4" alt="Guide.ai reading an uploaded Memorandum of Association to fill in the company details">
+        <img src="assets/arabic.jpg?v=4" alt="AI-suggested Arabic company name in a right-to-left field, marked please check">
+        <img src="assets/activities.jpg?v=4" alt="AI-recommended activity with a green match percentage and a view restrictions link">
+        <img src="assets/compliance.jpg?v=4" alt="Compliance review panel listing restrictions with an acknowledge button">
+        <img src="assets/quick.jpg?v=4" alt="Suggested for you card with a Use this button">
+        <img src="assets/passport.jpg?v=4" alt="Passport read by the AI with the blurry number flagged and role choices">
+        <img src="assets/roles.jpg?v=4" alt="Picking several roles for a company member, such as shareholder and director">
+        <img src="assets/projection.jpg?v=4" alt="Final financial forecast read from the uploaded document, shown as a table to confirm before it is attached">
+        <img src="assets/ubo.jpg?v=4" alt="UBO step: the AI lists the beneficial owner from the share allocation and asks to confirm">
+        <img src="assets/checkout.jpg?v=4" alt="Secure checkout inside the assistant with an itemised total and a Pay button">
+        <img src="assets/consult.jpg?v=4" alt="Consulting tab answering what a UBO is and handing an unknown legal question to a person">
+        <img src="assets/outcome.jpg?v=4" alt="Application submitted card with reference number and what happens next">
       </div>
-      <span class="lens" aria-hidden="true"></span><span class="zhint">Hover to magnify · click to enlarge</span>
+      
     </div>
     <div class="caption"><span class="badge ai" id="capTag">Layer</span><b id="capTitle"></b>
       <div class="dots" id="dots" role="group" aria-label="Choose screenshot"></div>
@@ -291,29 +453,30 @@ footer.theme-dark{background:#120826;border-top:1px solid #3A2860;color:var(--te
       <span class="pnum">1</span><h3>What it was</h3>
       <ul class="plist">
         <li><span class="pi">✎</span>10 sections, every field filled in manually in the application portal</li>
-        <li><span class="pi">⇪</span>Documents uploaded one by one, then the same details re-typed from the MOA and passports</li>
+        <li><span class="pi">1</span>Documents uploaded one by one, then the same details re-typed from the MOA and passports</li>
         <li><span class="pi">§</span>Legal terms like UBO with little explanation, and no one to ask</li>
       </ul>
     </div>
     <div class="pcard">
       <span class="pnum">2</span><h3>What analytics showed</h3>
-      <div class="funnel" role="img" aria-label="Illustrative funnel: applicants drop off sharply in the middle sections">
-        <div class="fbars"><div class="fb"><i style="height:100%"></i><span>1</span></div><div class="fb"><i style="height:94%"></i><span>2</span></div><div class="fb"><i style="height:88%"></i><span>3</span></div><div class="fb dropbar"><i style="height:74%"></i><span>4</span></div><div class="fb dropbar"><i style="height:52%"></i><span>5</span></div><div class="fb dropbar"><i style="height:44%"></i><span>6</span></div><div class="fb"><i style="height:40%"></i><span>7</span></div><div class="fb"><i style="height:37%"></i><span>8</span></div><div class="fb"><i style="height:35%"></i><span>9</span></div><div class="fb"><i style="height:33%"></i><span>10</span></div></div>
-        <div class="fnote"><b>Drop-off peaked mid-form</b> as people felt overwhelmed</div>
-      </div>
+      <ul class="plist">
+        <li><span class="pi">↓</span>Drop-off peaked mid-form, where the sections got dense</li>
+        <li><span class="pi">!</span>People felt overwhelmed by the long form</li>
+        <li><span class="pi">§</span>Exact figures are under NDA, so none are shown</li>
+      </ul>
     </div>
     <div class="pcard bet">
       <span class="pnum">3</span><h3>The brief</h3>
       <p class="pbig">A conversational form agent, plus a consulting AI.</p>
       <ul class="plist">
         <li><span class="pi">⇪</span>Read the MOA and passports instead of typing</li>
-        <li><span class="pi">✦</span>Recommend instead of searching lists</li>
-        <li><span class="pi">?</span>Answer questions like "what is a UBO?" in plain language</li>
+        <li><span class="pi">2</span>Recommend instead of searching lists</li>
+        <li><span class="pi">3</span>Answer questions like "what is a UBO?" in plain language</li>
       </ul>
     </div>
   </div>
-  <p class="note">The funnel is an illustrative shape. Client analytics were removed under NDA.</p>
-  <h3 style="font-size:var(--fs-lg);margin-top:var(--s6)">What I set out to change</h3>
+  <p class="note">Client analytics were removed under NDA.</p>
+  <h3 style="font-size:var(--sys-font-size-lg);margin-top:var(--sys-space-6)">What I set out to change</h3>
   <div class="stats">
     <div class="stat2"><b>10</b><span>sections in the application</span><div class="bars" aria-hidden="true"><i class="on" style="height:100%"></i><i class="on" style="height:100%"></i><i class="on" style="height:100%"></i><i class="on" style="height:100%"></i><i class="on" style="height:100%"></i><i class="on" style="height:100%"></i><i class="on" style="height:100%"></i><i class="on" style="height:100%"></i><i class="on" style="height:100%"></i><i class="on" style="height:100%"></i></div></div>
     <div class="stat2"><b>1</b><span>question per turn, with a single control to answer it</span><div class="bars" aria-hidden="true"><i style="height:30%"></i><i style="height:30%"></i><i class="on" style="height:100%"></i><i style="height:30%"></i><i style="height:30%"></i></div></div>
@@ -324,45 +487,85 @@ footer.theme-dark{background:#120826;border-top:1px solid #3A2860;color:var(--te
 </div></section>
 
 
-<!-- PROCESS -->
-<section id="process" class="bgDark theme-dark"><div class="wrap rv">
-  <div class="eyebrow">Design process</div>
-  <h2>From research to a working prototype, with AI in every step.</h2>
-  <p class="sub">I used different tools for different jobs, and kept a human decision at each hand-off.</p>
-  <div class="flow">
-    <div class="step s1"><span class="snum">1</span><h3>Research &amp; requirements</h3><span class="tool"><span class="ti" style="background:#10a37f"><svg viewBox="0 0 24 24" width="13" height="13" fill="#fff" aria-hidden="true"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg></span>ChatGPT</span><p>Desk research, PRD requirement analysis, and a first draft of the AI logic: roles, autonomy and guardrails.</p><div class="chips"><span class="chip" style="cursor:default">PRD analysis</span><span class="chip" style="cursor:default">AI logic draft</span></div></div>
-    <div class="step s2"><span class="snum">2</span><h3>Discovery workshop</h3><span class="tool"><span class="ti" style="background:#a259ff"><svg viewBox="0 0 24 24" width="13" height="13" fill="#fff" aria-hidden="true"><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/></svg></span>Figma AI</span><p>Synthesised insights and journeys on a discovery board, then mapped AI mode types and patterns.</p><div class="chips"><span class="chip" style="cursor:default">Insights</span><span class="chip" style="cursor:default">Journeys</span><span class="chip" style="cursor:default">AI patterns</span></div></div>
-    <div class="step s3"><span class="snum">3</span><h3>Build</h3><span class="tool"><span class="ti" style="background:#d97757"><svg viewBox="0 0 24 24" width="13" height="13" fill="#fff" aria-hidden="true"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></span>Claude Code</span><p>Vibe-coded the working prototype, the landing page and this case study, iterating in conversation.</p><div class="chips"><span class="chip" style="cursor:default">Prototype</span><span class="chip" style="cursor:default">Landing</span></div></div>
-    <div class="step s4"><span class="snum">4</span><h3>Design system</h3><span class="tool"><span class="ti" style="background:linear-gradient(135deg,#521892,#7444B3)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span>Core AI primary system</span><p>Started from the core AI primary design system and customised the tokens and components for this product.</p><div class="chips"><span class="chip" style="cursor:default">Tokens</span><span class="chip" style="cursor:default">Components</span></div></div>
+<!-- AUDIT -->
+<section id="audit" class="bgB"><div class="wrap rv">
+  <div class="eyebrow">Audit of the first build</div>
+  <h2>The dev team had already shipped a version. I audited it, then redesigned the whole experience.</h2>
+  <p class="sub">The first build was a chat widget docked beside the existing portal. It worked end to end, but it carried the form's problems into a narrower space. These are five of the issues I found, each next to what replaced it.</p>
+  <div class="arows">
+    <article class="arow">
+      <h3><span class="an">1</span>A form dropped into a chat bubble</h3>
+      <div class="apair">
+        <figure class="aside old"><figcaption><span class="atag bad">First build</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/old-form.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: first build, a form dropped into a chat bubble"><img src="assets/old-form.jpg?v=4" alt="First build: a form dropped into a chat bubble" loading="lazy"></div></div>
+          <p><b>Why it failed.</b> A whole section arrived as a form inside one message: upload, name, description, then Cancel and Confirm in the card and Continue under it. Two purple primary buttons on one screen, and the "chat" was a form with a greeting on top.</p></figure>
+        <figure class="aside new"><figcaption><span class="atag ok">Redesign</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/new-form.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: redesign, a form dropped into a chat bubble"><img src="assets/new-form.jpg?v=4" alt="Redesign: a form dropped into a chat bubble" loading="lazy"></div></div>
+          <p><b>What I changed.</b> One question and one control per turn, with a single Continue. The name is checked as it is typed, so errors show up where they happen.</p></figure>
+      </div>
+    </article>
+    <article class="arow">
+      <h3><span class="an">2</span>The transcript kept growing</h3>
+      <div class="apair">
+        <figure class="aside old"><figcaption><span class="atag bad">First build</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/old-stack.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: first build, the transcript kept growing"><img src="assets/old-stack.jpg?v=4" alt="First build: the transcript kept growing" loading="lazy"></div></div>
+          <p><b>Why it failed.</b> Every finished section stayed in the chat as a card with refresh, edit and collapse icons, each under a repeated prompt. By step 7 the current question was off-screen, and the step labels in the rail were about 8px.</p></figure>
+        <figure class="aside new"><figcaption><span class="atag ok">Redesign</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/new-stack.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: redesign, the transcript kept growing"><img src="assets/new-stack.jpg?v=4" alt="Redesign: the transcript kept growing" loading="lazy"></div></div>
+          <p><b>What I changed.</b> Finished sections collapse into one summary. The rail is labelled and grouped into Business, People, Operations, Compliance and Submit, and the current question stays in view.</p></figure>
+      </div>
+    </article>
+    <article class="arow">
+      <h3><span class="an">3</span>Recommendations with no reasons</h3>
+      <div class="apair">
+        <figure class="aside old"><figcaption><span class="atag bad">First build</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/old-recs.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: first build, recommendations with no reasons"><img src="assets/old-recs.jpg?v=4" alt="First build: recommendations with no reasons" loading="lazy"></div></div>
+          <p><b>Why it failed.</b> Four activities at 59 to 61% match were shown as equals, each with its own Add button and restrictions hidden behind a link. With near-identical scores and no reason given, it read like search results, not advice.</p></figure>
+        <figure class="aside new"><figcaption><span class="atag ok">Redesign</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/new-recs.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: redesign, recommendations with no reasons"><img src="assets/new-recs.jpg?v=4" alt="Redesign: recommendations with no reasons" loading="lazy"></div></div>
+          <p><b>What I changed.</b> One suggestion at a time, based on the business description, with its code and restrictions open. Add it, add the top three, or mark it not relevant, and search stays available.</p></figure>
+      </div>
+    </article>
+    <article class="arow">
+      <h3><span class="an">4</span>A wall of legal text in a narrow panel</h3>
+      <div class="apair">
+        <figure class="aside old"><figcaption><span class="atag bad">First build</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/old-legal.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: first build, a wall of legal text in a narrow panel"><img src="assets/old-legal.jpg?v=4" alt="First build: a wall of legal text in a narrow panel" loading="lazy"></div></div>
+          <p><b>Why it failed.</b> Restrictions appeared as dense legal text in a 390px panel, with registry acronyms and article numbers, and the declaration at the bottom of the scroll. It was easy to tick without reading.</p></figure>
+        <figure class="aside new"><figcaption><span class="atag ok">Redesign</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/new-legal.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: redesign, a wall of legal text in a narrow panel"><img src="assets/new-legal.jpg?v=4" alt="Redesign: a wall of legal text in a narrow panel" loading="lazy"></div></div>
+          <p><b>What I changed.</b> A one-line summary first, the restrictions grouped per activity, and the declaration written out in plain words before Continue.</p></figure>
+      </div>
+    </article>
+    <article class="arow">
+      <h3><span class="an">5</span>Problems surfaced at the very end</h3>
+      <div class="apair">
+        <figure class="aside old"><figcaption><span class="atag bad">First build</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/old-late.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: first build, problems surfaced at the very end"><img src="assets/old-late.jpg?v=4" alt="First build: problems surfaced at the very end" loading="lazy"></div></div>
+          <p><b>Why it failed.</b> Skipped sections such as Nominees and the Constitution were only flagged on the final review, and the business-centre fee was paid later, outside the assistant. Elsewhere, allocation showed a wall of warnings before anything had been entered.</p></figure>
+        <figure class="aside new"><figcaption><span class="atag ok">Redesign</span></figcaption>
+          <div class="zwrap"><div class="zoomable apic" data-src="assets/new-late.jpg?v=4" role="button" tabindex="0" aria-label="Enlarge: redesign, problems surfaced at the very end"><img src="assets/new-late.jpg?v=4" alt="Redesign: problems surfaced at the very end" loading="lazy"></div></div>
+          <p><b>What I changed.</b> Checks run as each answer is given, nothing is skipped silently, and payment happens in the panel with an itemised total and a 5-second cancel window.</p></figure>
+      </div>
+    </article>
   </div>
-
-  <div class="skillgrp">
-    <h3><span class="badge ai">✦ AI skills</span> Claude skills that shaped the AI behaviour</h3>
-    <div class="skills">
-      <div class="skill"><code>ai-experience-design</code><p>A framework for AI copilots and agents: roles, seven layers, autonomy ladder, confidence thresholds, failure and recovery, metrics.</p><small><b>Used for:</b> every AI decision and state in the assistant</small></div>
-      <div class="skill"><code>ux-designer</code><p>Modern UX and UI practice, including AI interfaces, forms, onboarding, notifications and drop-off.</p><small><b>Used for:</b> flow patterns and the faster, easier question design</small></div>
-    </div>
+  <div class="afound">
+    <h3>Also found in the audit</h3>
+    <ul>
+      <li>The widget sat at about 390px wide over the full portal form, so two versions of the same form competed for attention.</li>
+      <li>"Start over" was the primary button in a popover that warned all progress would be cleared.</li>
+      <li>Enabled Confirm buttons used a pale purple that read as disabled.</li>
+      <li>The AI behaviour had no visible rules: nothing said what it could do alone, when it would ask, or when a person takes over.</li>
+    </ul>
   </div>
-  <div class="skillgrp">
-    <h3><span class="badge warn">⚠ Guardrail skills</span> Claude skills that checked the work</h3>
-    <div class="skills">
-      <div class="skill"><code>design:accessibility-review</code><p>A WCAG 2.1 AA audit covering contrast, keyboard use, focus, labels and screen readers.</p><small><b>Used for:</b> the accessibility pass and its fixes</small></div>
-      <div class="skill"><code>ux-designer</code><p>The same skill, run as a colour-contrast check across themes and states.</p><small><b>Used for:</b> bubble, badge and button contrast, to AAA where it mattered</small></div>
-    </div>
-  </div>
-  <div class="skillgrp">
-    <h3><span class="badge ok">◆ System skill</span> Claude skill that kept the system consistent</h3>
-    <div class="skills">
-      <div class="skill"><code>design:design-system</code><p>Audit, document and extend a design system: tokens, components, states and usage notes.</p><small><b>Used for:</b> the token set, component docs and the product-to-portfolio consistency</small></div>
-    </div>
-  </div>
+  <p class="note">First-build screens are from the team's screen recording, cropped to the assistant and redacted: product name, company, provider, location and fee details removed.</p>
 </div></section>
 
 <!-- AI LOGIC -->
 <section id="logic" class="bgA"><div class="wrap rv">
   <div class="eyebrow">AI logic &amp; guidelines</div>
   <h2>The AI is a collaborator with a short leash, not a chatbot.</h2>
-  <p class="sub">I used an AI-experience framework to decide what the AI may do, when it must ask, and when it must hand over. Domain risk for a regulated business registry is <b style="color:var(--text-1)">high</b>, which set the defaults.</p>
+  <p class="sub">I used an AI-experience framework to decide what the AI may do, when it must ask, and when it must hand over. Domain risk for a regulated business registry is <b style="color:var(--sys-color-text-primary)">high</b>, which set the defaults.</p>
   <div class="modes" aria-label="AI roles">
     <div class="mode m1"><b>Assist</b><small>Plain-language answers with a source line</small></div>
     <div class="mode m2"><b>Recommend</b><small>Activities and section defaults, ranked, with reasons</small></div>
@@ -378,6 +581,15 @@ footer.theme-dark{background:#120826;border-top:1px solid #3A2860;color:var(--te
     <div class="node"><span class="n">5</span><b>Control</b><small>Stop, undo, edit, cancel, talk to a person.</small></div>
     <div class="node"><span class="n">6</span><b>Transparency</b><small>Match %, reasons, restrictions, activity log.</small></div>
     <div class="node"><span class="n">7</span><b>Outcome &amp; recovery</b><small>Result card. Failure cards with next steps.</small></div>
+  </div>
+  <div class="mine">
+    <h3>Where my judgment set the defaults</h3>
+    <ul>
+      <li><b>Autonomy level 4 stays unused.</b> The ladder has a fully autonomous rung. In a legal filing I left it empty.</li>
+      <li><b>High confidence still asks.</b> A confident match does not skip the declaration. Submit and pay stay at confirm.</li>
+      <li><b>Escalate, don't guess.</b> An unknown legal question goes to a person, with the applicant's progress attached.</li>
+      <li><b>The AI never touches card details.</b> They stay with the payment partner, and the card is held, not charged, until the cancel window ends.</li>
+    </ul>
   </div>
   <div class="tabs" role="tablist" aria-label="AI logic details">
     <button class="tab" role="tab" aria-selected="true" aria-controls="p-aut" id="t-aut">Autonomy ladder</button>
@@ -414,94 +626,154 @@ footer.theme-dark{background:#120826;border-top:1px solid #3A2860;color:var(--te
       <div class="guard"><span class="gi">☺</span><b>Human handoff</b><small>One tap, with your progress attached</small></div>
     </div>
     <div class="shots3">
-      <figure><div class="zwrap"><div class="zoomable shot" data-src="assets/compliance.jpg" data-rx="300" data-ry="446" data-rw="1700" data-rh="638" style="--rx:300;--ry:446;--rw:1700;--rh:638;background-image:url(assets/compliance.jpg)" role="button" tabindex="0" aria-label="Enlarge: compliance gate"></div><span class="lens" aria-hidden="true"></span></div><figcaption><b>Compliance gate.</b> Restrictions first, then acknowledge.</figcaption></figure>
-      <figure><div class="zwrap"><div class="zoomable shot" data-src="assets/submit.jpg" data-rx="560" data-ry="780" data-rw="1440" data-rh="540" style="--rx:560;--ry:780;--rw:1440;--rh:540;background-image:url(assets/submit.jpg)" role="button" tabindex="0" aria-label="Enlarge: cancel window"></div><span class="lens" aria-hidden="true"></span></div><figcaption><b>Cancel window.</b> Nothing is sent for 5 seconds.</figcaption></figure>
-      <figure><div class="zwrap"><div class="zoomable shot" data-src="assets/outcome.jpg" data-rx="560" data-ry="700" data-rw="1440" data-rh="540" style="--rx:560;--ry:700;--rw:1440;--rh:540;background-image:url(assets/outcome.jpg)" role="button" tabindex="0" aria-label="Enlarge: outcome card"></div><span class="lens" aria-hidden="true"></span></div><figcaption><b>Outcome card.</b> A result, not a transcript.</figcaption></figure>
+      <figure><div class="zwrap"><div class="zoomable shot" data-src="assets/compliance.jpg?v=4" data-rx="300" data-ry="511" data-rw="1700" data-rh="638" style="--rx:300;--ry:511;--rw:1700;--rh:638;background-image:url(assets/compliance.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: compliance gate"></div></div><figcaption><b>Compliance gate.</b> Restrictions first, then acknowledge.</figcaption></figure>
+      <figure><div class="zwrap"><div class="zoomable shot" data-src="assets/submit.jpg?v=4" data-rx="560" data-ry="660" data-rw="1440" data-rh="540" style="--rx:560;--ry:660;--rw:1440;--rh:540;background-image:url(assets/submit.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: cancel window"></div></div><figcaption><b>Cancel window.</b> Nothing is sent for 5 seconds.</figcaption></figure>
+      <figure><div class="zwrap"><div class="zoomable shot" data-src="assets/outcome.jpg?v=4" data-rx="560" data-ry="629" data-rw="1440" data-rh="540" style="--rx:560;--ry:629;--rw:1440;--rh:540;background-image:url(assets/outcome.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: outcome card"></div></div><figcaption><b>Outcome card.</b> A result, not a transcript.</figcaption></figure>
+    </div>
+  </div>
+  <div class="fail">
+    <figure class="zwrap"><div class="zoomable shot" data-src="assets/expired.jpg?v=4" data-rx="620" data-ry="720" data-rw="1300" data-rh="660" style="--rx:620;--ry:720;--rw:1300;--rh:660;aspect-ratio:1300/660;background-image:url(assets/expired.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: an expired passport, with the reason and three ways forward"></div></figure>
+    <div>
+      <div class="eyebrow">Failure and recovery</div>
+      <h3>When it cannot read a document, it says why and what is safe.</h3>
+      <ul>
+        <li><b>It says why.</b> The passport expired on 12 Mar 2024, and registries need 6 more months.</li>
+        <li><b>It protects what exists.</b> Nothing from the file is saved, and the other answers are untouched.</li>
+        <li><b>It offers three ways forward.</b> Upload another, type the details, or talk to a person.</li>
+      </ul>
     </div>
   </div>
 </div></section>
 
+<!-- PRINCIPLES -->
+<section id="principles" class="bgB"><div class="wrap rv">
+  <div class="eyebrow">Design principles</div>
+  <h2>Five rules every screen was held to.</h2>
+  <p class="sub">They came from the problem, the risk of a regulated filing, and the AI logic above. Each decision below traces back to one of them.</p>
+  <div class="prins">
+    <div class="prin"><span class="pn">1</span><h3>Ask less, understand more</h3><p>Every question has to earn its place. The AI reads documents and proposes answers instead of asking for them.</p><a class="plink" href="#d1">Decisions 1, 2</a></div>
+    <div class="prin"><span class="pn">2</span><h3>Friction only where the risk lives</h3><p>Be fast everywhere except the few moments a regulator cares about. There, slow the user down on purpose.</p><a class="plink" href="#d3">Decisions 3, 4</a></div>
+    <div class="prin"><span class="pn">3</span><h3>Say what you are unsure of</h3><p>Flag the blurry field, label a guess “please check”, show the reasons, and hand over to a person when unsure. Never guess in a legal process.</p><a class="plink" href="#d5">Decisions 5, 6, 8, 9</a></div>
+    <div class="prin"><span class="pn">4</span><h3>Nothing happens silently</h3><p>The AI never submits, pays or removes anything without consent, a log entry and a way back. The top rung of autonomy stays unused.</p><a class="plink" href="#d3">Decisions 3, 7</a></div>
+    <div class="prin"><span class="pn">5</span><h3>Keep people in the flow</h3><p>Pay, ask and fix without leaving the panel, so no step costs the applicant their place.</p><a class="plink" href="#d7">Decisions 7, 8</a></div>
+  </div>
+</div></section>
+
 <!-- DECISIONS -->
-<section id="decisions" class="bgC"><div class="wrap rv">
-  <div class="eyebrow">Design decisions and trade-offs</div>
-  <h2>Eight calls that shaped the product, and what each one cost.</h2>
-  <div class="dgrid">
-    <article class="dcard">
-      <h3>1 · One question at a time</h3>
-      <div class="zwrap"><div class="zoomable shot" data-src="assets/name.jpg" data-rx="560" data-ry="690" data-rw="1440" data-rh="540" style="--rx:560;--ry:690;--rw:1440;--rh:540;background-image:url(assets/name.jpg)" role="button" tabindex="0" aria-label="Enlarge: one question with live availability check"></div><span class="lens" aria-hidden="true"></span></div>
-      <p>Dense forms dropped into a chat bubble felt overwhelming when I reviewed the reference flow. One question and one control per turn lowered the load.</p>
-      <div class="tradeoff"><div class="g"><b>Gained</b>Calm, scannable, easy to resume</div><div class="l"><b>Gave up</b>More turns. I recovered them with decision 2</div></div>
-    </article>
-    <article class="dcard">
-      <h3>2 · AI proposes whole sections</h3>
-      <div class="zwrap"><div class="zoomable shot" data-src="assets/quick.jpg" data-rx="600" data-ry="720" data-rw="1400" data-rh="525" style="--rx:600;--ry:720;--rw:1400;--rh:525;background-image:url(assets/quick.jpg)" role="button" tabindex="0" aria-label="Enlarge: suggested share setup"></div><span class="lens" aria-hidden="true"></span></div>
-      <p>Share capital, allocation, financials and office open with a pre-filled card. One click accepts it, and every value is revalidated.</p>
-      <div class="tradeoff"><div class="g"><b>Gained</b>59 → 30 interactions in my prototype</div><div class="l"><b>Gave up</b>Risk of blind acceptance. "Suggested" tags and the final review offset it</div></div>
-    </article>
-    <article class="dcard">
-      <h3>3 · Friction where the risk lives</h3>
-      <div class="zwrap"><div class="zoomable shot" data-src="assets/compliance.jpg" data-rx="300" data-ry="446" data-rw="1700" data-rh="638" style="--rx:300;--ry:446;--rw:1700;--rh:638;background-image:url(assets/compliance.jpg)" role="button" tabindex="0" aria-label="Enlarge: compliance review"></div><span class="lens" aria-hidden="true"></span></div>
-      <p>Restricted activities need a deliberate declaration, ticked after reading the restrictions. Submitting has a declaration and a 5-second cancel window. Everything else stays light.</p>
-      <div class="tradeoff"><div class="g"><b>Gained</b>Auditable consent where regulators care</div><div class="l"><b>Gave up</b>A few extra seconds on the riskiest steps</div></div>
-    </article>
-    <article class="dcard">
-      <h3>4 · Verify before the form opens</h3>
-      <div class="zwrap"><div class="zoomable shot" data-src="assets/gate.jpg" data-rx="600" data-ry="800" data-rw="1400" data-rh="525" style="--rx:600;--ry:800;--rw:1400;--rh:525;background-image:url(assets/gate.jpg)" role="button" tabindex="0" aria-label="Enlarge: email code step"></div><span class="lens" aria-hidden="true"></span></div>
-      <p>Anyone could start an application. A short, conversational gate confirms identity and powers autosave and resume by email.</p>
-      <div class="tradeoff"><div class="g"><b>Gained</b>Fewer fake starts, and a way back in</div><div class="l"><b>Gave up</b>Some people leave before seeing value. Code auto-continues to reduce this</div></div>
-    </article>
-    <article class="dcard">
-      <h3>5 · Flag only what is uncertain</h3>
-      <div class="zwrap"><div class="zoomable shot" data-src="assets/passport.jpg" data-rx="560" data-ry="300" data-rw="1440" data-rh="540" style="--rx:560;--ry:300;--rw:1440;--rh:540;background-image:url(assets/passport.jpg)" role="button" tabindex="0" aria-label="Enlarge: passport read with one flagged field"></div><span class="lens" aria-hidden="true"></span></div>
-      <p>The AI reads a passport, shows the reading steps, and only questions the blurry field. Confirming that field and choosing a role happens in one tap.</p>
-      <div class="tradeoff"><div class="g"><b>Gained</b>Trust is calibrated: users check what matters</div><div class="l"><b>Gave up</b>Occasional over-flagging until confidence thresholds are tuned on real data</div></div>
-    </article>
-      <article class="dcard">
-      <h3>6 · Bilingual by default</h3>
-      <div class="zwrap"><div class="zoomable shot" data-src="assets/arabic.jpg" data-rx="560" data-ry="680" data-rw="1440" data-rh="540" style="--rx:560;--ry:680;--rw:1440;--rh:540;background-image:url(assets/arabic.jpg)" role="button" tabindex="0" aria-label="Enlarge: AI-suggested Arabic company name"></div><span class="lens" aria-hidden="true"></span></div>
-      <p>The registry needs every company name in Arabic too. The AI suggests it from the English name and detects the entity type, then asks the applicant to check it.</p>
-      <div class="tradeoff"><div class="g"><b>Gained</b>No hunting for a translator, one tap to confirm</div><div class="l"><b>Gave up</b>Transliteration can be wrong, so it is always labelled "please check"</div></div>
-    </article>
-    <article class="dcard">
-      <h3>7 · Pay inside the assistant, not in a portal</h3>
-      <div class="zwrap"><div class="zoomable shot" data-src="assets/checkout.jpg" data-rx="320" data-ry="580" data-rw="1680" data-rh="630" style="--rx:320;--ry:580;--rw:1680;--rh:630;background-image:url(assets/checkout.jpg)" role="button" tabindex="0" aria-label="Enlarge: secure checkout inside the assistant"></div><span class="lens" aria-hidden="true"></span></div>
-      <p>Applicants used to log into a separate portal to pay, the last place you want to lose someone. The agent now prepares an itemised invoice, explains every line, and takes payment in the panel. Card, bank transfer or pay later. The card is only held, then charged after the 5-second cancel window.</p>
-      <div class="tradeoff"><div class="g"><b>Gained</b>No hand-off at the final step, and a receipt in the outcome card</div><div class="l"><b>Gave up</b>More trust needed. Card details stay with the payment partner, never the AI, and a decline gets a clear recovery path</div></div>
-    </article>
-    <article class="dcard">
-      <h3>8 · Two agents, one panel</h3>
-      <div class="zwrap"><div class="zoomable shot" data-src="assets/consult.jpg" data-rx="0" data-ry="340" data-rw="2000" data-rh="750" style="--rx:0;--ry:340;--rw:2000;--rh:750;background-image:url(assets/consult.jpg)" role="button" tabindex="0" aria-label="Enlarge: consulting tab with an honest fallback"></div><span class="lens" aria-hidden="true"></span></div>
-      <p>The brief asked for a form agent and a consulting AI. I kept them in one panel with two tabs, so a question never costs your place in the form. The consultant cites its source and offers a person when it is not sure.</p>
-      <div class="tradeoff"><div class="g"><b>Gained</b>Answers without leaving the form, and one place to learn the rules</div><div class="l"><b>Gave up</b>A narrower consultant: general guidance only, no legal advice, so some questions go to a person</div></div>
-    </article>
-</div>
+<section id="decisions" class="decs theme-dark"><div class="wrap rv">
+  <div class="eyebrow">Why it works · design decisions</div>
+  <h2>Nine decisions, each with a reason and a price.</h2>
+  <p class="sub">The result is a flow that is quick where it can be and slow where it must be. Click a screenshot to enlarge it.</p>
+  <div class="chaps">
+  <article class="chap" id="d1">
+    <header class="chap-h"><span class="cn" aria-hidden="true">01</span>
+      <div class="ct"><span class="ctag">Principle 1 · Ask less, understand more</span><h3>Ask one thing at a time.</h3></div>
+      <div class="cmetric ba"><div><span>Instead of</span><b>A dense card of fields</b></div><div><span>Now</span><b>One question, one control</b></div></div></header>
+    <figure class="cshot"><div class="zwrap"><div class="zoomable shot" data-src="assets/name.jpg?v=4" data-rx="620" data-ry="540" data-rw="1300" data-rh="830" style="--rx:620;--ry:540;--rw:1300;--rh:830;aspect-ratio:1300/830;background-image:url(assets/name.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: Live name availability check while the applicant types"></div><span class="pin r" style="left:39.5%;top:47.3%" aria-hidden="true"><i></i><b>Live availability check</b></span></div><figcaption>Live name availability check while the applicant types</figcaption></figure>
+    <div class="cbody"><div><h4>The problem</h4><p>Dense forms dropped into a chat bubble felt overwhelming in the reference flow I reviewed.</p></div><div class="why"><h4>Why it works</h4><p>One question and one control per turn lowers the load. Each answer is a clear step, so the flow is calm, scannable and easy to resume.</p></div><div class="cost"><h4>What it cost</h4><p>More turns. Decision 2 wins them back.</p></div></div>
+  </article>
+  <article class="chap" id="d2">
+    <header class="chap-h"><span class="cn" aria-hidden="true">02</span>
+      <div class="ct"><span class="ctag">Principle 1 · Ask less, understand more</span><h3>Let the AI propose whole sections.</h3></div>
+      <div class="cmetric ba"><div><span>Instead of</span><b>Every field typed by hand</b></div><div><span>Now</span><b>A pre-filled card, one click (59 → 30)</b></div></div></header>
+    <figure class="cshot"><div class="zwrap"><div class="zoomable shot" data-src="assets/quick.jpg?v=4" data-rx="620" data-ry="570" data-rw="1300" data-rh="800" style="--rx:620;--ry:570;--rw:1300;--rh:800;aspect-ratio:1300/800;background-image:url(assets/quick.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: A suggested share setup, accepted with one click"></div><span class="pin l up" style="left:87.3%;top:86.2%" aria-hidden="true"><i></i><b>One click accepts it</b></span></div><figcaption>A suggested share setup, accepted with one click</figcaption></figure>
+    <div class="cbody"><div><h4>The problem</h4><p>Share capital, allocation, financials and the office each meant a screen of fields.</p></div><div class="why"><h4>Why it works</h4><p>Each opens with a pre-filled card. One click accepts it, and every value is revalidated, so speed never skips a check.</p></div><div class="cost"><h4>What it cost</h4><p>Risk of blind acceptance. “Suggested” tags and the final review offset it.</p></div></div>
+  </article>
+  <article class="chap" id="d3">
+    <header class="chap-h"><span class="cn" aria-hidden="true">03</span>
+      <div class="ct"><span class="ctag">Principle 2 · Friction only where the risk lives</span><h3>Put the friction where the risk lives.</h3></div>
+      <div class="cmetric ba"><div><span>Instead of</span><b>The same effort on every step</b></div><div><span>Now</span><b>Heavy only where the risk is</b></div></div></header>
+    <figure class="cshot"><div class="zwrap"><div class="zoomable shot" data-src="assets/compliance.jpg?v=4" data-rx="620" data-ry="525" data-rw="1300" data-rh="800" style="--rx:620;--ry:525;--rw:1300;--rh:800;aspect-ratio:1300/800;background-image:url(assets/compliance.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: Compliance review listing the restrictions before the applicant acknowledges"></div><span class="pin r" style="left:16.5%;top:66.2%" aria-hidden="true"><i></i><b>Declaration, after reading</b></span></div><figcaption>Compliance review listing the restrictions before the applicant acknowledges</figcaption></figure>
+    <div class="cbody"><div><h4>The problem</h4><p>A legal filing has a few moments a regulator cares about, and most of the form is not one of them.</p></div><div class="why"><h4>Why it works</h4><p>Restricted activities need a declaration, ticked after reading the restrictions. Submitting adds a declaration and a 5-second cancel window. Everything else stays light, so the heavy steps read as heavy.</p></div><div class="cost"><h4>What it cost</h4><p>A few extra seconds on the riskiest steps.</p></div></div>
+  </article>
+  <article class="chap" id="d4">
+    <header class="chap-h"><span class="cn" aria-hidden="true">04</span>
+      <div class="ct"><span class="ctag">Principle 2 · Friction only where the risk lives</span><h3>Verify before the form opens.</h3></div>
+      <div class="cmetric ba"><div><span>Instead of</span><b>Anyone could start, no way back</b></div><div><span>Now</span><b>Verified first, resume by email</b></div></div></header>
+    <figure class="cshot"><div class="zwrap"><div class="zoomable shot" data-src="assets/gate.jpg?v=4" data-rx="620" data-ry="790" data-rw="1300" data-rh="700" style="--rx:620;--ry:790;--rw:1300;--rh:700;aspect-ratio:1300/700;background-image:url(assets/gate.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: The 6-digit email code step"></div><span class="pin l" style="left:90.8%;top:43.3%" aria-hidden="true"><i></i><b>Code fills in on its own</b></span></div><figcaption>The 6-digit email code step</figcaption></figure>
+    <div class="cbody"><div><h4>The problem</h4><p>Anyone could start an application, so there was no way back in and no reason to save progress.</p></div><div class="why"><h4>Why it works</h4><p>A short, conversational gate confirms identity and powers autosave and resume by email. The code continues on its own when complete.</p></div><div class="cost"><h4>What it cost</h4><p>Some people leave before they see value. Auto-continue reduces this.</p></div></div>
+  </article>
+  <article class="chap" id="d5">
+    <header class="chap-h"><span class="cn" aria-hidden="true">05</span>
+      <div class="ct"><span class="ctag">Principle 3 · Say what you are unsure of</span><h3>Flag only what is uncertain.</h3></div>
+      <div class="cmetric ba"><div><span>Instead of</span><b>Checking every field the AI read</b></div><div><span>Now</span><b>Checking only the uncertain one</b></div></div></header>
+    <figure class="cshot"><div class="zwrap"><div class="zoomable shot" data-src="assets/passport.jpg?v=4" data-rx="620" data-ry="400" data-rw="1300" data-rh="860" style="--rx:620;--ry:400;--rw:1300;--rh:860;aspect-ratio:1300/860;background-image:url(assets/passport.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: Passport read by the AI with one blurry field flagged"></div><span class="pin r" style="left:51.5%;top:14.0%" aria-hidden="true"><i></i><b>Recommended, one tap</b></span></div><figcaption>Passport read by the AI with one blurry field flagged</figcaption></figure>
+    <div class="cbody"><div><h4>The problem</h4><p>If the AI asks about everything it read, checking is as slow as typing.</p></div><div class="why"><h4>Why it works</h4><p>The AI reads the passport, shows its reading steps, and questions only the blurry number. Confirming that field and choosing a role is one tap, so trust goes where it is needed.</p></div><div class="cost"><h4>What it cost</h4><p>Occasional over-flagging until thresholds are tuned on real data.</p></div></div>
+  </article>
+  <article class="chap" id="d6">
+    <header class="chap-h"><span class="cn" aria-hidden="true">06</span>
+      <div class="ct"><span class="ctag">Principle 3 · Say what you are unsure of</span><h3>Bilingual by default.</h3></div>
+      <div class="cmetric ba"><div><span>Instead of</span><b>Typing or translating the name</b></div><div><span>Now</span><b>Suggested, then checked</b></div></div></header>
+    <figure class="cshot"><div class="zwrap"><div class="zoomable shot" data-src="assets/arabic.jpg?v=4" data-rx="620" data-ry="640" data-rw="1300" data-rh="730" style="--rx:620;--ry:640;--rw:1300;--rh:730;aspect-ratio:1300/730;background-image:url(assets/arabic.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: AI-suggested Arabic company name, marked please check"></div><span class="pin r" style="left:22.3%;top:30.5%" aria-hidden="true"><i></i><b>Labelled for review</b></span></div><figcaption>AI-suggested Arabic company name, marked please check</figcaption></figure>
+    <div class="cbody"><div><h4>The problem</h4><p>The registry needs every company name in Arabic as well as English.</p></div><div class="why"><h4>Why it works</h4><p>The AI suggests the Arabic name from the English one, detects the entity type, and asks the applicant to check it. No hunting for a translator, one tap to confirm.</p></div><div class="cost"><h4>What it cost</h4><p>Transliteration can be wrong, so it is always labelled “please check”.</p></div></div>
+  </article>
+  <article class="chap" id="d7">
+    <header class="chap-h"><span class="cn" aria-hidden="true">07</span>
+      <div class="ct"><span class="ctag">Principle 5 · Keep people in the flow</span><h3>Pay inside the assistant, not in a portal.</h3></div>
+      <div class="cmetric ba"><div><span>Instead of</span><b>A separate payment portal</b></div><div><span>Now</span><b>Pay in the assistant panel</b></div></div></header>
+    <figure class="cshot"><div class="zwrap"><div class="zoomable shot" data-src="assets/checkout.jpg?v=4" data-rx="620" data-ry="480" data-rw="1300" data-rh="890" style="--rx:620;--ry:480;--rw:1300;--rh:890;aspect-ratio:1300/890;background-image:url(assets/checkout.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: Secure checkout inside the assistant panel"></div><span class="pin r" style="left:36.2%;top:76.7%" aria-hidden="true"><i></i><b>Charged after the cancel window</b></span></div><figcaption>Secure checkout inside the assistant panel</figcaption></figure>
+    <div class="cbody"><div><h4>The problem</h4><p>Applicants used to log into a separate portal to pay, the last place you want to lose someone.</p></div><div class="why"><h4>Why it works</h4><p>The agent prepares an itemised invoice, explains every line, and takes payment in the panel: card, bank transfer or pay later. The card is only held, then charged after the cancel window, and the receipt lands in the outcome card.</p></div><div class="cost"><h4>What it cost</h4><p>More trust needed. Card details stay with the payment partner, never the AI, and a decline gets a clear recovery path.</p></div></div>
+  </article>
+  <article class="chap" id="d8">
+    <header class="chap-h"><span class="cn" aria-hidden="true">08</span>
+      <div class="ct"><span class="ctag">Principle 5 · Keep people in the flow</span><h3>Two agents, one panel.</h3></div>
+      <div class="cmetric ba"><div><span>Instead of</span><b>Leaving the form to ask</b></div><div><span>Now</span><b>Ask in a second tab</b></div></div></header>
+    <figure class="cshot"><div class="zwrap"><div class="zoomable shot" data-src="assets/consult.jpg?v=4" data-rx="600" data-ry="330" data-rw="1350" data-rh="860" style="--rx:600;--ry:330;--rw:1350;--rh:860;aspect-ratio:1350/860;background-image:url(assets/consult.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: Consulting tab answering a question, with an honest fallback to a person"></div><span class="pin r" style="left:15.2%;top:88.4%" aria-hidden="true"><i></i><b>Hands off when unsure</b></span></div><figcaption>Consulting tab answering a question, with an honest fallback to a person</figcaption></figure>
+    <div class="cbody"><div><h4>The problem</h4><p>The brief asked for a form agent and a consulting AI. Two products would mean leaving the form to ask.</p></div><div class="why"><h4>Why it works</h4><p>I kept them in one panel with two tabs. The consultant cites its source and offers a person when it is not sure, so you learn the rules without losing your place.</p></div><div class="cost"><h4>What it cost</h4><p>A narrower consultant: general guidance only, no legal advice, so some questions go to a person.</p></div></div>
+  </article>
+  <article class="chap" id="d9">
+    <header class="chap-h"><span class="cn" aria-hidden="true">09</span>
+      <div class="ct"><span class="ctag">Principle 3 · Say what you are unsure of</span><h3>Show the reasons, not just the answer.</h3></div>
+      <div class="cmetric ba"><div><span>Instead of</span><b>Searching a long list</b></div><div><span>Now</span><b>Ranked, with reasons</b></div></div></header>
+    <figure class="cshot"><div class="zwrap"><div class="zoomable shot" data-src="assets/activities.jpg?v=4" data-rx="620" data-ry="420" data-rw="1300" data-rh="840" style="--rx:620;--ry:420;--rw:1300;--rh:840;aspect-ratio:1300/840;background-image:url(assets/activities.jpg?v=4)" role="button" tabindex="0" aria-label="Enlarge: an AI-recommended activity with its match score and restrictions"></div><span class="pin r" style="left:23.5%;top:28.6%" aria-hidden="true"><i></i><b>Match score, with reasons</b></span></div><figcaption>An AI-recommended activity with its match score and restrictions</figcaption></figure>
+    <div class="cbody"><div><h4>The problem</h4><p>Applicants used to search long activity lists, and a recommendation with no reason is just a guess.</p></div><div class="why"><h4>Why it works</h4><p>Each suggestion shows a match percentage, its activity code and a View restrictions link. The applicant can add it, add the top three, or dismiss it, and still search everything.</p></div><div class="cost"><h4>What it cost</h4><p>A score can look more certain than it is, so the restrictions stay one tap away and must be acknowledged.</p></div></div>
+  </article>
+  </div>
 </div></section>
 
 <!-- DESIGN SYSTEM -->
 <section id="system" class="bgB"><div class="wrap rv">
   <div class="eyebrow">Design system</div>
   <h2>One system, from the product to this page.</h2>
-  <p style="margin:0 0 8px"><a class="btn primary sm" href="components.html" target="_blank" rel="noopener">Open the component library ↗</a></p>
-  <p class="sub">The assistant, the landing page and this case study all load the same <code>ds.css</code>: the same tokens, the same components. Nothing here is a one-off.</p>
+  <p class="sub">The assistant, the landing page and this case study all load the same <code>ds.css</code>: the same tokens, the same components. Nothing here is a one-off. This page runs the blue fallback; the product uses the client's purple.</p>
+  <div class="devready">
+    <span class="dr-ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+    <div>
+      <span class="dr-tag">Handed to engineering</span>
+      <h3>A dev-ready React component library, pushed to Git.</h3>
+      <p>I turned the system into a React component library and pushed it to the team's Git repository, so developers build with the same components instead of re-creating them from the design prototype. Every component has its states documented and a copy-ready React snippet: 24 components, from buttons and fields to the AI-specific ones.</p>
+      <div class="dr-chips"><span>Buttons</span><span>Fields</span><span>Choice buttons</span><span>Badges &amp; callouts</span><span>Chat bubbles</span><span>Question tray</span><span>AI suggestion</span><span>Compliance gate</span><span>Document reading</span><span>Outcome card</span><span>Step rail</span><span>Data table</span></div>
+      <a class="btn primary sm" href="components.html" target="_blank" rel="noopener">Open the component library ↗</a>
+    </div>
+  </div>
   <div class="dsgrid">
-    <div class="dscard"><h3>Colour tokens</h3>
-      <div class="sws">
-        <div class="sw" style="background:var(--brand);color:var(--on-brand)">brand</div>
-        <div class="sw" style="background:var(--brand-soft);color:var(--text-1)">brand-soft</div>
-        <div class="sw" style="background:#1A0B33;color:#fff">rail</div>
-        <div class="sw" style="background:var(--ink-900);color:#fff">text-1</div>
-        <div class="sw" style="background:var(--ok-bg);color:var(--ok)">ok</div>
-        <div class="sw" style="background:var(--warn-bg);color:var(--warn)">warn</div>
-        <div class="sw" style="background:var(--bad-bg);color:var(--bad)">bad</div>
-        <div class="sw" style="background:#EDE8F5;color:var(--text-1)">ai bubble</div>
-      </div></div>
+    <div class="dscard wide tokcard"><h3>Colour tokens</h3>
+      <p class="tk-lead">Primitives, semantics and component tokens, read left to right. Components only ever read semantic and component tokens, so the brand can change in one place.</p>
+      <div class="tiers">
+        <div class="tier"><div class="tier-h"><span class="tier-n">1</span><div><b>Primitive tokens</b><code>--ref-color-*</code></div></div>
+          <p>Raw palette values, named by hue and step. Never used directly in a component.</p>
+          <div class="sws3"><div class="sw2" style="background:var(--ref-color-plum-3);color:var(--ref-color-plum-12)"><b>plum-3</b></div><div class="sw2" style="background:var(--ref-color-plum-7);color:var(--ref-color-plum-12)"><b>plum-7</b></div><div class="sw2" style="background:var(--ref-color-plum-9);color:#fff"><b>plum-9</b><span>brand</span></div><div class="sw2" style="background:var(--ref-color-plum-12);color:#fff"><b>plum-12</b></div><div class="sw2" style="background:var(--ref-color-indigo-9);color:#fff"><b>indigo-9</b><span>fallback</span></div><div class="sw2" style="background:var(--ref-color-slate-12);color:#fff"><b>slate-12</b></div></div></div>
+        <div class="tier-arrow" aria-hidden="true">→</div>
+        <div class="tier"><div class="tier-h"><span class="tier-n">2</span><div><b>Semantic tokens</b><code>--sys-color-*</code></div></div>
+          <p>Named by role: surface, text, border, action, feedback. Light and dark come from one <code>light-dark()</code> declaration.</p>
+          <div class="sws3"><div class="sw2" style="background:var(--sys-color-brand-default);color:var(--sys-color-text-on-brand)"><b>brand-default</b></div><div class="sw2" style="background:var(--sys-color-brand-subtle);color:var(--sys-color-text-brand)"><b>brand-subtle</b></div><div class="sw2" style="background:var(--sys-color-bg-sunken);color:var(--sys-color-text-primary)"><b>bg-sunken</b></div><div class="sw2" style="background:var(--sys-color-text-primary);color:var(--sys-color-bg-surface)"><b>text-primary</b></div><div class="sw2" style="background:var(--sys-color-success-bg);color:var(--sys-color-success-fg)"><b>success-bg</b><span>fg + bg</span></div><div class="sw2" style="background:var(--sys-color-danger-bg);color:var(--sys-color-danger-fg)"><b>danger-bg</b><span>fg + bg</span></div></div></div>
+        <div class="tier-arrow" aria-hidden="true">→</div>
+        <div class="tier"><div class="tier-h"><span class="tier-n">3</span><div><b>Component tokens</b><code>--comp-*</code></div></div>
+          <p>One decision per component, built only from system tokens.</p>
+          <div class="sws3"><div class="sw2" style="background:var(--comp-bubble-user-bg);color:var(--comp-bubble-user-text)"><b>bubble-user-bg</b></div><div class="sw2" style="background:var(--comp-toast-bg);color:var(--comp-toast-text)"><b>toast-bg</b></div><div class="sw2" style="background:var(--comp-toast-bg);color:var(--comp-toast-action)"><b>toast-action</b></div></div></div>
+      </div>
+      <div class="tk-foot">
+        <span><b>Brand.</b> The client's purple <code>#541892</code> is <code>plum-9</code>. <code>data-brand="blue"</code> repoints <code>--ref-color-brand-*</code> to the original blue; nothing else changes.</span>
+        <span><b>Handoff.</b> 206 tokens exported as <code>tokens.json</code> (W3C design-token format, light and dark values).</span>
+      </div>
+    </div>
     <div class="dscard"><h3>Type and shape</h3>
-      <div class="type"><span style="font-size:var(--fs-xl);font-weight:650">Aa · 20 title</span><span style="font-size:var(--fs-lg)">Aa · 16 body large</span><span style="font-size:var(--fs-md)">Aa · 14 body</span><span style="font-size:var(--fs-sm);color:var(--text-2)">Aa · 13 secondary</span></div>
-      <div class="radii" aria-label="Radius tokens"><i style="border-radius:var(--r-sm)"></i><i style="border-radius:var(--r-md)"></i><i style="border-radius:var(--r-lg)"></i><i style="border-radius:var(--r-pill)"></i></div></div>
-    <div class="dscard"><h3>Components</h3>
-      <div class="comps"><button class="btn primary sm" tabindex="-1">Use this</button><button class="btn sm" tabindex="-1">Skip</button><span class="badge ok">61% match</span><span class="badge ai">✦ AI</span><span class="badge warn">Check this</span><span class="chip" style="cursor:default">Quick answer</span></div>
+      <div class="type"><span style="font-size:var(--sys-font-size-xl);font-weight:700">Aa · 20 title</span><span style="font-size:var(--sys-font-size-lg)">Aa · 16 body large</span><span style="font-size:var(--sys-font-size-md)">Aa · 14 body</span><span style="font-size:var(--sys-font-size-sm);color:var(--sys-color-text-secondary)">Aa · 13 secondary</span></div>
+      <div class="radii" aria-label="Radius tokens"><i style="border-radius:var(--sys-radius-control)"></i><i style="border-radius:var(--sys-radius-inset)"></i><i style="border-radius:var(--sys-radius-container)"></i><i style="border-radius:var(--sys-radius-pill)"></i></div></div>
+    <div class="dscard w2"><h3>Components</h3>
+      <div class="comps"><button class="btn primary sm" tabindex="-1">Use this</button><button class="btn sm" tabindex="-1">Skip</button><span class="badge ok">61% match</span><span class="badge ai">AI</span><span class="badge warn">Check this</span><span class="chip" style="cursor:default">Quick answer</span></div>
       <input type="text" value="Meridian Labs LLC" aria-label="Sample input" readonly tabindex="-1">
-      <div class="callout warn" style="padding:8px 10px"><span>⚠</span><span>Same callout as in the product</span></div></div>
+      <div class="callout warn" style="padding:8px 12px"><span>⚠</span><span>Same callout as in the product</span></div></div>
   </div>
 </div></section>
 
@@ -509,7 +781,7 @@ footer.theme-dark{background:#120826;border-top:1px solid #3A2860;color:var(--te
 <section id="tests" class="bgA"><div class="wrap rv">
   <div class="eyebrow">Validation plan</div>
   <h2>How I would validate the riskiest assumptions.</h2>
-  <div class="nda" role="note" style="margin:var(--s3) 0 var(--s2);max-width:760px;border-color:var(--warn)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg><span><b style="color:var(--text-1)">Scope.</b> I delivered the research, AI logic, design system and working prototype as part of a consulting engagement. Launch and user validation sat outside my scope, so this is my plan for validating it, not results.</span></div>
+  <div class="nda" role="note" style="margin:var(--sys-space-3) 0 var(--sys-space-2);max-width:760px;border-color:var(--sys-color-warning-fg)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg><span><b style="color:var(--sys-color-text-primary)">Scope.</b> I delivered the research, AI logic, design system and working prototype as part of a consulting engagement. Launch and user validation sat outside my scope, so this is my plan for validating it, not results.</span></div>
   <p class="sub">The tests I would run with 6–8 first-time founders per round.</p>
   <div class="tests">
     <div class="test"><h3>A · Do people blindly accept suggestions?</h3><dl><dt>Hypothesis</dt><dd>Users still catch a wrong default.</dd><dt>Method</dt><dd>Seed one wrong suggestion, watch for corrections.</dd><dt>Metric</dt><dd>Blind-accept rate on the seeded error. Aim: under 10%.</dd></dl></div>
@@ -518,6 +790,41 @@ footer.theme-dark{background:#120826;border-top:1px solid #3A2860;color:var(--te
     <div class="test"><h3>D · One question vs dense card</h3><dl><dt>Hypothesis</dt><dd>One question per turn is faster and has fewer errors.</dd><dt>Method</dt><dd>Within-subject task, counterbalanced.</dd><dt>Metric</dt><dd>Time, validation errors, post-task ease score.</dd></dl></div>
   </div>
   <p class="note">After launch, I would track: goal completion, intent resolution speed, clarification efficiency, trust calibration, undo and escalation rates. Next step: Arabic and right-to-left layouts.</p>
+</div></section>
+
+<!-- PROCESS -->
+<section id="process" class="bgDark theme-dark"><div class="wrap rv">
+  <div class="eyebrow">Appendix · how I worked</div>
+  <h2>The tools I used, and where the decisions stayed mine.</h2>
+  <p class="sub">I used different tools for different jobs and kept a human decision at each hand-off. The calls that shaped the product are listed under AI logic and in the decisions above.</p>
+  <div class="flow">
+    <div class="step s1"><span class="snum">1</span><h3>Research &amp; requirements</h3><span class="tool"><span class="ti" style="background:#10a37f"><svg viewBox="0 0 24 24" width="13" height="13" fill="#fff" aria-hidden="true"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg></span>ChatGPT</span><p>Desk research, PRD requirement analysis, and a first draft of the AI logic: roles, autonomy and guardrails.</p><div class="chips"><span class="chip" style="cursor:default">PRD analysis</span><span class="chip" style="cursor:default">AI logic draft</span></div></div>
+    <div class="step s2"><span class="snum">2</span><h3>Discovery workshop</h3><span class="tool"><span class="ti" style="background:#a259ff"><svg viewBox="0 0 24 24" width="13" height="13" fill="#fff" aria-hidden="true"><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/></svg></span>Figma AI</span><p>Synthesised insights and journeys on a discovery board, then mapped AI mode types and patterns.</p><div class="chips"><span class="chip" style="cursor:default">Insights</span><span class="chip" style="cursor:default">Journeys</span><span class="chip" style="cursor:default">AI patterns</span></div></div>
+    <div class="step s3"><span class="snum">3</span><h3>Build</h3><span class="tool"><span class="ti" style="background:#d97757"><svg viewBox="0 0 24 24" width="13" height="13" fill="#fff" aria-hidden="true"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></span>Claude Code</span><p>Built the working prototype, the landing page and this case study, iterating in conversation.</p><div class="chips"><span class="chip" style="cursor:default">Prototype</span><span class="chip" style="cursor:default">Landing</span></div></div>
+    <div class="step s4"><span class="snum">4</span><h3>Design system</h3><span class="tool"><span class="ti" style="background:var(--ref-color-brand-9)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span>Core AI primary system</span><p>Started from the core AI primary design system and customised the tokens and components for this product.</p><div class="chips"><span class="chip" style="cursor:default">Tokens</span><span class="chip" style="cursor:default">Components</span></div></div>
+    <div class="step s5"><span class="snum">5</span><h3>Handoff</h3><span class="tool"><span class="ti" style="background:#f05133"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="8" r="2.2"/><path d="M6 8.2v7.6M18 10.2c0 4-6 3-11 6.5"/></svg></span>Git</span><p>Turned the design system into a React component library and pushed it to the team's Git repository, so developers build with the same components.</p><div class="chips"><span class="chip" style="cursor:default">React library</span><span class="chip" style="cursor:default">Tokens</span></div></div>
+  </div>
+
+  <div class="skillgrp">
+    <h3><span class="badge ai">AI skills</span> Claude skills that shaped the AI behaviour</h3>
+    <div class="skills">
+      <div class="skill"><code>ai-experience-design</code><p>A framework for AI copilots and agents: roles, seven layers, autonomy ladder, confidence thresholds, failure and recovery, metrics.</p><small><b>Used for:</b> every AI decision and state in the assistant</small></div>
+      <div class="skill"><code>ux-designer</code><p>Modern UX and UI practice, including AI interfaces, forms, onboarding, notifications and drop-off.</p><small><b>Used for:</b> flow patterns and the faster, easier question design</small></div>
+    </div>
+  </div>
+  <div class="skillgrp">
+    <h3><span class="badge warn">Guardrail skills</span> Claude skills that checked the work</h3>
+    <div class="skills">
+      <div class="skill"><code>design:accessibility-review</code><p>A WCAG 2.1 AA audit covering contrast, keyboard use, focus, labels and screen readers.</p><small><b>Used for:</b> the accessibility pass and its fixes</small></div>
+      <div class="skill"><code>ux-designer</code><p>The same skill, run as a colour-contrast check across themes and states.</p><small><b>Used for:</b> bubble, badge and button contrast, to AAA where it mattered</small></div>
+    </div>
+  </div>
+  <div class="skillgrp">
+    <h3><span class="badge ok">◆ System skill</span> Claude skill that kept the system consistent</h3>
+    <div class="skills">
+      <div class="skill"><code>design:design-system</code><p>Audit, document and extend a design system: tokens, components, states and usage notes.</p><small><b>Used for:</b> the token set, component docs and the product-to-portfolio consistency</small></div>
+    </div>
+  </div>
 </div></section>
 
 </main>
@@ -537,19 +844,19 @@ const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 /* ---------- hero slideshow (real screenshots) ---------- */
 const slides=[
- ['Intent · Guardrail','Verify first, then open the form','assets/gate.jpg'],
- ['Create · Speed','Upload the MOA, the AI fills the company','assets/moa.jpg'],
- ['Create · Check','Arabic name suggested, you check it','assets/arabic.jpg'],
- ['Recommend · Transparency','AI recommends, with reasons, you decide','assets/activities.jpg'],
- ['Control · Guardrail','Compliance, on purpose','assets/compliance.jpg'],
- ['Recommend · Speed','Accept a whole section in one click','assets/quick.jpg'],
- ['Plan · Create','AI reads, you confirm what is unclear','assets/passport.jpg'],
- ['Intent · One question','Several roles, one question','assets/roles.jpg'],
- ['Create · Transparency','Upload the forecast, the AI reads it, you confirm','assets/projection.jpg'],
- ['Explain · One question','UBOs explained, then confirmed in one tap','assets/ubo.jpg'],
- ['Act · Confirm','Pay inside the panel, card held first','assets/checkout.jpg'],
- ['Consult · Honesty','A consultant that says when it does not know','assets/consult.jpg'],
- ['Outcome · Traceability','A result card, not a transcript','assets/outcome.jpg']
+ ['Intent · Guardrail','Verify first, then open the form','assets/gate.jpg?v=4'],
+ ['Create · Speed','Upload the MOA, the AI fills the company','assets/moa.jpg?v=4'],
+ ['Create · Check','Arabic name suggested, you check it','assets/arabic.jpg?v=4'],
+ ['Recommend · Transparency','AI recommends, with reasons, you decide','assets/activities.jpg?v=4'],
+ ['Control · Guardrail','Compliance, on purpose','assets/compliance.jpg?v=4'],
+ ['Recommend · Speed','Accept a whole section in one click','assets/quick.jpg?v=4'],
+ ['Plan · Create','AI reads, you confirm what is unclear','assets/passport.jpg?v=4'],
+ ['Intent · One question','Several roles, one question','assets/roles.jpg?v=4'],
+ ['Create · Transparency','Upload the forecast, the AI reads it, you confirm','assets/projection.jpg?v=4'],
+ ['Explain · One question','UBOs explained, then confirmed in one tap','assets/ubo.jpg?v=4'],
+ ['Act · Confirm','Pay inside the panel, card held first','assets/checkout.jpg?v=4'],
+ ['Consult · Honesty','A consultant that says when it does not know','assets/consult.jpg?v=4'],
+ ['Outcome · Traceability','A result card, not a transcript','assets/outcome.jpg?v=4']
 ];
 const imgs=$$('#slidebox img'),box=$('#slidebox'),dots=$('#dots'),play=$('#playBtn');
 let i=0,timer=null,playing=!reduce;
@@ -561,21 +868,9 @@ play.onclick=()=>setPlaying(!playing);
 show(0);setPlaying(playing);
 $('#heroZ').addEventListener('mouseenter',()=>{if(playing)clearInterval(timer)});
 $('#heroZ').addEventListener('mouseleave',()=>{if(playing)start()});
-/* ---------- magnifier lens ---------- */
-const Z=2.4,R=90;
+/* ---------- click to enlarge ---------- */
 $$('.zwrap').forEach(w=>{
-  const b=w.querySelector('.zoomable'),lens=w.querySelector('.lens');if(!b||!lens)return;
-  b.addEventListener('pointermove',e=>{
-    if(e.pointerType==='touch')return;
-    const r=b.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
-    const rw=+b.dataset.rw||2000,rx=+b.dataset.rx||0,ry=+b.dataset.ry||0,scale=r.width/rw;
-    lens.style.backgroundImage='url('+b.dataset.src+')';
-    lens.style.backgroundSize=(2000*scale*Z)+'px '+(1660*scale*Z)+'px';
-    lens.style.backgroundPosition=(R-(mx+rx*scale)*Z)+'px '+(R-(my+ry*scale)*Z)+'px';
-    lens.style.left=(b.offsetLeft+mx-R)+'px';lens.style.top=(b.offsetTop+my-R)+'px';lens.style.opacity=1;
-    const h=w.querySelector('.zhint');if(h)h.style.opacity=0;
-  });
-  b.addEventListener('pointerleave',()=>{lens.style.opacity=0;const h=w.querySelector('.zhint');if(h)h.style.opacity=1});
+  const b=w.querySelector('.zoomable');if(!b)return;
   b.addEventListener('click',()=>openLb(b.dataset.src,b.getAttribute('aria-label')||'',b));
   b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLb(b.dataset.src,b.getAttribute('aria-label')||'',b)}});
 });
