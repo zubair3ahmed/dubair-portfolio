@@ -1,0 +1,363 @@
+/* ==========================================================================
+   Guide design tokens
+   Three tiers, in the order they are read:
+
+   1. PRIMITIVE  --ref-*   Raw values: palettes, font stacks, shadow colour. Never used in a component.
+   2. SEMANTIC   --sys-*   Meaning: what a value is for (surface, text, border, action, feedback).
+                           Themed here, once, with light-dark(). Components read these.
+   3. COMPONENT  --comp-*  Per-component decisions (button, bubble, switch). Defined next to the
+                           component in ds.css and built only from --sys-* tokens.
+
+   Rules
+   - Name by role, not by value:       --sys-color-text-secondary, not --gray-600.
+   - Pattern:                          --{tier}-{category}-{property}-{variant}-{state}
+   - Components never use --ref-*; they never use a raw hex, rgb() or px colour.
+   - Theming is one declaration per token. Themes are switched with color-scheme, so a scope
+     (.theme-light, .theme-dark) or the root (data-theme, OS setting) changes every token at once.
+   - Brand is swapped at the primitive tier only: <html data-brand="blue"> repoints --ref-color-brand-*.
+   - Old names (--brand, --text-1, --s4 ...) live in the DEPRECATED block at the end of this file.
+   ========================================================================== */
+
+/* ---------- 1. PRIMITIVE TOKENS ---------- */
+:root{
+  --ref-color-white:#fff;
+
+  /* Neutral: Radix slate, light steps 1-12 and dark steps 1-12 */
+  --ref-color-slate-1:#fcfcfd; --ref-color-slate-2:#f9f9fb; --ref-color-slate-3:#f0f0f3; --ref-color-slate-4:#e8e8ec;
+  --ref-color-slate-5:#e0e1e6; --ref-color-slate-6:#d9d9e0; --ref-color-slate-7:#cdced6; --ref-color-slate-8:#b9bbc6;
+  --ref-color-slate-9:#8b8d98; --ref-color-slate-10:#80838d; --ref-color-slate-11:#60646c; --ref-color-slate-12:#1c2024;
+  --ref-color-slate-dark-1:#111113; --ref-color-slate-dark-2:#18191b; --ref-color-slate-dark-3:#212225; --ref-color-slate-dark-4:#272a2d;
+  --ref-color-slate-dark-5:#2e3135; --ref-color-slate-dark-6:#363a3f; --ref-color-slate-dark-7:#43484e; --ref-color-slate-dark-8:#5a6169;
+  --ref-color-slate-dark-9:#696e77; --ref-color-slate-dark-10:#777b84; --ref-color-slate-dark-11:#b0b4ba; --ref-color-slate-dark-12:#edeef0;
+
+  /* Brand A: the client's purple (#541892, sampled from the first build). unslop-ignore */
+  --ref-color-plum-1:#fdfcff; --ref-color-plum-2:#faf7fd; --ref-color-plum-3:#f3ecfa; --ref-color-plum-4:#ebe0f6;
+  --ref-color-plum-5:#e0cff0; --ref-color-plum-6:#d2bbe8; --ref-color-plum-7:#bc9cdb; --ref-color-plum-8:#9f74c8;
+  --ref-color-plum-9:#541892; --ref-color-plum-10:#46127c; --ref-color-plum-11:#5b2299; --ref-color-plum-12:#2a0b4c;
+  --ref-color-plum-dark-1:#1a0b2e; --ref-color-plum-dark-3:#2a1840; --ref-color-plum-dark-4:#3b2160; --ref-color-plum-dark-7:#6a3fb0;
+  --ref-color-plum-dark-9:#b794e6; --ref-color-plum-dark-10:#c9aff0; --ref-color-plum-dark-11:#c9aff0;
+
+  /* Brand B: the original blue (Radix indigo) */
+  --ref-color-indigo-1:#fdfdfe; --ref-color-indigo-2:#f7f9ff; --ref-color-indigo-3:#edf2fe; --ref-color-indigo-4:#e1e9ff;
+  --ref-color-indigo-5:#d2deff; --ref-color-indigo-6:#c1d0ff; --ref-color-indigo-7:#abbdf9; --ref-color-indigo-8:#8da4ef;
+  --ref-color-indigo-9:#3e63dd; --ref-color-indigo-10:#3358d4; --ref-color-indigo-11:#3a5bc7; --ref-color-indigo-12:#1f2d5c;
+  --ref-color-indigo-dark-1:#11131f; --ref-color-indigo-dark-3:#182449; --ref-color-indigo-dark-4:#1d2e62; --ref-color-indigo-dark-7:#3e63dd;
+  --ref-color-indigo-dark-9:#8da4ef; --ref-color-indigo-dark-10:#9eb1ff; --ref-color-indigo-dark-11:#9eb1ff;
+
+  /* Active brand: the only reference tokens that are indirected. data-brand switches the source. */
+  --ref-color-brand-1:var(--ref-color-plum-1); --ref-color-brand-2:var(--ref-color-plum-2); --ref-color-brand-3:var(--ref-color-plum-3);
+  --ref-color-brand-4:var(--ref-color-plum-4); --ref-color-brand-5:var(--ref-color-plum-5); --ref-color-brand-6:var(--ref-color-plum-6);
+  --ref-color-brand-7:var(--ref-color-plum-7); --ref-color-brand-8:var(--ref-color-plum-8); --ref-color-brand-9:var(--ref-color-plum-9);
+  --ref-color-brand-10:var(--ref-color-plum-10); --ref-color-brand-11:var(--ref-color-plum-11); --ref-color-brand-12:var(--ref-color-plum-12);
+  --ref-color-brand-dark-1:var(--ref-color-plum-dark-1); --ref-color-brand-dark-3:var(--ref-color-plum-dark-3);
+  --ref-color-brand-dark-4:var(--ref-color-plum-dark-4); --ref-color-brand-dark-7:var(--ref-color-plum-dark-7);
+  --ref-color-brand-dark-9:var(--ref-color-plum-dark-9); --ref-color-brand-dark-10:var(--ref-color-plum-dark-10);
+  --ref-color-brand-dark-11:var(--ref-color-plum-dark-11);
+
+  /* Feedback hues */
+  --ref-color-green-50:#ecfdf3; --ref-color-green-400:#32d583; --ref-color-green-500:#12b76a; --ref-color-green-600:#039855; --ref-color-green-700:#027a48; --ref-color-green-950:#053321;
+  --ref-color-amber-50:#fffaeb; --ref-color-amber-400:#fdb022; --ref-color-amber-500:#f79009; --ref-color-amber-700:#b54708; --ref-color-amber-950:#3a2a0b;
+  --ref-color-red-50:#fef3f2; --ref-color-red-400:#f97066; --ref-color-red-500:#f04438; --ref-color-red-700:#b42318; --ref-color-red-950:#3b1618;
+
+  /* Illustration hues, for the step-rail icons only */
+  --ref-color-amber-300:#fec84b;
+  --ref-color-cyan-300:#67e3f9; --ref-color-cyan-500:#06aed4; --ref-color-cyan-700:#0e7090;
+  --ref-color-green-300:#6ce9a6; --ref-color-green-800:#067647;
+  --ref-color-lime-300:#bef16b; --ref-color-lime-500:#66c61c; --ref-color-lime-700:#3b7c0f;
+  --ref-color-violet-300:#bdb4fe; --ref-color-violet-500:#7a5af8; --ref-color-violet-700:#5925dc;
+  --ref-color-orange-500:#fb6514; --ref-color-orange-700:#c4320a;
+  --ref-color-sky-300:#84caff; --ref-color-sky-500:#2e90fa; --ref-color-sky-700:#175cd3;
+  --ref-color-steel-300:#b3b8db; --ref-color-steel-500:#5d6b98; --ref-color-steel-700:#363f72;
+  --ref-color-pink-300:#faa7e0; --ref-color-pink-500:#ee46bc; --ref-color-pink-700:#c11574;
+
+  /* Shadow and scrim colour channels */
+  --ref-shadow-rgb:16 24 40;
+  --ref-scrim-rgb:10 12 24;
+
+  /* Type */
+  --ref-font-family-sans:"Lato",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --ref-font-family-arabic:"Noto Kufi Arabic","Noto Sans Arabic",Tahoma,sans-serif;
+
+  /* Motion curves */
+  --ref-ease-out:cubic-bezier(.23,1,.32,1);
+  --ref-ease-in-out:cubic-bezier(.77,0,.175,1);
+}
+
+/* Brand B: <html data-brand="blue"> restores the original blue everywhere */
+:root[data-brand="blue"]{
+  --ref-color-brand-1:var(--ref-color-indigo-1); --ref-color-brand-2:var(--ref-color-indigo-2); --ref-color-brand-3:var(--ref-color-indigo-3);
+  --ref-color-brand-4:var(--ref-color-indigo-4); --ref-color-brand-5:var(--ref-color-indigo-5); --ref-color-brand-6:var(--ref-color-indigo-6);
+  --ref-color-brand-7:var(--ref-color-indigo-7); --ref-color-brand-8:var(--ref-color-indigo-8); --ref-color-brand-9:var(--ref-color-indigo-9);
+  --ref-color-brand-10:var(--ref-color-indigo-10); --ref-color-brand-11:var(--ref-color-indigo-11); --ref-color-brand-12:var(--ref-color-indigo-12);
+  --ref-color-brand-dark-1:var(--ref-color-indigo-dark-1); --ref-color-brand-dark-3:var(--ref-color-indigo-dark-3);
+  --ref-color-brand-dark-4:var(--ref-color-indigo-dark-4); --ref-color-brand-dark-7:var(--ref-color-indigo-dark-7);
+  --ref-color-brand-dark-9:var(--ref-color-indigo-dark-9); --ref-color-brand-dark-10:var(--ref-color-indigo-dark-10);
+  --ref-color-brand-dark-11:var(--ref-color-indigo-dark-11);
+}
+
+/* ---------- Theme switch: color-scheme drives every light-dark() below ---------- */
+:root{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark}}
+.theme-light{color-scheme:light}
+.theme-dark{color-scheme:dark}
+
+/* ---------- 2. SEMANTIC TOKENS ---------- */
+:root{
+  /* Surfaces */
+  --sys-color-bg-canvas:light-dark(var(--ref-color-slate-2),var(--ref-color-slate-dark-1));
+  --sys-color-bg-surface:light-dark(var(--ref-color-white),var(--ref-color-slate-dark-2));
+  --sys-color-bg-sunken:light-dark(var(--ref-color-slate-3),var(--ref-color-slate-dark-3));
+  --sys-color-bg-inverse:var(--ref-color-slate-12);
+
+  /* Text */
+  --sys-color-text-primary:light-dark(var(--ref-color-slate-12),var(--ref-color-slate-dark-12));
+  --sys-color-text-secondary:light-dark(var(--ref-color-slate-11),var(--ref-color-slate-dark-11));
+  --sys-color-text-tertiary:light-dark(var(--ref-color-slate-11),var(--ref-color-slate-9));
+  --sys-color-text-label:light-dark(var(--ref-color-slate-12),var(--ref-color-slate-dark-11));
+  --sys-color-text-brand:light-dark(var(--ref-color-brand-10),var(--ref-color-brand-dark-11));
+  --sys-color-text-on-brand:light-dark(var(--ref-color-white),var(--ref-color-brand-dark-1));
+  --sys-color-text-on-inverse:var(--ref-color-white);
+  --sys-color-text-on-solid:var(--ref-color-white);
+  --sys-color-brand-on-inverse:var(--ref-color-brand-7);
+  --sys-color-brand-wash:light-dark(var(--ref-color-brand-2),var(--ref-color-brand-dark-3));
+
+  /* Borders */
+  --sys-color-border-default:light-dark(var(--ref-color-slate-5),var(--ref-color-slate-dark-6));
+  --sys-color-border-strong:light-dark(var(--ref-color-slate-7),var(--ref-color-slate-dark-7));
+  --sys-color-border-input:var(--ref-color-slate-9);
+
+  /* Brand action */
+  --sys-color-brand-default:light-dark(var(--ref-color-brand-9),var(--ref-color-brand-dark-9));
+  --sys-color-brand-hover:light-dark(var(--ref-color-brand-10),var(--ref-color-brand-dark-10));
+  --sys-color-brand-subtle:light-dark(var(--ref-color-brand-3),var(--ref-color-brand-dark-3));
+  --sys-color-brand-subtle-hover:light-dark(var(--ref-color-brand-4),var(--ref-color-brand-dark-4));
+  --sys-color-brand-subtle-border:light-dark(var(--ref-color-brand-4),var(--ref-color-brand-dark-4));
+  --sys-color-brand-emphasis:light-dark(var(--ref-color-brand-7),var(--ref-color-brand-dark-7));
+  --sys-color-ai-fill:var(--sys-color-brand-default);
+
+  /* Secondary and neutral actions (buttons on a grey surface) */
+  --sys-color-action-secondary-bg:light-dark(var(--ref-color-slate-3),var(--ref-color-slate-dark-3));
+  --sys-color-action-secondary-bg-hover:light-dark(var(--ref-color-slate-5),var(--ref-color-slate-dark-6));
+  --sys-color-action-secondary-fg:light-dark(var(--ref-color-slate-12),var(--ref-color-slate-dark-11));
+  --sys-color-action-neutral-bg:light-dark(var(--ref-color-slate-2),var(--ref-color-slate-dark-2));
+  --sys-color-action-neutral-bg-hover:light-dark(var(--ref-color-slate-3),var(--ref-color-slate-dark-3));
+
+  /* Feedback. Always pair colour with an icon and words. */
+  --sys-color-success-fg:light-dark(var(--ref-color-green-700),var(--ref-color-green-400));
+  --sys-color-success-bg:light-dark(var(--ref-color-green-50),var(--ref-color-green-950));
+  --sys-color-success-solid:light-dark(var(--ref-color-green-600),var(--ref-color-green-400));
+  --sys-color-success-border:var(--ref-color-green-500);
+  --sys-color-success-tint:color-mix(in srgb,var(--ref-color-green-500) 12%,transparent);
+  --sys-color-success-tint-strong:color-mix(in srgb,var(--ref-color-green-500) 22%,transparent);
+  --sys-color-warning-fg:light-dark(var(--ref-color-amber-700),var(--ref-color-amber-400));
+  --sys-color-warning-bg:light-dark(var(--ref-color-amber-50),var(--ref-color-amber-950));
+  --sys-color-warning-border:var(--ref-color-amber-500);
+  --sys-color-danger-fg:light-dark(var(--ref-color-red-700),var(--ref-color-red-400));
+  --sys-color-danger-bg:light-dark(var(--ref-color-red-50),var(--ref-color-red-950));
+  --sys-color-danger-solid:light-dark(var(--ref-color-red-700),var(--ref-color-red-400));
+  --sys-color-danger-border:var(--ref-color-red-500);
+  --sys-color-danger-tint:color-mix(in srgb,var(--ref-color-red-500) 12%,transparent);
+
+  /* Focus, overlays */
+  --sys-color-focus-ring:light-dark(
+    color-mix(in srgb,var(--sys-color-brand-default) 16%,transparent),
+    color-mix(in srgb,var(--sys-color-brand-default) 32%,transparent));
+  --sys-focus-ring:0 0 0 3px var(--sys-color-focus-ring);
+  --sys-focus-ring-field:0 0 0 4px color-mix(in srgb,var(--sys-color-brand-default) 22%,transparent);
+  --sys-focus-ring-field-invalid:0 0 0 4px color-mix(in srgb,var(--ref-color-red-500) 18%,transparent);
+  --sys-color-overlay:rgb(var(--ref-shadow-rgb) / .55);
+  --sys-color-scrim:rgb(var(--ref-scrim-rgb) / .45);
+
+  --sys-filter-icon-shadow:drop-shadow(0 1px 1px rgb(var(--ref-shadow-rgb) / .22));
+
+  /* Typography */
+  --sys-font-family:var(--ref-font-family-sans);
+  --sys-font-family-arabic:var(--ref-font-family-arabic);
+  --sys-font-size-xs:12px; --sys-font-size-sm:13px; --sys-font-size-md:14px; --sys-font-size-lg:16px; --sys-font-size-xl:20px;
+  --sys-font-weight-regular:400; --sys-font-weight-bold:700;
+  --sys-line-height-body:1.5;
+
+  /* Space: 4pt scale */
+  --sys-space-1:4px; --sys-space-2:8px; --sys-space-3:12px; --sys-space-4:16px; --sys-space-5:20px; --sys-space-6:24px; --sys-space-7:48px; --sys-space-8:64px;
+
+  /* Radius: control 8, inset block 12, container 16, pill for badges only */
+  --sys-radius-control:8px; --sys-radius-inset:12px; --sys-radius-container:16px; --sys-radius-pill:999px;
+
+  /* Elevation: 1 controls, 2 menus and toasts, 3 the modal */
+  --sys-elevation-1:0 1px 2px rgb(var(--ref-shadow-rgb) / .05);
+  --sys-elevation-2:0 4px 8px -2px rgb(var(--ref-shadow-rgb) / .1),0 2px 4px -2px rgb(var(--ref-shadow-rgb) / .06);
+  --sys-elevation-3:0 20px 24px -4px rgb(var(--ref-shadow-rgb) / .08),0 8px 8px -4px rgb(var(--ref-shadow-rgb) / .03);
+
+  /* Motion */
+  --sys-motion-duration-fast:120ms; --sys-motion-duration-base:220ms;
+  --sys-motion-ease-standard:var(--ref-ease-out); --sys-motion-ease-in-out:var(--ref-ease-in-out);
+}
+
+/* ---------- Compatibility for shadcn/ui components (maps shadcn's names onto the system tier) ---------- */
+:root{
+  --radius:var(--sys-radius-control);
+  --background:var(--sys-color-bg-canvas); --foreground:var(--sys-color-text-primary);
+  --card:var(--sys-color-bg-surface); --card-foreground:var(--sys-color-text-primary);
+  --popover:var(--sys-color-bg-surface); --popover-foreground:var(--sys-color-text-primary);
+  --primary:var(--sys-color-brand-default); --primary-foreground:var(--sys-color-text-on-brand);
+  --secondary:var(--sys-color-action-secondary-bg); --secondary-foreground:var(--sys-color-action-secondary-fg);
+  --muted:var(--sys-color-bg-sunken); --muted-foreground:var(--sys-color-text-tertiary);
+  --accent:var(--sys-color-brand-subtle); --accent-foreground:var(--sys-color-text-brand);
+  --destructive:var(--sys-color-danger-fg); --destructive-foreground:var(--sys-color-text-on-solid);
+  --input:var(--sys-color-border-input); --ring:var(--sys-color-brand-default);
+}
+
+/* ---------- DEPRECATED aliases ----------
+   Old names, kept for one release so nothing outside this repo breaks. Do not use in new work. */
+:root{
+  --accent-text:var(--sys-color-text-brand);
+  --ai-fill:var(--sys-color-ai-fill);
+  --b-1:var(--ref-color-brand-1);
+  --b-10:var(--ref-color-brand-10);
+  --b-11:var(--ref-color-brand-11);
+  --b-12:var(--ref-color-brand-12);
+  --b-2:var(--ref-color-brand-2);
+  --b-3:var(--ref-color-brand-3);
+  --b-4:var(--ref-color-brand-4);
+  --b-5:var(--ref-color-brand-5);
+  --b-6:var(--ref-color-brand-6);
+  --b-7:var(--ref-color-brand-7);
+  --b-8:var(--ref-color-brand-8);
+  --b-9:var(--ref-color-brand-9);
+  --bad:var(--sys-color-danger-fg);
+  --bad-bg:var(--sys-color-danger-bg);
+  --bad-line:var(--sys-color-danger-border);
+  --bg-app:var(--sys-color-bg-canvas);
+  --bg-sunken:var(--sys-color-bg-sunken);
+  --bg-surface:var(--sys-color-bg-surface);
+  --border:var(--sys-color-border-default);
+  --border-input:var(--sys-color-border-input);
+  --border-strong:var(--sys-color-border-strong);
+  --brand:var(--sys-color-brand-default);
+  --brand-100:var(--ref-color-brand-4);
+  --brand-25:var(--ref-color-brand-2);
+  --brand-300:var(--ref-color-brand-7);
+  --brand-50:var(--ref-color-brand-3);
+  --brand-500:var(--ref-color-brand-9);
+  --brand-600:var(--ref-color-brand-10);
+  --brand-700:var(--ref-color-brand-11);
+  --brand-border:var(--sys-color-brand-subtle-border);
+  --brand-hover:var(--sys-color-brand-hover);
+  --brand-line:var(--sys-color-brand-emphasis);
+  --brand-soft:var(--sys-color-brand-subtle);
+  --brand-text:var(--sys-color-text-brand);
+  --bubble-ai-bg:var(--comp-bubble-ai-bg);
+  --bubble-ai-border:var(--comp-bubble-ai-border);
+  --bubble-ai-text:var(--comp-bubble-ai-text);
+  --bubble-user-bg:var(--comp-bubble-user-bg);
+  --bubble-user-text:var(--comp-bubble-user-text);
+  --burgundy:var(--ref-color-brand-9);
+  --canvas:var(--sys-color-bg-surface);
+  --dur:var(--sys-motion-duration-base);
+  --dur-fast:var(--sys-motion-duration-fast);
+  --e1:var(--sys-elevation-1);
+  --e2:var(--sys-elevation-2);
+  --e3:var(--sys-elevation-3);
+  --ease:var(--sys-motion-ease-standard);
+  --ease-io:var(--sys-motion-ease-in-out);
+  --focus:var(--sys-focus-ring);
+  --font:var(--sys-font-family);
+  --font-ar:var(--sys-font-family-arabic);
+  --fs-lg:var(--sys-font-size-lg);
+  --fs-md:var(--sys-font-size-md);
+  --fs-sm:var(--sys-font-size-sm);
+  --fs-xl:var(--sys-font-size-xl);
+  --fs-xs:var(--sys-font-size-xs);
+  --gray-100:var(--ref-color-slate-3);
+  --gray-200:var(--ref-color-slate-5);
+  --gray-25:var(--ref-color-slate-1);
+  --gray-300:var(--ref-color-slate-7);
+  --gray-400:var(--ref-color-slate-9);
+  --gray-50:var(--ref-color-slate-2);
+  --gray-500:var(--ref-color-slate-11);
+  --gray-600:var(--ref-color-slate-11);
+  --gray-700:var(--ref-color-slate-12);
+  --gray-800:var(--ref-color-slate-12);
+  --gray-900:var(--ref-color-slate-12);
+  --indigo-1:var(--ref-color-indigo-1);
+  --indigo-10:var(--ref-color-indigo-10);
+  --indigo-11:var(--ref-color-indigo-11);
+  --indigo-12:var(--ref-color-indigo-12);
+  --indigo-2:var(--ref-color-indigo-2);
+  --indigo-3:var(--ref-color-indigo-3);
+  --indigo-4:var(--ref-color-indigo-4);
+  --indigo-5:var(--ref-color-indigo-5);
+  --indigo-6:var(--ref-color-indigo-6);
+  --indigo-7:var(--ref-color-indigo-7);
+  --indigo-8:var(--ref-color-indigo-8);
+  --indigo-9:var(--ref-color-indigo-9);
+  --ink:var(--ref-color-slate-12);
+  --ink-100:var(--ref-color-slate-3);
+  --ink-200:var(--ref-color-slate-5);
+  --ink-300:var(--ref-color-slate-7);
+  --ink-50:var(--ref-color-slate-2);
+  --ink-500:var(--ref-color-slate-11);
+  --ink-700:var(--ref-color-slate-12);
+  --ink-900:var(--ref-color-slate-12);
+  --n-100:var(--ref-color-slate-3);
+  --n-200:var(--ref-color-slate-5);
+  --n-300:var(--ref-color-slate-7);
+  --n-50:var(--ref-color-slate-2);
+  --ok:var(--sys-color-success-fg);
+  --ok-bg:var(--sys-color-success-bg);
+  --ok-fill:var(--sys-color-success-solid);
+  --ok-line:var(--sys-color-success-border);
+  --on-brand:var(--sys-color-text-on-brand);
+  --plum-1:var(--ref-color-plum-1);
+  --plum-10:var(--ref-color-plum-10);
+  --plum-11:var(--ref-color-plum-11);
+  --plum-12:var(--ref-color-plum-12);
+  --plum-2:var(--ref-color-plum-2);
+  --plum-3:var(--ref-color-plum-3);
+  --plum-4:var(--ref-color-plum-4);
+  --plum-5:var(--ref-color-plum-5);
+  --plum-6:var(--ref-color-plum-6);
+  --plum-7:var(--ref-color-plum-7);
+  --plum-8:var(--ref-color-plum-8);
+  --plum-9:var(--ref-color-plum-9);
+  --r-lg:var(--sys-radius-container);
+  --r-md:var(--sys-radius-inset);
+  --r-pill:var(--sys-radius-pill);
+  --r-sm:var(--sys-radius-control);
+  --rose:var(--ref-color-brand-10);
+  --rose-tint:var(--ref-color-brand-7);
+  --s1:var(--sys-space-1);
+  --s2:var(--sys-space-2);
+  --s3:var(--sys-space-3);
+  --s4:var(--sys-space-4);
+  --s5:var(--sys-space-5);
+  --s6:var(--sys-space-6);
+  --slate-1:var(--ref-color-slate-1);
+  --slate-10:var(--ref-color-slate-10);
+  --slate-11:var(--ref-color-slate-11);
+  --slate-12:var(--ref-color-slate-12);
+  --slate-2:var(--ref-color-slate-2);
+  --slate-3:var(--ref-color-slate-3);
+  --slate-4:var(--ref-color-slate-4);
+  --slate-5:var(--ref-color-slate-5);
+  --slate-6:var(--ref-color-slate-6);
+  --slate-7:var(--ref-color-slate-7);
+  --slate-8:var(--ref-color-slate-8);
+  --slate-9:var(--ref-color-slate-9);
+  --surface-brand:var(--sys-color-brand-subtle);
+  --surface-brand-hover:var(--sys-color-brand-subtle-hover);
+  --surface-brand-text:var(--sys-color-text-brand);
+  --surface-neutral:var(--sys-color-action-neutral-bg);
+  --surface-neutral-hover:var(--sys-color-action-neutral-bg-hover);
+  --surface-secondary:var(--sys-color-action-secondary-bg);
+  --surface-secondary-hover:var(--sys-color-action-secondary-bg-hover);
+  --surface-secondary-text:var(--sys-color-action-secondary-fg);
+  --text-1:var(--sys-color-text-primary);
+  --text-2:var(--sys-color-text-secondary);
+  --text-3:var(--sys-color-text-tertiary);
+  --text-label:var(--sys-color-text-label);
+  --warn:var(--sys-color-warning-fg);
+  --warn-bg:var(--sys-color-warning-bg);
+  --warn-line:var(--sys-color-warning-border);
+}

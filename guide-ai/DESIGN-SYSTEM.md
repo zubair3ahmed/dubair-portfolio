@@ -1,6 +1,6 @@
 # Guide.ai: Incorporation Assistant — Design System & AI Experience Spec
 
-Files: `index.html` (the case study) · `prototype.html` (the working assistant: landing page + modal markup) · `ds.css` (tokens + components, shared by both) · `app.js` (assistant logic). Open `index.html` in a browser. Tokens live in the `:root` block of `ds.css`.
+Files: `index.html` (the case study) · `prototype.html` (the working assistant: landing page + modal markup) · `tokens.css` (design tokens) · `ds.css` (components, shared by both) · `app.js` (assistant logic). Open `index.html` in a browser. Tokens live in the `:root` block of `ds.css`.
 
 **Modal:** the assistant opens as a centered dialog from any "Start application" button or the floating "Ask Guide.ai" launcher. On wide screens (≥820px) it has a persistent labelled step rail on the left. Under 820px the rail collapses into the expandable progress meter, and under 640px the modal goes full-screen. It closes with ✕, Esc or a backdrop click, traps Tab focus, and returns focus to the button that opened it. Progress is kept, so the buttons change to "Resume application" and then "View application" once submitted.
 
@@ -101,18 +101,46 @@ Goal completion rate · time to submission vs. baseline · % fields auto-filled 
 5. Built for a 360–440px panel, so everything stacks and nothing needs breakpoints.
 
 ### Tokens
-| Category | Tokens |
-|---|---|
-| Color, semantic | `--bg-app` `--bg-surface` `--bg-sunken` · `--text-1/2/3` · `--border` `--border-strong` · `--brand` `--brand-hover` `--brand-soft` `--brand-border` `--on-brand` · `--ok` `--warn` `--bad` (+ `-bg`) · `--ai-grad` (AI marks only) |
-| Color, primitive | `ink-50…900` · `indigo-50/100/500/600/700` · `green`, `amber`, `red` 100/600/700. Dark mode remaps semantic tokens only |
-| Type | Font: system / Inter. `xs 12 · sm 13 · md 14 · lg 16 · xl 20`. Weights 500 / 600 / 650 |
-| Space (4pt) | `s1 4 · s2 8 · s3 12 · s4 16 · s5 20 · s6 24` |
-| Radius | `sm 8 · md 12 · lg 16 · pill` |
-| Elevation | `e1` card · `e2` panel/menu/toast · `e3` sheet |
-| Motion | `fast 120ms · base 220ms · ease cubic-bezier(.2,.7,.2,1)`. Honors `prefers-reduced-motion` |
-| Focus | `0 0 0 3px` brand ring, 35% alpha |
 
-Contrast: text-1/2 on surfaces ≥ 7:1; text-3 ≥ 4.5:1; brand on white 7.5:1.
+Tokens live in `tokens.css` (imported by `ds.css`) in three tiers: primitives, semantics and component tokens. Read them top to bottom.
+
+| Tier | Prefix | What it holds | Who may use it |
+|---|---|---|---|
+| 1. Primitive tokens | `--ref-*` | Raw values: colour ramps, font stacks, shadow and scrim channels, easing curves | Only tier 2, plus the editorial pages (case study) for swatches and bands |
+| 2. Semantic tokens | `--sys-*` | Meaning: what a value is for. Themed here, once, with `light-dark()` | Every component |
+| 3. Component tokens | `--comp-*` | Per-component decisions (chat bubble, switch, toast), defined beside the component in `ds.css` and built only from `--sys-*` | That component |
+
+**Naming.** `--{tier}-{category}-{property}-{variant}-{state}`, named by role and not by value: `--sys-color-text-secondary`, never `--gray-600`.
+
+**Rules**
+1. Components use semantic (`--sys-*`) and component (`--comp-*`) tokens only. No raw hex, `rgb()` or colour keyword, and no `--ref-*`.
+2. Space, radius and type sizes come from the scale tokens, not literal pixels.
+3. One declaration per token. Themes switch with `color-scheme` (root `data-theme`, the OS setting, or a `.theme-light` / `.theme-dark` scope), and every `light-dark()` pair flips together. There are no per-theme token blocks.
+4. Brand is swapped at the primitive tier only: `<html data-brand="blue">` repoints `--ref-color-brand-*`. Nothing else changes.
+5. Status is always icon + words + colour, never colour alone.
+
+| Category | System tokens |
+|---|---|
+| Surface | `--sys-color-bg-canvas` `-surface` `-sunken` `-inverse` |
+| Text | `--sys-color-text-primary` `-secondary` `-tertiary` `-label` `-brand` `-on-brand` `-on-inverse` `-on-solid` |
+| Border | `--sys-color-border-default` `-strong` `-input` |
+| Brand action | `--sys-color-brand-default` `-hover` `-subtle` `-subtle-hover` `-subtle-border` `-emphasis` `-wash` · `--sys-color-ai-fill` |
+| Secondary action | `--sys-color-action-secondary-bg` `-bg-hover` `-fg` · `--sys-color-action-neutral-bg` `-bg-hover` |
+| Feedback | `--sys-color-success-*` `warning-*` `danger-*` with `fg` `bg` `border` (+ `solid`, `tint`) |
+| Focus and overlay | `--sys-focus-ring` `--sys-focus-ring-field` `--sys-focus-ring-field-invalid` · `--sys-color-overlay` `--sys-color-scrim` |
+| Type | `--sys-font-family` `--sys-font-family-arabic` · `--sys-font-size-xs 12 · sm 13 · md 14 · lg 16 · xl 20` · weights 400 / 700 |
+| Space (4pt) | `--sys-space-1 4 · 2 8 · 3 12 · 4 16 · 5 20 · 6 24 · 7 48 · 8 64` |
+| Radius | `--sys-radius-control 8 · inset 12 · container 16 · pill` |
+| Elevation | `--sys-elevation-1` controls · `-2` menus and toasts · `-3` the modal |
+| Motion | `--sys-motion-duration-fast 120ms · base 220ms` · `--sys-motion-ease-standard` · `-in-out`. Honours `prefers-reduced-motion` |
+
+**Brand.** The client's purple, `#541892` (`--ref-color-plum-9`), sampled from the first build so the redesign keeps their colour. The original Radix indigo `#3e63dd` stays one attribute away (`data-brand="blue"`). Neutrals are Radix slate.
+
+**Handoff.** `tokens.json` exports the primitive and semantic tiers in the W3C Design Tokens (DTCG) format, with light and dark values, so engineering can feed them to Style Dictionary or a React theme. The React library reads the same names.
+
+**Deprecated.** The previous names (`--brand`, `--text-1`, `--s4`, `--r-md`, `--e2`, `--dur` ...) still resolve through an alias block at the end of `tokens.css`, kept for one release. Do not use them in new work.
+
+Contrast: text-primary and text-secondary on surfaces at least 5.5:1; text on brand 10.9:1; secondary text on the tinted brand surface 11:1; input borders 3.3:1 (light).
 
 ### Components
 | Component | Variants | States |
@@ -217,10 +245,10 @@ Reviewed a recorded walkthrough of the live assistant and aligned the prototype 
 - **Guardrail:** an **Unsaved changes** sheet (Stay or Discard) when you switch sections mid-edit.
 - **Kept as our decision:** help stays inside the flow ("Ask something else") rather than a separate Consulting tab, and submission keeps the declaration plus a 5-second cancel window.
 
-## 10. Theme v2 "Plum" and component library
-- **Look:** deep plum `#3D126B`, a plum-to-violet gradient (`#3D126B → #521892 → #7444B3`) for primary actions and AI marks, lilac surfaces (`#EDE8F5`, `#F6F4FA`), and a dark plum rail (`#25125A`). Noto Sans with Noto Kufi Arabic for Arabic. Pill buttons, 12–16px cards. Inspired by a regional business-registry look, with no client name or logo.
-- **Where:** a theme layer at the end of `ds.css` overrides the tokens, so every page (assistant, landing, case study) picks it up.
-- **Component library:** `components.html` renders every token and component live from `ds.css`. It covers foundations, buttons, chips, choices, fields (including RTL), badges, callouts, toast and sheet, bubbles, the question tray, summary card, AI suggestion, Suggested for you, the compliance gate, document reading, the outcome card and the step rail.
+## 10. Brand and component library
+- **Brand:** the client's purple `#541892`, plus Radix slate neutrals. Lato for Latin text and Noto Kufi Arabic for Arabic. 8px controls, 16px cards, 1px borders, tinted pill badges. The previous blue is kept as a switchable fallback.
+- **Where:** tokens in `tokens.css`, components in `ds.css`. Every page (assistant, landing page, case study) loads the same two files; the case study pins the blue fallback with `data-brand="blue"`.
+- **Component library:** `components.html` renders every token and component live from `ds.css`, with copy-ready React snippets. A React version of the library was handed to engineering in Git.
 
 ## 11. In-panel payment (agentic)
 The demo showed applicants leaving the assistant to log into the portal and pay. The assistant now handles payment in the panel, at **Review & pay**.

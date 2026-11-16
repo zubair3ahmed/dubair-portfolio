@@ -249,6 +249,9 @@
       cursor: zoom-in;
     }
 
+    .xb-figma { width: 100%; height: 640px; border: 0; display: block; background: var(--bg-alt); }
+    @media (max-width: 640px) { .xb-figma { height: 440px; } }
+
     /* Click-to-zoom lightbox */
     .xb-lightbox {
       position: fixed;
@@ -894,7 +897,7 @@
           <p class="xb-sec-label">03 / Research & Priorities</p>
           <h2 class="xb-sec-title">Discovery methods and <em>their purpose</em></h2>
           <p class="xb-body">
-            Discovery combined a 30-day call audit, host-stand shadowing, guest interviews, and competitive analysis. Together, these methods connected call patterns with operational bottlenecks and customer expectations.
+            Discovery combined user interviews, call-log analysis, host-stand shadowing, and competitive analysis. Together, these methods connected call patterns with operational bottlenecks and customer expectations.
           </p>
 
           <!-- Research methods table -->
@@ -907,7 +910,7 @@
             </thead>
             <tbody>
               <tr>
-                <td>30-day call audit</td>
+                <td>Call-log analysis</td>
                 <td>Call volume and patterns: when demand arrived and where coverage broke down.</td>
               </tr>
               <tr>
@@ -915,7 +918,7 @@
                 <td>How phone calls competed with in-person service during busy periods.</td>
               </tr>
               <tr>
-                <td>Guest interviews</td>
+                <td>User interviews</td>
                 <td>What customers expected when contacting the restaurant.</td>
               </tr>
               <tr>
@@ -1124,56 +1127,15 @@
           <h2 class="xb-sec-title">Component design from Figma</h2>
           <p class="xb-body">The design system behind XBert's onboarding was built as a modular component library in Figma. Each screen composes from shared primitives — avatar pickers, skill cards, channel toggles, and testing interfaces — so the flow stays consistent as features grow.</p>
 
-          <div class="xb-comp-grid">
-            <div class="xb-comp-item">
-              <figure class="xb-screenshot">
-                <img src="images/comp-personality.png" alt="AI Employee personality page — avatar selection, voice picker, language and greeting configuration" loading="lazy" />
-                <figcaption>Personality page — voice, face, and greeting setup</figcaption>
-              </figure>
-            </div>
-            <div class="xb-comp-item">
-              <figure class="xb-screenshot">
-                <img src="images/comp-questionnaire.png" alt="Business questionnaire — structured onboarding questions to train the AI employee" loading="lazy" />
-                <figcaption>Business questionnaire — structured onboarding inputs</figcaption>
-              </figure>
-            </div>
-            <div class="xb-comp-item">
-              <figure class="xb-screenshot">
-                <img src="images/comp-company-info.png" alt="Company information page — business details, FAQs, and knowledge base ingestion" loading="lazy" />
-                <figcaption>Company info — business details and knowledge ingestion</figcaption>
-              </figure>
-            </div>
-            <div class="xb-comp-item">
-              <figure class="xb-screenshot">
-                <img src="images/comp-skill-cards.png" alt="Skill cards component — modular cards showing skill name, description, and required integrations" loading="lazy" />
-                <figcaption>Skill cards — modular capability blocks with dependencies</figcaption>
-              </figure>
-            </div>
-            <div class="xb-comp-item">
-              <figure class="xb-screenshot">
-                <img src="images/comp-train-skills.png" alt="Train your skills page — skill training progress and configuration interface" loading="lazy" />
-                <figcaption>Skill training — progress tracking and configuration</figcaption>
-              </figure>
-            </div>
-            <div class="xb-comp-item">
-              <figure class="xb-screenshot">
-                <img src="images/comp-channels.png" alt="Turn on your channels — channel assignment, hand-off, notification, and transfer settings" loading="lazy" />
-                <figcaption>Channel assignment — hand-off, notifications, and transfers</figcaption>
-              </figure>
-            </div>
-            <div class="xb-comp-item">
-              <figure class="xb-screenshot">
-                <img src="images/comp-testing.png" alt="Testing page — full testing interface with chat simulation and action inspector" loading="lazy" />
-                <figcaption>Testing page — chat simulation with action inspector</figcaption>
-              </figure>
-            </div>
-            <div class="xb-comp-item">
-              <figure class="xb-screenshot">
-                <img src="images/comp-test-ai.png" alt="Test your AI page — voice and chat testing modes with example questions" loading="lazy" />
-                <figcaption>Test your AI — voice and chat modes with example prompts</figcaption>
-              </figure>
-            </div>
-          </div>
+          <figure class="xb-screenshot">
+            <iframe class="xb-figma" src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fdesign%2F7NvrN7DcCtmpV7WM2O5U4D%2FAi-Employee--Copy-%3Fnode-id%3D0-1" title="AI Employee component library in Figma" loading="lazy" allowfullscreen></iframe>
+            <figcaption>Live Figma file — pan and zoom to explore the component library</figcaption>
+          </figure>
+
+          <figure class="xb-screenshot">
+            <iframe class="xb-figma" style="height:800px" src="voice-flow.html" title="Interactive voice agent flow built from the XBert components" loading="lazy"></iframe>
+            <figcaption>Interactive prototype — set up the voice, place a test call, configure coverage, launch. <a href="voice-flow.html" target="_blank" rel="noopener">Open full screen</a></figcaption>
+          </figure>
         </section>
 
         <!-- 07. Creating Your AI Agent -->
@@ -1190,12 +1152,6 @@
             Onboarding begins with account creation and collecting core business information — company name, industry, address, and operating hours. This data seeds the AI agent's initial knowledge base so it can answer basic questions from day one.
           </p>
           <div class="xb-comp-grid">
-            <div class="xb-comp-item">
-              <figure class="xb-screenshot">
-                <img src="images/agent-account-setup.png" alt="XBert account setup — name, email, and business details" loading="lazy" />
-                <figcaption>Account creation — the entry point for new business owners</figcaption>
-              </figure>
-            </div>
             <div class="xb-comp-item">
               <figure class="xb-screenshot">
                 <img src="images/agent-business-info.png" alt="Business information form — company name, industry, hours" loading="lazy" />

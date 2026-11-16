@@ -37,7 +37,21 @@
     .hero__title { font-size: clamp(56px, 8vw, 120px); }
     .hero__status { margin-bottom: 18px; }
     .hero__row { margin-top: 24px; gap: 20px; }
-    .hero__ex { margin-top: 20px; }
+    .hero__prev { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 20px; }
+    .hero__prev-label { color: var(--muted); }
+    .hero__prev-list { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; list-style: none; padding-left: 20px; border-left: 1px solid var(--border); }
+    .hero__prev-list li { display: inline-flex; align-items: center; gap: 10px; color: var(--fg); font-weight: 600; font-size: 16px; }
+    .hero__prev-list img { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; }
+    .hero__prev-list li { position: relative; cursor: default; }
+    .hero__prev-tag {
+      position: absolute; top: 100%; left: 50%; margin-top: 6px; z-index: 2;
+      font-size: 11px; font-weight: 700; line-height: 1; padding: 5px 9px; border-radius: 0 8px 8px 8px;
+      white-space: nowrap; pointer-events: none;
+      opacity: 0; transform: translateX(-50%) translateY(-4px); transition: opacity .2s, transform .2s;
+    }
+    .hero__prev-list li:hover .hero__prev-tag,
+    .hero__prev-list li:focus-visible .hero__prev-tag { opacity: 1; transform: translateX(-50%) translateY(0); }
+    @media (max-width: 600px) { .hero__prev-list { padding-left: 0; border-left: 0; } }
     .hero__ctas { flex-wrap: wrap; }
     .hero__scroll, .marquee { display: none; }
     /* hero is visible on first paint; no entrance animation to wait for */
@@ -136,13 +150,20 @@
             <strong>100K+ healthcare professionals</strong>, and an AI assistant that cut a
             <strong>60-step form to 22</strong>.
           </p>
+          <div class="hero__prev" data-reveal>
+            <span class="hero__prev-label mono">10+ yrs · Previously at</span>
+            <ul class="hero__prev-list">
+              <li tabindex="0"><img src="images/nextiva-icon.png" width="28" height="28" alt="" />Nextiva<span class="hero__prev-tag" aria-hidden="true" style="background:var(--accent);color:#050505">Nextiva</span></li>
+              <li tabindex="0"><img src="images/shell-icon.png" width="28" height="28" alt="" />Shell<span class="hero__prev-tag" aria-hidden="true" style="background:#FBBC04;color:#000">Shell</span></li>
+              <li tabindex="0"><img src="images/jll-icon.png" width="28" height="28" alt="" />JLL<span class="hero__prev-tag" aria-hidden="true" style="background:#E53935;color:#fff">JLL</span></li>
+            </ul>
+          </div>
           <div class="hero__ctas" data-reveal>
             <a class="btn btn--solid" href="#work" data-magnetic data-cursor="hover">View UX Case Studies <i>→</i></a>
             <a class="btn btn--ai-glow" href="ai-simplified.html" data-magnetic data-cursor="hover"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:4px"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg> AI Simplified <i>→</i></a>
             <a class="btn btn--ghost" href="visual-designs.html" data-magnetic data-cursor="hover"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:6px"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/></svg> Visual Design Works <i>→</i></a>
           </div>
         </div>
-        <p class="hero__ex mono" data-reveal>10+ YRS · EX-NEXTIVA | SHELL | JLL</p>
       </div>
       <div class="hero__scroll mono" data-reveal>Scroll<span class="hero__scroll-line"></span></div>
     </section>
